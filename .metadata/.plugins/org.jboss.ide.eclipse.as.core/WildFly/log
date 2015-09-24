@@ -1,0 +1,31 @@
+!SESSION 
+
+!ENTRY org.jboss.ide.eclipse.as.core 4 0 2015-09-24 19:05:34.731
+!MESSAGE The server "WildFly" requires a JDK to run properly. The VM used to launch this server is not recognized as a valid JDK. C:\Program Files\Java\jre1.8.0_60 
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2015-09-24 19:05:36.330
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2015-09-24 19:05:51.263
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 4 1644298244 2015-09-24 19:17:23.907
+!MESSAGE Full publish failed for module SAPo-dal
+!SUBENTRY 1 org.jboss.ide.eclipse.as.wtp.core 4 1644298251 2015-09-24 19:17:23.907
+!MESSAGE Error reading file D:\Desarrollo\GitHub\LaboratorioTSI2\SAPo\SAPo-ejb\target\classes\META-INF\maven\TSI2.Laboratorio\SAPo-dal\pom.properties
+!SUBENTRY 1 org.jboss.ide.eclipse.as.wtp.core 4 1644298251 2015-09-24 19:17:23.907
+!MESSAGE Error reading file D:\Desarrollo\GitHub\LaboratorioTSI2\SAPo\SAPo-ejb\target\classes\META-INF\maven\TSI2.Laboratorio\SAPo-dal\pom.xml
+!SUBENTRY 1 org.jboss.ide.eclipse.as.wtp.core 4 1644298251 2015-09-24 19:17:23.907
+!MESSAGE Error reading file D:\Desarrollo\GitHub\LaboratorioTSI2\SAPo\SAPo-ejb\target\classes\META-INF\MANIFEST.MF
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2015-09-24 19:17:24.095
+!MESSAGE Module SAPo-ear on WildFly not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2015-09-24 19:21:47.344
+!MESSAGE Module SAPo-web on WildFly not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 2 0 2015-09-24 19:22:07.439
+!MESSAGE Module SAPo-web on WildFly still not ready to be shown in browser. Aborting delay.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2015-09-24 19:44:00.944
+!MESSAGE Module SAPo-project on WildFly not yet fully deployed. Waiting...
