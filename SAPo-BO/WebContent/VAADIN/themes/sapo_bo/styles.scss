@@ -1,0 +1,9 @@
+@import "addons.scss";
+@import "sapo_bo.scss";
+
+/* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
+/* The actual styles should be defined in sapo_bo.scss */
+.sapo_bo {
+  @include addons;
+  @include sapo_bo;
+}

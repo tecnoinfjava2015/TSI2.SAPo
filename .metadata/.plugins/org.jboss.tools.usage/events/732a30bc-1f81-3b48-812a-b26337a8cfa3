@@ -1,0 +1,11 @@
+#Thu Sep 24 18:57:55 UYT 2015
+vl=How many times the 'Finish' button pressed during the day
+l=Wizard class name
+ct=jbt
+d=1443131875193
+c=0
+cmp=usage
+a=finishWizard
+cl=org.eclipse.m2e.core.ui.internal.wizards.MavenModuleWizard
+v=2.0.2
+s=2
