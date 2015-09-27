@@ -4,7 +4,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 
-import com.entities.User;
+import com.entities.sql.User;
 import com.entities.sql.dao.UserDAO;
 
 

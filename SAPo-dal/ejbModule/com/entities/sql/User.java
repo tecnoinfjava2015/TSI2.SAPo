@@ -1,4 +1,4 @@
-package com.entities;
+package com.entities.sql;
 
 import java.io.Serializable;
 
