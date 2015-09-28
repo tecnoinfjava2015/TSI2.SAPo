@@ -3,6 +3,7 @@
 	<name>SAPo-bll</name>
 	<comment></comment>
 	<projects>
+		<project>SAPo-dal</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
