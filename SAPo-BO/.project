@@ -3,6 +3,7 @@
 	<name>SAPo-BO</name>
 	<comment></comment>
 	<projects>
+		<project>SAPo-bll</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

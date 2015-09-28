@@ -18,7 +18,8 @@ public class CategoryDAO {
 		ds = MongoDB.instance().getDatabase();
 		dao = new GenericPersistence();
 	}
-	public ObjectId insert(Category cat) {
+
+	public ObjectId persist(Category cat) {
 		return dao.persist(cat);
 	}
 
@@ -26,8 +27,8 @@ public class CategoryDAO {
 		return dao.count(cat);
 	}
 	
-	public Category getById(Class<Category> clazz, final ObjectId id){
-		return dao.get(clazz, id);
+	public Category getById(ObjectId id){
+		return dao.get(Category.class, id);
 	}
 	
 	public Category getByName(String tenant, String name){
@@ -53,6 +54,14 @@ public class CategoryDAO {
 		return ds.find(Category.class).field("tenant").equal(tenant).asList();
 		}
 	
+	public void remove(String tenant, String name){
+		Query<Category> q = ds.createQuery(Category.class);
+		q.and(q.criteria("tenant").equal(tenant),
+				q.or(q.criteria("name").equal(name),
+						q.criteria("ancestors").contains(name)));
+		ds.delete(q);
+	}
+
 	public void cleanCategories(String tenant){
 		if (!(tenant==null)){
 			ds.delete(ds.createQuery(Category.class));

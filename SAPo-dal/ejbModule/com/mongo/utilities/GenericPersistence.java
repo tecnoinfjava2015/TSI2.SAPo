@@ -31,4 +31,10 @@ public class GenericPersistence {
 
 		return mongoDatastore.find(clazz).field("id").equal(id).get();
 	}
+	
+	public <E extends BaseEntity>  void remove(Class<E> clazz, final ObjectId id){
+		if ((clazz != null) && (id != null)) {
+			mongoDatastore.delete(mongoDatastore.find(clazz).field("id").equal(id));
+			}
+	}
 }
