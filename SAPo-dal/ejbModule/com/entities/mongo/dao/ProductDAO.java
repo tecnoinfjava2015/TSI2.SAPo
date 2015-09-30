@@ -28,9 +28,9 @@ public class ProductDAO {
 		return dao.count(pt);
 	}
 
-	public Product getById(Class<Product> clazz, final ObjectId id){
-			return dao.get(clazz, id);
-		}
+	public Product getById(ObjectId id){
+		return dao.get(Product.class, id);
+	}
 		
 	public Product getByName(String name){
 		if ((name == null)) {
@@ -45,18 +45,19 @@ public class ProductDAO {
 			
 	}
 
-	public List<Product> getAllTemplatesByCategory(Category cat){
+	public List<Product> getProductsOfCategory(Category cat){
 		if (cat==null){
-			return null;
+			return null;			
 		}
 
 		return ds.find(Product.class).field("category").equal(cat).asList(); // *ver* 27/09
 	}
 
-	public void deleteProductTemplate(String name){
+	public void deleteProduct(String name, String tenant){
 		if (!(name!=null)){
 			Query<Product> query = ds.createQuery(Product.class);
-			ds.delete(query.criteria("descName").equal(name)); // *ver* 27/09
+			ds.delete(query.and(query.criteria("name").equal(name), 
+					query.criteria("tenant").equal(tenant))); // *ver* 27/09
 		}
 	}
 }

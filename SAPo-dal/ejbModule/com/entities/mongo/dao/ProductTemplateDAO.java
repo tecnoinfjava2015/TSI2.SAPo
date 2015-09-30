@@ -28,11 +28,11 @@ public class ProductTemplateDAO {
 		return dao.count(pt);
 	}
 
-	public ProductTemplate getById(Class<ProductTemplate> clazz, final ObjectId id){
-		return dao.get(clazz, id);
+	public ProductTemplate getById(ObjectId id){
+		return dao.get(ProductTemplate.class, id);
 	}
 
-	public ProductTemplate getByName(String name){
+	public ProductTemplate getByName(String name){// *ver*
 		if ((name == null)) {
 			return null;
 		}
@@ -45,7 +45,7 @@ public class ProductTemplateDAO {
 
 	}
 
-	public List<ProductTemplate> getAllTemplatesByCategory(Category cat){
+	public List<ProductTemplate> getTemplatesOfCategory(Category cat){ // *ver*
 		if (cat==null){
 			return null;
 		}
