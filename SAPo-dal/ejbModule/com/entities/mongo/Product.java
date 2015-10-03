@@ -9,7 +9,7 @@ public class Product extends ProductTemplate{
 	private boolean active;
 	public String descName; //Nombre dado para el AV
 	public String tenant;
-	public long valueCuantity;
+	public long valueQuantity;
 	public String valueType;
 	public List<byte[]> images;
 	
@@ -41,11 +41,11 @@ public class Product extends ProductTemplate{
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public long getCoinCuantity() {
-		return valueCuantity;
+	public long getCoinQuantity() {
+		return valueQuantity;
 	}
-	public void setCoinCuantity(long coinCuantity) {
-		this.valueCuantity = coinCuantity;
+	public void setCoinQuantity(long coinCuantity) {
+		this.valueQuantity = coinCuantity;
 	}
 	public String getCoinType() {
 		return valueType;
