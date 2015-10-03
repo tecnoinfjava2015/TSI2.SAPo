@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Create Product</title>
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+<script src="https://code.angularjs.org/1.4.0-beta.5/angular-route.min.js"></script>
+<script src="https://code.angularjs.org/1.4.5/angular-resource.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
+
+<script src= "../js/angular/Controller/CreateProductAngular.js"></script>
+<script src= "../js/angular/app.js"></script>
+<style>
+	.container {
+		/*background-image: url("img/Inventory2.png");
+		background-repeat: no-repeat;
+	    background-attachment: absolute;
+	    background-position: center; 
+	    background-size: 60%;
+	    */
+	}
+	input {
+		margin-top: 15px;
+	}
+</style>
+
+</head>
+<body>
+	<section class="container">
+		<div ng-app="app" ng-controller="productsFormCtrl">
+			<form ng-submit="savePost()">
+			    
+			    <input type="text" class="form-control" placeholder="Nombre de producto" ng-model="product.descName" ng-minlength="0" required>
+			    
+			    <input type="text" class="form-control" placeholder="Tipo de monetización" ng-model="product.valueType">
+			    
+			    <input type="number" class="form-control" placeholder="Precio" ng-model="product.valueQuantity">
+			    
+			    <input type="text" class="form-control" ng-model="product.tenant" placeholder="Tenant">
+			    
+			    <input type="checkbox" class="hidden" ng-model="product.active" checked>
+			    <br>
+			    <button ng-click="reset()" class="btn btn-default">RESET</button>
+			    
+			    <button type="submit" class="btn btn--blue btn--l btn--raised">
+					Crear Producto
+				</button>
+			  </form>
+			  <p>product = {{product}}</p>
+		</div>
+	</section>
+	
+</body>
+</html>
