@@ -23,10 +23,15 @@ public class ProductBL implements ProductBLRemote, ProductBLLocal {
     public ProductBL() {
         // TODO Auto-generated constructor stub
     }
+    
+	@Override
+	public Product getByName(String name) {
+		return dao.getByName(name);
+	}
 
 	@Override
-	public List<Product> getProductsOfCategory(Category catAux) {
-		return dao.getProductsOfCategory(catAux);
+	public List<Product> getProductsByCategory(Category catAux) {
+		return dao.getProductsByCategory(catAux);
 	}
 	
 	@Override

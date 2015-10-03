@@ -9,7 +9,8 @@ import com.entities.mongo.Product;
 
 @Local
 public interface ProductBLLocal {
-	public List<Product> getProductsOfCategory(Category catAux);
+	public Product getByName(String name);
+	public List<Product> getProductsByCategory(Category catAux);
 	public Product create(Product prodAux);
 	
 	public void delete(String name, String tenant);

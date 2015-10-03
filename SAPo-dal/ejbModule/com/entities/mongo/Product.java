@@ -9,8 +9,8 @@ public class Product extends ProductTemplate{
 	private boolean active;
 	public String descName; //Nombre dado para el AV
 	public String tenant;
-	public long coinCuantity;
-	public String coinType;
+	public long valueCuantity;
+	public String valueType;
 	public List<byte[]> images;
 	
 	public Product() {
@@ -42,16 +42,16 @@ public class Product extends ProductTemplate{
 		this.active = active;
 	}
 	public long getCoinCuantity() {
-		return coinCuantity;
+		return valueCuantity;
 	}
 	public void setCoinCuantity(long coinCuantity) {
-		this.coinCuantity = coinCuantity;
+		this.valueCuantity = coinCuantity;
 	}
 	public String getCoinType() {
-		return coinType;
+		return valueType;
 	}
 	public void setCoinType(String coinType) {
-		this.coinType = coinType;
+		this.valueType = coinType;
 	}
 	public List<byte[]> getImagenes() {
 		return images;

@@ -30,11 +30,19 @@ public class ProductBLService {
 	ProductBLRemote prodEJB;
 	
 	@GET
-	@Path("/ofCat")
+	@Path("/byCat")
 	@Produces("application/JSON")
 	public List<Product> getProductByCategory(Category catAux){
 		ProductBLRemote pb = new ProductBL();
-		return pb.getProductsOfCategory(catAux);
+		return pb.getProductsByCategory(catAux);
+	}
+	
+	@GET
+	@Path("/byName")
+	@Produces("application/JSON")
+	public Product getByName(String name){
+		ProductBLRemote pb = new ProductBL();
+		return pb.getByName(name);
 	}
 	
 	@POST

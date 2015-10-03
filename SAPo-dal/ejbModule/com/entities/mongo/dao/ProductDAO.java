@@ -45,7 +45,7 @@ public class ProductDAO {
 			
 	}
 
-	public List<Product> getProductsOfCategory(Category cat){
+	public List<Product> getProductsByCategory(Category cat){
 		if (cat==null){
 			return null;			
 		}

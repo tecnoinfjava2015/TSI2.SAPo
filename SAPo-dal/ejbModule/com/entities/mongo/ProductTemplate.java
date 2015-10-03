@@ -8,6 +8,8 @@ import org.mongodb.morphia.annotations.*;
 public abstract class ProductTemplate extends BaseEntity{
 	@Indexed(unique = true)
 	public String uniqueName;
+	@Indexed(unique = true)
+	public String barCode;
 	public String description;
 	public AbstractMap.SimpleEntry<String,String> nameValueSpec;
 	public Category category;
@@ -16,11 +18,17 @@ public abstract class ProductTemplate extends BaseEntity{
 		super();
 	}
 	
-	public String getDescName() {
+	public String getUniqueName() {
 		return uniqueName;
 	}
-	public void setDescName(String descName) {
+	public void setUniqueName(String descName) {
 		this.uniqueName = descName;
+	}
+	public String getBarCode() {
+		return barCode;
+	}
+	public void setBarCode(String barCode) {
+		this.barCode = barCode;
 	}
 	public String getDescription() {
 		return description;
