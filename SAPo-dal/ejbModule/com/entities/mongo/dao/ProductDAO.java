@@ -35,14 +35,20 @@ public class ProductDAO {
 	public Product getByName(String name){
 		if ((name == null)) {
 			return null;
-		}
-			
+		}	
 		Query<Product> query = ds.createQuery(Product.class);
-			
 		query.criteria("descName").equal(name);
-			
 		return query.get();
-			
+	}
+	
+	public Product getByTenant(String tenant){
+		if ((tenant == null)) {
+			return null;
+		}	
+		Query<Product> query = ds.createQuery(Product.class);
+		query.criteria("tenant").equal(tenant);
+		query.countAll();
+		return query.get();
 	}
 
 	public List<Product> getProductsByCategory(Category cat){
@@ -59,5 +65,17 @@ public class ProductDAO {
 			ds.delete(query.and(query.criteria("name").equal(name), 
 					query.criteria("tenant").equal(tenant))); // *ver* 27/09
 		}
+	}
+	
+	public void cleanProducts(String tenant){
+		if (!(tenant==null)){
+			ds.delete(ds.createQuery(Product.class));
+		}
+	}
+	
+	public boolean isEmpty(String tenant){
+		Query<Product> query = ds.createQuery(Product.class);
+		query.criteria("tenant").equal(tenant);
+		return (query.countAll() == 0);
 	}
 }

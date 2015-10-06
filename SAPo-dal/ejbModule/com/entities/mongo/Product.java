@@ -12,51 +12,65 @@ public class Product extends ProductTemplate{
 	public long valueQuantity;
 	public String valueType;
 	public List<byte[]> images;
+	public long Quantity;
 	
 	public Product() {
 		super();
 	}
-	
-	public String getDescName() {
-		return descName;
-	}
-	public void setDescName(String descName) {
-		this.descName = descName;
-	}
-	public String getTenant() {
-		return tenant;
-	}
-	public void setTenant(String tenant) {
-		this.tenant = tenant;
-	}
-	public List<byte[]> getImages() {
-		return images;
-	}
-	public void setImages(List<byte[]> images) {
-		this.images = images;
-	}
+
 	public boolean isActive() {
 		return active;
 	}
+
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public long getCoinQuantity() {
+
+	public String getDescName() {
+		return descName;
+	}
+
+	public void setDescName(String descName) {
+		this.descName = descName;
+	}
+
+	public String getTenant() {
+		return tenant;
+	}
+
+	public void setTenant(String tenant) {
+		this.tenant = tenant;
+	}
+
+	public long getValueQuantity() {
 		return valueQuantity;
 	}
-	public void setCoinQuantity(long coinCuantity) {
-		this.valueQuantity = coinCuantity;
+
+	public void setValueQuantity(long valueQuantity) {
+		this.valueQuantity = valueQuantity;
 	}
-	public String getCoinType() {
+
+	public String getValueType() {
 		return valueType;
 	}
-	public void setCoinType(String coinType) {
-		this.valueType = coinType;
+
+	public void setValueType(String valueType) {
+		this.valueType = valueType;
 	}
-	public List<byte[]> getImagenes() {
+
+	public List<byte[]> getImages() {
 		return images;
 	}
-	public void setImagenes(List<byte[]> imagenes) {
-		this.images = imagenes;
+
+	public void setImages(List<byte[]> images) {
+		this.images = images;
+	}
+
+	public long getQuantity() {
+		return Quantity;
+	}
+
+	public void setQuantity(long quantity) {
+		Quantity = quantity;
 	}
 }
