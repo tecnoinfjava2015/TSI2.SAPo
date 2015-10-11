@@ -3,6 +3,7 @@ package com.bo.principal;
 import javax.servlet.annotation.WebServlet;
 
 import com.bo.formularios.abm.FormABMUsuario;
+import com.bo.formularios.abm.FormAceptarUsuarios;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.Resource;
@@ -25,6 +26,7 @@ public class SapoBackofficeUI extends UI {
 
 	private BarraUsuario barraUsuario;
 	private FormABMUsuario formABMUsuario;
+	private FormAceptarUsuarios formAceptarUsuarios;
 	
 	//private FormABMAutomatico formABMAutomatico;
 	private VerticalLayout logo = new VerticalLayout();
@@ -55,7 +57,7 @@ public void cargarContenido(){
        setContent(mainLayout);
        barraUsuario = new BarraUsuario();
        mainLayout.addComponent(barraUsuario);
-       Resource imagenLogo = new ThemeResource("images/logoT.png");
+       Resource imagenLogo = new ThemeResource("images/logo.jpg");
        Image log = new Image(null, imagenLogo);
        log.setSizeFull();
        logo.addComponent(log);
@@ -72,6 +74,10 @@ public void cargarContenido(){
           formABMUsuario = new FormABMUsuario();
           layout1.addComponent(formABMUsuario);
           tabSheet.addTab(layout1, "Gestion Usuario"); 
+          PanelDinamico layout2 = new PanelDinamico();
+          formAceptarUsuarios = new FormAceptarUsuarios();
+          layout2.addComponent(formAceptarUsuarios);              
+          tabSheet.addTab(layout2, "Aceptar Usuarios");
           mainLayout.setExpandRatio(logo, 10);
           mainLayout.addComponent(tabSheet);
           mainLayout.setExpandRatio(tabSheet, 70);

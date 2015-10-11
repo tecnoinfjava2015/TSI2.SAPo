@@ -27,7 +27,7 @@ public class BarraUsuario extends VerticalLayout{
 		
 		titulo = new Label("Sapo");
 		titulo.setStyleName("fondo-negro");
-		Resource imagenLogo = new ThemeResource("images/Logot.png");
+		Resource imagenLogo = new ThemeResource("images/logo.jpg");
 		Image log = new Image(null, imagenLogo);
 		log.setSizeUndefined();
 		log.setHeight("60px");
