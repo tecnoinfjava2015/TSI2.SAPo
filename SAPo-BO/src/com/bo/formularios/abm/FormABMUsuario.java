@@ -4,19 +4,12 @@ package com.bo.formularios.abm;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import utils.Encrypter;
 import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.entities.sql.Usuario;
-
-
-
-
-
-
-
 
 
 import com.bo.principal.PanelDinamico;
@@ -55,15 +48,15 @@ public class FormABMUsuario extends PanelDinamico{
 	private Table table; 
 	private Button modificar, alta, eliminar, recargar;
 	private TextField nick, mail;
-	 private ComboBox tipo;
+	private ComboBox tipo;
 	private PasswordField password, passwordConfirm;
 	private UsuarioServiceLocal servicio;
 	
 	private void lookup() {
 			InitialContext context = null;
 			try {
-				context = new InitialContext();
-				servicio = (UsuarioServiceLocal) context.lookup("java:global/SAPo-project/SAPo-bll/UsuarioServiceBean");
+				context = new InitialContext();					
+				servicio = (UsuarioServiceLocal) context.lookup("java:app/SAPo-BO/UsuarioServiceBean");
 			} catch (NamingException e) {
 				throw new EJBException(
 						"It was not possible to get a reference to one of the required services",
@@ -78,37 +71,26 @@ public class FormABMUsuario extends PanelDinamico{
 	
 	}
 	
-	
 	public FormABMUsuario(){    
 		lookup();
 		this.addStyleName("outlined");
         this.setSizeFull();
-        listaUsuarios = servicio.getUsuarios();
+        listaUsuarios = servicio.getUsuariosHabilitados();
         for(Usuario u : listaUsuarios){
         	System.out.println("usuario " + u.getNick());
         }
         
-
         panelIzquierda = new VerticalLayout();
         panelDerecha = new VerticalLayout();
-
         rootLayout = new HorizontalLayout(panelIzquierda,panelDerecha);
         rootLayout.setSizeFull();
-
         panelIzquierda = generarPanelIzquierda();
-        
-
         panelDerecha = generarPanelDerecha();
-
         rootLayout.addComponent(panelIzquierda);
         rootLayout.addComponent(panelDerecha);
-
         rootLayout.setExpandRatio(panelIzquierda, 1);
         rootLayout.setExpandRatio(panelDerecha, 1);
-
         this.addComponent(rootLayout);
-
-
     	table.addValueChangeListener(new Property.ValueChangeListener() {
 			@Override
 			public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
@@ -138,13 +120,13 @@ public class FormABMUsuario extends PanelDinamico{
 				}
 				else
 		        if (password.isEmpty() || !password.getValue().equals(passwordConfirm.getValue())){
-		        	Notification notif = new Notification("Debe cargar un password distinto de vacio y que coincida con la confirmaciÃ³n");
+		        	Notification notif = new Notification("Debe cargar un password distinto de vacio y que coincida con la confirmación");
 		        	notif.setDelayMsec(2000);
 		        	notif.show(Page.getCurrent());
 		        }
 		        else{
-		        	servicio.registroUsuario(nick.getValue(), (String) tipo.getValue(), mail.getValue(), nick.getValue(), password.getValue());
-		        	Notification notif = new Notification("Usuario cargado con Ã©xito");
+		        	servicio.registroUsuario(nick.getValue(), (String) tipo.getValue(), mail.getValue(), nick.getValue(), password.getValue(), true, true);
+		        	Notification notif = new Notification("Usuario cargado con éxito");
 		        	notif.setDelayMsec(2000);
 		        	notif.show(Page.getCurrent());
 		        	reiniciarCampos();
@@ -164,16 +146,13 @@ public class FormABMUsuario extends PanelDinamico{
 				}
 				else
 		        if (password.isEmpty() || !password.getValue().equals(passwordConfirm.getValue())){
-		        	Notification notif = new Notification("Debe cargar un password distinto de vacio y que coincida con la confirmacion");
+		        	Notification notif = new Notification("Debe cargar un password distinto de vacio y que coincida con la confirmación");
 		        	notif.setDelayMsec(2000);
 		        	notif.show(Page.getCurrent());
 		        }
 		        else{
-		           //	EncuestadoraUser u = ((SapoBackofficeUI) UI.getCurrent()).getPersonadao().getPersonaNick(nick.getValue());
-		        	//u.setNick(nick.getValue());
-		        //	u.setPassword(password.getValue());
-		   
-		        	//((SapoBackofficeUI) UI.getCurrent()).getPersonadao().actualizar(u);
+		        	String md5 = new Encrypter().MD5(password.getValue());
+		        	servicio.modificarUsuario(nick.getValue(), (String) tipo.getValue(), mail.getValue(), nick.getValue(), md5, true, true);
 		        	Notification notif = new Notification("Usuario modificado con exito");
 		        	notif.setDelayMsec(2000);
 		        	notif.show(Page.getCurrent());   	
@@ -200,10 +179,8 @@ public class FormABMUsuario extends PanelDinamico{
             @Override
             public void buttonClick(final ClickEvent event) {
 				actualizarTabla();
-				reiniciarCampos();
-                
+				reiniciarCampos(); 
            }
-   
         });
         
 	}
@@ -276,8 +253,7 @@ public class FormABMUsuario extends PanelDinamico{
      	passwordConfirm.setValue("");
         modificar.setEnabled(false);
  	    eliminar.setEnabled(false);
- 	    alta.setEnabled(true);
-		
+ 	    alta.setEnabled(true);	
 	}
 
 
@@ -309,9 +285,9 @@ public class FormABMUsuario extends PanelDinamico{
 	    panIzq.addComponent(mail);
 	    mail.setRequired (true);
 	    
-	    List<String> listaTemas = new ArrayList<String>();
-	    listaTemas.add("Administrador");  listaTemas.add("Free");  listaTemas.add("Premium");
-	    tipo = new ComboBox("Seleccione un Tipo",listaTemas);  
+	    List<String> listaTipos = new ArrayList<String>();
+	    listaTipos.add("Administrador");  listaTipos.add("Free");  listaTipos.add("Premium");
+	    tipo = new ComboBox("Seleccione un Tipo",listaTipos);  
 	    tipo.setValue(tipo.getItemIds().iterator().next());
 	    tipo.setNullSelectionAllowed(false);
 	    tipo.setTextInputAllowed(false);
@@ -346,6 +322,9 @@ public class FormABMUsuario extends PanelDinamico{
 	    panIzq.setComponentAlignment(nick, Alignment.TOP_CENTER);
 	    panIzq.setComponentAlignment(password, Alignment.BOTTOM_CENTER);
 	    panIzq.setComponentAlignment(passwordConfirm, Alignment.TOP_CENTER);
+	    panIzq.setComponentAlignment(mail, Alignment.TOP_CENTER);
+	    panIzq.setComponentAlignment(tipo, Alignment.TOP_CENTER);
+	    
 	    panIzq.setComponentAlignment(alta, Alignment.MIDDLE_CENTER);
 	    panIzq.setComponentAlignment(modificar, Alignment.BOTTOM_CENTER);
 	    panIzq.setComponentAlignment(eliminar, Alignment.MIDDLE_CENTER);

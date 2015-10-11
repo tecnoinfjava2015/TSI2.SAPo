@@ -20,15 +20,15 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 
 	
 	@Override
-	public void registroUsuario(String nombre, String tipo, String mail,String nick, String password) {
-		
+	public void registroUsuario(String nombre, String tipo, String mail,String nick, String password, Boolean enabled, Boolean aceptado) {	
 		Usuario u = new Usuario();
 		u.setName(nombre);
 		u.setType(tipo);
 		u.setMail(mail);
 		u.setNick(nick);
 		u.setPassword(password);
-		u.setEnabled(true);
+		u.setEnabled(enabled);
+		u.setAceptado(aceptado);
 		udao.insert(u);
 	}
 
@@ -39,13 +39,46 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 
 	@Override
 	public Usuario getUsuario(String nick) {
-		return udao.buscarUsuario(nick);
+		return udao.buscar(nick);
 	}
 
 	@Override
 	public Boolean borrarUsuario(String nick) {
 		
 		return udao.baja(nick);
+	}
+
+	@Override
+	public void modificarUsuario(String nombre, String tipo, String mail,String nick, String password, Boolean enabled, Boolean aceptado) {
+		Usuario u = new Usuario();
+		u.setName(nombre);
+		u.setType(tipo);
+		u.setMail(mail);
+		u.setNick(nick);
+		u.setPassword(password);
+		u.setEnabled(enabled);
+		u.setAceptado(aceptado);
+		udao.modificar(u);
+	}
+
+	@Override
+	public Boolean aceptarUsuario(String nick) {
+		return udao.aceptar(nick);
+	}
+
+	@Override
+	public List<Usuario> getUsuariosBorrados() {
+		return udao.listarUsuariosBorrados();
+	}
+
+	@Override
+	public List<Usuario> getUsuariosPendientesAceptar() {
+		return udao.listarUsuariosPendientesAceptar();
+	}
+
+	@Override
+	public List<Usuario> getUsuariosHabilitados() {
+		return udao.listarUsuariosHabilitados();
 	}
 	
 

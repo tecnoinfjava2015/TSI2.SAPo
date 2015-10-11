@@ -28,6 +28,7 @@ public class Usuario implements Serializable {
 	private String nick;
 	private String password;
 	private Boolean enabled;
+	private Boolean aceptado;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tenatCreados")
@@ -111,6 +112,14 @@ public class Usuario implements Serializable {
 
 	public void setTenantCreados(List<Tenant> tenantCreados) {
 		this.tenantCreados = tenantCreados;
+	}
+
+	public Boolean getAceptado() {
+		return aceptado;
+	}
+
+	public void setAceptado(Boolean aceptado) {
+		this.aceptado = aceptado;
 	}
 	
 	
