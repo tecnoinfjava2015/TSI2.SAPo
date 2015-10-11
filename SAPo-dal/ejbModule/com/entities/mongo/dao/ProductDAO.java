@@ -32,12 +32,14 @@ public class ProductDAO {
 		return dao.get(Product.class, id);
 	}
 		
-	public Product getByName(String name){
-		if ((name == null)) {
+	public Product getByName(String tenant, String name){
+		if ((name == null || tenant == null)) {
 			return null;
 		}	
 		Query<Product> query = ds.createQuery(Product.class);
-		query.criteria("descName").equal(name);
+		query.and(query.criteria("descName").equal(name), 
+				query.criteria("tenant").equal(tenant)
+				);
 		return query.get();
 	}
 	
@@ -51,12 +53,19 @@ public class ProductDAO {
 		return query.get();
 	}
 
-	public List<Product> getProductsByCategory(Category cat){
-		if (cat==null){
-			return null;			
+	public List<Product> getProductsByCategory(String tenant, String name){
+		if ((tenant == null) || (name == null)) {
+			return null;
 		}
-
-		return ds.find(Product.class).field("category").equal(cat).asList(); // *ver* 27/09
+		
+		Query<Category> query = ds.createQuery(Category.class);
+		
+		query.and(query.criteria("name").equal(name), 
+				query.criteria("tenant").equal(tenant)
+				);
+		
+		Category auxCat = query.get();
+		return ds.find(Product.class).field("categoryId").equal(auxCat.getId()).asList(); // *ver* 27/09
 	}
 
 	public void deleteProduct(String name, String tenant){

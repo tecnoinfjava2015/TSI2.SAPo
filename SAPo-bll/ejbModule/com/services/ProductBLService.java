@@ -16,7 +16,6 @@ import javax.ws.rs.Produces;
 import java.util.List;
 
 import com.bl.ProductBL;
-import com.entities.mongo.Category;
 import com.entities.mongo.Product;
 import com.services.interfaces.ProductBLRemote;
 
@@ -34,34 +33,34 @@ public class ProductBLService {
 	@PathParam("tenant")
 	
 	@GET
-	@Path("{tenant}/byCat")
+	@Path("/byCat")
 	@Produces("application/JSON")
-	public List<Product> getProductByCategory(Category catAux){
+	public List<Product> getProductByCategory(@PathParam("tenant") String tenant, String nameCategory){
 		ProductBLRemote pb = new ProductBL();
-		return pb.getProductsByCategory(catAux);
+		return pb.getProductsByCategory(tenant, nameCategory);
 	}
 	
 	@GET
-	@Path("{tenant}/byName")
+	@Path("/byName")
 	@Produces("application/JSON")
-	public Product getByName(String name){
+	public Product getByName(@PathParam("tenant") String tenant, String name){
 		ProductBLRemote pb = new ProductBL();
-		return pb.getByName(name);
+		return pb.getByName(tenant, name);
 	}
 	
 	@POST
-	@Path("{tenant}/create")
+	@Path("/create")
 	@Consumes("application/JSON")
 	@Produces("application/JSON")
-	public Product createProduct(Product prodAux){
+	public Product createProduct(@PathParam("tenant") String tenant, Product prodAux){
 		ProductBLRemote pb = new ProductBL();
 		return pb.create(prodAux);
 	}
 	
 	@DELETE
-	@Path("{tenant}/delete")
+	@Path("/delete")
 	@Consumes("application/JSON")
-	public void deleteProduct(String arg[]){ //El argumento 1 debe ser el nombre y el 2 el tenant
+	public void deleteProduct(@PathParam("tenant") String tenant, String arg[]){ //El argumento 1 debe ser el nombre y el 2 el tenant
 		ProductBLRemote pb = new ProductBL();
 		pb.delete(arg[1], arg[2]);
 	}

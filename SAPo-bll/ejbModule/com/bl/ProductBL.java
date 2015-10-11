@@ -2,7 +2,6 @@ package com.bl;
 
 import java.util.List;
 
-import com.entities.mongo.Category;
 import com.entities.mongo.Product;
 import com.entities.mongo.dao.ProductDAO;
 import com.services.interfaces.ProductBLLocal;
@@ -25,13 +24,13 @@ public class ProductBL implements ProductBLRemote, ProductBLLocal {
     }
     
 	@Override
-	public Product getByName(String name) {
-		return dao.getByName(name);
+	public Product getByName(String tenant, String name) {
+		return dao.getByName(tenant, name);
 	}
 
 	@Override
-	public List<Product> getProductsByCategory(Category catAux) {
-		return dao.getProductsByCategory(catAux);
+	public List<Product> getProductsByCategory(String tenant, String name) {
+		return dao.getProductsByCategory(tenant, name);
 	}
 	
 	@Override

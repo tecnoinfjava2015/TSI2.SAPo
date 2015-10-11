@@ -1,7 +1,7 @@
 package com.entities.mongo;
 
 import java.util.AbstractMap;
-
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
 @Entity(value="ProductTemplate",noClassnameStored=false)
@@ -12,7 +12,8 @@ public abstract class ProductTemplate extends BaseEntity{
 	public String barCode;
 	public String description;
 	public AbstractMap.SimpleEntry<String,String> nameValueSpec;
-	public Category category;
+	public ObjectId categoryId;
+	public String categoryName;
 	
 	public ProductTemplate() {
 		super();
@@ -51,11 +52,19 @@ public abstract class ProductTemplate extends BaseEntity{
 		this.nameValueSpec = nameValueSpec;
 	}
 
-	public Category getCategory() {
-		return category;
+	public ObjectId getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}	
+	public void setCategoryId(ObjectId categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 }
