@@ -1,0 +1,45 @@
+
+<div layout="column" ng-cloak layout-padding>
+	<h1>Create Product</h1>
+	</br>
+	</br>
+	<md-content layout-padding>
+	<form name="createProduct" ng-submit="saveProduct()">
+		<div layout layout-sm="column">
+			<md-input-container style="width:70%">
+			<label>Product</label>
+			<input ng-model="product.descName">
+			</md-input-container>
+		</div>
+		<div layout layout-sm="column">
+			<md-input-container style="width:70%">
+			<label>Code</label>
+			<input ng-model="product.barCode">
+			</md-input-container>
+		</div>
+		<div layout layout-sm="column">
+			<md-input-container flex>
+			<label>Value</label>
+			<input ng-model="product.valueQuantity">
+			</md-input-container>
+			<md-input-container flex>
+			<label>Currency</label>
+			<input ng-model="product.valueType">
+			</md-input-container>
+		</div>
+		<div layout layout-sm="column">
+			<md-input-container flex>
+			<label>Description</label>
+			<textarea ng-model="product.description" columns="1" md-maxlength="150"></textarea>
+			</md-input-container>
+		</div>
+		<div>
+			<div flex="90" flex-order="1"></div>
+			<div flex="10" flex-order="2">
+				<md-button class="md-raised md-primary" type="submit">Save</md-button>
+			</div>
+		</div>
+	</form>
+	</md-content>
+	<!-- <div>{{product}}</div> -->
+</div>
