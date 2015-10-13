@@ -4,17 +4,23 @@
 	</br>
 	</br>
 	<md-content layout-padding>
-	<form name="createProduct" ng-submit="saveProduct()">
+	<form name="createProduct" novalidate ng-submit="saveProduct()">
 		<div layout layout-sm="column">
 			<md-input-container style="width:70%">
 			<label>Product</label>
-			<input ng-model="product.descName">
+			<input ng-model="product.descName" name="prodName" required="" >
+			<div ng-show="createProduct.$submitted"  ng-messages="createProduct.prodbarCode.$error.required">
+	          <div ng-show="createProduct.prodName.$error.required" ng-message="required">Por favor, ingrese el nombre del producto.</div>
+	        </div>
 			</md-input-container>
 		</div>
 		<div layout layout-sm="column">
 			<md-input-container style="width:70%">
 			<label>Code</label>
-			<input ng-model="product.barCode">
+			<input ng-model="product.barCode"  name="prodbarCode" required="" >
+			<div ng-show="createProduct.$submitted"  ng-messages="createProduct.prodbarCode.$error.required">
+	          <div ng-show="createProduct.prodbarCode.$error.required" ng-message="required">Por favor, ingrese el codigo de barras del producto.</div>
+	        </div>
 			</md-input-container>
 		</div>
 		<div layout layout-sm="column">
