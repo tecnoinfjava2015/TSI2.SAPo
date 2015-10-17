@@ -5,6 +5,8 @@ package com.entities.mongo;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;
@@ -15,6 +17,7 @@ import org.mongodb.morphia.annotations.Indexes;
  * @author jpmartinez
  *
  */
+@XmlRootElement
 @Entity(value="Products",noClassnameStored=false)
 @Indexes(@Index(fields = { @Field(value = "virtualStorageId"), @Field(value = "barCode") }, options = @IndexOptions(name="iProductUsuKey", unique=true)))
 public class Product extends BaseEntity{

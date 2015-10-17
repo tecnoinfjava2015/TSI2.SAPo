@@ -60,16 +60,31 @@ public class ProductDAO {
 		return query.get();
 	}
 	
-	public List<Product> getByVirtualStorage(long virtualStorageId){
+	public Product getByBarCode(long virtualStorageId, String barCode){
+		if ((barCode.isEmpty()) || (!(virtualStorageId > 0 ))) {
+			return null;
+		}	
+		
+		Query<Product> query = ds.createQuery(Product.class);
+		query.and(query.criteria("barCode").equal(barCode), 
+				query.criteria("virtualStorageId").equal(virtualStorageId)
+				);
+		return query.get();
+	}	
+	
+	public List<Product> getByVirtualStorage(long virtualStorageId, int offset, int limit){
 		if (!(virtualStorageId > 0)) {
 			return null;
 		}	
+
 		Query<Product> query = ds.createQuery(Product.class);
 		query.criteria("virtualStorageId").equal(virtualStorageId);
+		query.offset(offset).limit(limit);
 		return query.asList();
+		
 	}
 
-	public List<Product> getProductsByCategory(long virtualStorageId, String categoryName){
+	public List<Product> getProductsByCategory(long virtualStorageId, String categoryName, int offset, int limit){
 		if ( !(virtualStorageId > 0) || (categoryName.isEmpty())) {
 			return null;
 		}
@@ -79,6 +94,7 @@ public class ProductDAO {
 		query.and(query.criteria("categories").containsIgnoreCase(categoryName), 
 				query.criteria("virtualStorageId").equal(virtualStorageId)
 				);
+		query.offset(offset).limit(limit);
 		return query.asList();
 	}
 

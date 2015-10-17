@@ -10,7 +10,7 @@ import javax.ws.rs.core.Application;
  * @author JuanPablo
  *
  */
-@ApplicationPath("/rest")
+@ApplicationPath("/api")
 public class RestBL extends Application {
 
 }

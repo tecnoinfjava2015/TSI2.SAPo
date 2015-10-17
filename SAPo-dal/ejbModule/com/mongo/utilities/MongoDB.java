@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /* **************************************************
- * Configuración para la conexión a mongo
- * A futuro se tomará toda la información de un xml 
+ * Configuraciï¿½n para la conexiï¿½n a mongo
+ * A futuro se tomarï¿½ toda la informaciï¿½n de un xml 
  * Por ahora son constantes hardcodeadas
- * Agradecimiento especial al señor Philipp Kreen
+ * Agradecimiento especial al seï¿½or Philipp Kreen
  * https://github.com/xeraa/morphia-demo/        
  * ***************************************************/
 public class MongoDB {
 
-	public static final String DB_HOST = "ds051933.mongolab.com";
-	public static final int DB_PORT = 51933;
+	public static final String DB_HOST = "ds035844.mongolab.com";
+	public static final int DB_PORT = 35844;
 	public static final String DB_NAME = "sapongo";
 	private static final MongoDB INSTANCE = new MongoDB();
 	private final Datastore datastore;
@@ -28,7 +28,7 @@ public class MongoDB {
 	private MongoDB() {
 
 		Morphia morphia = new Morphia();
-		ServerAddress addr = new ServerAddress("ds051933.mongolab.com", 51933);
+		ServerAddress addr = new ServerAddress(DB_HOST, DB_PORT);
 		List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
 		MongoCredential credential = MongoCredential.createCredential("admin",
 				"sapongo", "admin".toCharArray());
