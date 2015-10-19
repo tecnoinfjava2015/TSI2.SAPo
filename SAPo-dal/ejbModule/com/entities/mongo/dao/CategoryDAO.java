@@ -37,6 +37,20 @@ public class CategoryDAO {
 		return dao.get(Category.class, id);
 	}
 
+	public Category getByLocalId(long virtualStorageId, int localId){
+		if (!(virtualStorageId > 0) || !(localId > 0)) {
+			return null;
+		}
+
+		Query<Category> query = ds.createQuery(Category.class);
+
+		query.and(query.criteria("localId").equal(localId),
+				query.criteria("virtualStorageId").equal(virtualStorageId));
+
+		return query.get();
+		
+	}
+	
 	public Category getByName(long virtualStorageId, String name) {
 		if (!(virtualStorageId > 0) || (name.isEmpty())) {
 			return null;
@@ -51,13 +65,13 @@ public class CategoryDAO {
 
 	}
 
-	public List<Category> getAllCategories(long virtualStorageId) {
+	public List<Category> getAllCategories(long virtualStorageId, int offset, int limit) {
 		if (!(virtualStorageId < 0)) {
 			return null;
 		}
 
 		return ds.find(Category.class).field("virtualStorageId")
-				.equal(virtualStorageId).asList();
+				.equal(virtualStorageId).offset(offset).limit(limit).asList();
 	}
 
 	public void remove(ObjectId id) {

@@ -98,6 +98,36 @@ public class ProductDAO {
 		return query.asList();
 	}
 
+	public List<Product> getProductsByCategories(long virtualStorageId, List<Integer> categories, int offset, int limit){
+		if ( !(virtualStorageId > 0) || (categories.isEmpty())) {
+			return null;
+		}
+		
+		Query<Product> query = ds.createQuery(Product.class);
+		for (int cat : categories) {
+			query.and(query.criteria("categories.localId").equal(cat));
+		}
+		query.and(query.criteria("virtualStorageId").equal(virtualStorageId));
+		query.offset(offset).limit(limit);
+		return query.asList();
+	}	
+	
+	public List<Product> getProductsByCategoriesOr(long virtualStorageId, List<Integer> categories, int offset, int limit){
+		if ( !(virtualStorageId > 0) || (categories.isEmpty())) {
+			return null;
+		}
+		
+		Query<Product> query = ds.createQuery(Product.class);
+		query.and(query.criteria("virtualStorageId").equal(virtualStorageId));
+		
+		for (int cat : categories) {
+			query.or(query.criteria("categories.localId").equal(cat));
+		}
+		
+		query.offset(offset).limit(limit);
+		return query.asList();
+	}	
+
 	public void deleteProduct(ObjectId id){
 		dao.remove(Product.class, id);
 	}

@@ -13,5 +13,7 @@ public interface IProductBL {
 	public List<Product> getAllProductsPaginated(long virtualStorageId,int offset, int limit);
 	public List<Product> getProductsByCategory(long virtualStorageId, String category);
 	public List<Product> getProductsByCategoryPaginated(long virtualStorageId, String category, int offset, int limit);
+	public List<Product> getProductsByCategories(long virtualStorageId, List<Integer> categories, int offset, int limit);
+	public List<Product> getProductsByCategoriesOr(long virtualStorageId, List<Integer> categories, int offset, int limit);
 	public void deleteProduct(long virtualStorageId, String barcode);
 }

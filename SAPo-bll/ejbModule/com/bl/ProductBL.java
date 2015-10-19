@@ -89,4 +89,22 @@ public class ProductBL implements IProductBL {
 		return null;
 	}
 
+	@Override
+	public List<Product> getProductsByCategories(long virtualStorageId,
+			List<Integer> categories, int offset, int limit) {
+		if ( !(virtualStorageId > 0) || (categories.isEmpty())) {
+			return null;
+		}
+		return dao.getProductsByCategories(virtualStorageId, categories, offset, limit);
+	}
+
+	@Override
+	public List<Product> getProductsByCategoriesOr(long virtualStorageId,
+			List<Integer> categories, int offset, int limit) {
+		if ( !(virtualStorageId > 0) || (categories.isEmpty())) {
+			return null;
+		}
+		return dao.getProductsByCategoriesOr(virtualStorageId, categories, offset, limit);
+	}
+
 }

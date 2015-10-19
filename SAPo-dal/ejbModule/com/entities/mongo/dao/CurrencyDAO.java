@@ -50,13 +50,31 @@ public class CurrencyDAO {
 		return query.get();
 
 	}
+	
+	public Currency getByLocalId(long virtualStorageId, int localId) {
+		if (!(virtualStorageId > 0) || !(localId>0)) {
+			return null;
+		}
 
-	public List<Currency> getAllCategories(long virtualStorageId) {
+		Query<Currency> query = ds.createQuery(Currency.class);
+
+		query.and(query.criteria("localId").equal(localId),
+				query.criteria("virtualStorageId").equal(virtualStorageId));
+
+		return query.get();
+
+	}	
+
+	public List<Currency> getAllCurrencies(long virtualStorageId,int offset, int limit) {
 		if (!(virtualStorageId < 0)) {
 			return null;
 		}
 
 		return ds.find(Currency.class).field("virtualStorageId")
-				.equal(virtualStorageId).asList();
+				.equal(virtualStorageId).offset(offset).limit(limit).asList();
 	}	
+	
+	public void remove(long virtualStorageId, int localId){
+		dao.remove(Currency.class, getByLocalId(virtualStorageId, localId).getId());
+	}
 }

@@ -24,11 +24,16 @@ public class ProductResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Product> getAllByTenant(
 			@PathParam("virtualStorageId") long virtualStorageId,
-			@QueryParam("category") String category,
+			@QueryParam("criteria") String criteria,
+			@QueryParam("category") List<Integer> categories,
 			@QueryParam("offset") int offset,
 			@QueryParam("limit") int limit) {
-		if (!(category==null || category.isEmpty())) {
-			return pbl.getProductsByCategoryPaginated(virtualStorageId, category, offset, limit);//(virtualStorageId, category);
+		if (!(categories==null || categories.isEmpty())) {
+//			return pbl.getProductsByCategoryPaginated(virtualStorageId, category, offset, limit);//(virtualStorageId, category);
+			if (!(criteria==null || criteria.isEmpty())){
+				return pbl.getProductsByCategoriesOr(virtualStorageId, categories, offset, limit);
+			}
+			return pbl.getProductsByCategories(virtualStorageId, categories, offset, limit);
 		}
 		return pbl.getAllProductsPaginated(virtualStorageId, offset, limit);//(virtualStorageId);
 	}
