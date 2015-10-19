@@ -1,6 +1,7 @@
 package com.entities.mongo;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Id;
@@ -10,8 +11,8 @@ import org.mongodb.morphia.annotations.Version;
 public abstract class BaseEntity {
 	@Id
 	private ObjectId id;
-	private Date creationDate;
-	private Date lastChange;
+	private Calendar creationDate;
+	private Calendar lastChange;
 	@Version
 	private long version;
 
@@ -23,18 +24,18 @@ public abstract class BaseEntity {
 		return id;
 	}
 	
-	public Date getCreationDate() {
+	public Calendar getCreationDate() {
 		return creationDate;
 	}
 
-	public Date getLastChange() {
+	public Calendar getLastChange() {
 		return lastChange;
 	}
 
 	@PrePersist
 	public void prePersist() {
-		this.creationDate = (creationDate == null) ? new Date() : creationDate;
-		this.lastChange = (lastChange == null) ? creationDate : new Date();
+		this.creationDate = (creationDate == null) ? new GregorianCalendar() : creationDate;
+		this.lastChange = (lastChange == null) ? creationDate : new GregorianCalendar();
 	}
 
 	@Override

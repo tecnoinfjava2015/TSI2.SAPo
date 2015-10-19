@@ -1,7 +1,6 @@
 package com.entities.mongo;
 
-import java.util.Date;
-
+import java.util.Calendar;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Reference;
 
@@ -13,13 +12,13 @@ import org.mongodb.morphia.annotations.Reference;
 public class Price {
 	private String value;
 	@Reference private Currency currency;
-	private Date date;
+	private Calendar date;
 	
 	public Price() {
 		super();
 	}
 
-	public Price(String value, Currency currency, Date date) {
+	public Price(String value, Currency currency, Calendar date) {
 		super();
 		this.value = value;
 		this.currency = currency;
@@ -38,10 +37,10 @@ public class Price {
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
-	public Date getDate() {
+	public Calendar getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 	
