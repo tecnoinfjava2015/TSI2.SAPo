@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Bill {
@@ -23,6 +25,7 @@ public class Bill {
 	private Document document;
 	private String origin;
 	private String destination;
+	@Temporal(TemporalType.DATE)
 	private Calendar date;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "details")
