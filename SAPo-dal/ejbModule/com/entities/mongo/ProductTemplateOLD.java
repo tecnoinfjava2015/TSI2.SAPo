@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
 @Entity(value="ProductTemplate",noClassnameStored=false)
-public abstract class ProductTemplate extends BaseEntity{
+public abstract class ProductTemplateOLD extends BaseEntity{
 	@Indexed(unique = true)
 	public String uniqueName;
 	@Indexed(unique = true)
@@ -15,7 +15,7 @@ public abstract class ProductTemplate extends BaseEntity{
 	public ObjectId categoryId;
 	public String categoryName;
 	
-	public ProductTemplate() {
+	public ProductTemplateOLD() {
 		super();
 	}
 

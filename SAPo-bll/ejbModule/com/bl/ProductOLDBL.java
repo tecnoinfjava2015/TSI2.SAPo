@@ -2,10 +2,10 @@ package com.bl;
 
 import java.util.List;
 
-import com.entities.mongo.Product;
-import com.entities.mongo.dao.ProductDAO;
-import com.services.interfaces.ProductBLLocal;
-import com.services.interfaces.ProductBLRemote;
+import com.entities.mongo.ProductOLD;
+import com.entities.mongo.dao.ProductDAOOLD;
+import com.services.interfaces.ProductBLLocalOLD;
+import com.services.interfaces.ProductBLRemoteOLD;
 
 import javax.ejb.Stateless;
 
@@ -13,28 +13,28 @@ import javax.ejb.Stateless;
  * Session Bean implementation class ProductBL
  */
 @Stateless
-public class ProductBL implements ProductBLRemote, ProductBLLocal {
+public class ProductOLDBL implements ProductBLRemoteOLD, ProductBLLocalOLD {
 
-	protected ProductDAO dao = new ProductDAO();
+	protected ProductDAOOLD dao = new ProductDAOOLD();
     /**
      * Default constructor. 
      */
-    public ProductBL() {
+    public ProductOLDBL() {
         // TODO Auto-generated constructor stub
     }
     
 	@Override
-	public Product getByName(String tenant, String name) {
+	public ProductOLD getByName(String tenant, String name) {
 		return dao.getByName(tenant, name);
 	}
 
 	@Override
-	public List<Product> getProductsByCategory(String tenant, String name) {
+	public List<ProductOLD> getProductsByCategory(String tenant, String name) {
 		return dao.getProductsByCategory(tenant, name);
 	}
 	
 	@Override
-	public Product create(Product prodAux) {		
+	public ProductOLD create(ProductOLD prodAux) {		
 		return dao.getById(dao.insert(prodAux));
 	}
 

@@ -6,38 +6,38 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 
-import com.entities.mongo.Category;
-import com.entities.mongo.ProductTemplate;
+import com.entities.mongo.CategoryOLD;
+import com.entities.mongo.ProductTemplateOLD;
 import com.mongo.utilities.MongoDB;
 import com.mongo.utilities.GenericPersistence;
 
-public class ProductTemplateDAO {
+public class ProductTemplateDAOOLD {
 	private final Datastore ds;
 	private final GenericPersistence dao;
 
-	public ProductTemplateDAO() {
+	public ProductTemplateDAOOLD() {
 		ds = MongoDB.instance().getDatabase();
 		dao = new GenericPersistence();
 	}
 
-	public ObjectId insert(ProductTemplate pt) {
+	public ObjectId insert(ProductTemplateOLD pt) {
 		return dao.persist(pt);
 	}
 
-	public long count(Class<ProductTemplate> pt) {
+	public long count(Class<ProductTemplateOLD> pt) {
 		return dao.count(pt);
 	}
 
-	public ProductTemplate getById(ObjectId id){
-		return dao.get(ProductTemplate.class, id);
+	public ProductTemplateOLD getById(ObjectId id){
+		return dao.get(ProductTemplateOLD.class, id);
 	}
 
-	public ProductTemplate getByName(String name){// *ver*
+	public ProductTemplateOLD getByName(String name){// *ver*
 		if ((name == null)) {
 			return null;
 		}
 
-		Query<ProductTemplate> query = ds.createQuery(ProductTemplate.class);
+		Query<ProductTemplateOLD> query = ds.createQuery(ProductTemplateOLD.class);
 
 		query.criteria("uniqueName").equal(name);
 
@@ -45,17 +45,17 @@ public class ProductTemplateDAO {
 
 	}
 
-	public List<ProductTemplate> getTemplatesOfCategory(Category cat){ // *ver*
+	public List<ProductTemplateOLD> getTemplatesOfCategory(CategoryOLD cat){ // *ver*
 		if (cat==null){
 			return null;
 		}
 
-		return ds.find(ProductTemplate.class).field("category").equal(cat).asList(); // *ver* 27/09
+		return ds.find(ProductTemplateOLD.class).field("category").equal(cat).asList(); // *ver* 27/09
 	}
 
 	public void deleteProductTemplate(String name){
 		if (!(name!=null)){
-			Query<ProductTemplate> query = ds.createQuery(ProductTemplate.class);
+			Query<ProductTemplateOLD> query = ds.createQuery(ProductTemplateOLD.class);
 			ds.delete(query.criteria("uniqueName").equal(name)); // *ver* 27/09
 		}
 	}

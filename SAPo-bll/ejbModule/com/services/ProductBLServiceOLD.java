@@ -15,9 +15,9 @@ import javax.ws.rs.Produces;
 
 import java.util.List;
 
-import com.bl.ProductBL;
-import com.entities.mongo.Product;
-import com.services.interfaces.ProductBLRemote;
+import com.bl.ProductOLDBL;
+import com.entities.mongo.ProductOLD;
+import com.services.interfaces.ProductBLRemoteOLD;
 
 /**
  * @author Lufasoch
@@ -26,25 +26,25 @@ import com.services.interfaces.ProductBLRemote;
 
 @RequestScoped
 @Path("{tenant}/product")
-public class ProductBLService {	
+public class ProductBLServiceOLD {	
 	@EJB
-	ProductBLRemote prodEJB;
+	ProductBLRemoteOLD prodEJB;
 	
 	@PathParam("tenant")
 	
 	@GET
 	@Path("/byCat")
 	@Produces("application/JSON")
-	public List<Product> getProductByCategory(@PathParam("tenant") String tenant, String nameCategory){
-		ProductBLRemote pb = new ProductBL();
+	public List<ProductOLD> getProductByCategory(@PathParam("tenant") String tenant, String nameCategory){
+		ProductBLRemoteOLD pb = new ProductOLDBL();
 		return pb.getProductsByCategory(tenant, nameCategory);
 	}
 	
 	@GET
 	@Path("/byName")
 	@Produces("application/JSON")
-	public Product getByName(@PathParam("tenant") String tenant, String name){
-		ProductBLRemote pb = new ProductBL();
+	public ProductOLD getByName(@PathParam("tenant") String tenant, String name){
+		ProductBLRemoteOLD pb = new ProductOLDBL();
 		return pb.getByName(tenant, name);
 	}
 	
@@ -52,8 +52,8 @@ public class ProductBLService {
 	@Path("/create")
 	@Consumes("application/JSON")
 	@Produces("application/JSON")
-	public Product createProduct(@PathParam("tenant") String tenant, Product prodAux){
-		ProductBLRemote pb = new ProductBL();
+	public ProductOLD createProduct(@PathParam("tenant") String tenant, ProductOLD prodAux){
+		ProductBLRemoteOLD pb = new ProductOLDBL();
 		return pb.create(prodAux);
 	}
 	
@@ -61,7 +61,7 @@ public class ProductBLService {
 	@Path("/delete")
 	@Consumes("application/JSON")
 	public void deleteProduct(@PathParam("tenant") String tenant, String arg[]){ //El argumento 1 debe ser el nombre y el 2 el tenant
-		ProductBLRemote pb = new ProductBL();
+		ProductBLRemoteOLD pb = new ProductOLDBL();
 		pb.delete(arg[1], arg[2]);
 	}
 }

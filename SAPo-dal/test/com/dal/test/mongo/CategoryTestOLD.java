@@ -5,25 +5,25 @@ import static org.junit.Assert.*;
 import org.bson.types.ObjectId;
 import org.junit.Test;
 
-import com.entities.mongo.Category;
-import com.entities.mongo.dao.CategoryDAO;
+import com.entities.mongo.CategoryOLD;
+import com.entities.mongo.dao.CategoryDAOOLD;
 import com.mongo.utilities.GenericPersistence;
 import com.mongo.utilities.MongoDB;
 
-public class CategoryTest {
+public class CategoryTestOLD {
 
 	 protected MongoDB persistence;
 	  protected GenericPersistence genericPersistence = new GenericPersistence();
-	  protected CategoryDAO catDAO = new CategoryDAO();
+	  protected CategoryDAOOLD catDAO = new CategoryDAOOLD();
 	  @Test
 	  public void persist() {
 		catDAO.cleanCategories("T1");
-	    Category category = new Category();
+	    CategoryOLD category = new CategoryOLD();
 	    category.setName("Test category");
 	    category.setTenant("T1");
 	    ObjectId id1 = genericPersistence.persist(category);
-	    assertNotNull("Debería haberse generado un ObjectId cuando se persistio la entidad", id1);
-	    assertEquals("El valor existente en la base y el generado deberían ser el mismo",
+	    assertNotNull("Deberï¿½a haberse generado un ObjectId cuando se persistio la entidad", id1);
+	    assertEquals("El valor existente en la base y el generado deberï¿½an ser el mismo",
 	    		category.getId(), id1);
 	    }
 
@@ -33,15 +33,15 @@ public class CategoryTest {
 	  @Test
 	  public void count() {
 		  catDAO.cleanCategories("T1");
-	    assertEquals("En una base vacía deberíamos tener 0 categorías.", 0,
-			 genericPersistence.count(Category.class));
+	    assertEquals("En una base vacï¿½a deberï¿½amos tener 0 categorï¿½as.", 0,
+			 genericPersistence.count(CategoryOLD.class));
 	    
-	    Category category = new Category();
+	    CategoryOLD category = new CategoryOLD();
 	    category.setName("Test category");
 	    category.setTenant("T1");
 	    genericPersistence.persist(category);
 	 
-	    assertEquals("Después de haber agregado una categoría debería haber 1", 1,
-			 genericPersistence.count(Category.class));
+	    assertEquals("Despuï¿½s de haber agregado una categorï¿½a deberï¿½a haber 1", 1,
+			 genericPersistence.count(CategoryOLD.class));
 	  }
 }

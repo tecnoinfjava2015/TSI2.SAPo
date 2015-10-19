@@ -12,18 +12,18 @@ import org.mongodb.morphia.utils.IndexDirection;
 
 @Entity(value="Categories",noClassnameStored=false)
 @Indexes(@Index(fields = { @Field(value = "tenant"), @Field(value = "name") }, options = @IndexOptions(name="iCategoryKey", unique=true)))
-public class Category extends BaseEntity{
+public class CategoryOLD extends BaseEntity{
 	private String tenant;
 	private String	name;
 	private String parent;
 	@Indexed(value=IndexDirection.ASC,name="iCategoryAncestors")
 	private List<String> ancestors;
 	
-	public Category() {
+	public CategoryOLD() {
 		super();
 	}
 	
-	public Category(String tenant, String name, String parent,
+	public CategoryOLD(String tenant, String name, String parent,
 			List<String> ancestors) {
 		super();
 		this.tenant = tenant;

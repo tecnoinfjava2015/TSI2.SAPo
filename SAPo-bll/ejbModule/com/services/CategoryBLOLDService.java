@@ -10,16 +10,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import com.entities.mongo.Category;
+import com.entities.mongo.CategoryOLD;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.services.interfaces.CategoryBLRemote;
+import com.services.interfaces.CategoryBLRemoteOLD;
 
 @RequestScoped
 @Path("{tenant}/category")
-public class CategoryBLService {
+public class CategoryBLOLDService {
 	@EJB
-	CategoryBLRemote catEJB;
+	CategoryBLRemoteOLD catEJB;
 	
 	@GET
 	@Path("/all")

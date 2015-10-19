@@ -6,37 +6,37 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 
-import com.entities.mongo.Category;
+import com.entities.mongo.CategoryOLD;
 import com.mongo.utilities.MongoDB;
 import com.mongo.utilities.GenericPersistence;
 
-public class CategoryDAO {
+public class CategoryDAOOLD {
 	private final Datastore ds;
 	private final GenericPersistence dao;
 
-	public CategoryDAO() {
+	public CategoryDAOOLD() {
 		ds = MongoDB.instance().getDatabase();
 		dao = new GenericPersistence();
 	}
 
-	public ObjectId persist(Category cat) {
+	public ObjectId persist(CategoryOLD cat) {
 		return dao.persist(cat);
 	}
 
-	public long count(Class<Category> cat) {
+	public long count(Class<CategoryOLD> cat) {
 		return dao.count(cat);
 	}
 	
-	public Category getById(ObjectId id){
-		return dao.get(Category.class, id);
+	public CategoryOLD getById(ObjectId id){
+		return dao.get(CategoryOLD.class, id);
 	}
 	
-	public Category getByName(String tenant, String name){
+	public CategoryOLD getByName(String tenant, String name){
 		if ((tenant == null) || (name == null)) {
 			return null;
 		}
 		
-		Query<Category> query = ds.createQuery(Category.class);
+		Query<CategoryOLD> query = ds.createQuery(CategoryOLD.class);
 		
 		query.and(query.criteria("name").equal(name), 
 				query.criteria("tenant").equal(tenant)
@@ -46,16 +46,16 @@ public class CategoryDAO {
 		
 	}
 	
-	public List<Category> getAllCategories(String tenant){
+	public List<CategoryOLD> getAllCategories(String tenant){
 		if (tenant==null){
 			return null;
 		}
 		
-		return ds.find(Category.class).field("tenant").equal(tenant).asList();
+		return ds.find(CategoryOLD.class).field("tenant").equal(tenant).asList();
 		}
 	
 	public void remove(String tenant, String name){
-		Query<Category> q = ds.createQuery(Category.class);
+		Query<CategoryOLD> q = ds.createQuery(CategoryOLD.class);
 		q.and(q.criteria("tenant").equal(tenant),
 				q.or(q.criteria("name").equal(name),
 						q.criteria("ancestors").contains(name)));
@@ -64,7 +64,7 @@ public class CategoryDAO {
 
 	public void cleanCategories(String tenant){
 		if (!(tenant==null)){
-			ds.delete(ds.createQuery(Category.class));
+			ds.delete(ds.createQuery(CategoryOLD.class));
 		}
 	}	
 }

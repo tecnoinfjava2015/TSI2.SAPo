@@ -5,28 +5,28 @@ import static org.junit.Assert.*;
 import org.bson.types.ObjectId;
 import org.junit.Test;
 
-import com.entities.mongo.Product;
-import com.entities.mongo.dao.ProductDAO;
+import com.entities.mongo.ProductOLD;
+import com.entities.mongo.dao.ProductDAOOLD;
 import com.mongo.utilities.GenericPersistence;
 import com.mongo.utilities.MongoDB;
 
-public class ProductTest {
+public class ProductTestOLD {
 
 	protected MongoDB persistence;
 	protected GenericPersistence genericPersistence = new GenericPersistence();
-	protected ProductDAO proDAO = new ProductDAO();
+	protected ProductDAOOLD proDAO = new ProductDAOOLD();
 	@Test
 	public void persist() {
 		if(!proDAO.isEmpty("TePro"))
 			proDAO.cleanProducts("TePro");
 		
-		Product product = new Product();
+		ProductOLD product = new ProductOLD();
 		product.setDescName("Test product");
 		product.setUniqueName("TetemplatePro");
 		product.setTenant("TePro");
 		ObjectId id1 = genericPersistence.persist(product);
-		assertNotNull("Debería haberse generado un ObjectId cuando se persistio la entidad", id1);
-		assertEquals("El valor existente en la base y el generado deberían ser el mismo",
+		assertNotNull("Deberï¿½a haberse generado un ObjectId cuando se persistio la entidad", id1);
+		assertEquals("El valor existente en la base y el generado deberï¿½an ser el mismo",
 				product.getId(), id1);
 	}
 
@@ -36,16 +36,16 @@ public class ProductTest {
 	@Test
 	public void count() {
 		proDAO.cleanProducts("TePro");
-		assertEquals("En una base vacía deberíamos tener 0 productos.", 0,
-				genericPersistence.count(Product.class));
+		assertEquals("En una base vacï¿½a deberï¿½amos tener 0 productos.", 0,
+				genericPersistence.count(ProductOLD.class));
 
-		Product product = new Product();
+		ProductOLD product = new ProductOLD();
 		product.setDescName("Test product");
 		product.setUniqueName("TetemplatePro");
 		product.setTenant("TePro");
 		genericPersistence.persist(product);
 
-		assertEquals("Después de haber agregado un producto debería haber uno", 1,
-				genericPersistence.count(Product.class));
+		assertEquals("Despuï¿½s de haber agregado un producto deberï¿½a haber uno", 1,
+				genericPersistence.count(ProductOLD.class));
 	}
 }
