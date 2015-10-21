@@ -4,11 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.sun.istack.internal.Nullable;
+
 @Entity
 public class Document {
 	@Id
 	@GeneratedValue
 	private long id;
+	@Nullable
 	private long virtualStorageId;
 	private String name;
 	private String description;

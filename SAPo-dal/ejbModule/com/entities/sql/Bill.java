@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,10 +18,10 @@ public class Bill {
 	@Id
 	@GeneratedValue
 	private long id;
-	private long virtualStorage;
-	@OneToOne(fetch = FetchType.EAGER)
+	private long virtualStorageId;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "document")
-	private Document document;
+	private List<Document> document;
 	private String origin;
 	private String destination;
 	@Temporal(TemporalType.DATE)
@@ -33,10 +32,10 @@ public class Bill {
 	private double amount;
 	
 	public long getVirtualStorage() {
-		return virtualStorage;
+		return virtualStorageId;
 	}
 	public void setVirtualStorage(long virtualStorage) {
-		this.virtualStorage = virtualStorage;
+		this.virtualStorageId = virtualStorage;
 	}
 	public long getId() {
 		return id;
@@ -44,10 +43,10 @@ public class Bill {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public Document getDocument() {
+	public List<Document> getDocument() {
 		return document;
 	}
-	public void setDocument(Document document) {
+	public void setDocument(List<Document> document) {
 		this.document = document;
 	}
 	public String getOrigin() {
