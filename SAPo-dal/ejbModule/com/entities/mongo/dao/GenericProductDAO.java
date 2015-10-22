@@ -9,7 +9,7 @@ import org.mongodb.morphia.query.Query;
 import com.entities.mongo.Alert;
 import com.entities.mongo.Category;
 import com.entities.mongo.GenericProduct;
-
+import com.entities.mongo.Product;
 import com.entities.mongo.Spec;
 import com.mongo.utilities.GenericPersistence;
 import com.mongo.utilities.MongoDB;
@@ -29,17 +29,21 @@ public class GenericProductDAO {
 		return dao.persist(gProduct);
 	}
 
+	public GenericProduct getById(ObjectId id){
+		return dao.get(GenericProduct.class, id);
+	}
+	
 	public long countAll(Class<GenericProduct> gProduct) {
 		return dao.count(gProduct);
 	}
 	
-	public GenericProduct getByName(String name){
-		if ((name.isEmpty())) {
+	public GenericProduct getByName(String productName){
+		if ((productName.isEmpty())) {
 			return null;
 		}	
 		
 		Query<GenericProduct> query = ds.createQuery(GenericProduct.class);
-		query.and(query.criteria("name").equal(name));
+		query.and(query.criteria("name").equal(productName));
 		return query.get();
 	}
 	
@@ -53,26 +57,12 @@ public class GenericProductDAO {
 		return query.get();
 	}	
 	
-	public List<GenericProduct> getGenericProductsByCategory(String categoryName){
-		if ( (categoryName.isEmpty())) {
-			return null;
-		}
-		
+	public List<GenericProduct> getAllGenricProducts(){
 		Query<GenericProduct> query = ds.createQuery(GenericProduct.class);
-		
-		query.and(query.criteria("categories").containsIgnoreCase(categoryName));
 		return query.asList();
 	}
 
-	public List<GenericProduct> getGenericProductsByCategories(List<Integer> categories){
-		if ((categories.isEmpty())) {
-			return null;
-		}
-		
-		Query<GenericProduct> query = ds.createQuery(GenericProduct.class);
-		for (int cat : categories) {
-			query.and(query.criteria("categories.localId").equal(cat));
-		}
-		return query.asList();
-	}	
+	public void deleteGenericProduct(ObjectId id) {
+		dao.remove(Product.class, id);
+	}
 }

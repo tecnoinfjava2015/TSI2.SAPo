@@ -2,6 +2,7 @@ package com.bo.principal;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.bo.formularios.abm.FormABMProductoGenerico;
 import com.bo.formularios.abm.FormABMUsuario;
 import com.bo.formularios.abm.FormAceptarUsuarios;
 import com.vaadin.annotations.Theme;
@@ -26,7 +27,7 @@ public class SapoBackofficeUI extends UI {
 
 	private BarraUsuario barraUsuario;
 	private FormABMUsuario formABMUsuario;
-	private FormAceptarUsuarios formAceptarUsuarios;
+	private FormABMProductoGenerico formABMProductoGenerico;
 	
 	//private FormABMAutomatico formABMAutomatico;
 	private VerticalLayout logo = new VerticalLayout();
@@ -75,9 +76,9 @@ public void cargarContenido(){
           layout1.addComponent(formABMUsuario);
           tabSheet.addTab(layout1, "Gestion Usuario"); 
           PanelDinamico layout2 = new PanelDinamico();
-          formAceptarUsuarios = new FormAceptarUsuarios();
-          layout2.addComponent(formAceptarUsuarios);              
-          tabSheet.addTab(layout2, "Aceptar Usuarios");
+          formABMProductoGenerico = new FormABMProductoGenerico();
+          layout2.addComponent(formABMProductoGenerico);              
+          tabSheet.addTab(layout2, "Gestión de Productos Genéricos");
           mainLayout.setExpandRatio(logo, 10);
           mainLayout.addComponent(tabSheet);
           mainLayout.setExpandRatio(tabSheet, 70);
