@@ -13,6 +13,8 @@ import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexes;
 
+import com.entities.sql.Unit;
+
 /**
  * @author jpmartinez
  *
@@ -26,6 +28,7 @@ public class Product extends BaseEntity{
 	private String barCode;
 	private String name;
 	private String description;
+	private Unit unit;
 	private double salePrice;
 	private double purchasePrice;
 	private double stock;
@@ -42,16 +45,17 @@ public class Product extends BaseEntity{
 
 
 	public Product(long virtualStorageId, String virtualStorageName,
-			String barCode, String name, String description, double salePrice,
-			double purchasePrice, double stock, List<Alert> alerts,
-			List<byte[]> images, List<Spec> specs, List<Category> categories,
-			boolean active) {
+			String barCode, String name, String description, Unit unit,
+			double salePrice, double purchasePrice, double stock,
+			List<Alert> alerts, List<byte[]> images, List<Spec> specs,
+			List<Category> categories, boolean active) {
 		super();
 		this.virtualStorageId = virtualStorageId;
 		this.virtualStorageName = virtualStorageName;
 		this.barCode = barCode;
 		this.name = name;
 		this.description = description;
+		this.unit = unit;
 		this.salePrice = salePrice;
 		this.purchasePrice = purchasePrice;
 		this.stock = stock;
@@ -61,6 +65,7 @@ public class Product extends BaseEntity{
 		this.categories = categories;
 		this.active = active;
 	}
+
 
 	public long getVirtualStorageId() {
 		return virtualStorageId;
@@ -109,6 +114,16 @@ public class Product extends BaseEntity{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+	public Unit getUnit() {
+		return unit;
+	}
+
+
+	public void setUnit(Unit unit) {
+		this.unit = unit;
 	}
 
 
@@ -192,101 +207,5 @@ public class Product extends BaseEntity{
 	}
 
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + (active ? 1231 : 1237);
-		result = prime * result + ((alerts == null) ? 0 : alerts.hashCode());
-		result = prime * result + ((barCode == null) ? 0 : barCode.hashCode());
-		result = prime * result
-				+ ((categories == null) ? 0 : categories.hashCode());
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((images == null) ? 0 : images.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(purchasePrice);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(salePrice);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((specs == null) ? 0 : specs.hashCode());
-		temp = Double.doubleToLongBits(stock);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result
-				+ (int) (virtualStorageId ^ (virtualStorageId >>> 32));
-		result = prime
-				* result
-				+ ((virtualStorageName == null) ? 0 : virtualStorageName
-						.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Product other = (Product) obj;
-		if (active != other.active)
-			return false;
-		if (alerts == null) {
-			if (other.alerts != null)
-				return false;
-		} else if (!alerts.equals(other.alerts))
-			return false;
-		if (barCode == null) {
-			if (other.barCode != null)
-				return false;
-		} else if (!barCode.equals(other.barCode))
-			return false;
-		if (categories == null) {
-			if (other.categories != null)
-				return false;
-		} else if (!categories.equals(other.categories))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (images == null) {
-			if (other.images != null)
-				return false;
-		} else if (!images.equals(other.images))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (Double.doubleToLongBits(purchasePrice) != Double
-				.doubleToLongBits(other.purchasePrice))
-			return false;
-		if (Double.doubleToLongBits(salePrice) != Double
-				.doubleToLongBits(other.salePrice))
-			return false;
-		if (specs == null) {
-			if (other.specs != null)
-				return false;
-		} else if (!specs.equals(other.specs))
-			return false;
-		if (Double.doubleToLongBits(stock) != Double
-				.doubleToLongBits(other.stock))
-			return false;
-		if (virtualStorageId != other.virtualStorageId)
-			return false;
-		if (virtualStorageName == null) {
-			if (other.virtualStorageName != null)
-				return false;
-		} else if (!virtualStorageName.equals(other.virtualStorageName))
-			return false;
-		return true;
-	}
-
-	
 
 }

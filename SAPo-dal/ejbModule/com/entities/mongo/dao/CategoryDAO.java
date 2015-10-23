@@ -66,7 +66,7 @@ public class CategoryDAO {
 	}
 
 	public List<Category> getAllCategories(long virtualStorageId, int offset, int limit) {
-		if (!(virtualStorageId < 0)) {
+		if (!(virtualStorageId > 0)) {
 			return null;
 		}
 

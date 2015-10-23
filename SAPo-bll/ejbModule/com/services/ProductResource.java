@@ -18,7 +18,7 @@ import com.entities.mongo.Product;
 
 @Path("/{virtualStorageId}/products")
 public class ProductResource {
-	ProductBL pbl = new ProductBL();
+	ProductBL pbl = new ProductBL(); 
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -29,7 +29,6 @@ public class ProductResource {
 			@QueryParam("offset") int offset,
 			@QueryParam("limit") int limit) {
 		if (!(categories==null || categories.isEmpty())) {
-//			return pbl.getProductsByCategoryPaginated(virtualStorageId, category, offset, limit);//(virtualStorageId, category);
 			if (!(criteria==null || criteria.isEmpty())){
 				return pbl.getProductsByCategoriesOr(virtualStorageId, categories, offset, limit);
 			}

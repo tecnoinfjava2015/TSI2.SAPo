@@ -1,5 +1,7 @@
 package com.entities.mongo;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;
@@ -7,7 +9,7 @@ import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexes;
 
 import com.mongo.utilities.DataType;
-
+@XmlRootElement
 @Entity(value="Currencies",noClassnameStored=false)
 @Indexes(@Index(fields = { @Field(value = "virtualStorageId"), @Field(value = "localId") }, options = @IndexOptions(name="iCurrencyUsuKey", unique=true)))
 public class Currency extends BaseEntity{

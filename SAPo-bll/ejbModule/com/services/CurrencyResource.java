@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import com.bl.CurrencyBL;
 import com.entities.mongo.Currency;
 
-@Path("/{virtualStorageId}/categories")
+@Path("/{virtualStorageId}/currencies")
 public class CurrencyResource {
 	
 	CurrencyBL bl = new CurrencyBL();

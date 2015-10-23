@@ -18,12 +18,11 @@ import com.entities.mongo.Category;
 
 @Path("/{virtualStorageId}/categories")
 public class CategoryResource {
-	
 	CategoryBL bl = new CategoryBL();
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Category> getAllByTenant(
+	public List<Category> getCategories(
 			@PathParam("virtualStorageId") long virtualStorageId,
 			@QueryParam("offset") int offset,
 			@QueryParam("limit") int limit) {

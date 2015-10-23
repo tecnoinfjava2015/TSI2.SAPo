@@ -1,11 +1,13 @@
 package com.entities.mongo;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexes;
-
+@XmlRootElement
 @Entity(value="Categories",noClassnameStored=false)
 @Indexes(@Index(fields = { @Field(value = "virtualStorageId"), @Field(value = "localId") }, options = @IndexOptions(name="iCategoryUsuKey", unique=true)))
 public class Category extends BaseEntity {
@@ -16,7 +18,7 @@ public class Category extends BaseEntity {
 	private boolean starred;
 	private String icon;
 	
-	public Category() {
+	public Category() { 
 		super();
 	}
 
