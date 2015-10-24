@@ -68,8 +68,14 @@ public interface UsuarioServiceLocal {
 	public Boolean borrarUsuario(String nick);
 	
 	@GET
-	@Path("/aeptar")
+	@Path("/aceptar")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Boolean aceptarUsuario(String nick);
+	
+	@GET
+	@Path("/login")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Usuario getLogin( @QueryParam("nick") String nick,
+			  				 @QueryParam("password") String password);
 	
 }

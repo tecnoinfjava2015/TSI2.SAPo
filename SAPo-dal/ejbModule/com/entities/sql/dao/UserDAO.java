@@ -13,6 +13,7 @@ import javax.persistence.Query;
 
 import com.entities.sql.Usuario;
 
+
 @Stateless 
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class UserDAO {
@@ -79,5 +80,17 @@ public class UserDAO {
 		List<Usuario>  retorno = query.getResultList();
 		return retorno;
 	}	
-
+	
+	public Usuario getLogin(String nick, String password) {
+		Query query =  em.createQuery("SELECT l FROM Usuario l WHERE l.nick=:nick and l.password=:password ")
+		.setParameter("nick", nick)
+		.setParameter("password", password);
+		List<Usuario> results = query.getResultList();
+		Usuario foundEntity = null;
+		if(!results.isEmpty()){
+		// ignores multiple results
+			foundEntity = results.get(0);
+		}	
+		 return foundEntity;
+	}
 }

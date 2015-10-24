@@ -80,6 +80,11 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	public List<Usuario> getUsuariosHabilitados() {
 		return udao.listarUsuariosHabilitados();
 	}
+
+	@Override
+	public Usuario getLogin(String nick, String password) {
+		return udao.getLogin(nick, password);
+	}
 	
 
 

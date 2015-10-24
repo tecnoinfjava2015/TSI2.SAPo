@@ -4,7 +4,9 @@ package com.bo.formularios.abm;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import utils.Encrypter;
+
 import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -125,7 +127,8 @@ public class FormABMUsuario extends PanelDinamico{
 		        	notif.show(Page.getCurrent());
 		        }
 		        else{
-		        	servicio.registroUsuario(nick.getValue(), (String) tipo.getValue(), mail.getValue(), nick.getValue(), password.getValue(), true, true);
+		        	String md5 = new Encrypter().MD5(password.getValue());
+		        	servicio.registroUsuario(nick.getValue(), (String) tipo.getValue(), mail.getValue(), nick.getValue(), md5, true, true);
 		        	Notification notif = new Notification("Usuario cargado con éxito");
 		        	notif.setDelayMsec(2000);
 		        	notif.show(Page.getCurrent());

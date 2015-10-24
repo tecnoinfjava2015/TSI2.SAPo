@@ -1,13 +1,13 @@
 package com.bo.principal;
 
-
-
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.MenuBar.Command;
+import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
 
 public class MenuUsuario extends MenuBar{
@@ -35,7 +35,7 @@ public class MenuUsuario extends MenuBar{
 			
 			@Override
 			public void menuSelected(MenuItem selectedItem) {		
-				
+				((SapoBackofficeUI) UI.getCurrent()).logout();
 			}
 		});
 	}
