@@ -6,18 +6,42 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.MenuBar.Command;
-import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
 
 public class MenuUsuario extends MenuBar{
 
 	private static final long serialVersionUID = 1L;
 	private Window window;
-		
+	
+	
 	public MenuUsuario(){
 		this.setStyleName(ValoTheme.BUTTON_FRIENDLY);
-		MenuItem padre = addItem("sapo", FontAwesome.GEAR, null);
+		MenuItem padre = addItem("Nombre", FontAwesome.GEAR, null);
+		padre.setStyleName("v.menu");
+		
+		MenuItem menu = null;
+/*
+		menu = padre.addItem("Ver perfil", FontAwesome.USER, new Command() {
+			 
+ 			@Override
+ 			public void menuSelected(MenuItem selectedItem) {
+			//	falta la ventana para editar el usuario
+ 			//	abrirPopup();
+ 			
+ 			}
+ 		});*/
+		menu = padre.addItem("Cerrar sesion", FontAwesome.SIGN_OUT, new Command() {
+			
+			@Override
+			public void menuSelected(MenuItem selectedItem) {		
+				((SapoBackofficeUI) UI.getCurrent()).logout();
+			}
+		});
+	}
+
+	public MenuUsuario(String usuario) {
+		this.setStyleName(ValoTheme.BUTTON_FRIENDLY);
+		MenuItem padre = addItem(usuario, FontAwesome.GEAR, null);
 		padre.setStyleName("v.menu");
 		
 		MenuItem menu = null;

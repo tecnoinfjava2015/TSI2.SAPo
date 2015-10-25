@@ -1,15 +1,15 @@
 package com.bo.principal;
 
 import javax.inject.Inject;
-import javax.servlet.annotation.WebServlet;
 
 import com.bo.formularios.abm.FormABMProductoGenerico;
 import com.bo.formularios.abm.FormABMUsuario;
-import com.bo.formularios.abm.FormAceptarUsuarios;
+import com.bo.formularios.abm.FormAdminAV;
 import com.bo.formularios.abm.Login;
 import com.entities.sql.Usuario;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.cdi.CDIUI;
 import com.vaadin.server.Page;
 import com.vaadin.server.Resource;
 import com.vaadin.server.Responsive;
@@ -21,7 +21,6 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-import com.vaadin.cdi.CDIUI;
 
 
 @CDIUI("")
@@ -31,6 +30,7 @@ public class SapoBackofficeUI extends UI {
 
 	private BarraUsuario barraUsuario;
 	private FormABMUsuario formABMUsuario;
+	private FormAdminAV formAdminAV;
 	private FormABMProductoGenerico formABMProductoGenerico;
 	
 	@Inject 
@@ -86,7 +86,7 @@ public void cargarContenido(){
 	else{
        mainLayout.setMargin(false);
        setContent(mainLayout);
-       barraUsuario = new BarraUsuario();
+       barraUsuario = new BarraUsuario(datosSesion.getUsuario().getName());
        mainLayout.addComponent(barraUsuario);
        Resource imagenLogo = new ThemeResource("images/logo.jpg");
        Image log = new Image(null, imagenLogo);
@@ -103,6 +103,10 @@ public void cargarContenido(){
           formABMUsuario = new FormABMUsuario();
           layout1.addComponent(formABMUsuario);
           tabSheet.addTab(layout1, "Gestion Usuario"); 
+          PanelDinamico layout2 = new PanelDinamico();
+          formAdminAV = new FormAdminAV();
+          layout2.addComponent(formAdminAV);
+          tabSheet.addTab(layout2, "Gestion Almacen Virtual");
 //          PanelDinamico layout2 = new PanelDinamico();
 //          formABMProductoGenerico = new FormABMProductoGenerico();
 //          layout2.addComponent(formABMProductoGenerico);              
