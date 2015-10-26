@@ -40,15 +40,6 @@ public class BillDAO {
 		List<Bill> billList = ((List<Bill>) query.getResultList());
 		return billList;
 	}
-	/*
-	@SuppressWarnings("unchecked")
-	public List<Bill> getByDocumentId(long docId){
-		Query query =  em.createQuery("SELECT b FROM Bill b WHERE b.document.id=:DocId")// *ver*
-		.setParameter("DocId", docId);
-		List<Bill> billList = ((List<Bill>) query.getResultList());
-		return billList;
-	}
-	*/
 	
 	@SuppressWarnings("unchecked")
 	public List<Bill> getByDocument(Document docAux){

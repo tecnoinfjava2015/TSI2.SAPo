@@ -3,6 +3,7 @@ package com.entities.sql;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,7 +12,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class BillDetail {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private long virtualStorageId;
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -25,6 +26,28 @@ public class BillDetail {
 	private Unit unit;
 	private double unitPrice;
 	private double price;
+	
+	public BillDetail() {
+		this.virtualStorageId=0;
+		this.bill=null;
+		this.productId=null;
+		this.productName=null;
+		this.quantity=0;
+		this.unit=null;
+		this.unitPrice=0;
+		this.price=0;
+	}
+	
+	public BillDetail(long virtualStorageId, Bill bill, String productId, String productName, double quantity, Unit unit, double unitPrice, double price) {
+		this.virtualStorageId=virtualStorageId;
+		this.bill=bill;
+		this.productId=productId;
+		this.productName=productName;
+		this.quantity=quantity;
+		this.unit=unit;
+		this.unitPrice=unitPrice;
+		this.price=price;
+	}
 	
 	public long getVirtualStorageId() {
 		return virtualStorageId;

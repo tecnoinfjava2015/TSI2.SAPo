@@ -2,6 +2,7 @@ package com.entities.sql;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.sun.istack.internal.Nullable;
@@ -9,12 +10,24 @@ import com.sun.istack.internal.Nullable;
 @Entity
 public class Unit {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	@Nullable
 	private long virtualStorageId;
 	private String name;
 	private String abbreviation;
+	
+	public Unit(){
+		this.virtualStorageId=0;
+		this.name=null;
+		this.abbreviation=null;
+	}
+	
+	public Unit(long virtualStorageId, String name, String abbreviation){
+		this.virtualStorageId=virtualStorageId;
+		this.name=name;
+		this.abbreviation=abbreviation;
+	}
 	
 	public long getVirtualStorageId() {
 		return virtualStorageId;
