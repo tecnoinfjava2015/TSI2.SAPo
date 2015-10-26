@@ -1,0 +1,56 @@
+<div layout="column" layout-align="start start" flex>
+    <div flex>
+        <h1>PRODUCTOS</h1>
+    </div>
+    <div flex layout-wrap layout="row" ng-show="list">
+        <div ng-repeat="product in products">
+            <md-card>
+                <div layout="row">
+                    <div flex="25" layout-margin>
+                        <img class="md-card-image" src="{{image}}" alt="image caption">
+                    </div>
+                    <div flex="75" layout-margin>
+                        <md-card-content>
+                            <h2>{{product.name}}</h2>
+                            <p>{{product.description}}</p>
+                        </md-card-content>
+                        <md-card-footer>
+                            <h3>Stock: {{product.stock}}</h3>
+                        </md-card-footer>
+                    </div>
+                </div>
+                <div class="md-actions" layout="row" layout-align="end end">
+                    <md-button>Ver mais</md-button>
+                </div>
+            </md-card>
+        </div>
+    </div>
+    <div flex layout-wrap layout="row" ng-show="!list">
+        <div ng-repeat="product in products" flex="25">
+            <md-card>
+                <div layout="column">
+                    <div flex="100" layout-margin>
+                        <img class="md-card-image" src="{{image}}" alt="image caption">
+                    </div>
+                    <div flex="100" layout-margin>
+                        <md-card-content>
+                            <h2>{{product.name}}</h2>
+                        </md-card-content>
+                        <md-card-footer>
+                            <h3>Stock: {{product.stock}}</h3>
+                        </md-card-footer>
+                    </div>
+                </div>
+                <div class="md-actions" layout="row" layout-align="end end">
+                    <md-button>Ver mais</md-button>
+                </div>
+            </md-card>
+        </div>
+    </div>
+    <md-progress-linear md-mode="indeterminate" ng-show="loading"></md-progress-linear>
+    <md-button class="md-primary md-raised" ng-click="getProducts()">
+        Ver mas
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="toggleListGrid()">
+        Toggle List Grid
+    </md-button>

@@ -1,0 +1,8 @@
+.user-avatar {
+    border-radius: 99%;
+}
+
+.productImage {
+	max-height: auto;
+	max-width: 100px;
+}

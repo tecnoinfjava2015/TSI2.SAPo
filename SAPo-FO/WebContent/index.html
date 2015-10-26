@@ -1,56 +1,156 @@
 <!DOCTYPE html>
 <html ng-app="sapo">
-	<head>   
-		<meta charset="ISO-8859-1">
-		<title>SAPo</title>
-		<!-- Angular Material CSS -->
-		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
-		<!-- Angular Material Icons -->
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<!-- Custom css files -->
-		<link href="css/test.css" rel="stylesheet">
-		<!-- Angular Material Dependencies -->
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js"></script>
-		<!-- Angular Material Javascript -->
-		<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.js"></script>
-		<!-- Custom js files -->
-		<script src="js/sapo.js"></script>
-		<script src="js/controllers.js"></script>
-		<script	src="js/services.js"></script> 
-	</head>
-	<body layout="column" ng-controller="IndexController">
-		<!--   <md-toolbar layout="row">
-		<div class="md-toolbar-tools">
-			<md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
-			<i class="material-icons">menu</i>
-			</md-button>
-			<h1>SAPo</h1>
-		</div>
-		</md-toolbar> -->
-	<header ng-include="'templates/header.html'"></header>
-	<div layout="row" flex>
-		<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2 md-primary md-hue-1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
-			<div ng-include="'templates/menu.html'"></div>
-		</md-sidenav>
-		<div layout="column" flex id="content">
-			<md-content layout="column" flex class="md-padding" ng-view>
-			</md-content>
-		</div>
-		<div flex="25" hide-md hide-sm></div>
-		 
-	</div>
+
+<head>
+    <title>SAPo</title>
+    <!-- Angular Material CSS -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.4/angular-material.min.css">
+    <!-- Angular Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Custom css files -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js"></script>
+    <!-- Angular Material Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.4/angular-material.min.js"></script>
+    <!-- Config js files -->
+    <script src="js/sapo.js"></script>
+    <script src="js/sapo.routes.js"></script>
+    <script src="js/sapo.style.js"></script>
+    <!-- Controller js files -->
+    <script src="js/controllers/index.controller.js"></script>
+    <script src="js/controllers/test.controller.js"></script>
+    <script src="js/controllers/products.navigation.controller.js"></script>
+    <!-- Directives js files -->
+    <script src="js/directives/user.avatar.directive.js"></script>
+    <!-- Factories js files -->
+    <script src="js/factories/products.resource.factory.js"></script>
+</head>
+
+<body>
+    <div layout="row" md-theme="{{theme}}" md-theme-watch="true" flex>
+        <md-sidenav layout="column" ng-class="{'md-sidenav-left': sidenav=='left', 'md-sidenav-right': sidenav=='right'}" class="md-whiteframe-z2" md-component-id="sidenav" md-is-locked-open="$mdMedia('gt-md')">
+            <md-toolbar class="md-tall md-hue-2">
+                <span flex></span>
+                <div layout="column" class="md-toolbar-tools-bottom inset">
+                    <user-avatar></user-avatar>
+                    <span></span>
+                    <div>Teste Teste</div>
+                    <div>email@domainname.com</div>
+                </div>
+            </md-toolbar>
+            <md-list>
+                <md-item>
+                    <a>
+                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                            <div class="inset">
+                                <i class="material-icons">accessibility</i>
+                            </div>
+                            <div class="inset">TEST 1 </div>
+                        </md-item-content>
+                    </a>
+                </md-item>
+                <md-item>
+                    <a>
+                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                            <div class="inset">
+                                <i class="material-icons">accessibility</i>
+                            </div>
+                            <div class="inset">TEST 2 </div>
+                        </md-item-content>
+                    </a>
+                </md-item>
+                <md-divider></md-divider>
+                <md-subheader>TEST SUBHEADER</md-subheader>
+                <md-item>
+                    <a>
+                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                            <div class="inset">
+                                <i class="material-icons">accessibility</i>
+                            </div>
+                            <div class="inset">TEST 1 </div>
+                        </md-item-content>
+                    </a>
+                </md-item>
+                <md-item>
+                    <a>
+                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                            <div class="inset">
+                                <i class="material-icons">accessibility</i>
+                            </div>
+                            <div class="inset">TEST 2 </div>
+                        </md-item-content>
+                    </a>
+                </md-item>
+            </md-list>
+        </md-sidenav>
+        <div layout="column" flex>
+            <md-toolbar md-scroll-shrink md-shrink-speed-factor="0.5">
+                <span>Theme: {{theme}}</span> <span> Sidenav: {{sidenav}}</span> <span> SidenavAux: {{sidenavAux}}</span>
+            </md-toolbar>
+            <md-whiteframe flex class="md-whiteframe-z1" layout layout-align="center start" ng-view layout-padding layout-margin>
+            </md-whiteframe>
+        </div>
+        <md-sidenav ng-show="sidenavAux!=''" layout="column" ng-class="{'md-sidenav-left': sidenavAux=='left', 'md-sidenav-right': sidenavAux=='right'}" class=" md-whiteframe-z2" md-component-id="sidenavAux" md-is-locked-open="$mdMedia('gt-md')">
+            <md-toolbar class="md-tall md-accent">
+                <span flex></span>
+                <div layout="column" class="md-toolbar-tools-bottom inset">
+                    <user-avatar></user-avatar>
+                    <span></span>
+                    <div>Teste Teste</div>
+                    <div>email@domainname.com</div>
+                </div>
+            </md-toolbar>
+            <md-list>
+                <md-item>
+                    <a>
+                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                            <div class="inset">
+                                <i class="material-icons">accessibility</i>
+                            </div>
+                            <div class="inset">TEST 1 </div>
+                        </md-item-content>
+                    </a>
+                </md-item>
+                <md-item>
+                    <a>
+                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                            <div class="inset">
+                                <i class="material-icons">accessibility</i>
+                            </div>
+                            <div class="inset">TEST 2 </div>
+                        </md-item-content>
+                    </a>
+                </md-item>
+                <md-divider></md-divider>
+                <md-subheader>TEST SUBHEADER</md-subheader>
+                <md-item>
+                    <a>
+                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                            <div class="inset">
+                                <i class="material-icons">accessibility</i>
+                            </div>
+                            <div class="inset">TEST 1 </div>
+                        </md-item-content>
+                    </a>
+                </md-item>
+                <md-item>
+                    <a>
+                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                            <div class="inset">
+                                <i class="material-icons">accessibility</i>
+                            </div>
+                            <div class="inset">TEST 2 </div>
+                        </md-item-content>
+                    </a>
+                </md-item>
+            </md-list>
+        </md-sidenav>
+    </div>
 </body>
-<!-- 	<body layout="column">
-	
-		
-		<div layout="row" layout-fill>
-			<aside flex hide-sm  class="md-whiteframe-z3"></aside>
-			<div flex ng-view ></div>
-		<aside flex hide-md hide-sm></aside>
-	</div>
-</body> -->
+
 </html>
