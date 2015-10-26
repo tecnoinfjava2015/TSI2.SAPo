@@ -22,7 +22,7 @@ public class ProductTest {
 	protected ProductDAO dao = new ProductDAO();
 	@Test
 	public void persist() {
-		if(dao.countVirtualStorage(1)<=0)
+		if(dao.countVirtualStorage(1)>0)
 			dao.cleanProducts(1);
 		
 		Category cat1 = new Category(1, 1, null, "Cat 1", false, null);
@@ -48,16 +48,37 @@ public class ProductTest {
 		//Prod 1
 		Product product = new Product();
 		product.setName("Test 1");
+		product.setBarCode("1.1234567890");
 		product.setVirtualStorageId(1);
 		product.setCategories(listCat1);
 		ObjectId id1 = genericPersistence.persist(product);
 		
 		product = new Product();
 		product.setName("Test 2");
+		product.setBarCode("2.0987654321");
 		product.setVirtualStorageId(1);
 		product.setCategories(listCat2);
 		id1 = genericPersistence.persist(product);
 		
+		product = new Product();
+		product.setName("Test 3");
+		product.setBarCode("3.0987654321");
+		product.setVirtualStorageId(1);
+		product.setCategories(listCat2);
+		id1 = genericPersistence.persist(product);
+
+		product = new Product();
+		product.setName("Test 4");
+		product.setBarCode("4.0987654321");
+		product.setVirtualStorageId(1);
+		product.setCategories(listCat2);
+		id1 = genericPersistence.persist(product);
+		
+		product = new Product();
+		product.setName("Test 5");
+		product.setBarCode("5.0987654321");
+		product.setVirtualStorageId(1);
+		id1 = genericPersistence.persist(product);		
 		
 //		assertNotNull("Deber�a haberse generado un ObjectId cuando se persistio la entidad", id1);
 //		assertEquals("El valor existente en la base y el generado deber�an ser el mismo",
