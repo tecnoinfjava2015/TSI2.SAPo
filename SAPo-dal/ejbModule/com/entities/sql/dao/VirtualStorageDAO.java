@@ -18,13 +18,13 @@ public class VirtualStorageDAO {
 	@PersistenceContext(unitName="SAPo-dal")
 	EntityManager em;
 	
-	public void modificarVS(VirtualStorage vs){
+	public void updateVS(VirtualStorage vs){
 		em.merge(vs);
 	}
 
-	public Boolean bajaVSPorNombre(String nombre){
-		Query query =  em.createQuery("SELECT v FROM VirtualStorage v WHERE v.nombre=:nombre ")
-		.setParameter("nombre", nombre);
+	public Boolean deleteVSByName(String name){
+		Query query =  em.createQuery("SELECT v FROM VirtualStorage v WHERE v.nombre=:name ")
+		.setParameter("nombre", name);
 		VirtualStorage virtualStorage = (VirtualStorage) query.getResultList().get(0);
 		virtualStorage.setEnabled(false);
 		em.merge(virtualStorage);
@@ -32,8 +32,8 @@ public class VirtualStorageDAO {
 	}
 	
 	
-	public VirtualStorage buscarVSporNombre(String nombre){
-		return em.find(VirtualStorage.class, nombre);		
+	public VirtualStorage searchVSByName(String name){
+		return em.find(VirtualStorage.class, name);		
 	}
 	
 	public VirtualStorage buscarVSporID(int id){
@@ -41,29 +41,29 @@ public class VirtualStorageDAO {
 	}
 	
 	
-	public String insertVS(VirtualStorage vs, int idCreador){
-		UserDAO udao = null;
-		Usuario creador = udao.buscarID(idCreador);
-		vs.setCreador(creador);
+	public VirtualStorage createVS(VirtualStorage vs, int ownerId){
+		UserDAO udao = new UserDAO();
+		Usuario owner = udao.buscarID(ownerId);
+		vs.setOwner(owner);
 		em.persist(vs);
 		em.flush(); 
-		return vs.getNombre();
+		return vs;
 	}
 
-	public List<VirtualStorage> listarVS() {
+	public List<VirtualStorage> getAllVS() {
 		Query query =  em.createQuery("SELECT vs FROM VirtualStorage vs ");
 		List<VirtualStorage>  retorno = query.getResultList();
 		return retorno;
 	}
 	
-	public List<VirtualStorage> listarVSBorrados() {
+	public List<VirtualStorage> getDisabledVS() {
 		Query query =  em.createQuery("SELECT vs FROM VirtualStorage vs WHERE vs.enabled=:enabled ")
 		.setParameter("enabled", false);
 		List<VirtualStorage>  retorno = query.getResultList();
 		return retorno;
 	}
 
-	public List<VirtualStorage> listarVSHabilitados() {
+	public List<VirtualStorage> getEnabledVS() {
 		Query query =  em.createQuery("SELECT vs FROM VirtualStorage vs WHERE vs.enabled=:enabled ")
 		.setParameter("enabled", true);
 		List<VirtualStorage>  retorno = query.getResultList();

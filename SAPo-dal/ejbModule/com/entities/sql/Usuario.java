@@ -32,10 +32,10 @@ public class Usuario implements Serializable {
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tenatCreados")
-	private List <Tenant> tenantCreados;
+	private List <VirtualStorage> tenantCreados;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Tenant>tenantSeguidor;
+	private List<VirtualStorage>tenantSeguidor;
 	
 
 	public Usuario() {
@@ -98,19 +98,19 @@ public class Usuario implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public List<Tenant> getTenantSeguidor() {
+	public List<VirtualStorage> getTenantSeguidor() {
 		return tenantSeguidor;
 	}
 
-	public void setTenantSeguidor(List<Tenant> tenantSeguidor) {
+	public void setTenantSeguidor(List<VirtualStorage> tenantSeguidor) {
 		this.tenantSeguidor = tenantSeguidor;
 	}
 
-	public List<Tenant> getTenantCreados() {
+	public List<VirtualStorage> getTenantCreados() {
 		return tenantCreados;
 	}
 
-	public void setTenantCreados(List<Tenant> tenantCreados) {
+	public void setTenantCreados(List<VirtualStorage> tenantCreados) {
 		this.tenantCreados = tenantCreados;
 	}
 

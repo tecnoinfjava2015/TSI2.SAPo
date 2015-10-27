@@ -17,10 +17,10 @@ public class VirtualStorage implements Serializable {
 	@Id
 	@GeneratedValue
 	private int id;
-	private String conexion;
+	private String connection;
 	private String url;
-	private Date fechaCreacion;
-	private String nombre;
+	private Date createdDate;
+	private String name;
 	private String CSS;
 	private String logo;
 	private String loading;
@@ -28,7 +28,7 @@ public class VirtualStorage implements Serializable {
 	
 	@ManyToOne (optional = true)
     @JoinColumn(name = "tenantCreados")
-	private Usuario creador;
+	private Usuario owner;
 	
 	public int getId() {
 		return id;
@@ -36,11 +36,11 @@ public class VirtualStorage implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getConexion() {
-		return conexion;
+	public String getConnection() {
+		return connection;
 	}
-	public void setConexion(String conexion) {
-		this.conexion = conexion;
+	public void setConnection(String connection) {
+		this.connection = connection;
 	}
 	public String getUrl() {
 		return url;
@@ -48,17 +48,17 @@ public class VirtualStorage implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public Date getFechaCreacion() {
-		return fechaCreacion;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String getCSS() {
@@ -79,11 +79,11 @@ public class VirtualStorage implements Serializable {
 	public void setLoading(String loading) {
 		this.loading = loading;
 	}
-	public Usuario getCreador() {
-		return creador;
+	public Usuario getOwner() {
+		return owner;
 	}
-	public void setCreador(Usuario creador) {
-		this.creador = creador;
+	public void setOwner(Usuario owner) {
+		this.owner = owner;
 	}
 	public Boolean getEnabled() {
 		return enabled;

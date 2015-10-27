@@ -35,6 +35,13 @@ public class UserDAO {
 	}
 	
 	
+	public Usuario buscarID(int id) {
+		Query query =  em.createQuery("SELECT u FROM Usuario u where u.id =: id");
+		Usuario retorno = (Usuario) query.getResultList().get(query.getFirstResult());
+		return retorno;
+	}
+	
+	
 	public Usuario buscar(String nombre){
 		return em.find(Usuario.class, nombre);		
 	}
