@@ -29,6 +29,10 @@ public class Usuario implements Serializable {
 	private String password;
 	private Boolean enabled;
 	private Boolean aceptado;
+	private String geolocation;
+	private String twitterId;
+	private String paypalTransactionId;
+	
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tenatCreados")
@@ -121,6 +125,31 @@ public class Usuario implements Serializable {
 	public void setAceptado(Boolean aceptado) {
 		this.aceptado = aceptado;
 	}
+
+	public String getGeolocation() {
+		return geolocation;
+	}
+
+	public void setGeolocation(String geolocation) {
+		this.geolocation = geolocation;
+	}
+
+	public String getTwitterId() {
+		return twitterId;
+	}
+
+	public void setTwitterId(String twitterId) {
+		this.twitterId = twitterId;
+	}
+
+	public String getPaypalTransactionId() {
+		return paypalTransactionId;
+	}
+
+	public void setPaypalTransactionId(String paypalTransactionId) {
+		this.paypalTransactionId = paypalTransactionId;
+	}
+	
 	
 	
 }

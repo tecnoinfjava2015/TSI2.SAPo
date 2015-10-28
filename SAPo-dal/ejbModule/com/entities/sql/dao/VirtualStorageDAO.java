@@ -68,5 +68,14 @@ public class VirtualStorageDAO {
 		.setParameter("enabled", true);
 		List<VirtualStorage>  retorno = query.getResultList();
 		return retorno;
+	}
+
+	public String insertVS(VirtualStorage vs, int idCreador){
+		UserDAO udao = null;
+		Usuario creador = udao.buscarID(idCreador);
+		vs.setOwner(creador);
+		em.persist(vs);
+		em.flush(); 
+		return vs.getName();
 	}	
 }
