@@ -35,14 +35,14 @@ public class ShoppingListDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<ShoppingListItem> returnShoppingList(String VSId){
+	public List<ShoppingListItem> returnShoppingList(long VSId){
 		Query query =  em.createQuery("SELECT s FROM ShoppingList s WHERE s.virtualStorageId=:VSId")
 		.setParameter("VSId", VSId);
 		List<ShoppingListItem> shoppingList = (List<ShoppingListItem>) query.getResultList();
 		return shoppingList;
 	}
 	
-	public ShoppingListItem returnShoppingListItem(String VSId, String barcode){
+	public ShoppingListItem returnShoppingListItem(long VSId, String barcode){
 		Query query =  em.createQuery("SELECT s FROM ShoppingList s WHERE s.virtualStorageId=:VSId AND s.productBarcode=:barcode")
 		.setParameter("VSId", VSId).setParameter("barcode", barcode);
 		ShoppingListItem shoppingListItem = (ShoppingListItem) query.getResultList().get(0);
@@ -61,7 +61,7 @@ public class ShoppingListDAO {
 		return shoppingList;
 	}
 	
-	public void deleteItem(String VSId, String barcode){
+	public void deleteItem(long VSId, String barcode){
         try {
         	ShoppingListItem item = returnShoppingListItem(VSId, barcode);
             em.remove(item);            
