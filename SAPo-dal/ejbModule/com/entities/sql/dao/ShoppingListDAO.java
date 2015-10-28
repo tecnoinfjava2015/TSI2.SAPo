@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.entities.mongo.Product;
+import com.entities.mongo.dao.ProductDAO;
 import com.entities.sql.ShoppingListItem;
 
 public class ShoppingListDAO {
@@ -67,4 +69,11 @@ public class ShoppingListDAO {
             e.printStackTrace();
         }        
     }
+	
+	public List<Product> getRecomendations(long VSId){
+		ProductDAO PDAO = new ProductDAO();
+		int stockMin = 10;
+		int limit = 5;
+		return PDAO.stockLessOrEqualThan(stockMin, VSId, limit);
+	}
 }

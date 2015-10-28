@@ -184,4 +184,12 @@ public class ProductDAO {
 		}
 		return  null;
 	}
+	
+	public List<Product> stockLessOrEqualThan(double stockMax, long virtualStorageId, int limit){
+		Query<Product> query = ds.createQuery(Product.class);
+		query.and(query.criteria("stock").lessThanOrEq(stockMax));
+		query.criteria("virtualStorageId").equal(virtualStorageId);
+		query.limit(limit);
+		return query.asList();
+	}
 }
