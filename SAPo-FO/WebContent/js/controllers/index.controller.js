@@ -6,16 +6,17 @@
     IndexController.$inject = ['$rootScope'];
     /* @ngInject */
     function IndexController($rootScope ) {
-        var vm = this;
-        vm.title = 'SAPO Your Cloud Storage';
-        vm.theme = $rootScope.theme;
-        vm.sidenavMain = $rootScope.sidenav;
-        if (vm.sidenavMain=='left') {
-            vm.sidenavAux =='right';
-        }else{
-            vm.sidenavAux =='left';
-        };
-        vm.sidenavAuxVisible = $rootScope.sidenavAux;
+        var index = this;
+        index.title = 'SAPO Your Cloud Storage';
+        index.theme = $rootScope.theme;
+        index.bgcolor = "red";
+        // index.sidenavMain = $rootScope.sidenav;
+        // if (vm.sidenavMain=='left') {
+        //     vm.sidenavAux =='right';
+        // }else{
+        //     vm.sidenavAux =='left';
+        // };
+        // vm.sidenavAuxVisible = $rootScope.sidenavAux;
       
     }
 })();

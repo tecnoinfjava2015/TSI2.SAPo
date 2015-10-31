@@ -23,6 +23,7 @@
     <script src="js/sapo.style.js"></script>
     <!-- Controller js files -->
     <script src="js/controllers/index.controller.js"></script>
+    <script src="js/controllers/index.toolbar.controller.js"></script>
     <script src="js/controllers/test.controller.js"></script>
     <script src="js/controllers/products.navigation.controller.js"></script>
     <!-- Directives js files -->
@@ -32,124 +33,19 @@
 </head>
 
 <body>
-    <div layout="row" md-theme="{{theme}}" md-theme-watch="true" flex>
-        <md-sidenav layout="column" ng-class="{'md-sidenav-left': sidenav=='left', 'md-sidenav-right': sidenav=='right'}" class="md-whiteframe-z2" md-component-id="sidenav" md-is-locked-open="$mdMedia('gt-md')">
-            <md-toolbar class="md-tall md-hue-2">
-                <span flex></span>
-                <div layout="column" class="md-toolbar-tools-bottom inset">
-                    <user-avatar></user-avatar>
-                    <span></span>
-                    <div>Teste Teste</div>
-                    <div>email@domainname.com</div>
-                </div>
-            </md-toolbar>
-            <md-list>
-                <md-item>
-                    <a>
-                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                            <div class="inset">
-                                <i class="material-icons">accessibility</i>
-                            </div>
-                            <div class="inset">TEST 1 </div>
-                        </md-item-content>
-                    </a>
-                </md-item>
-                <md-item>
-                    <a>
-                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                            <div class="inset">
-                                <i class="material-icons">accessibility</i>
-                            </div>
-                            <div class="inset">TEST 2 </div>
-                        </md-item-content>
-                    </a>
-                </md-item>
-                <md-divider></md-divider>
-                <md-subheader>TEST SUBHEADER</md-subheader>
-                <md-item>
-                    <a>
-                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                            <div class="inset">
-                                <i class="material-icons">accessibility</i>
-                            </div>
-                            <div class="inset">TEST 1 </div>
-                        </md-item-content>
-                    </a>
-                </md-item>
-                <md-item>
-                    <a>
-                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                            <div class="inset">
-                                <i class="material-icons">accessibility</i>
-                            </div>
-                            <div class="inset">TEST 2 </div>
-                        </md-item-content>
-                    </a>
-                </md-item>
-            </md-list>
-        </md-sidenav>
-        <div layout="column" flex>
-            <md-toolbar md-scroll-shrink md-shrink-speed-factor="0.5">
-                <span>Theme: {{theme}}</span> <span> Sidenav: {{sidenav}}</span> <span> SidenavAux: {{sidenavAux}}</span>
-            </md-toolbar>
-            <md-whiteframe flex class="md-whiteframe-z1" layout layout-align="center start" ng-view layout-padding layout-margin>
-            </md-whiteframe>
+    <div layout="column" layout-fill flex style="{{bgcolor}}" md-theme="{{theme}}" >
+        <md-toolbar ng-include="toolbarTemplate">
+        </md-toolbar>
+        <div layout="row" flex>
+            <md-sidenav md-component-id="left" class="md-whiteframe-z1" md-is-locked-open="$mdMedia('gt-md') && leftNav">
+                Left Nav!
+            </md-sidenav>
+            <md-content layout-margin layout-padding layout-wrap ng-view>
+            </md-content>
+            <md-sidenav md-component-id="right" class="md-whiteframe-z1" md-is-locked-open="$mdMedia('gt-md') && rightNav">
+                Right Nav!
+            </md-sidenav>
         </div>
-        <md-sidenav ng-show="sidenavAux!=''" layout="column" ng-class="{'md-sidenav-left': sidenavAux=='left', 'md-sidenav-right': sidenavAux=='right'}" class=" md-whiteframe-z2" md-component-id="sidenavAux" md-is-locked-open="$mdMedia('gt-md')">
-            <md-toolbar class="md-tall md-accent">
-                <span flex></span>
-                <div layout="column" class="md-toolbar-tools-bottom inset">
-                    <user-avatar></user-avatar>
-                    <span></span>
-                    <div>Teste Teste</div>
-                    <div>email@domainname.com</div>
-                </div>
-            </md-toolbar>
-            <md-list>
-                <md-item>
-                    <a>
-                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                            <div class="inset">
-                                <i class="material-icons">accessibility</i>
-                            </div>
-                            <div class="inset">TEST 1 </div>
-                        </md-item-content>
-                    </a>
-                </md-item>
-                <md-item>
-                    <a>
-                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                            <div class="inset">
-                                <i class="material-icons">accessibility</i>
-                            </div>
-                            <div class="inset">TEST 2 </div>
-                        </md-item-content>
-                    </a>
-                </md-item>
-                <md-divider></md-divider>
-                <md-subheader>TEST SUBHEADER</md-subheader>
-                <md-item>
-                    <a>
-                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                            <div class="inset">
-                                <i class="material-icons">accessibility</i>
-                            </div>
-                            <div class="inset">TEST 1 </div>
-                        </md-item-content>
-                    </a>
-                </md-item>
-                <md-item>
-                    <a>
-                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                            <div class="inset">
-                                <i class="material-icons">accessibility</i>
-                            </div>
-                            <div class="inset">TEST 2 </div>
-                        </md-item-content>
-                    </a>
-                </md-item>
-            </md-list>
-        </md-sidenav>
     </div>
 </body>
 
