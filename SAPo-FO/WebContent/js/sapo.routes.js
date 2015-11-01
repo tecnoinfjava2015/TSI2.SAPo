@@ -17,5 +17,10 @@
                 templateUrl: 'templates/products.navigate.html',
                 controllerAs: 'vm'
             })
+            .when('/vs', {
+                controller: 'VirtualStorageController',
+                templateUrl: 'templates/virtualStorage.create.html',
+                controllerAs: 'vm'
+            })
     };
 })();
