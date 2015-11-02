@@ -1,9 +1,27 @@
-<h1>{{test}}</h1>
+<h1>Crear Almac&eacute;n Virtual</h1>
 {{vs}}
-<md-button class="md-raised md-warn" ng-click='insert(vs)' >Warn</md-button>
+<!-- <md-button class="md-raised md-warn" ng-click='insert(vs)' >Warn</md-button> -->
 
+<form name="inputForm" novalidate>
   	 <md-input-container >
-        <label>First name</label>
-        <input ng-model="user.firstName">
+        <label>Nombre</label>
+        <input ng-model="vs.name">
       </md-input-container>
-  
+      <md-input-container >
+        <label>URL</label>
+        <input ng-model="vs.url">
+      </md-input-container>
+      <md-input-container >
+        <label>CSS</label>
+        <input ng-model="vs.css">
+      </md-input-container>
+      <md-input-container >
+        <label>Logo</label>
+        <input ng-model="vs.logo">
+      </md-input-container>
+      <md-input-container >
+        <label>Loading</label>
+        <input ng-model="vs.loading">
+      </md-input-container>
+      <md-button class="md-raised md-warn" ng-click='insert(vs)' >Warn</md-button>
+</form>

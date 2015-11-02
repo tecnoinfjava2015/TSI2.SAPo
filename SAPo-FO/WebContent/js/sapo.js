@@ -7,7 +7,7 @@
             'ngResource'
         ])
         .run(function($rootScope) {
-    		$rootScope.theme = "test2";
+    		$rootScope.theme = "test1";
     		$rootScope.sidenav = 'right'; //sidenav izquierda o derecha
             $rootScope.rightNav = true;
             $rootScope.leftNav = true;
