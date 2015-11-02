@@ -18,7 +18,7 @@ import com.entities.sql.Document;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class BillDAO {
 	@PersistenceContext(unitName="SAPo-dal")
-	EntityManager em;
+	private EntityManager em;
 	
 	public Bill createBill(Bill billAux){
 		em.persist(billAux);

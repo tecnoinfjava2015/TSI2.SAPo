@@ -19,7 +19,7 @@ import com.entities.sql.Usuario;
 public class UserDAO {
 	
 	@PersistenceContext(unitName="SAPo-dal")
-	EntityManager em;
+	private EntityManager em;
 	
 	public void modificar(Usuario u){
 		em.merge(u);
@@ -36,11 +36,11 @@ public class UserDAO {
 	
 	
 	public Usuario buscarID(int id) {
-		Query query =  em.createQuery("SELECT u FROM Usuario u where u.id =: id");
-		Usuario retorno = (Usuario) query.getResultList().get(query.getFirstResult());
-		return retorno;
-	}
-	
+		Query query =  em.createQuery("SELECT u FROM Usuario u where u.id =:id");
+		query.setParameter("id", id);
+		List<Usuario> list = query.getResultList();
+		return list.isEmpty() ? null : list.get(0);
+	}	
 	
 	public Usuario buscar(String nombre){
 		return em.find(Usuario.class, nombre);		

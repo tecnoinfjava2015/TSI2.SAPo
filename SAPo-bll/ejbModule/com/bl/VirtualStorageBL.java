@@ -1,10 +1,16 @@
 package com.bl;
 
+import javax.ejb.EJB;
+
 import com.entities.sql.VirtualStorage;
 import com.entities.sql.dao.VirtualStorageDAO;
 
 public class VirtualStorageBL {
-	private final VirtualStorageDAO dao = new VirtualStorageDAO();
+	
+	@EJB
+	private VirtualStorageDAO dao;
+	
+//	private final VirtualStorageDAO dao = new VirtualStorageDAO();
 	
 	public VirtualStorageBL() {}
 	

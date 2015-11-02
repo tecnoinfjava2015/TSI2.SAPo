@@ -2,6 +2,7 @@ package com.bo.principal;
 
 import javax.inject.Inject;
 
+import com.bo.formularios.abm.FormABMHARD;
 import com.bo.formularios.abm.FormABMProductoGenerico;
 import com.bo.formularios.abm.FormABMUsuario;
 import com.bo.formularios.abm.FormAdminAV;
@@ -31,7 +32,7 @@ public class SapoBackofficeUI extends UI {
 	private BarraUsuario barraUsuario;
 	private FormABMUsuario formABMUsuario;
 	private FormAdminAV formAdminAV;
-	private FormABMProductoGenerico formABMProductoGenerico;
+	private FormABMHARD formABMHard;
 	
 	@Inject 
 	private DatosSesion datosSesion;	
@@ -107,10 +108,10 @@ public void cargarContenido(){
           formAdminAV = new FormAdminAV();
           layout2.addComponent(formAdminAV);
           tabSheet.addTab(layout2, "Gestion Almacen Virtual");
-//          PanelDinamico layout2 = new PanelDinamico();
-//          formABMProductoGenerico = new FormABMProductoGenerico();
-//          layout2.addComponent(formABMProductoGenerico);              
-//          tabSheet.addTab(layout2, "Gestión de Productos Genéricos");
+          PanelDinamico layout3 = new PanelDinamico();
+          formABMHard = new FormABMHARD();
+          layout3.addComponent(formABMHard);              
+          tabSheet.addTab(layout3, "Cargas Automáticas");
           mainLayout.setExpandRatio(logo, 10);
           mainLayout.addComponent(tabSheet);
           mainLayout.setExpandRatio(tabSheet, 70);
