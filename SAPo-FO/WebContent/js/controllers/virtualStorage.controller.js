@@ -6,10 +6,10 @@
     VirtualStorageController.$inject = ['VirtualStorageResource',  '$scope'];
     /* @ngInject */
     function VirtualStorageController(VirtualStorageResource, $scope) {
-    	$scope.test = 'test';
+    	$scope.test = 'Crear Almac&eacute;n Virtual';
     	
-    	$scope.vs = {
-    			id:2,
+    	//$scope.vs = {
+    	//		id:2,
 //    			connection:'',
 //    			url:'',
 //    			createdDate:null,
@@ -18,9 +18,9 @@
 //    			logo:'',
 //    			loading:'',
 //    			enable:true,
-    			owner:{id:1}
+    	//		owner:{id:1}
     			
-    	};
+    	//};
     	
     	$scope.insert = insert;
     	
