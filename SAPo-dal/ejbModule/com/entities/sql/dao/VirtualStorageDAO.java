@@ -2,6 +2,7 @@ package com.entities.sql.dao;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
@@ -16,14 +17,17 @@ import com.entities.sql.VirtualStorage;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class VirtualStorageDAO {	
 	@PersistenceContext(unitName="SAPo-dal")
-	EntityManager em;
+	private EntityManager em;
+	
+	@EJB
+	private UserDAO udao;
 	
 	public void updateVS(VirtualStorage vs){
 		em.merge(vs);
 	}
 
 	public Boolean deleteVSByName(String name){
-		Query query =  em.createQuery("SELECT v FROM VirtualStorage v WHERE v.nombre=:name ")
+		Query query =  em.createQuery("SELECT v FROM VirtualStorage v WHERE v.nombre=:name")
 		.setParameter("nombre", name);
 		VirtualStorage virtualStorage = (VirtualStorage) query.getResultList().get(0);
 		virtualStorage.setEnabled(false);
@@ -42,7 +46,6 @@ public class VirtualStorageDAO {
 	
 	
 	public VirtualStorage createVS(VirtualStorage vs, int ownerId){
-		UserDAO udao = new UserDAO();
 		Usuario owner = udao.buscarID(ownerId);
 		vs.setOwner(owner);
 		em.persist(vs);
@@ -71,9 +74,10 @@ public class VirtualStorageDAO {
 	}
 
 	public String insertVS(VirtualStorage vs, int idCreador){
-		UserDAO udao = null;
 		Usuario creador = udao.buscarID(idCreador);
-		vs.setOwner(creador);
+		if(creador!=null){
+			vs.setOwner(creador);
+		}	
 		em.persist(vs);
 		em.flush(); 
 		return vs.getName();

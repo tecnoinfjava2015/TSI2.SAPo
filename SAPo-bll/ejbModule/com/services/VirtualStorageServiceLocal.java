@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import com.entities.sql.VirtualStorage;
 
 @Local
+@Path("/virtualStorage")
 public interface VirtualStorageServiceLocal {
 
 		@GET

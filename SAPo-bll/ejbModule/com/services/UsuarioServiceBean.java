@@ -9,15 +9,12 @@ import javax.ws.rs.Path;
 import com.entities.sql.Usuario;
 import com.entities.sql.dao.UserDAO;
 
-
-
 @Stateless
 @Path("/usuario")
 public class UsuarioServiceBean implements UsuarioServiceLocal{
 
 	@EJB
 	private UserDAO udao;
-
 	
 	@Override
 	public void registroUsuario(String nombre, String tipo, String mail,String nick, String password, Boolean enabled, Boolean aceptado) {	
@@ -85,8 +82,4 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	public Usuario getLogin(String nick, String password) {
 		return udao.getLogin(nick, password);
 	}
-	
-
-
-
 }
