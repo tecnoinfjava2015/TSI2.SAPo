@@ -29,6 +29,7 @@ public interface VirtualStorageServiceLocal {
 									@QueryParam("CSS") String CSS,
 									@QueryParam("loading") String loading,
 									@QueryParam("enabled") Boolean enabled,
+									@QueryParam("blocked") Boolean blocked,
 									@QueryParam("idCreador") int idCreador,
 									@QueryParam("logo") String logo); 
 		
@@ -43,6 +44,7 @@ public interface VirtualStorageServiceLocal {
 										@QueryParam("CSS") String CSS,
 										@QueryParam("loading") String loading,
 										@QueryParam("enabled") Boolean enabled,
+										@QueryParam("blocked") Boolean blocked,
 										@QueryParam("idCreador") int idCreador,
 										@QueryParam("logo") String logo);
 		
@@ -60,16 +62,21 @@ public interface VirtualStorageServiceLocal {
 		@GET
 		@Path("/buscar")
 		@Produces(MediaType.APPLICATION_JSON)
-		public VirtualStorage getVSPorNombre(String nombre);
+		public VirtualStorage getVSPorNombre(@QueryParam("nombre") String nombre);
 		
 		@GET
 		@Path("/buscar")
 		@Produces(MediaType.APPLICATION_JSON)
-		public VirtualStorage getVSPorID(int id);
+		public VirtualStorage getVSPorID(@QueryParam("id") int id);
+		
+		@GET
+		@Path("/buscar")
+		@Produces(MediaType.APPLICATION_JSON)
+		public Boolean cambiarBloqueoVS(@QueryParam("id") int id);
 		
 		@GET
 		@Path("/baja")
 		@Produces(MediaType.APPLICATION_JSON)
-		public Boolean borrarVSPorNombre(String nombre);
+		public Boolean borrarVSPorNombre(@QueryParam("nombre") String nombre);
 		
 }

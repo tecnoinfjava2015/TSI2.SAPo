@@ -108,9 +108,9 @@ public class FormABMHARD extends PanelDinamico{
 	        @Override
 	        public void buttonClick(final ClickEvent event) {
 	        	java.util.Date utilDate = new java.util.Date(); 
-	        	servicioVS.registroVS("AV1", "con", "URL", utilDate, "CSS", "loading", true, 3, "logo");
-	        	servicioVS.registroVS("AV2", "con", "URL", utilDate, "CSS", "loading", true, 3, "logo");
-	        	servicioVS.registroVS("AV3", "con", "URL", utilDate, "CSS", "loading", true, 3, "logo");
+	        	servicioVS.registroVS("AV1", "con", "URL", utilDate, "CSS", "loading", true,true, 3, "logo");
+	        	servicioVS.registroVS("AV2", "con", "URL", utilDate, "CSS", "loading", true,true, 3, "logo");
+	        	servicioVS.registroVS("AV3", "con", "URL", utilDate, "CSS", "loading", true,true, 3, "logo");
 	       }
 	    });
 	}	

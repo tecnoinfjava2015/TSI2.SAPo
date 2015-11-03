@@ -25,6 +25,7 @@ public class VirtualStorage implements Serializable {
 	private String logo;
 	private String loading;
 	private Boolean enabled;
+	private Boolean blocked; 
 	
 	@ManyToOne (optional = true)
     @JoinColumn(name = "tenantCreados")
@@ -91,6 +92,10 @@ public class VirtualStorage implements Serializable {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-	
-
+	public Boolean getBlocked() {
+		return blocked;
+	}
+	public void setBlocked(Boolean blocked) {
+		this.blocked = blocked;
+	}
 }

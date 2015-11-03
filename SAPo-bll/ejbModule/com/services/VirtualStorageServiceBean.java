@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 
 
+
 import com.entities.sql.VirtualStorage;
 import com.entities.sql.dao.VirtualStorageDAO;
 
@@ -20,7 +21,7 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 	private VirtualStorageDAO vsdao;
 
 	@Override
-	public void registroVS(String nombre, String conexion, String url,Date fechaCreacion, String CSS, String loading, Boolean enabled, int idCreador, String logo) {	
+	public void registroVS(String nombre, String conexion, String url,Date fechaCreacion, String CSS, String loading, Boolean enabled, Boolean blocked, int idCreador, String logo) {	
 		VirtualStorage vs = new VirtualStorage();
 		vs.setName(nombre);
 		vs.setConnection(conexion);
@@ -30,11 +31,12 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 		vs.setLoading(loading);
 		vs.setLogo(logo);
 		vs.setEnabled(enabled);
+		vs.setBlocked(blocked);
 		vsdao.insertVS(vs, idCreador);
 	}
 	
 	@Override
-	public void modificarVS(String nombre, String conexion, String url,Date fechaCreacion, String CSS, String loading, Boolean enabled, int idCreador, String logo) {	
+	public void modificarVS(String nombre, String conexion, String url,Date fechaCreacion, String CSS, String loading, Boolean enabled,  Boolean blocked, int idCreador, String logo) {	
 		VirtualStorage vs = new VirtualStorage();
 		vs.setName(nombre);
 		vs.setConnection(conexion);
@@ -44,6 +46,7 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 		vs.setLoading(loading);
 		vs.setLogo(logo);
 		vs.setEnabled(enabled);
+		vs.setBlocked(blocked);
 		vsdao.updateVS(vs);
 	}
 	
@@ -71,5 +74,13 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 	public Boolean borrarVSPorNombre(String nombre) {
 		
 		return vsdao.deleteVSByName(nombre);
+	}
+
+	@Override
+	public Boolean cambiarBloqueoVS(int id) {
+		if(vsdao.buscarVSporID(id).getBlocked()){
+			vsdao.buscarVSporID(id).setBlocked(false);
+		}else vsdao.buscarVSporID(id).setBlocked(true);
+		return vsdao.buscarVSporID(id).getBlocked();
 	}
 }
