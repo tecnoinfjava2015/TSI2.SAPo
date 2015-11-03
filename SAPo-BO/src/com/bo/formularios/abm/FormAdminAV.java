@@ -134,20 +134,19 @@ public class FormAdminAV extends PanelDinamico{
         	    texMailDestino.setRequired (true);
         	    
         	    texMensaje = new TextField("Mensaje", "");
-        	    texMensaje.setWidth("70%");       
+        	    texMensaje.setWidth("70%");           
             	windowCont.addComponent(texMensaje);
             	texMensaje.setRequired (true);
             	
             	btnEnviarMensaje = new Button("Enviar Mensaje");
             	btnEnviarMensaje.addStyleName(ValoTheme.BUTTON_PRIMARY);
             	btnEnviarMensaje.setWidth("70%");
-            	
-                
+
                 windowCont.addComponent(texMailDestino);
                 windowCont.addComponent(texMensaje);
                 windowCont.addComponent(btnEnviarMensaje);
-                windowCont.setWidth("700px");
-                windowCont.setHeight("400px"); 
+                windowCont.setWidth("600px");
+                windowCont.setHeight("300px"); 
                 temaWindow.center();
                 UI.getCurrent().addWindow(temaWindow);
                 btnEnviarMensaje.addClickListener(new ClickListener() {
