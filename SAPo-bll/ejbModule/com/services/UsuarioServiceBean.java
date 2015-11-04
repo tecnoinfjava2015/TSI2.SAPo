@@ -30,6 +30,20 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	}
 
 	@Override
+	public void registroUsuarioTwitter(String nombre, String twitterId) {
+		Usuario u = new Usuario();
+		u.setName(nombre);
+		u.setType("Free");
+		u.setMail("");
+		u.setNick(nombre);
+		u.setPassword("");
+		u.setEnabled(true);
+		u.setAceptado(true);
+		u.setTwitterId(twitterId);
+		udao.insert(u);
+	}
+	
+	@Override
 	public List<Usuario> getUsuarios() {
 		return udao.listarUsuarios();
 	}
@@ -82,4 +96,11 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	public Usuario getLogin(String nick, String password) {
 		return udao.getLogin(nick, password);
 	}
+
+	@Override
+	public Usuario getLoginTwitter(String nick, String twitterId) {
+		return udao.getLoginTwitter(nick, twitterId);
+	}
+
+	
 }
