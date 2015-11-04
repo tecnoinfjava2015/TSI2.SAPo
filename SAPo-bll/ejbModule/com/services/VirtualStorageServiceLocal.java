@@ -81,4 +81,9 @@ public interface VirtualStorageServiceLocal {
 		@Produces(MediaType.APPLICATION_JSON)
 		public Boolean borrarVSPorNombre(@QueryParam("nombre") String nombre);
 		
+		@POST
+		@Path("/valorar")
+		@Produces(MediaType.APPLICATION_JSON)
+		public double valorarAV(@QueryParam("id") int id);
+		
 }

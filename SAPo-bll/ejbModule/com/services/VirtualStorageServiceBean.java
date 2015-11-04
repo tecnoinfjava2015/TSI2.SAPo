@@ -9,8 +9,13 @@ import javax.ws.rs.Path;
 
 
 
+
+
+import com.bl.ProductBL;
+import com.entities.mongo.Product;
 import com.entities.sql.VirtualStorage;
 import com.entities.sql.dao.VirtualStorageDAO;
+import com.services.interfaces.IProductBL;
 
 
 @Stateless
@@ -82,5 +87,17 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 			vsdao.buscarVSporID(id).setBlocked(false);
 		}else vsdao.buscarVSporID(id).setBlocked(true);
 		return vsdao.buscarVSporID(id).getBlocked();
+	}
+
+	@Override
+	public double valorarAV(int id) {
+		IProductBL servicioProducto = new ProductBL();
+		List<Product>  listaProductos;
+		listaProductos = servicioProducto.getAllProducts(id);
+		double resultado = 0;
+		for(Product p : listaProductos){
+			resultado += p.getSalePrice();
+		}
+		return resultado;
 	}
 }
