@@ -27,5 +27,10 @@
                 templateUrl: 'templates/product.create.html',
                 controllerAs: 'vm'
             })
+            .when('/userProfile', {
+                controller: 'UserProfileController',
+                templateUrl: 'templates/profile.view.html',
+                controllerAs: 'vm'
+            })
     };
 })();
