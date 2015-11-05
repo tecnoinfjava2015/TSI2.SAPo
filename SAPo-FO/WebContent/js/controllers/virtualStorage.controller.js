@@ -26,16 +26,19 @@
 	          data.logo = e.target.result;
 	        }
 	        r.readAsDataURL(f);
-	            	    
+	        data.enabled = true;
     		VirtualStorageResource.save(data,function(){
     			
     		});
+    		reset();
     	}    
     	
     	$scope.reset = reset;
     	
     	function reset() {
             $scope.vs = angular.copy($scope.master);
+            var fn = document.getElementById('fileName'); 
+            fn.value="";
         };
           
     }
