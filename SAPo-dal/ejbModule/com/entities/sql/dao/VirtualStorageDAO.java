@@ -44,6 +44,17 @@ public class VirtualStorageDAO {
 		return em.find(VirtualStorage.class, id);		
 	}
 	
+	public Boolean isBlocked(int id){
+		return em.find(VirtualStorage.class, id).getBlocked();		
+	}
+	
+	public void bloquear(int id){
+		em.find(VirtualStorage.class, id).setBlocked(true);		
+	}
+	
+	public void desbloquear(int id){
+		em.find(VirtualStorage.class, id).setBlocked(false);		
+	}
 	
 	public VirtualStorage createVS(VirtualStorage vs, int ownerId){
 		Usuario owner = udao.buscarID(ownerId);

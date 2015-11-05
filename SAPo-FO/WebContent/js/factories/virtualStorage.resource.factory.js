@@ -9,3 +9,4 @@
         return $resource('/SAPo-FO/api/VirtualStorage');
     }
 })(); 
+

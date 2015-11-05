@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -25,6 +26,12 @@ public interface UsuarioServiceLocal {
 								  @QueryParam("password") String password,
 								  @QueryParam("enabled") Boolean enabled,
 								  @QueryParam("aceptado") Boolean aceptado);
+	
+	@POST
+	@Path("/registroTwitter")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void registroUsuarioTwitter ( @QueryParam("nombre") String nombre,
+								  		  @QueryParam("twitterId") String twitterId);
 	
 	@GET
 	@Path("/modificar")
@@ -77,5 +84,11 @@ public interface UsuarioServiceLocal {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Usuario getLogin( @QueryParam("nick") String nick,
 			  				 @QueryParam("password") String password);
+	
+	@POST
+	@Path("/loginTwitter")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Usuario getLoginTwitter( @QueryParam("nick") String nick,
+			  				 @QueryParam("twitterId") String twitterId);
 	
 }
