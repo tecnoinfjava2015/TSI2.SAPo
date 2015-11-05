@@ -23,12 +23,11 @@ VS >>> {{vs}}
       </md-input-container>
       <md-input-container >
         <label>Logo</label>
-        <input ng-model="vs.logo">
+        <input ng-model="vs.fileName" ng-click="upload()">
       </md-input-container>
       <md-input-container >
         <label>Loading</label>
-        <md-button class="md-primary md-raised" ng-click="upload()">agregar</md-button>
-        <input ng-model="vs.fileName" ng-click="vs.upload">
+        
       </md-input-container>
       <input type="file" id="file" name="file" hidden />
       <!-- <input type="file" name="file" onchange="angular.element(this).scope().setFile(this)" md-input-file/> -->

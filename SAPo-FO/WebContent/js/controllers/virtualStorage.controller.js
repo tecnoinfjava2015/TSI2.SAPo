@@ -23,7 +23,7 @@
     		var f = document.getElementById('file').files[0],
 	            r = new FileReader();
 	        r.onloadend = function(e){
-	          data.loading = e.target.result;
+	          data.logo = e.target.result;
 	        }
 	        r.readAsDataURL(f);
 	            	    
