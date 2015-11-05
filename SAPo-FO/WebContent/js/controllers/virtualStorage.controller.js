@@ -7,41 +7,36 @@
     /* @ngInject */
     function VirtualStorageController(VirtualStorageResource, $scope) {
     	$scope.test = 'Crear Almac&eacute;n Virtual';
+    	$scope.master = {};
+    	$scope.upload = upload;
     	
-    	//$scope.vs = {
-    	//		id:2,
-//    			connection:'',
-//    			url:'',
-//    			createdDate:null,
-//    			name:'',
-//    			css:'algo',
-//    			logo:'',
-//    			loading:'',
-//    			enable:true,
-    	//		owner:{id:1}
-    			
-    	//};
+    	function upload() {
+    		//alert('hola');
+    		//alert(document.getElementById("file"));
+    		document.getElementById("file").click();
+    	}
     	
     	$scope.insert = insert;
     	
     	function insert(data) {
+    		
+    		var f = document.getElementById('file').files[0],
+	            r = new FileReader();
+	        r.onloadend = function(e){
+	          data.logo = e.target.result;
+	        }
+	        r.readAsDataURL(f);
+	            	    
     		VirtualStorageResource.save(data,function(){
-    			alert('Alertaaaaaa');
+    			
     		});
-    	}
-    	/*private int id;
-    	private String connection;
-    	private String url;
-    	private Date createdDate;
-    	private String name;
-    	private String CSS;
-    	private String logo;
-    	private String loading;
-    	private Boolean enabled;
+    	}    
     	
-    	@ManyToOne (optional = true)
-        @JoinColumn(name = "tenantCreados")
-    	private Usuario owner;*/
-    	    	
+    	$scope.reset = reset;
+    	
+    	function reset() {
+            $scope.vs = angular.copy($scope.master);
+        };
+          
     }
 })();
