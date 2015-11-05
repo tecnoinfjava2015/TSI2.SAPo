@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import com.bo.formularios.abm.FormABMHARD;
 import com.bo.formularios.abm.FormABMProductoGenerico;
 import com.bo.formularios.abm.FormABMUsuario;
+import com.bo.formularios.abm.FormReportes;
 import com.bo.formularios.abm.FormAdminAV;
 import com.bo.formularios.abm.Login;
 import com.entities.sql.Usuario;
@@ -31,8 +32,10 @@ public class SapoBackofficeUI extends UI {
 
 	private BarraUsuario barraUsuario;
 	private FormABMUsuario formABMUsuario;
+	private FormABMProductoGenerico formABMProductoGenerico;
 	private FormAdminAV formAdminAV;
 	private FormABMHARD formABMHard;
+	private FormReportes formReportes;
 	
 	@Inject 
 	private DatosSesion datosSesion;	
@@ -100,18 +103,32 @@ public void cargarContenido(){
           tabSheet.addStyleName(ValoTheme.TABSHEET_FRAMED);
           tabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
           tabSheet.setSizeFull();
+          
           PanelDinamico layout1 = new PanelDinamico();
           formABMUsuario = new FormABMUsuario();
           layout1.addComponent(formABMUsuario);
           tabSheet.addTab(layout1, "Gestion Usuario"); 
-          PanelDinamico layout2 = new PanelDinamico();
+          
+//          PanelDinamico layout2 = new PanelDinamico();
+//          formABMProductoGenerico = new FormABMProductoGenerico();
+//          layout2.addComponent(formABMProductoGenerico);
+//          tabSheet.addTab(layout2, "Gestion Producto Generico"); 
+          
+          PanelDinamico layout4 = new PanelDinamico();
           formAdminAV = new FormAdminAV();
-          layout2.addComponent(formAdminAV);
-          tabSheet.addTab(layout2, "Gestion Almacen Virtual");
-          PanelDinamico layout3 = new PanelDinamico();
+          layout4.addComponent(formAdminAV);
+          tabSheet.addTab(layout4, "Gestion Almacen Virtual");
+          
+          PanelDinamico layout5 = new PanelDinamico();
           formABMHard = new FormABMHARD();
-          layout3.addComponent(formABMHard);              
-          tabSheet.addTab(layout3, "Cargas Automáticas");
+          layout5.addComponent(formABMHard);              
+          tabSheet.addTab(layout5, "Cargas Automáticas");
+          
+          PanelDinamico layout6 = new PanelDinamico();
+          formReportes = new FormReportes();
+          layout6.addComponent(formReportes);              
+          tabSheet.addTab(layout6, "Reportes");
+          
           mainLayout.setExpandRatio(logo, 10);
           mainLayout.addComponent(tabSheet);
           mainLayout.setExpandRatio(tabSheet, 70);

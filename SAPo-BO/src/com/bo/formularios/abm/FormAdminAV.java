@@ -104,8 +104,15 @@ public class FormAdminAV extends PanelDinamico{
 			@Override
 			public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
 				if(event.getProperty().getValue() != null){
-					//listaProductos = ((int)tableVirtualStorage.getValue()-1));	
-					listaProductos = servicioProducto.getAllProducts(1);
+					//listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1));
+					listaProductos = servicioProducto.getAllProducts(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId());	
+					System.out.println(listaProductos);
+					
+					VerticalLayout nuevoPanDer = new VerticalLayout();
+					nuevoPanDer = generarPanelAbajo();
+			        rootLayout.replaceComponent (panelAbajo, nuevoPanDer);
+			        panelAbajo = nuevoPanDer;
+					//listaProductos = servicioProducto.getAllProducts(1);
 				}
 			}
 		});
@@ -166,7 +173,8 @@ public class FormAdminAV extends PanelDinamico{
 
 	private VerticalLayout generarPanelAbajo() {
 		//listaProductos = listaProductos((int)tableVirtualStorage.getValue()-1));	
-		listaProductos = servicioProducto.getAllProducts(1);
+		//listaProductos = servicioProducto.getAllProducts(1);
+		listaProductos = servicioProducto.getAllProducts(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId());
 		VerticalLayout panDer = new VerticalLayout();
 		tableProductos = new Table("Productos del Almacenes");
 		tableProductos.addContainerProperty("Nombre", String.class, null);
