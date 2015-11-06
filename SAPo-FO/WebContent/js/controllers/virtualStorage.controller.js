@@ -25,8 +25,7 @@
 	        r.onloadend = function(e){
 	          data.logo = e.target.result;
 	        }
-
-	        if (f !== 'undefined') {
+	        if(typeof f !== "undefined") {
 		        r.readAsDataURL(f);	        	
 	        }
 	        data.enabled = true;
@@ -34,6 +33,7 @@
     			
     		});
     		reset();
+    		//showAlert();
     	}    
     	
     	$scope.reset = reset;
@@ -43,5 +43,21 @@
             var fn = document.getElementById('fileName'); 
             fn.value="";
         };
+        
+        $scope.showAlert = function() {
+            // Appending dialog to document.body to cover sidenav in docs app
+            // Modal dialogs should fully cover application
+            // to prevent interaction outside of dialog
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Exito!')
+                .content('Se ha creado su almac&eacute;n virtual de forma exitosa')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Cerrar')
+            );
+        };
+          
     }
 })();
