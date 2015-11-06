@@ -22,5 +22,15 @@
                 templateUrl: 'templates/virtualStorage.create.html',
                 controllerAs: 'vm'
             })
+            .when('/createProduct', {
+                controller: 'CreateProductController',
+                templateUrl: 'templates/product.create.html',
+                controllerAs: 'vm'
+            })
+            .when('/userProfile', {
+                controller: 'UserProfileController',
+                templateUrl: 'templates/profile.view.html',
+                controllerAs: 'vm'
+            })
     };
 })();
