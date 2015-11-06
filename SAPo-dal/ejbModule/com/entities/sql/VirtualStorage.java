@@ -3,6 +3,7 @@ package com.entities.sql;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,6 +23,8 @@ public class VirtualStorage implements Serializable {
 	private Date createdDate;
 	private String name;
 	private String CSS;
+	
+	@Column(length=10485760)
 	private String logo;
 	private String loading;
 	private Boolean enabled;
