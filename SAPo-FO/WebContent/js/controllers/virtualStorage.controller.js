@@ -3,45 +3,61 @@
     angular
         .module('sapo')
         .controller('VirtualStorageController', VirtualStorageController);
-    VirtualStorageController.$inject = ['VirtualStorageResource',  '$scope'];
+    VirtualStorageController.$inject = ['VirtualStorageResource',  '$scope', '$mdDialog'];
     /* @ngInject */
-    function VirtualStorageController(VirtualStorageResource, $scope) {
+    function VirtualStorageController(VirtualStorageResource, $scope, $mdDialog) {
     	$scope.test = 'Crear Almac&eacute;n Virtual';
+    	$scope.master = {};
+    	$scope.upload = upload;
     	
-    	//$scope.vs = {
-    	//		id:2,
-//    			connection:'',
-//    			url:'',
-//    			createdDate:null,
-//    			name:'',
-//    			css:'algo',
-//    			logo:'',
-//    			loading:'',
-//    			enable:true,
-    	//		owner:{id:1}
-    			
-    	//};
+    	function upload() {
+    		//alert('hola');
+    		//alert(document.getElementById("file"));
+    		document.getElementById("file").click();
+    	}
     	
     	$scope.insert = insert;
     	
     	function insert(data) {
+    		
+    		var f = document.getElementById('file').files[0],
+	            r = new FileReader();
+	        r.onloadend = function(e){
+	          data.logo = e.target.result;
+	        }
+	        if(typeof f !== "undefined") {
+		        r.readAsDataURL(f);	        	
+	        }
+	        data.enabled = true;
     		VirtualStorageResource.save(data,function(){
-    			alert('Alertaaaaaa');
+    			
     		});
-    	}
-    	/*private int id;
-    	private String connection;
-    	private String url;
-    	private Date createdDate;
-    	private String name;
-    	private String CSS;
-    	private String logo;
-    	private String loading;
-    	private Boolean enabled;
+    		reset();
+    		//showAlert();
+    	}    
     	
-    	@ManyToOne (optional = true)
-        @JoinColumn(name = "tenantCreados")
-    	private Usuario owner;*/
-    	    	
+    	$scope.reset = reset;
+    	
+    	function reset() {
+            $scope.vs = angular.copy($scope.master);
+            var fn = document.getElementById('fileName'); 
+            fn.value="";
+        };
+        
+        $scope.showAlert = function() {
+            // Appending dialog to document.body to cover sidenav in docs app
+            // Modal dialogs should fully cover application
+            // to prevent interaction outside of dialog
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Exito!')
+                .content('Se ha creado su almac&eacute;n virtual de forma exitosa')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Cerrar')
+            );
+        };
+          
     }
 })();

@@ -8,11 +8,14 @@
         ])
         .run(function($rootScope) {
     		$rootScope.theme = "test1";
-    		$rootScope.sidenav = 'right'; //sidenav izquierda o derecha
             $rootScope.rightNav = true;
             $rootScope.leftNav = true;
     		$rootScope.sidenavAux = '';
             $rootScope.bgcolor = 'background-color:grey;';
             $rootScope.toolbarTemplate = 'templates/index.toolbar.html';
+            $rootScope.navTopLeft = "templates/index.sidenav.menu.html";
+            $rootScope.navBottomLeft = "templates/index.sidenav.categories.html";
+            $rootScope.navTopRight  = "templates/index.sidenav.tweets.html";
+            $rootScope.navBottomRight = "";
 		});
 })();

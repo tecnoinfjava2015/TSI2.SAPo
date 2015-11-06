@@ -1,6 +1,15 @@
-<div layout="column" layout-align="start start" flex>
-    <div flex>
-        <h1>PRODUCTOS</h1>
+<div layout="column" class="relative" layout-fill role="main">
+    <!-- class="relative" layout="column" layout-align="start start" flex> -->
+    <div layout="row">
+        <div flex="90">
+            <h1>PRODUCTOS</h1>
+        </div>
+        <div flex="10">
+            <md-button aria-label="ToggleListGrid" md-no-ink ng-click="toggleListGrid()">
+                <md-icon ng-show="list">view_module</md-icon>
+                <md-icon ng-show="!list">view_list</md-icon>
+            </md-button>
+        </div>
     </div>
     <div flex layout-wrap layout="row" ng-show="list">
         <div ng-repeat="product in products">
@@ -48,9 +57,9 @@
         </div>
     </div>
     <md-progress-linear md-mode="indeterminate" ng-show="loading"></md-progress-linear>
-    <md-button class="md-primary md-raised" ng-click="getProducts()">
-        Ver mas
-    </md-button>
-    <md-button class="md-primary md-raised" ng-click="toggleListGrid()">
-        Toggle List Grid
-    </md-button>
+    <div class="md-actions" layout="row" layout-align="start center" ng-click="getProducts()">
+        <md-button md-no-ink  class="md-primary md-hue-2" layout>
+            <h3> Mostrar más >>> </h3>
+        </md-button>
+    </div>
+</div>

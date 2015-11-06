@@ -57,5 +57,13 @@ public class CategoryBL implements ICategoryBL {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Category> getAllStarredCategories(long virtualStorageId,int offset, int limit) {
+		if(virtualStorageId>0){
+			return dao.getAllStarredCategories(virtualStorageId,offset,limit);
+		}
+		return null;
+	}
 
 }

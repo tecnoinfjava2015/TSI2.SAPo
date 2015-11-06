@@ -25,7 +25,11 @@ public class CategoryResource {
 	public List<Category> getCategories(
 			@PathParam("virtualStorageId") long virtualStorageId,
 			@QueryParam("offset") int offset,
-			@QueryParam("limit") int limit) {
+			@QueryParam("limit") int limit,
+			@QueryParam("starred") boolean starred){
+		if (starred){
+			return bl.getAllStarredCategories(virtualStorageId, offset, limit);
+		}
 		return bl.getAllCategories(virtualStorageId, offset, limit);
 	}
 
