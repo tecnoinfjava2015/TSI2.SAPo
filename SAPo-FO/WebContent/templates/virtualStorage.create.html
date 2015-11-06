@@ -11,18 +11,25 @@ VS >>> {{vs}}
       
   	 <md-input-container >
         <label>Nombre</label>
+        <md-tooltip md-direction="left">
+          Seleccione el nombre de su almac&eacute;n virtual
+        </md-tooltip>
         <input ng-model="vs.name" required>
       </md-input-container>
       <md-input-container >
         <label>Logo</label>
+        <md-tooltip md-direction="left">
+          Ingrese el logo de su almac&eacute;n virtual
+        </md-tooltip>
         <input ng-model="vs.fileName" ng-click="upload()" id="fileName">
       </md-input-container>
       <input type="file" id="file" name="file" hidden onchange="var f = document.getElementById('file').files[0];
     		var fn = document.getElementById('fileName'); fn.value=f.name" />
       <!-- <input type="file" name="file" onchange="angular.element(this).scope().setFile(this)" md-input-file/> -->
       
+      <input ng-model="vs.owner" hidden>
      
-    
+   
 	  <md-button class="md-raised md-primary" ng-click='insert(vs)' >Crear</md-button>
       <md-button class="md-raised" ng-click="reset()">Cancelar</md-button>
 </form>

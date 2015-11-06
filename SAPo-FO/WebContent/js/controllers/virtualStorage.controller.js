@@ -27,6 +27,7 @@
 	        }
 	        r.readAsDataURL(f);
 	        data.enabled = true;
+	        data.owner = "{\"id\":\"1\"}";
     		VirtualStorageResource.save(data,function(){
     			
     		});
