@@ -22,11 +22,15 @@ public class VirtualStorage implements Serializable {
 	private String url;
 	private Date createdDate;
 	private String name;
-	private String CSS;
+	
+	/*STYLES*/
+	private String theme;
+	private String sidenavTop;
+	private String sidenavBottom;
+	private Boolean progressLinear;
 	
 	@Column(length=10485760)
 	private String logo;
-	private String loading;
 	private Boolean enabled;
 	private Boolean blocked; 
 	
@@ -65,23 +69,35 @@ public class VirtualStorage implements Serializable {
 		this.name = name;
 	}
 	
-	public String getCSS() {
-		return CSS;
-	}
-	public void setCSS(String cSS) {
-		CSS = cSS;
-	}
 	public String getLogo() {
 		return logo;
 	}
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
-	public String getLoading() {
-		return loading;
+	public String getTheme() {
+		return theme;
 	}
-	public void setLoading(String loading) {
-		this.loading = loading;
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+	public String getSidenavTop() {
+		return sidenavTop;
+	}
+	public void setSidenavTop(String sidenavTop) {
+		this.theme = sidenavTop;
+	}
+	public String getSidenavBottom() {
+		return sidenavBottom;
+	}
+	public void setSidenavBottom(String sidenavBottom) {
+		this.sidenavBottom = sidenavBottom;
+	}
+	public Boolean getProgressLinear() {
+		return progressLinear;
+	}
+	public void setProgressLinear(Boolean progressLinear) {
+		this.progressLinear = progressLinear;
 	}
 	public Usuario getOwner() {
 		return owner;
