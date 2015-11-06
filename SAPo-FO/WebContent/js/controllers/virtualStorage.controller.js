@@ -3,9 +3,9 @@
     angular
         .module('sapo')
         .controller('VirtualStorageController', VirtualStorageController);
-    VirtualStorageController.$inject = ['VirtualStorageResource',  '$scope'];
+    VirtualStorageController.$inject = ['VirtualStorageResource',  '$scope', '$mdDialog'];
     /* @ngInject */
-    function VirtualStorageController(VirtualStorageResource, $scope) {
+    function VirtualStorageController(VirtualStorageResource, $scope, $mdDialog) {
     	$scope.test = 'Crear Almac&eacute;n Virtual';
     	$scope.master = {};
     	$scope.upload = upload;
@@ -25,9 +25,11 @@
 	        r.onloadend = function(e){
 	          data.logo = e.target.result;
 	        }
-	        r.readAsDataURL(f);
+
+	        if (f !== 'undefined') {
+		        r.readAsDataURL(f);	        	
+	        }
 	        data.enabled = true;
-	        data.owner = "{\"id\":\"1\"}";
     		VirtualStorageResource.save(data,function(){
     			
     		});
@@ -41,6 +43,5 @@
             var fn = document.getElementById('fileName'); 
             fn.value="";
         };
-          
     }
 })();
