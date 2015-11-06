@@ -32,7 +32,7 @@ public class Usuario implements Serializable {
 	
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "tenatCreados")
+	@JoinColumn(name = "tenantCreados")
 	private List <VirtualStorage> tenantCreados;
 	
 	@OneToMany(cascade = CascadeType.ALL)
