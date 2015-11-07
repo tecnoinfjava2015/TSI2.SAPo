@@ -10,6 +10,7 @@ import javax.mail.internet.AddressException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.bl.CategoryBL;
 import com.bl.ProductBL;
 import com.bo.principal.PanelDinamico;
 import com.entities.mongo.Alert;
@@ -22,6 +23,7 @@ import com.entities.sql.VirtualStorage;
 import com.services.Correo;
 import com.services.UsuarioServiceLocal;
 import com.services.VirtualStorageServiceLocal;
+import com.services.interfaces.ICategoryBL;
 import com.services.interfaces.IProductBL;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
@@ -49,14 +51,16 @@ public class FormAdminAV extends PanelDinamico{
 	 * 
 	 */
 	private IProductBL servicioProducto = new ProductBL();
+	private ICategoryBL servicioCategoria = new CategoryBL();
 	
 	private static final long serialVersionUID = 1L;
 	private VerticalLayout panelArriba, panelAbajo;
 	private HorizontalLayout rootLayout;
 	private List<VirtualStorage>  listaVirtualStorage;
-	private Window temaWindow;
+	private List<Category>  listaCategorias;
 	private List<Product>  listaProductos;
-	private Table tableVirtualStorage, tableProductos;
+	private Window temaWindow;
+	private Table tableVirtualStorage, tableProductos, tableCategorias;
 	private Button bloquearAV, enviarMensaje, analizarFraude, imprimirReporte;
 	private Button convertirGenerico, eliminarProucto, buscarProducto;
 	private ComboBox comboAVs;
@@ -105,7 +109,8 @@ public class FormAdminAV extends PanelDinamico{
 			public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
 				if(event.getProperty().getValue() != null){
 					//listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1));
-					listaProductos = servicioProducto.getAllProducts(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId());	
+					listaProductos = servicioProducto.getAllProducts(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId());
+					listaCategorias = servicioCategoria.getAllCategories(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId(),0,20);
 					System.out.println(listaProductos);
 					
 					VerticalLayout nuevoPanDer = new VerticalLayout();
@@ -175,14 +180,14 @@ public class FormAdminAV extends PanelDinamico{
 		//listaProductos = listaProductos((int)tableVirtualStorage.getValue()-1));	
 		//listaProductos = servicioProducto.getAllProducts(1);
 		listaProductos = servicioProducto.getAllProducts(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId());
+		listaCategorias = servicioCategoria.getAllCategories(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId(),0,20);
 		VerticalLayout panDer = new VerticalLayout();
 		tableProductos = new Table("Productos del Almacenes");
 		tableProductos.addContainerProperty("Nombre", String.class, null);
 		tableProductos.addContainerProperty("Código de Barras", String.class, null);
 		tableProductos.addContainerProperty("Descripción", String.class, null);
 		//tableProductos.addContainerProperty("Stock",  String.class, null);
-	    ArrayList<String> nombreEncuestador = new ArrayList<String>();
-	
+	 
 	    for (Product listaP : listaProductos) {
 	    	Object newItemId = tableProductos.addItem();
 	    	Item row1 = tableProductos.getItem(newItemId);
@@ -199,9 +204,34 @@ public class FormAdminAV extends PanelDinamico{
 	    tableProductos.setNullSelectionItemId(false);
 	    tableProductos.setPageLength(tableProductos.size());
 	    tableProductos.setWidth("80%");
+	    tableProductos.setHeight("20%");
 	    panDer.setMargin(true);
 	    panDer.addComponent(tableProductos);
 	    panDer.setComponentAlignment(tableProductos, Alignment.MIDDLE_CENTER);
+	    
+	    tableCategorias = new Table("Categorias del Almacen");
+	    tableCategorias.addContainerProperty("Nombre", String.class, null);
+	    tableCategorias.addContainerProperty("Icono", String.class, null);
+	
+	    for (Category listaC : listaCategorias) {
+	    	Object newItemId = tableCategorias.addItem();
+	    	Item row1 = tableCategorias.getItem(newItemId);
+	    	row1.getItemProperty("Nombre").setValue(listaC.getName());
+	    	row1.getItemProperty("Icono").setValue(listaC.getIcon());
+	    	   	
+	    }
+	     
+	     
+	    tableCategorias.setImmediate(true);
+	    tableCategorias.setSelectable(true);
+	    tableCategorias.select(1);
+	    tableCategorias.setNullSelectionItemId(false);
+	    tableCategorias.setPageLength(tableCategorias.size());
+	    tableCategorias.setWidth("80%");
+	    tableCategorias.setHeight("20%");
+	    panDer.setMargin(true);
+	    panDer.addComponent(tableCategorias);
+	    panDer.setComponentAlignment(tableCategorias, Alignment.MIDDLE_CENTER);
 	    
 	    //convertirGenerico, eliminarProucto, buscarProducto
 	    convertirGenerico = new Button("Convertir Producto en Genérico");

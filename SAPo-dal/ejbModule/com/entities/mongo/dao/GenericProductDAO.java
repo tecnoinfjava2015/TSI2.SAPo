@@ -51,7 +51,6 @@ public class GenericProductDAO {
 		if ((barCode.isEmpty())) {
 			return null;
 		}	
-		
 		Query<GenericProduct> query = ds.createQuery(GenericProduct.class);
 		query.and(query.criteria("barCode").equal(barCode));
 		return query.get();
@@ -63,6 +62,6 @@ public class GenericProductDAO {
 	}
 
 	public void deleteGenericProduct(ObjectId id) {
-		dao.remove(Product.class, id);
+		dao.remove(GenericProduct.class, id);
 	}
 }

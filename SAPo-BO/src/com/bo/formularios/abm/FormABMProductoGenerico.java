@@ -7,9 +7,13 @@ import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.bl.GenericProductBL;
+import com.bl.ProductBL;
 import com.bo.principal.PanelDinamico;
 import com.entities.mongo.GenericProduct;
 import com.services.GenericProductService;
+import com.services.interfaces.IGenericProductBL;
+import com.services.interfaces.IProductBL;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.event.ShortcutAction.KeyCode;
@@ -39,7 +43,8 @@ public class FormABMProductoGenerico extends PanelDinamico{
 		private Table table; 
 		private Button modificar, alta, eliminar, recargar;
 		private TextField barCode, name, description;
-		private GenericProductService servicioProducto;
+		//private GenericProductService servicioProducto;
+		private IGenericProductBL servicioProducto =   new GenericProductBL();
 //		private GenericProductService servicio;	
 		
 //		private void lookup() {
@@ -65,7 +70,8 @@ public class FormABMProductoGenerico extends PanelDinamico{
 			//lookup();
 			this.addStyleName("outlined");
 	        this.setSizeFull();
-	        listaProductosGenericos = servicioProducto.getAllGenericProduct();
+	        System.out.println(servicioProducto);
+	        listaProductosGenericos = servicioProducto.getAllGenericProducts();
 	        System.out.println("lista de productos Genericos " + listaProductosGenericos);
 	        if (listaProductosGenericos == null){
 	        	for(GenericProduct u : listaProductosGenericos){
@@ -128,7 +134,7 @@ public class FormABMProductoGenerico extends PanelDinamico{
 					gp.setBarcode(barCode.getValue());
 					gp.setName(name.getValue());
 					gp.setDescription(description.getValue());
-			        servicioProducto.updateProduct(barCode.getValue(), gp);
+			        servicioProducto.updateGenericProduct(gp);
 			        Notification notif = new Notification("Modificado con exito");
 			        notif.setDelayMsec(2000);
 			        notif.show(Page.getCurrent());   	
@@ -141,7 +147,7 @@ public class FormABMProductoGenerico extends PanelDinamico{
 	            private static final long serialVersionUID = 1L;
 	            @Override
 	            public void buttonClick(final ClickEvent event) {
-	            	servicioProducto.deleteProduct(barCode.getValue());
+	            	servicioProducto.deleteGenericProduct(barCode.getValue());
 		        	Notification sample = new Notification("Producto eliminado con exito");
 		        	sample.show(Page.getCurrent());
 		            actualizarTabla();
@@ -198,7 +204,7 @@ public class FormABMProductoGenerico extends PanelDinamico{
 		}	
 
 		public void actualizarTabla(){
-			
+			listaProductosGenericos = servicioProducto.getAllGenericProducts();
 			VerticalLayout nuevaTabla = new VerticalLayout();
 		    nuevaTabla = generarPanelDerecha();
 		    rootLayout.replaceComponent(panelDerecha, nuevaTabla);
@@ -286,8 +292,8 @@ public class FormABMProductoGenerico extends PanelDinamico{
 		    panIzq.setComponentAlignment(modificar, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(eliminar, Alignment.MIDDLE_CENTER);
 		    panIzq.setComponentAlignment(recargar, Alignment.BOTTOM_CENTER);
-		
 		    return panIzq;
-		   
 		}
+		
+
 }
