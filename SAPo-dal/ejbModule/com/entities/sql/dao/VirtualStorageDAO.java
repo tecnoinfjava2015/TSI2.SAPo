@@ -56,12 +56,15 @@ public class VirtualStorageDAO {
 		em.find(VirtualStorage.class, id).setBlocked(false);		
 	}
 	
-	public VirtualStorage createVS(VirtualStorage vs, int ownerId){
+	public String createVS(VirtualStorage vs, int ownerId){
 		Usuario owner = udao.buscarID(ownerId);
-		vs.setOwner(owner);
-		em.persist(vs);
-		em.flush(); 
-		return vs;
+		if (owner != null){
+			vs.setOwner(owner);
+			em.persist(vs);
+			em.flush(); 
+			return "VSCreado";
+		}
+		return "Error_01_no_existe_usuario";
 	}
 
 	public List<VirtualStorage> getAllVS() {
