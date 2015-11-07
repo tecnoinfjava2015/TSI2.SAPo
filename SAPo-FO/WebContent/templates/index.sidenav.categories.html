@@ -4,8 +4,8 @@
         <md-progress-linear style="width:80%;" md-mode="indeterminate" ng-show="loading && linear"></md-progress-linear>
         <md-progress-circular md-mode="indeterminate" ng-show="loading && !linear"></md-progress-circular>
     </div>
-    <md-list-item ng-repeat="item in categories" ng-click="redirect(item.url)">
+    <md-list-item ng-repeat="item in categories |limitTo:3 " ng-click="redirect(item.url)">
         <md-icon>{{item.icon}}</md-icon>
         <p>{{ item.name }}</p>
-    </md-list-item>
+    </md-list-item> 
 </md-list>
