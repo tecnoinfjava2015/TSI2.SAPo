@@ -3,18 +3,17 @@ package com.entities.mongo;
 import java.util.AbstractMap;
 
 public class GenericProduct extends BaseEntity {
-	private String barcode;
+	private String barCode;
 	private String name;
 	private String description;
-	private AbstractMap.SimpleEntry<String,String> nameValueSpec;
 	private Byte[] imagen;
 	
 	//BARCODE
 	public String getBarcode() {
-		return barcode;
+		return barCode;
 	}
 	public void setBarcode(String barcode) {
-		this.barcode = barcode;
+		this.barCode = barcode;
 	}
 	
 	//NAME
@@ -31,15 +30,6 @@ public class GenericProduct extends BaseEntity {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	//SPECS
-	public AbstractMap.SimpleEntry<String, String> getNameValueSpec() {
-		return nameValueSpec;
-	}
-	public void setNameValueSpec(
-			AbstractMap.SimpleEntry<String, String> nameValueSpec) {
-		this.nameValueSpec = nameValueSpec;
 	}
 	
 	//IMAGEN

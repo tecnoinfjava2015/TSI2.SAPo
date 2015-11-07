@@ -8,6 +8,7 @@ import com.bo.formularios.abm.FormABMUsuario;
 import com.bo.formularios.abm.FormReportes;
 import com.bo.formularios.abm.FormAdminAV;
 import com.bo.formularios.abm.Login;
+import com.bo.formularios.abm.prueba;
 import com.entities.sql.Usuario;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -36,6 +37,7 @@ public class SapoBackofficeUI extends UI {
 	private FormAdminAV formAdminAV;
 	private FormABMHARD formABMHard;
 	private FormReportes formReportes;
+	private prueba formPrueba;
 	
 	@Inject 
 	private DatosSesion datosSesion;	
@@ -92,12 +94,12 @@ public void cargarContenido(){
        setContent(mainLayout);
        barraUsuario = new BarraUsuario(datosSesion.getUsuario().getName());
        mainLayout.addComponent(barraUsuario);
-       Resource imagenLogo = new ThemeResource("images/logo.jpg");
-       Image log = new Image(null, imagenLogo);
-       log.setSizeFull();
-       logo.addComponent(log);
-       logo.setSizeFull();
-       mainLayout.addComponent(logo);  
+//       Resource imagenLogo = new ThemeResource("images/logo.jpg");
+//       Image log = new Image(null, imagenLogo);
+//       log.setSizeFull();
+//       logo.addComponent(log);
+//       logo.setSizeFull();
+//       mainLayout.addComponent(logo);  
     	  TabSheet tabSheet = new TabSheet();
           tabSheet.setHeight(100.0f, Unit.PERCENTAGE);
           tabSheet.addStyleName(ValoTheme.TABSHEET_FRAMED);
@@ -109,10 +111,10 @@ public void cargarContenido(){
           layout1.addComponent(formABMUsuario);
           tabSheet.addTab(layout1, "Gestion Usuario"); 
           
-//          PanelDinamico layout2 = new PanelDinamico();
-//          formABMProductoGenerico = new FormABMProductoGenerico();
-//          layout2.addComponent(formABMProductoGenerico);
-//          tabSheet.addTab(layout2, "Gestion Producto Generico"); 
+          PanelDinamico layout2 = new PanelDinamico();
+          formABMProductoGenerico = new FormABMProductoGenerico();
+          layout2.addComponent(formABMProductoGenerico);
+          tabSheet.addTab(layout2, "Gestion Producto Generico"); 
           
           PanelDinamico layout4 = new PanelDinamico();
           formAdminAV = new FormAdminAV();
@@ -129,7 +131,12 @@ public void cargarContenido(){
           layout6.addComponent(formReportes);              
           tabSheet.addTab(layout6, "Reportes");
           
-          mainLayout.setExpandRatio(logo, 10);
+          PanelDinamico layout7 = new PanelDinamico();
+          formPrueba = new prueba();
+          layout7.addComponent(formPrueba);              
+          tabSheet.addTab(layout7, "tree");
+          
+         // mainLayout.setExpandRatio(logo, 10);
           mainLayout.addComponent(tabSheet);
           mainLayout.setExpandRatio(tabSheet, 70);
           mainLayout.addComponent(new PiePagina());

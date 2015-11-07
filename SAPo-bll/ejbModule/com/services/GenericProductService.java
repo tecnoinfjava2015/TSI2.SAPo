@@ -19,7 +19,7 @@ import com.entities.mongo.GenericProduct;
 import com.entities.sql.Usuario;
 
 
-@Stateless
+//@Stateless
 @Path("/genericProduct")
 public class GenericProductService {
 	GenericProductBL gpbl = new GenericProductBL();

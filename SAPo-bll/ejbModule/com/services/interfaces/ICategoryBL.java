@@ -17,4 +17,5 @@ public interface ICategoryBL {
 	
 	public List<Category> getAllStarredCategories(long virtualStorageId, int offset, int limit);
 
+
 }
