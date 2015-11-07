@@ -4,7 +4,9 @@
         .module('sapo', [
             'ngMaterial',
             'ngRoute', 
-            'ngResource'
+            'ngResource',
+            'infinite-scroll',
+            'naif.base64'
         ])
         .run(function($rootScope) {
     		$rootScope.theme = "test1";

@@ -1,5 +1,6 @@
 package com.entities.sql.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -60,11 +61,12 @@ public class VirtualStorageDAO {
 		Usuario owner = udao.buscarID(ownerId);
 		if (owner != null){
 			vs.setOwner(owner);
+			vs.setCreatedDate(new Date());
 			em.persist(vs);
 			em.flush(); 
 			return "VSCreado";
 		}
-		return "Error_01_no_existe_usuario";
+		return "500-Error-no_existe_usuario";
 	}
 
 	public List<VirtualStorage> getAllVS() {
@@ -95,6 +97,6 @@ public class VirtualStorageDAO {
 			em.flush(); 
 			return vs.getName();
 		}	
-		return "Error_02_Sin_Usuario";
+		return "500-Error-Sin_Usuario";
 	}	
 }

@@ -1,6 +1,5 @@
 <h1>Crear Almac&eacute;n Virtual</h1>
 VS >>> {{vs}}
-
 <!-- <md-button class="md-raised md-warn" ng-click='insert(vs)' >Warn</md-button> -->
 
 <form name="inputForm" novalidate>
@@ -21,14 +20,40 @@ VS >>> {{vs}}
         <md-tooltip md-direction="left">
           Ingrese el logo de su almac&eacute;n virtual
         </md-tooltip>
-        <input ng-model="vs.fileName" ng-focus="upload()" id="fileName">
+        <input ng-model="logoFile.filename" ng-focus="upload()" id="fileName">
+        
       </md-input-container>
-      <input type="file" id="file" name="file" hidden onchange="var f = document.getElementById('file').files[0];
-    		var fn = document.getElementById('fileName'); fn.value=f.name" />
-      <!-- <input type="file" name="file" onchange="angular.element(this).scope().setFile(this)" md-input-file/> -->
+      <input type='file' ng-model='logoFile' id="file" base-sixty-four-input hidden >
+        
+      <md-input-container >
+        <label>Tema del almac&eacute;n virtual</label>
+        <md-tooltip md-direction="left">
+          Seleccione los colores y estilos para su almac&eacute;n virtual
+        </md-tooltip>
+        <md-select ng-model="vs.theme">
+          <md-option ng-repeat="theme in themes" value="{{theme}}">{{theme}}</md-option>
+        </md-select>
+      </md-input-container>
+     <md-input-container >
+        <label>Navegaci&oacute;n superior del almac&eacute;n virtual</label>
+        <md-tooltip md-direction="left">
+          Seleccione la navegaci&oacute;n superior de su almac&eacute;n virtual
+        </md-tooltip>
+        <md-select ng-model="vs.connection">
+          <md-option ng-repeat="sidenavTop in sidenavTops" value="{{sidenavTop}}">{{sidenavTop}}</md-option>
+        </md-select>
+      </md-input-container>
       
-      <input ng-model="vs.owner" hidden>
+      <md-input-container >
+        <label>Navegaci&oacute;n inferior del almac&eacute;n virtual</label>
+        <md-tooltip md-direction="left">
+          Seleccione la navegaci&oacute;n inferior de su almac&eacute;n virtual
+        </md-tooltip>
+        <md-select ng-model="vs.sidenavBottom">
+          <md-option ng-repeat="sidenavBottom in sidenavBottoms" value="{{sidenavBottom}}">{{sidenavBottom}}</md-option>
+        </md-select>
+      </md-input-container>
      
-	  <md-button class="md-raised md-primary" ng-click='insert(vs);showAlert($event)' >Crear</md-button>
+	  <md-button class="md-raised md-primary" ng-click='insert(vs);showAlert();' >Crear</md-button>
       <md-button class="md-raised" ng-click="reset()">Cancelar</md-button>
 </form>

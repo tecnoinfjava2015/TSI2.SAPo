@@ -1,63 +1,73 @@
 (function() {
-    'use strict';
-    angular
-        .module('sapo')
-        .controller('VirtualStorageController', VirtualStorageController);
-    VirtualStorageController.$inject = ['VirtualStorageResource',  '$scope', '$mdDialog'];
-    /* @ngInject */
-    function VirtualStorageController(VirtualStorageResource, $scope, $mdDialog) {
-    	$scope.test = 'Crear Almac&eacute;n Virtual';
-    	$scope.master = {};
-    	$scope.upload = upload;
-    	
-    	function upload() {
-    		//alert('hola');
-    		//alert(document.getElementById("file"));
-    		document.getElementById("file").click();
-    	}
-    	
-    	$scope.insert = insert;
-    	
-    	function insert(data) {
-    		
-    		var f = document.getElementById('file').files[0],
-	            r = new FileReader();
-	        r.onloadend = function(e){
-	          data.logo = e.target.result;
-	        }
-	        if(typeof f !== "undefined") {
-		        r.readAsDataURL(f);	        	
-	        }
-	        data.enabled = true;
-    		VirtualStorageResource.save(data,function(){
-    			
-    		});
-    		reset();
-    		//showAlert();
-    	}    
-    	
-    	$scope.reset = reset;
-    	
-    	function reset() {
-            $scope.vs = angular.copy($scope.master);
-            var fn = document.getElementById('fileName'); 
-            fn.value="";
-        };
-        
-        $scope.showAlert = function() {
-            // Appending dialog to document.body to cover sidenav in docs app
-            // Modal dialogs should fully cover application
-            // to prevent interaction outside of dialog
-            $mdDialog.show(
-              $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#popupContainer')))
-                .clickOutsideToClose(true)
-                .title('Exito!')
-                .content('Se ha creado su almac&eacute;n virtual de forma exitosa')
-                .ariaLabel('Alert Dialog Demo')
-                .ok('Cerrar')
-            );
-        };
-          
-    }
+	'use strict';
+	angular.module('sapo').controller('VirtualStorageController',
+			VirtualStorageController);
+	VirtualStorageController.$inject = [ 'VirtualStorageResource', '$scope',
+			'$mdDialog' ];
+	/* @ngInject */
+	function VirtualStorageController(VirtualStorageResource, $scope, $mdDialog) {
+		$scope.vs = new VirtualStorageResource();
+		$scope.test = 'Crear Almac&eacute;n Virtual';
+		$scope.master = {};
+		$scope.logoFile;
+		$scope.themes = [ 'theme test' ];
+		$scope.sidenavTops = [ 'side nav test' ];
+		$scope.sidenavBottoms = [ 'side nav bottom test' ];
+
+		$scope.showAlert = showAlert;
+		
+		$scope.upload = upload;
+		$scope.insert = insert;
+		$scope.reset = reset;
+		
+		function upload() {
+			document.getElementById("file").click();
+		}
+
+		function insert(data) {			
+			$scope.vs.enabled = true;
+			
+			if (typeof $scope.logoFile !== 'undefined' && $scope.logoFile !== null) {
+				$scope.vs.logo = "data:" + $scope.logoFile.filetype + ";base64,";
+				$scope.vs.logo = $scope.vs.logo + $scope.logoFile.base64;
+			}
+			
+
+
+			$scope.vs.$save(function(r) {
+			});
+			
+			//pepe.$promise.then(function(result){alert(result.status);});
+			
+			reset();
+			// showAlert();
+		}
+
+		
+
+		function reset() {
+			$scope.vs = angular.copy($scope.master);
+			var fn = document.getElementById('fileName');
+			fn.value = "";
+		};
+		
+
+		function showAlert() {
+			// Appending dialog to document.body to cover sidenav in docs app
+			// Modal dialogs should fully cover application
+			// to prevent interaction outside of dialog
+			$mdDialog
+					.show($mdDialog
+							.alert()
+							.parent(
+									angular.element(document
+											.querySelector('#popupContainer')))
+							.clickOutsideToClose(true)
+							.title('Exito!')
+							.content(
+									'Se ha creado su almac&eacute;n virtual de forma exitosa')
+							.ariaLabel('Alert Dialog Demo').ok('Cerrar'));
+		};
+
+	}
 })();
