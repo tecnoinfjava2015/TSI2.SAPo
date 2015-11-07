@@ -31,7 +31,13 @@
 	        data.enabled = true;
     		VirtualStorageResource.save(data,function(){
     			
-    		});
+    		});//.$promise.then(function(result) {
+    			/*alert('hola');
+    			console.log(result);
+    			if (result.$success) {
+    				alert('hola 2');
+    			}*/
+    		//});
     		reset();
     		//showAlert();
     	}    
@@ -44,7 +50,15 @@
             fn.value="";
         };
         
-        $scope.showAlert = function() {
+        $scope.themes = ['theme test'];
+        
+        $scope.sidenavTops = ['side nav test'];
+        
+        $scope.sidenavBottoms = ['side nav bottom test'];
+        
+        $scope.showAlert = showAlert;
+        
+        function showAlert() {
             // Appending dialog to document.body to cover sidenav in docs app
             // Modal dialogs should fully cover application
             // to prevent interaction outside of dialog
