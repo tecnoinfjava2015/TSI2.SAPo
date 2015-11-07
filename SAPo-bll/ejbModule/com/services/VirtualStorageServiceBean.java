@@ -32,8 +32,8 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 		vs.setConnection(conexion);
 		vs.setUrl(url);
 		vs.setCreatedDate(fechaCreacion);
-		vs.setCSS(CSS);
-		vs.setLoading(loading);
+		vs.setTheme(CSS);
+		vs.setSidenavBottom(loading);
 		vs.setLogo(logo);
 		vs.setEnabled(enabled);
 		vs.setBlocked(blocked);
@@ -47,8 +47,8 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 		vs.setConnection(conexion);
 		vs.setUrl(url);
 		vs.setCreatedDate(fechaCreacion);
-		vs.setCSS(CSS);
-		vs.setLoading(loading);
+		vs.setTheme(CSS);
+		vs.setSidenavBottom(loading);
 		vs.setLogo(logo);
 		vs.setEnabled(enabled);
 		vs.setBlocked(blocked);

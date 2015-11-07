@@ -20,7 +20,7 @@ import com.entities.sql.Usuario;
 
 
 @Stateless
-@Path("/usuario")
+@Path("/genericProduct")
 public class GenericProductService {
 	GenericProductBL gpbl = new GenericProductBL();
 

@@ -39,35 +39,40 @@ public class FormABMProductoGenerico extends PanelDinamico{
 		private Table table; 
 		private Button modificar, alta, eliminar, recargar;
 		private TextField barCode, name, description;
-		private GenericProductService servicio;	
+		private GenericProductService servicioProducto;
+//		private GenericProductService servicio;	
 		
-		private void lookup() {
-				InitialContext context = null;
-				try {
-					context = new InitialContext();					
-					servicio = (GenericProductService) context.lookup("java:app/SAPo-bll/GenericProductService");
-				} catch (NamingException e) {
-					throw new EJBException(
-							"It was not possible to get a reference to one of the required services",
-							e);
-				} finally {
-					try {
-						context.close();
-					} catch (NamingException e) {
-						
-					}
-				}
-		
-		}
+//		private void lookup() {
+//				InitialContext context = null;
+//				try {
+//					context = new InitialContext();					
+//					servicio = (GenericProductService) context.lookup("java:app/SAPo-bll/GenericProductService");
+//				} catch (NamingException e) {
+//					throw new EJBException(
+//							"It was not possible to get a reference to one of the required services",
+//							e);
+//				} finally {
+//					try {
+//						context.close();
+//					} catch (NamingException e) {
+//						
+//					}
+//				}
+//		
+//		}
 		
 		public FormABMProductoGenerico(){    
 			//lookup();
 			this.addStyleName("outlined");
 	        this.setSizeFull();
-	        listaProductosGenericos = servicio.getAllGenericProduct();
-	        for(GenericProduct u : listaProductosGenericos){
-	        	System.out.println("Producto " + u.getName());
+	        listaProductosGenericos = servicioProducto.getAllGenericProduct();
+	        System.out.println("lista de productos Genericos " + listaProductosGenericos);
+	        if (listaProductosGenericos == null){
+	        	for(GenericProduct u : listaProductosGenericos){
+		        	System.out.println("Producto " + u.getName());
+		        }
 	        }
+	        
 	        
 	        panelIzquierda = new VerticalLayout();
 	        panelDerecha = new VerticalLayout();
@@ -105,7 +110,7 @@ public class FormABMProductoGenerico extends PanelDinamico{
 						gp.setBarcode(barCode.getValue());
 						gp.setName(name.getValue());
 						gp.setDescription(description.getValue());
-			        	servicio.createGenericProduct(gp);
+			        	servicioProducto.createGenericProduct(gp);
 			        	Notification notif = new Notification("Producto Genérico cargado exitosamente");
 			        	notif.setDelayMsec(2000);
 			        	notif.show(Page.getCurrent());
@@ -123,7 +128,7 @@ public class FormABMProductoGenerico extends PanelDinamico{
 					gp.setBarcode(barCode.getValue());
 					gp.setName(name.getValue());
 					gp.setDescription(description.getValue());
-			        servicio.updateProduct(barCode.getValue(), gp);
+			        servicioProducto.updateProduct(barCode.getValue(), gp);
 			        Notification notif = new Notification("Modificado con exito");
 			        notif.setDelayMsec(2000);
 			        notif.show(Page.getCurrent());   	
@@ -136,7 +141,7 @@ public class FormABMProductoGenerico extends PanelDinamico{
 	            private static final long serialVersionUID = 1L;
 	            @Override
 	            public void buttonClick(final ClickEvent event) {
-	            	servicio.deleteProduct(barCode.getValue());
+	            	servicioProducto.deleteProduct(barCode.getValue());
 		        	Notification sample = new Notification("Producto eliminado con exito");
 		        	sample.show(Page.getCurrent());
 		            actualizarTabla();
@@ -250,19 +255,19 @@ public class FormABMProductoGenerico extends PanelDinamico{
 		    description.setRequired (true);
 		    
 		    
-		    alta = new Button("Nuevo Usuario");
+		    alta = new Button("Nuevo Producto Generico");
 		    alta.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		    alta.setClickShortcut(KeyCode.ENTER);
 		    alta.setWidth("70%");
 		    panIzq.addComponent(alta);
 		    
-		    modificar = new Button("Modificar Datos Usuario");
+		    modificar = new Button("Modificar Datos Producto");
 		    modificar.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		    modificar.setWidth("70%");
 		    panIzq.addComponent(modificar);
 		    modificar.setEnabled(false);
 		    
-		    eliminar = new Button("Eliminar Usuario");
+		    eliminar = new Button("Eliminar Producto");
 		    eliminar.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		    eliminar.setWidth("70%");
 		    panIzq.addComponent(eliminar);

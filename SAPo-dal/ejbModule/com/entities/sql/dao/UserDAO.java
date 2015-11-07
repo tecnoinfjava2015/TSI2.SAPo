@@ -100,4 +100,17 @@ public class UserDAO {
 		}	
 		 return foundEntity;
 	}
+	
+	public Usuario getLoginTwitter(String nick, String twitterId) {
+		Query query =  em.createQuery("SELECT l FROM Usuario l WHERE l.nick=:nick and l.twitterId=:twitterId ")
+		.setParameter("nick", nick)
+		.setParameter("twitterId", twitterId);
+		List<Usuario> results = query.getResultList();
+		Usuario foundEntity = null;
+		if(!results.isEmpty()){
+		// ignores multiple results
+			foundEntity = results.get(0);
+		}	
+		 return foundEntity;
+	}
 }
