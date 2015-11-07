@@ -11,17 +11,17 @@
             </md-button>
         </div>
     </div>
-    <div flex layout-wrap layout="row" ng-show="list">
-        <div ng-repeat="product in products">
-            <md-card>
-                <div layout="row" flex>
-                    <div flex="25" layout-margin>
-                        <img class="md-card-image" src="{{image}}" alt="image caption">
+    <div flex layout-wrap layout="row" ng-show="list" infinite-scroll="getProducts()" infinite-scroll-distance="3">
+        <div ng-repeat="product in products" flex="grow"> 
+            <md-card flex="grow">
+                <div layout="row"  layout-fill>
+                    <div flex="25" layout-margin class="productImage" style="background-image: url({{image}});">
+<!--                         <img class="md-card-image "  alt="image caption"> -->
                     </div>
-                    <div flex="75" layout-margin>
+                    <div flex="75" layout-margin layout-fill>
                         <md-card-content>
                             <h2>{{product.name}}</h2>
-                            <p>{{product.description}}</p>
+                            <p>{{product.description | limitTo:250 }}...</p>
                         </md-card-content>
                         <md-card-footer>
                             <h3>Stock: {{product.stock}}</h3>
@@ -34,8 +34,8 @@
             </md-card>
         </div>
     </div>
-    <div flex layout-wrap layout="row" ng-show="!list">
-        <div ng-repeat="product in products" flex="25">
+    <div flex layout-wrap layout="row" ng-show="!list" infinite-scroll="getProducts()" infinite-scroll-distance="3">
+        <div ng-repeat="product in products" flex-sd="100" flex-md="50" flex-gt-md="33">
             <md-card>
                 <div layout="column">
                     <div flex="100" layout-margin>
