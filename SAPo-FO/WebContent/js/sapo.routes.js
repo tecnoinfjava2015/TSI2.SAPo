@@ -22,7 +22,7 @@
                 templateUrl: 'templates/virtualStorage.create.html',
                 controllerAs: 'vm'
             })
-            .when('/createProduct', {
+            .when('/:tenantName/createProduct', {
                 controller: 'CreateProductController',
                 templateUrl: 'templates/product.create.html',
                 controllerAs: 'vm'
@@ -32,10 +32,18 @@
                 templateUrl: 'templates/profile.view.html',
                 controllerAs: 'vm'
             })
+            .when('/:tenantName/dashboard', {
+                controller: 'DashboardController',
+                templateUrl: 'templates/dashboard.view.html',
+                controllerAs: 'vm'
+            })
             .when('/dashboard', {
                 controller: 'DashboardController',
                 templateUrl: 'templates/dashboard.view.html',
                 controllerAs: 'vm'
             })
+            .otherwise({
+                redirectTo: '/'
+            });
     };
 })();
