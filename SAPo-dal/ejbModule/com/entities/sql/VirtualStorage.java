@@ -85,7 +85,7 @@ public class VirtualStorage implements Serializable {
 		return sidenavTop;
 	}
 	public void setSidenavTop(String sidenavTop) {
-		this.theme = sidenavTop;
+		this.sidenavTop = sidenavTop;
 	}
 	public String getSidenavBottom() {
 		return sidenavBottom;

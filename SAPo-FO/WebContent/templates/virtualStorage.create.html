@@ -39,7 +39,7 @@ VS >>> {{vs}}
         <md-tooltip md-direction="left">
           Seleccione la navegaci&oacute;n superior de su almac&eacute;n virtual
         </md-tooltip>
-        <md-select ng-model="vs.connection">
+        <md-select ng-model="vs.sidenavTop">
           <md-option ng-repeat="sidenavTop in sidenavTops" value="{{sidenavTop}}">{{sidenavTop}}</md-option>
         </md-select>
       </md-input-container>
@@ -53,7 +53,17 @@ VS >>> {{vs}}
           <md-option ng-repeat="sidenavBottom in sidenavBottoms" value="{{sidenavBottom}}">{{sidenavBottom}}</md-option>
         </md-select>
       </md-input-container>
-     
-	  <md-button class="md-raised md-primary" ng-click='insert(vs);showAlert();' >Crear</md-button>
+      <md-input-container >
+	  <md-radio-group flex layout='row' ng-model="vs.progressLinear">
+		<div layout-align="start center">
+			<md-radio-button flex ng-value="true" class="md-primary"><label>Loading lineal</label>	</md-radio-button>
+		</div>
+		<div layout-align="start center">
+			<md-radio-button flex ng-value="false" class="md-primary "><label>Loading circular</label></md-radio-button>
+		</div>
+	  </md-radio-group>
+	  </md-input-container>
+
+	<md-button class="md-raised md-primary" ng-click='insert(vs);showAlert();' >Crear</md-button>
       <md-button class="md-raised" ng-click="reset()">Cancelar</md-button>
 </form>
