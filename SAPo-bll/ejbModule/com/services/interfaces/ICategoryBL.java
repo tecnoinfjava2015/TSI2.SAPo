@@ -14,5 +14,7 @@ public interface ICategoryBL {
 	public void deleteCategory(long virtualStorageId, int id);
 
 	public List<Category> getAllCategories(long virtualStorageId, int offset, int limit);
+	
+	public List<Category> getAllStarredCategories(long virtualStorageId, int offset, int limit);
 
 }
