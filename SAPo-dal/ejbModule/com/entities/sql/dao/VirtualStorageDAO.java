@@ -23,8 +23,14 @@ public class VirtualStorageDAO {
 	@EJB
 	private UserDAO udao;
 	
-	public void updateVS(VirtualStorage vs){
-		em.merge(vs);
+	public String updateVS(VirtualStorage vs){
+		try {
+			em.merge(vs);
+			return "200-Success-Virtual_Storage_Updated";
+		}
+		catch (Exception ex) {
+			return "500-Error-" + ex.getMessage();
+		}
 	}
 
 	public Boolean deleteVSByName(String name){
@@ -58,15 +64,20 @@ public class VirtualStorageDAO {
 	}
 	
 	public String createVS(VirtualStorage vs, int ownerId){
-		Usuario owner = udao.buscarID(ownerId);
-		if (owner != null){
-			vs.setOwner(owner);
-			vs.setCreatedDate(new Date());
-			em.persist(vs);
-			em.flush(); 
-			return "VSCreado";
+		try {
+			Usuario owner = udao.buscarID(ownerId);
+			if (owner != null){
+				vs.setOwner(owner);
+				vs.setCreatedDate(new Date());
+				em.persist(vs);
+				em.flush(); 
+				return "VSCreado";
+			}
+			return "500-Error-no_existe_usuario";
 		}
-		return "500-Error-no_existe_usuario";
+		catch (Exception ex) {
+			return "500-Error-" + ex.getMessage();
+		}
 	}
 
 	public List<VirtualStorage> getAllVS() {
