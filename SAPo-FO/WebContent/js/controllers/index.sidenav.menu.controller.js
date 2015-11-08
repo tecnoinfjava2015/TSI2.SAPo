@@ -17,6 +17,13 @@
             url: "/test"
         }
         $scope.menu.push(item);
+        
+        var item = {
+                icon:"dashboard",
+                name: "Dashboard",
+                url: "/dashboard"
+            }
+        $scope.menu.push(item);
 
         $scope.redirect = redirect
 

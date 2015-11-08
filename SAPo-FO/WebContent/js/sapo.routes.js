@@ -32,5 +32,10 @@
                 templateUrl: 'templates/profile.view.html',
                 controllerAs: 'vm'
             })
+            .when('/dashboard', {
+                controller: 'DashboardController',
+                templateUrl: 'templates/dashboard.view.html',
+                controllerAs: 'vm'
+            })
     };
 })();
