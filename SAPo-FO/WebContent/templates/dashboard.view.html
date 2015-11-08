@@ -4,7 +4,7 @@
     <md-tabs md-dynamic-height md-border-bottom>
       <md-tab label="Almacenes virtuales">
         <md-content class="md-padding" >
-        <div ng-include="virtualStorageView"></div>
+        <div ng-include="virtualStorageView" ng-controller="VirtualStorageNavigateController as ctrl"></div>
         </md-content>
       </md-tab>
       <md-tab label="Lista de recomendaciones">
