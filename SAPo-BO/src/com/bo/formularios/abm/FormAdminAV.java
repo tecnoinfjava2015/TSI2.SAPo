@@ -70,6 +70,7 @@ public class FormAdminAV extends PanelDinamico{
 	private String mailDestino, mensaje;
 	private TextField texMailDestino, texMensaje;
 	private Button btnEnviarMensaje;
+	private int porcentajeSeleccionado;
 	
 	private void lookup() {
 		InitialContext context = null;
@@ -196,12 +197,12 @@ public class FormAdminAV extends PanelDinamico{
             	anlaizarCategorias.setWidth("70%");
 
             	porcentajeIgualdad = new ComboBox("Seleccione porcentaje mínimo de igualdad");
-            	porcentajeIgualdad.addItem("50%");
-            	porcentajeIgualdad.addItem("60%");
-            	porcentajeIgualdad.addItem("70%");
-            	porcentajeIgualdad.addItem("80%");
-            	porcentajeIgualdad.addItem("90%");
-            	porcentajeIgualdad.addItem("100%");
+            	porcentajeIgualdad.addItem("50");
+            	
+            	
+            	porcentajeIgualdad.addItem("80");
+            	
+            	porcentajeIgualdad.addItem("100");
 
             	porcentajeIgualdad.setFilteringMode(FilteringMode.CONTAINS);
             	porcentajeIgualdad.setWidth("90%");
@@ -221,8 +222,16 @@ public class FormAdminAV extends PanelDinamico{
                     private static final long serialVersionUID = 1L;
                     @Override
                     public void buttonClick(final ClickEvent event) {
-                    	 
-                    	temaWindow.close();
+                    	if (fraudeProductos()) {
+                    		System.out.println("Fraude detectado ");
+                    		Notification sample = new Notification("Fraude Detectado");
+                        	sample.show(Page.getCurrent());
+                    	}
+                    	else{
+                    		Notification sample = new Notification("No existe fraude");
+                        	sample.show(Page.getCurrent());
+                    	}
+                    	//temaWindow.close();
                    }
                 });	
            }
@@ -418,5 +427,35 @@ public class FormAdminAV extends PanelDinamico{
 			}
 	}
 	
-	
+	private Boolean fraudeProductos(){
+		List<Product>  listaProductosTemp;
+		int totalProd = listaProductos.size();
+		int iguales = 0;
+		for (VirtualStorage vs : listaVirtualStorage){
+			if(listaVirtualStorage.get((int) tableVirtualStorage.getValue()-1).getId() != vs.getId()){
+				listaProductosTemp = servicioProducto.getAllProducts(vs.getId());
+				for (Product p : listaProductos){
+					if (servicioProducto.estaEnLista(p,listaProductosTemp)){
+						iguales++;
+						System.out.println("entro, iguales: " + iguales);
+						System.out.println("entro, P: " + p.getBarCode());
+					}
+					System.out.println("NOentro, P: " + p.getBarCode());
+				}
+				System.out.println("Almacen ");
+			}	
+			
+		}
+		System.out.println("totalProd * porcentajeSeleccionado " + totalProd * porcentajeSeleccionado);
+		System.out.println("iguales * 100 " + iguales * 100);
+		if(porcentajeIgualdad.getValue().equals("50"))porcentajeSeleccionado = 50;
+		else if(porcentajeIgualdad.getValue().equals("80"))porcentajeSeleccionado = 80;
+		else if(porcentajeIgualdad.getValue().equals("100"))porcentajeSeleccionado = 100;
+		
+		if(totalProd * porcentajeSeleccionado <= iguales * 100){
+			System.out.println("retorna true producto" + porcentajeSeleccionado);
+			return true;
+		}
+		return false;
+	}
 }
