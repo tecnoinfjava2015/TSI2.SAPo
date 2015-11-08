@@ -43,7 +43,8 @@
                 controllerAs: 'vm'
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/error',
+                templateUrl: 'templates/error.view.html'
             });
     };
 })();
