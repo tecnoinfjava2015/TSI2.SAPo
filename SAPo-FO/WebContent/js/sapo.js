@@ -19,5 +19,6 @@
             $rootScope.navBottomLeft = "templates/index.sidenav.categories.html";
             $rootScope.navTopRight  = "templates/index.sidenav.tweets.html";
             $rootScope.navBottomRight = "";
+            $rootScope.virtualStorageView = "templates/virtualStorage.view.html";
 		});
 })();
