@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+.chat-wrapper{
+	width: 28em;
+}
+#response {
+    width: 100%;
+    height: 28em;
+    overflow-y: auto;
+    overflow-x:hidden;
+}
+</style>
+
+<script type="text/javascript">
+	var wsocket;
+	var serviceLocation = "ws://localhost:8080/SAPo-FO/ChatEndpoint/";
+	var $nickName;
+	var $message;
+	var $chatWindow;
+	var room = '';
+ 
+	function onMessageReceived(evt) {
+		var msg = JSON.parse(evt.data); // native API
+		var $messageLine = $('<ul>' + msg.sender + ": " + msg.message + '</ul>');			
+		$chatWindow.append($messageLine);
+		$("#response").scrollTop($("#response")[0].scrollHeight);
+	}
+	
+	function sendMessage() {
+		var msg = '{"message":"' + $message.val() + '", "sender":"'
+				+ $nickName + '"}';
+		wsocket.send(msg);
+		$message.val('').focus();
+	}
+ 
+	function connectToChatserver() {
+		room = 'Almacen';		
+		wsocket = new WebSocket(serviceLocation + room);
+		wsocket.onmessage = onMessageReceived;
+	}
+ 
+	function leaveRoom() {
+		wsocket.close();
+		$chatWindow.empty();
+		$('.chat-wrapper').hide();
+		$('.chat-signin').show();
+		$nickName.focus();
+	}
+ 
+	$(document).ready(function() {
+		$nickName = 'lufasoch';
+		$message = $('#message');
+		$chatWindow = $('#response');
+		$('.chat-wrapper').hide();
+
+		connectToChatserver();
+		$('.chat-wrapper h2').text('Chat # '+$nickName + "@" + room);
+		$('.chat-signin').hide();
+		$('.chat-wrapper').show();
+		$message.focus();
+		
+		$('#do-chat').submit(function(evt) {
+			evt.preventDefault();
+			sendMessage()
+		});
+ 
+		$('#leave-room').click(function(){
+			leaveRoom();
+		});
+	});
+</script>
+</head>
+ 
+<body>
+ 
+	<div class="container chat-signin">
+		
+			<h2 class="form-signin-heading">Chat sign in</h2>
+		
+			<button class="btn btn-large btn-primary" type="submit"
+				id="enterRoom">Entrar</button>
+		
+	</div>
+	
+	<!-- /container -->
+ 
+	<div class="container chat-wrapper">
+		<form id="do-chat">
+			<h2 class="alert alert-success"></h2>
+			<div id="response"></div>
+			<fieldset>
+				<legend>Enter your message..</legend>
+				<div class="controls">
+					<input autocomplete="off" style="width: 100%;"type="text" class="input-block-level" placeholder="Your message..." id="message"/>
+					<input type="submit" class="btn btn-large btn-block btn-primary"
+						value="Send message" />
+					<!--<button class="btn btn-large btn-block" type="button" id="leave-room">Leave
+						room</button>  -->
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>

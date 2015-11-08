@@ -30,6 +30,7 @@ import com.vaadin.data.Property;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
@@ -63,7 +64,8 @@ public class FormAdminAV extends PanelDinamico{
 	private Table tableVirtualStorage, tableProductos, tableCategorias;
 	private Button bloquearAV, enviarMensaje, analizarFraude, imprimirReporte;
 	private Button convertirGenerico, eliminarProucto, buscarProducto;
-	private ComboBox comboAVs;
+	private Button analizarProductos, anlaizarCategorias;
+	private ComboBox porcentajeIgualdad;
 	private VirtualStorageServiceLocal servicioVS;
 	private String mailDestino, mensaje;
 	private TextField texMailDestino, texMensaje;
@@ -157,7 +159,7 @@ public class FormAdminAV extends PanelDinamico{
                 windowCont.addComponent(texMailDestino);
                 windowCont.addComponent(texMensaje);
                 windowCont.addComponent(btnEnviarMensaje);
-                windowCont.setWidth("600px");
+                windowCont.setWidth("500px");
                 windowCont.setHeight("300px"); 
                 temaWindow.center();
                 UI.getCurrent().addWindow(temaWindow);
@@ -173,6 +175,57 @@ public class FormAdminAV extends PanelDinamico{
             	
            }
 			
+        });
+        
+        analizarFraude.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public void buttonClick(final ClickEvent event) {
+            	
+            	temaWindow = new Window("Estilo");
+            	VerticalLayout windowCont = new VerticalLayout();
+            	windowCont.setMargin(true);
+            	temaWindow.setContent(windowCont);
+            
+            	analizarProductos = new Button("Analizar Productos");
+            	analizarProductos.addStyleName(ValoTheme.BUTTON_PRIMARY);
+            	analizarProductos.setWidth("70%");
+            	
+            	anlaizarCategorias = new Button("Analizar Categorias");
+            	anlaizarCategorias.addStyleName(ValoTheme.BUTTON_PRIMARY);
+            	anlaizarCategorias.setWidth("70%");
+
+            	porcentajeIgualdad = new ComboBox("Seleccione porcentaje mínimo de igualdad");
+            	porcentajeIgualdad.addItem("50%");
+            	porcentajeIgualdad.addItem("60%");
+            	porcentajeIgualdad.addItem("70%");
+            	porcentajeIgualdad.addItem("80%");
+            	porcentajeIgualdad.addItem("90%");
+            	porcentajeIgualdad.addItem("100%");
+
+            	porcentajeIgualdad.setFilteringMode(FilteringMode.CONTAINS);
+            	porcentajeIgualdad.setWidth("90%");
+            	porcentajeIgualdad.setNullSelectionAllowed(false);
+            	porcentajeIgualdad.setTextInputAllowed(false);
+            	porcentajeIgualdad.setValue(porcentajeIgualdad.getItemIds().iterator().next());
+            	
+            	
+                windowCont.addComponent(analizarProductos);
+                windowCont.addComponent(anlaizarCategorias);
+                windowCont.addComponent(porcentajeIgualdad);
+                windowCont.setWidth("500px");
+                windowCont.setHeight("300px"); 
+                temaWindow.center();
+                UI.getCurrent().addWindow(temaWindow);
+                analizarProductos.addClickListener(new ClickListener() {
+                    private static final long serialVersionUID = 1L;
+                    @Override
+                    public void buttonClick(final ClickEvent event) {
+                    	 
+                    	temaWindow.close();
+                   }
+                });	
+           }
         });
 	}
 
@@ -200,11 +253,11 @@ public class FormAdminAV extends PanelDinamico{
 	     
 	    tableProductos.setImmediate(true);
 	    tableProductos.setSelectable(true);
-	    tableProductos.select(1);
+	    tableProductos.select(2);
 	    tableProductos.setNullSelectionItemId(false);
-	    tableProductos.setPageLength(tableProductos.size());
+	    //tableProductos.setPageLength(tableProductos.size());
 	    tableProductos.setWidth("80%");
-	    tableProductos.setHeight("20%");
+	    tableProductos.setHeight("18em");
 	    panDer.setMargin(true);
 	    panDer.addComponent(tableProductos);
 	    panDer.setComponentAlignment(tableProductos, Alignment.MIDDLE_CENTER);
@@ -228,7 +281,7 @@ public class FormAdminAV extends PanelDinamico{
 	    tableCategorias.setNullSelectionItemId(false);
 	    tableCategorias.setPageLength(tableCategorias.size());
 	    tableCategorias.setWidth("80%");
-	    tableCategorias.setHeight("20%");
+	    tableCategorias.setHeight("18em");
 	    panDer.setMargin(true);
 	    panDer.addComponent(tableCategorias);
 	    panDer.setComponentAlignment(tableCategorias, Alignment.MIDDLE_CENTER);
