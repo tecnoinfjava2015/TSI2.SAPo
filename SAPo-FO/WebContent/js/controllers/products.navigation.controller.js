@@ -40,6 +40,7 @@
         
         function toggleListGrid(){
         	$scope.list=!$scope.list;
+        	
         }
 
 

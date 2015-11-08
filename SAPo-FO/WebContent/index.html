@@ -2,53 +2,77 @@
 <html ng-app="sapo">
 
 <head>
-    <title>SAPo</title>
-    <!-- Angular Material CSS -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.4/angular-material.min.css">
-    <!-- Angular Material Icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- Custom css files -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Angular Material Dependencies -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js"></script>
-    <!-- Angular Material Javascript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.4/angular-material.min.js"></script>
-    <!-- Config js files -->
-    <script src="js/sapo.js"></script>
-    <script src="js/sapo.routes.js"></script>
-    <script src="js/sapo.style.js"></script>
-    <!-- Controller js files -->
-    <script src="js/controllers/index.controller.js"></script>
-    <script src="js/controllers/index.toolbar.controller.js"></script>
-    <script src="js/controllers/test.controller.js"></script>
-    <script src="js/controllers/products.navigation.controller.js"></script>
-    <script src="js/controllers/virtualStorage.controller.js"></script>
-    <!-- Directives js files -->
-    <script src="js/directives/user.avatar.directive.js"></script>
-    <!-- Factories js files -->
-    <script src="js/factories/products.resource.factory.js"></script>
-    <script src="js/factories/virtualStorage.resource.factory.js"></script>
+<title>SAPo</title>
+<!-- Angular Material CSS -->
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.4/angular-material.min.css">
+<!-- Angular Material Icons -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- Custom css files -->
+<link rel="stylesheet" href="css/style.css">
+<!-- Angular Material Dependencies -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js"></script>
+<!-- Angular Material Javascript -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.4/angular-material.min.js"></script>
+<!-- Config js files -->
+<script src="js/sapo.js"></script>
+<script src="js/sapo.routes.js"></script>
+<script src="js/sapo.style.js"></script>
+<!-- Controller js files -->
+<script src="js/controllers/index.controller.js"></script>
+<script src="js/controllers/index.toolbar.controller.js"></script>
+<script src="js/controllers/test.controller.js"></script>
+<script src="js/controllers/products.navigation.controller.js"></script>
+<script src="js/controllers/virtualStorage.controller.js"></script>
+<script src="js/controllers/index.sidenav.menu.controller.js"></script>
+
+<!-- Directives js files -->
+<script src="js/directives/user.avatar.directive.js"></script>
+<!-- Factories js files -->
+<script src="js/factories/products.resource.factory.js"></script>
+<script src="js/factories/virtualStorage.resource.factory.js"></script>
 </head>
 
 <body>
-    <div layout="column" layout-fill flex style="{{bgcolor}}" md-theme="{{theme}}" >
-        <md-toolbar ng-include="toolbarTemplate">
-        </md-toolbar>
-        <div layout="row" flex>
-            <md-sidenav md-component-id="left" class="md-whiteframe-z1" md-is-locked-open="$mdMedia('gt-md') && leftNav">
-                Left Nav!
-            </md-sidenav>
-            <md-content  flex="grow" layout-margin layout-padding layout-wrap ng-view>
-            </md-content>
-            <md-sidenav md-component-id="right" class="md-whiteframe-z1" md-is-locked-open="$mdMedia('gt-md') && rightNav">
-                Right Nav!
-            </md-sidenav>
-        </div>
-    </div>
+	<div layout="row" layout-fill flex md-theme="{{theme}}">
+		<!--style="{{bgcolor}}" -->
+		<md-sidenav md-component-id="left" class="md-whiteframe-z2"
+			md-is-locked-open="$mdMedia('gt-md') && leftNav" layout="column">
+		<div ng-include="navTopLeft"></div>
+		<div ng-include="navBottomLeft"></div>
+		</md-sidenav>
+
+		<div layout="column" flex>
+			<md-toolbar ng-include="toolbarTemplate"> </md-toolbar>
+			<md-fab-speed-dial md-open="false" md-direction="up"
+				class="md-fab-bottom-right md-scale"> <md-fab-trigger>
+			<md-button aria-label="menu" class="md-fab md-warn"> <md-icon>
+			menu</md-icon> </md-button> </md-fab-trigger> <md-fab-actions> <md-button
+				aria-label="Twitter" class="md-fab md-raised md-mini md-accent">
+			<md-icon>menu</md-icon> </md-button> <md-button aria-label="Facebook"
+				class="md-fab md-raised md-mini md-accent"> <md-icon>android</md-icon>
+			</md-button> <md-button aria-label="Google Hangout"
+				class="md-fab md-raised md-mini md-accent"> <md-icon>android</md-icon>
+			</md-button> </md-fab-actions> </md-fab-speed-dial>
+			<md-content flex="grow" layout-margin layout-padding layout-wrap
+				ng-view> </md-content>
+			<!--             <md-sidenav md-component-id="right" class="md-whiteframe-z1" md-is-locked-open="$mdMedia('gt-md') && rightNav" layout="column"> -->
+			<!--                 <div ng-include="navTopRight"></div> -->
+			<!--                 <div ng-include="navBottomRight"></div> -->
+			<!--             </md-sidenav> -->
+		</div>
+	</div>
 </body>
 
 </html>

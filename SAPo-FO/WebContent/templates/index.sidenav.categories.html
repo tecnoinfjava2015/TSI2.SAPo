@@ -1,0 +1,7 @@
+<md-list ng-controller="MenuController" ng-cloak>
+    <md-subheader class="md-no-sticky">Menu</md-subheader>
+    <md-list-item ng-repeat="item in menu" ng-click="redirect(item.url)">
+        <md-icon>{{item.icon}}</md-icon>
+        <p>{{ item.name }}</p>
+    </md-list-item>
+</md-list>
