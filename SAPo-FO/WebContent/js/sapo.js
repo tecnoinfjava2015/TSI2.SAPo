@@ -6,7 +6,8 @@
             'ngRoute', 
             'ngResource',
             'infinite-scroll',
-            'naif.base64'
+            'naif.base64',
+            'ngCookies'
         ])
         .run(function($rootScope) {
     		$rootScope.theme = "test1";

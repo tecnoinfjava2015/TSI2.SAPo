@@ -2,6 +2,7 @@ package com.entities.sql;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -35,8 +36,8 @@ public class Usuario implements Serializable {
 	@JoinColumn(name = "tenantCreados")
 	private List <VirtualStorage> tenantCreados;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<VirtualStorage>tenantSeguidor;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<VirtualStorage>tenantSeguidor;
 	
 
 	public Usuario() {
@@ -99,11 +100,11 @@ public class Usuario implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public List<VirtualStorage> getTenantSeguidor() {
+	public Set<VirtualStorage> getTenantSeguidor() {
 		return tenantSeguidor;
 	}
 
-	public void setTenantSeguidor(List<VirtualStorage> tenantSeguidor) {
+	public void setTenantSeguidor(Set<VirtualStorage> tenantSeguidor) {
 		this.tenantSeguidor = tenantSeguidor;
 	}
 
