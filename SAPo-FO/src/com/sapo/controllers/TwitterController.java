@@ -79,6 +79,8 @@ public class TwitterController {
 		
 		sessionMap.put("sapoUser", sapoUser);
 		
+		externalContext.addResponseCookie("sapoUser", sapoUser, null);
+		
 		externalContext.redirect("#/");
 	}
 
