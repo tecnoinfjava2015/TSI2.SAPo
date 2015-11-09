@@ -10,3 +10,15 @@
     }
 })(); 
 
+(function() {
+    'use strict';
+    angular
+        .module('sapo')
+        .factory('VirtualStorageViewResource', VirtualStorageViewResource);
+    VirtualStorageViewResource.$inject = ['$resource'];
+    /* @ngInject */
+    function VirtualStorageViewResource($resource) {
+        return $resource('/SAPo-FO/api/VirtualStorage/getByOwner?ownerId=1');
+    }
+})(); 
+

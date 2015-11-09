@@ -14,6 +14,16 @@
         <textarea ng-model="prod.description" columns="1" md-maxlength="150"></textarea>
       </md-input-container>
       <md-input-container >
+        <label>Im&aacute;genes</label>
+        <md-tooltip md-direction="left">
+          Ingrese las im&aacute;genes de su producto
+        </md-tooltip>
+        <input ng-model="images.filename" ng-focus="upload()" id="fileName">        
+      </md-input-container>
+      
+      <input type='file' ng-model='images' id="file" base-sixty-four-input hidden multiple="multiple" >
+      Files >>> {{images}}
+      <md-input-container >
         <label>Unidad</label>
         <input ng-model="prod.unit.name">
       </md-input-container>
@@ -33,6 +43,9 @@
         <label>C&oacute;digo de barras</label>
         <input ng-model="prod.barCode">
       </md-input-container>
+       
+        
+        
       <!-- 
       private long virtualStorageId;
 	private String virtualStorageName;

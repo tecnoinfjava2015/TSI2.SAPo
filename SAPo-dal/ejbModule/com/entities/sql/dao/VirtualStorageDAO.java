@@ -1,7 +1,9 @@
 package com.entities.sql.dao;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -40,6 +42,15 @@ public class VirtualStorageDAO {
 		virtualStorage.setEnabled(false);
 		em.merge(virtualStorage);
 		return true;
+	}
+	
+	
+	public List<VirtualStorage> getVirtualStorageByOwner(int ownerId){
+		Query query =  em.createQuery("SELECT vs FROM VirtualStorage vs WHERE id IN (SELECT uvs FROM usuario_virtualstorage uvs WHERE uvs.usuario_id=:ownerId)")
+				.setParameter("ownerId", ownerId);
+				
+		return query.getResultList();
+		//return em.find(VirtualStorage.class, name);		
 	}
 	
 	
