@@ -46,6 +46,7 @@ public class PayPalResult {
 	private String residence_country;
 	private String transaction_subject;
 	private String payment_gross;
+	private String cm;
 
 	public String getMc_gross() {
 		return mc_gross;
@@ -397,6 +398,14 @@ public class PayPalResult {
 
 	public void setPayment_gross(String payment_gross) {
 		this.payment_gross = payment_gross;
+	}
+
+	public String getCm() {
+		return cm;
+	}
+
+	public void setCm(String cm) {
+		this.cm = cm;
 	}
 
 }

@@ -43,7 +43,8 @@ public interface UsuarioServiceLocal {
 								  @QueryParam("nick") String nick,
 								  @QueryParam("password") String password,
 								  @QueryParam("enabled") Boolean enabled,
-								  @QueryParam("aceptado") Boolean aceptado);
+								  @QueryParam("aceptado") Boolean aceptado,
+								  @QueryParam("paypalTransactionId") String paypalTransactionId);
 	
 	@GET
 	@Path("/listar")

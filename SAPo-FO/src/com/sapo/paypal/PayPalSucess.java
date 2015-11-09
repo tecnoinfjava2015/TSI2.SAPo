@@ -2,11 +2,12 @@ package com.sapo.paypal;
 
 import java.io.*;
 import java.net.*;
+
 import javax.servlet.http.*;
 
 public class PayPalSucess {
 
-	public PayPalResult getPayPal(HttpServletRequest request) {
+	public PayPalResult getPayPal(HttpServletRequest request) throws IOException {
 		PayPalResult ppr = new PayPalResult();
 		PayPalConfig pc = new PayPalConfig();
 		pc = pc.getConfig(request);
@@ -176,6 +177,9 @@ public class PayPalSucess {
 					}
 					if (temp[0].equals("payment_gross")) {
 						ppr.setPayment_gross(temp[1]);
+					}
+					if (temp[0].equals("custom")) {
+						ppr.setCm(temp[1]);
 					}
 				}
 				in.close();

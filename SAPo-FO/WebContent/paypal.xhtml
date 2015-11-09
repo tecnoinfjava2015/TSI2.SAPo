@@ -12,6 +12,7 @@
 <body> 
 
 Aquí va una linda paginita de venta, previa al post a paypal<br />
+#{paypal.getUserName()}
 <form method="post" action="${initParam['posturl']}">
 	<input type="hidden" name="upload" value="1" /> 
 	<input type="hidden" name="return" value="${initParam['returnurl']}" /> 
@@ -20,8 +21,9 @@ Aquí va una linda paginita de venta, previa al post a paypal<br />
 	
 	<!-- Product 1  -->
 		<input type="hidden" name="item_name_1" value="SAPo Premium User" />
+		<input type="hidden" name="custom" value="#{paypal.getUserName()}" />
 		<input type="hidden" name="item_number_1" value="PU1" />
-		<input type="hidden" name="amount_1" value="19.99" />
+		<input type="hidden" name="amount_1" value="1.99" />
 		<input type="hidden" name="quantity_1" value="1" />
 		
 	<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/> 

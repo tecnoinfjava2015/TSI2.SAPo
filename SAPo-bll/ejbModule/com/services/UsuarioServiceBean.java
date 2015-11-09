@@ -60,7 +60,7 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	}
 
 	@Override
-	public void modificarUsuario(String nombre, String tipo, String mail,String nick, String password, Boolean enabled, Boolean aceptado) {
+	public void modificarUsuario(String nombre, String tipo, String mail, String nick, String password, Boolean enabled, Boolean aceptado, String paypalTransactionId) {
 		Usuario u = new Usuario();
 		u.setName(nombre);
 		u.setType(tipo);
@@ -69,6 +69,7 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 		u.setPassword(password);
 		u.setEnabled(enabled);
 		u.setAceptado(aceptado);
+		u.setPaypalTransactionId(paypalTransactionId);
 		udao.modificar(u);
 	}
 

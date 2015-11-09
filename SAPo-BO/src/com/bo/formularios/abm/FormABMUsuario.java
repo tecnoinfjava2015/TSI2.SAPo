@@ -155,7 +155,7 @@ public class FormABMUsuario extends PanelDinamico{
 		        }
 		        else{
 		        	String md5 = new Encrypter().MD5(password.getValue());
-		        	servicio.modificarUsuario(nick.getValue(), (String) tipo.getValue(), mail.getValue(), nick.getValue(), md5, true, true);
+		        	servicio.modificarUsuario(nick.getValue(), (String) tipo.getValue(), mail.getValue(), nick.getValue(), md5, true, true, null);
 		        	Notification notif = new Notification("Usuario modificado con exito");
 		        	notif.setDelayMsec(2000);
 		        	notif.show(Page.getCurrent());   	
