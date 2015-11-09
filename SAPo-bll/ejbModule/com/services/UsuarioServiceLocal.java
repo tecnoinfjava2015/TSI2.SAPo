@@ -30,8 +30,9 @@ public interface UsuarioServiceLocal {
 	@POST
 	@Path("/registroTwitter")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void registroUsuarioTwitter ( @QueryParam("nombre") String nombre,
-								  		  @QueryParam("twitterId") String twitterId);
+	public void registroUsuarioTwitter ( final TwitterUserBean input);
+//	public void registroUsuarioTwitter ( @QueryParam("nombre") String nombre,
+//								  		  @QueryParam("twitterId") String twitterId);
 	
 	@GET
 	@Path("/modificar")
@@ -88,7 +89,8 @@ public interface UsuarioServiceLocal {
 	@POST
 	@Path("/loginTwitter")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Usuario getLoginTwitter( @QueryParam("nick") String nick,
-			  				 @QueryParam("twitterId") String twitterId);
+	public Usuario getLoginTwitter (final TwitterUserBean input);
+	//	public Usuario getLoginTwitter( @QueryParam("nick") String nick,
+//			  				 @QueryParam("twitterId") String twitterId);
 	
 }
