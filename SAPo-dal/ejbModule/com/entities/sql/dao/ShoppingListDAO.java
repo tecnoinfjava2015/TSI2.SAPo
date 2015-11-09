@@ -63,16 +63,18 @@ public class ShoppingListDAO {
 	
 	public void deleteItem(long VSId, String barcode){
         try {
-        	ShoppingListItem item = returnShoppingListItem(VSId, barcode);
-            em.remove(item);            
+        	if(existShoppingListItemForVS(barcode, VSId)){
+	        	ShoppingListItem item = returnShoppingListItem(VSId, barcode);
+	            em.remove(item);
+        	}
         }catch (Exception e){
             e.printStackTrace();
-        }        
+        }
     }
 	
 	public List<Product> getRecomendations(long VSId){
 		ProductDAO PDAO = new ProductDAO();
-		int stockMin = 10;
+		int stockMin = 3;
 		int limit = 5;
 		return PDAO.stockLessOrEqualThan(stockMin, VSId, limit);
 	}
