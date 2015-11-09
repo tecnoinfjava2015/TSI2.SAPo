@@ -9,6 +9,11 @@
     	$scope.title = 'Crear Producto';
     	$scope.tenantId = 1;
     	$scope.insert = insert;
+    	$scope.upload = upload;
+    	
+    	function upload() {
+			document.getElementById("file").click();
+		}
     	
     	function insert( data) {    		
     		CreateProductsResource.save({tenantId: $scope.tenantId },data,function(){
