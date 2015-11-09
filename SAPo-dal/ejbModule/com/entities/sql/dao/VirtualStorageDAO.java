@@ -45,6 +45,7 @@ public class VirtualStorageDAO {
 	}
 	
 	
+	
 	public List<VirtualStorage> getVirtualStorageByOwner(int ownerId){
 		Query query =  em.createQuery("SELECT vs FROM VirtualStorage vs WHERE id IN (SELECT uvs FROM usuario_virtualstorage uvs WHERE uvs.usuario_id=:ownerId)")
 				.setParameter("ownerId", ownerId);
