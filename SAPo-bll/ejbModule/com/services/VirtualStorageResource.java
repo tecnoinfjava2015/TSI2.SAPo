@@ -1,11 +1,16 @@
 package com.services;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.entities.sql.VirtualStorage;
@@ -32,6 +37,16 @@ public class VirtualStorageResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String updateVS(VirtualStorage vs) {
 		return dao.updateVS(vs);
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("owner/{ownerId}")
+	public List<VirtualStorage> getVirtualStorageByOwner(@PathParam("ownerId") int ownerId) {
+		List<VirtualStorage> virtualStorages = dao.getVirtualStorageByOwner(ownerId);
+		
+		return virtualStorages;
+		
 	}
 	
 }
