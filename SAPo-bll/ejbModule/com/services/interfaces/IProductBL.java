@@ -16,4 +16,5 @@ public interface IProductBL {
 	public List<Product> getProductsByCategories(long virtualStorageId, List<Integer> categories, int offset, int limit);
 	public List<Product> getProductsByCategoriesOr(long virtualStorageId, List<Integer> categories, int offset, int limit);
 	public void deleteProduct(long virtualStorageId, String barcode);
+	public boolean estaEnLista(Product p, List<Product> listaProductosTemp);
 }
