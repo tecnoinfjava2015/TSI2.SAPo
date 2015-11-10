@@ -115,12 +115,17 @@ public class VirtualStorageDAO {
 
 	public String insertVS(VirtualStorage vs, int idCreador){
 		Usuario creador = udao.buscarID(idCreador);
-		if(creador!=null && searchVSByName(vs.getName()) != null){
+		if(creador==null){
+			return "500-Error-Sin_Usuario";
+		}
+		if (searchVSByName(vs.getName()) == null){
+			return "501-Error-Ya existe AV";
+		}
+		else{
 			vs.setOwner(creador);
 			em.persist(vs);
 			em.flush(); 
 			return vs.getName();
-		}	
-		return "500-Error-Sin_Usuario";
+		}		
 	}	
 }
