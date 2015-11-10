@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 
 import com.entities.sql.Usuario;
 import com.entities.sql.dao.UserDAO;
@@ -101,6 +102,16 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	public Usuario getLoginTwitter(TwitterUserBean input) {//(String nick, String twitterId) {
 		//en el dao revisa el nick, que es igual al nombre
 		return udao.getLoginTwitter(input.nombre, input.twitterId);
+	}
+
+	@Override
+	public Boolean pasarAPremium (String nick, String paypalTransactionId){
+		return udao.pasarAPremium(nick, paypalTransactionId);
+	}
+
+	@Override
+	public Boolean geolocalizar(String nick, String geolocation) {
+		return udao.geolocalizar(nick, geolocation);
 	}
 
 	
