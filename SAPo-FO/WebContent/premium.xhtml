@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+<title><ui:insert name="pageTitle">Become a Premium User</ui:insert></title>
+<style type="text/css">
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+.header {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+
+.bottom {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	text-align: center;
+	vertical-align: middle;
+	color: #8E969D;
+}
+</style>
+</head>
+
+<body bgcolor="#ffffff">
+	<table style="border: 1px solid #CAD6E0" align="center" cellpadding="0"
+		cellspacing="0" border="0" width="400">
+		<tbody>
+
+			<tr>
+				<td class="header" height="42" align="center" valign="middle"
+					width="100%" bgcolor="#E4EBEB"><ui:insert name="pageHeader">It's a Blast!</ui:insert>
+
+				</td>
+			</tr>
+			<tr>
+				<td height="1" width="100%" bgcolor="#CAD6E0"></td>
+			</tr>
+
+			<tr>
+				<td width="100%" colspan="2">
+					<table width="100%" style="height: 150px" align="left"
+						cellpadding="0" cellspacing="0" border="0">
+						<tbody>
+							<tr align="center"><td>Just $19.99</td>
+							</tr>
+							<tr>
+								<td align="center" width="100%" valign="middle">
+
+									<form method="post" action="${initParam['posturl']}">
+										<input type="hidden" name="upload" value="1" /> <input
+											type="hidden" name="return" value="${initParam['returnurl']}" />
+										<input type="hidden" name="cmd" value="_cart" /> <input
+											type="hidden" name="business"
+											value="${initParam['business']}" />
+
+										<!-- Product 1  -->
+										<input type="hidden" name="item_name_1"
+											value="SAPo Premium User" /> <input type="hidden"
+											name="item_number_1" value="PU1" /> <input type="hidden"
+											name="amount_1" value="19.99" /> <input type="hidden"
+											name="quantity_1" value="1" /> <input type="image"
+											src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" />
+
+									</form>
+								</td>
+							</tr>
+							<tr align="center" >
+								<td>Lifetime Membership!</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="2" valign="bottom" height="1" width="100%"
+					bgcolor="#CAD6E0"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>

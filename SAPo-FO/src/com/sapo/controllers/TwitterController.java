@@ -26,14 +26,20 @@ import twitter4j.auth.RequestToken;
 public class TwitterController {
 
 	public void login() throws IOException {
+		Properties props = new Properties();
+		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
+		String twitterConsumerKey = props.getProperty("twitterConsumerKey");
+		String twitterConsumerSecret = props.getProperty("twitterConsumerSecret");
+		String twitterCalbackURL = props.getProperty("twitterCallbackURL");
+
 		String authURL = "noSoupForYou!!!";
 		RequestToken requestToken = null;
 		Twitter twitterK = null;
 		try {
 			 twitterK = new TwitterFactory().getInstance();
 			 //Pasar datos a archivo properties
-			 twitterK.setOAuthConsumer("n6OC67D2kBZ8R4uxqX2teXfcu", "mn0RVnpqFdOl2j4dwtmsZC4CkK7vfcdEURYgnKLRIfjLz4PX4d");
-			 requestToken = twitterK.getOAuthRequestToken("http://localhost:8080/SAPo-FO/verify.xhtml");
+			 twitterK.setOAuthConsumer(twitterConsumerKey, twitterConsumerSecret);
+			 requestToken = twitterK.getOAuthRequestToken(twitterCalbackURL);
 			 authURL = requestToken.getAuthenticationURL();
 			 
 			 
@@ -87,8 +93,8 @@ public class TwitterController {
 	private String sapoLogin(String userScreenName, Long userId) throws IOException, JSONException {
 		//Traigo la url para el post dsde el restLocation.properties
 		Properties props = new Properties();
-		props.load(TwitterController.class.getResourceAsStream("restLocation.properties"));
-		String loginTwitterURL = props.getProperty("loginTwitter");
+		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
+		String loginTwitterURL = props.getProperty("twitterLoginREST");
 
 		//Armo el json para mandar al rest
 		JSONObject body = new JSONObject();
@@ -110,8 +116,8 @@ public class TwitterController {
 	private String registroTwitter(JSONObject body) throws IOException {
 		
 		Properties props = new Properties();
-		props.load(TwitterController.class.getResourceAsStream("restLocation.properties"));
-		String registroTwitterURL = props.getProperty("registroTwitter");
+		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
+		String registroTwitterURL = props.getProperty("twitterRegisterREST");
 
 		String result = postToRest(registroTwitterURL, body);
 		return result;
