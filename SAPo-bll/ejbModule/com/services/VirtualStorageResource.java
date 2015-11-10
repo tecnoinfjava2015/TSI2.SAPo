@@ -13,8 +13,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.bl.ProductBL;
+import com.entities.mongo.Product;
 import com.entities.sql.VirtualStorage;
 import com.entities.sql.dao.VirtualStorageDAO;
+import com.services.interfaces.IProductBL;
 
 @Path("/VirtualStorage/")
 public class VirtualStorageResource {
@@ -49,4 +52,18 @@ public class VirtualStorageResource {
 		
 	}
 	
+	@POST
+	@Path("/valorar")
+	@Produces(MediaType.APPLICATION_JSON)
+	public double valorarAV(@QueryParam("id") int id){
+		IProductBL servicioProducto = new ProductBL();
+		List<Product>  listaProductos;
+		listaProductos = servicioProducto.getAllProducts(id);
+		double resultado = 0;
+		for(Product p : listaProductos){
+			resultado += p.getSalePrice();
+		}
+		return resultado;
+	}
+
 }
