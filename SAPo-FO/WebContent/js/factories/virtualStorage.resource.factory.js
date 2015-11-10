@@ -18,7 +18,6 @@
     VirtualStorageViewResource.$inject = ['$resource'];
     /* @ngInject */
     function VirtualStorageViewResource($resource) {
-        return $resource('/SAPo-FO/api/VirtualStorage/getByOwner?ownerId=1');
+        return $resource('/SAPo-FO/api/VirtualStorage/owner/:oId', {oid:'@oid'});
     }
 })(); 
-
