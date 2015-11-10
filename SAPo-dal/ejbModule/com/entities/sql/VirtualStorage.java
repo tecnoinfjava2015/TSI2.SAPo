@@ -3,8 +3,10 @@ package com.entities.sql;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -34,8 +36,9 @@ public class VirtualStorage implements Serializable {
 	private Boolean enabled;
 	private Boolean blocked; 
 	
-	@ManyToOne (optional = true)
+	@ManyToOne (optional = true,fetch = FetchType.LAZY)
     @JoinColumn(name = "tenantCreados")
+	
 	private Usuario owner;
 	
 	public int getId() {

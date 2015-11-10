@@ -1,5 +1,6 @@
 package com.entities.sql.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -49,6 +50,7 @@ public class VirtualStorageDAO {
 		Query query =  em.createQuery("SELECT vs FROM VirtualStorage vs WHERE tenantcreados = :ownerId")
 				.setParameter("ownerId", ownerId);
 		List<VirtualStorage> virtualStorages = query.getResultList();
+		
 		return virtualStorages;
 		//return em.find(VirtualStorage.class, name);		
 	}
