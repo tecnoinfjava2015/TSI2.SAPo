@@ -13,33 +13,14 @@
     	VirtualStorageViewResource.query({
             oId: 1
         }).$promise.then(function(result) {
-            var vsAux = $scope.virtualStorages.concat(result);
-            $scope.virtualStorages = vsAux;
+            $scope.virtualStorages = result;
             $scope.loading = false;
         },function(error) {
         	console.log(error);
         
         });
-
-    	$scope.vsService = new VirtualStorageViewResource();
+    	alert($scope.virtualStorages.length);
     	
     	
-    	$scope.getVirtualStorages = getVirtualStorages;
-    	
-    	function getVirtualStorages() {
-    		$scope.loading = true;
-        	
-    		VirtualStorageViewResource.query({
-                oId: 1
-            }).$promise.then(function(result) {
-            	console.log(result);
-                var vsAux = $scope.virtualStorages.concat(result);
-                $scope.virtualStorages = vsAux;
-                $scope.loading = false;
-            }, function(error) {
-            	console.log(error);
-                
-            });
-        }	
     }
 })();
