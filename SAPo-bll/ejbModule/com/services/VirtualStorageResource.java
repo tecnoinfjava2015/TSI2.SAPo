@@ -43,7 +43,9 @@ public class VirtualStorageResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("owner/{ownerId}")
 	public List<VirtualStorage> getVirtualStorageByOwner(@PathParam("ownerId") int ownerId) {
-		return dao.getVirtualStorageByOwner(ownerId);
+		List<VirtualStorage> virtualStorages = dao.getVirtualStorageByOwner(ownerId);
+		
+		return virtualStorages;
 		
 	}
 	

@@ -48,8 +48,8 @@ public class VirtualStorageDAO {
 	public List<VirtualStorage> getVirtualStorageByOwner(int ownerId){
 		Query query =  em.createQuery("SELECT vs FROM VirtualStorage vs WHERE tenantcreados = :ownerId")
 				.setParameter("ownerId", ownerId);
-				
-		return query.getResultList();
+		List<VirtualStorage> virtualStorages = query.getResultList();
+		return virtualStorages;
 		//return em.find(VirtualStorage.class, name);		
 	}
 	
