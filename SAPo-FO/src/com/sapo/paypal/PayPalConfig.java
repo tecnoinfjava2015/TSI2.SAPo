@@ -1,6 +1,10 @@
 package com.sapo.paypal;
 
+import java.util.Properties;
+
 import javax.servlet.http.*;
+
+import com.sapo.controllers.PayPalController;
 
 public class PayPalConfig {
 
@@ -37,11 +41,14 @@ public class PayPalConfig {
 
     public PayPalConfig getConfig(HttpServletRequest request) {
         PayPalConfig pc = new PayPalConfig();
-        try {        	
-            pc.authToken = request.getServletContext().getInitParameter("authtoken");
-            pc.posturl = request.getServletContext().getInitParameter("posturl");
-            pc.business = request.getServletContext().getInitParameter("business");
-            pc.returnurl = request.getServletContext().getInitParameter("returnurl");
+        try {
+        	Properties props = new Properties();
+    		props.load(PayPalController.class.getResourceAsStream("sapo-config.properties"));
+    		//props.getProperty("paypal");
+            pc.authToken = props.getProperty("paypalAuthToken");//request.getServletContext().getInitParameter("authtoken");
+            pc.posturl = props.getProperty("paypalPostURL");//request.getServletContext().getInitParameter("posturl");
+            pc.business = props.getProperty("paypalBusiness");//request.getServletContext().getInitParameter("business");
+            pc.returnurl = props.getProperty("paypalReturnURL");//request.getServletContext().getInitParameter("returnurl");
             
         } catch (Exception ex) {
             pc = null;
