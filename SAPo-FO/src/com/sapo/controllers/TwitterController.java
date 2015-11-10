@@ -100,7 +100,7 @@ public class TwitterController {
 		JSONObject body = new JSONObject();
 		body.put("nombre", userScreenName);
 		body.put("twitterId", userId);
-		
+
 		String result = postToRest(loginTwitterURL, body);
 
 	    if(!result.isEmpty()){
@@ -108,7 +108,8 @@ public class TwitterController {
 	    } else {
 	    	//el json vino vacío, por ende es el primer ingreso del usuario
 	    	//llamo al REST registroTwitter que registra y devuelve el json del user creado
-	    	return registroTwitter(body);
+	    	registroTwitter(body);
+	    	return postToRest(loginTwitterURL, body);
 	    }
 	    
 	}
