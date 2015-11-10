@@ -5,6 +5,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import com.entities.mongo.Category;
+import com.entities.mongo.Product;
 import com.entities.mongo.dao.CategoryDAO;
 import com.services.interfaces.ICategoryBL;
 
@@ -66,4 +67,19 @@ public class CategoryBL implements ICategoryBL {
 		return null;
 	}
 
+	@Override
+	public List<Category> getAllCategories(long virtualStorageId) {
+		if(virtualStorageId>0){
+			return dao.getAllCategories(virtualStorageId);
+		}
+		return null;
+	}
+	
+	@Override
+	public boolean estaEnLista(Category c, List<Category> listaCtegoriasTemp) {
+		for(Category ct : listaCtegoriasTemp){
+			if (ct.getName().equals(c.getName()))return true;
+		}
+		return false;
+	}
 }
