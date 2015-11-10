@@ -435,7 +435,7 @@ public class FormAdminAV extends PanelDinamico{
 			if(listaVirtualStorage.get((int) tableVirtualStorage.getValue()-1).getId() != vs.getId()){
 				listaProductosTemp = servicioProducto.getAllProducts(vs.getId());
 				for (Product p : listaProductos){
-					if (true /*servicioProducto.estaEnLista(p,listaProductosTemp)*/){ //cambio provisorio por no compilar
+					if (servicioProducto.estaEnLista(p,listaProductosTemp)){
 						iguales++;
 						System.out.println("entro, iguales: " + iguales);
 						System.out.println("entro, P: " + p.getBarCode());

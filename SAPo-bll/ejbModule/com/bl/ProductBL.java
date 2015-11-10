@@ -107,4 +107,12 @@ public class ProductBL implements IProductBL {
 		return dao.getProductsByCategoriesOr(virtualStorageId, categories, offset, limit);
 	}
 
+	@Override
+	public boolean estaEnLista(Product p, List<Product> listaProductosTemp) {
+		for(Product pr : listaProductosTemp){
+			if (pr.getBarCode().equals(p.getBarCode()))return true;
+		}
+		return false;
+	}
+
 }
