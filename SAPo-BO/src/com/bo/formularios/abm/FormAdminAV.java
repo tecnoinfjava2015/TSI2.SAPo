@@ -64,7 +64,7 @@ public class FormAdminAV extends PanelDinamico{
 	private Table tableVirtualStorage, tableProductos, tableCategorias;
 	private Button bloquearAV, enviarMensaje, analizarFraude, imprimirReporte;
 	private Button convertirGenerico, eliminarProucto, buscarProducto;
-	private Button analizarProductos, anlaizarCategorias;
+	private Button analizarProductos, analizarCategorias;
 	private ComboBox porcentajeIgualdad;
 	private VirtualStorageServiceLocal servicioVS;
 	private String mailDestino, mensaje;
@@ -192,16 +192,13 @@ public class FormAdminAV extends PanelDinamico{
             	analizarProductos.addStyleName(ValoTheme.BUTTON_PRIMARY);
             	analizarProductos.setWidth("70%");
             	
-            	anlaizarCategorias = new Button("Analizar Categorias");
-            	anlaizarCategorias.addStyleName(ValoTheme.BUTTON_PRIMARY);
-            	anlaizarCategorias.setWidth("70%");
+            	analizarCategorias = new Button("Analizar Categorias");
+            	analizarCategorias.addStyleName(ValoTheme.BUTTON_PRIMARY);
+            	analizarCategorias.setWidth("70%");
 
             	porcentajeIgualdad = new ComboBox("Seleccione porcentaje mínimo de igualdad");
             	porcentajeIgualdad.addItem("50");
-            	
-            	
-            	porcentajeIgualdad.addItem("80");
-            	
+            	porcentajeIgualdad.addItem("80");         	
             	porcentajeIgualdad.addItem("100");
 
             	porcentajeIgualdad.setFilteringMode(FilteringMode.CONTAINS);
@@ -212,7 +209,7 @@ public class FormAdminAV extends PanelDinamico{
             	
             	
                 windowCont.addComponent(analizarProductos);
-                windowCont.addComponent(anlaizarCategorias);
+                windowCont.addComponent(analizarCategorias);
                 windowCont.addComponent(porcentajeIgualdad);
                 windowCont.setWidth("500px");
                 windowCont.setHeight("300px"); 
@@ -234,6 +231,22 @@ public class FormAdminAV extends PanelDinamico{
                     	//temaWindow.close();
                    }
                 });	
+                analizarCategorias.addClickListener(new ClickListener() {
+                    private static final long serialVersionUID = 1L;
+                    @Override
+                    public void buttonClick(final ClickEvent event) {
+                    	if (fraudeCategorias()) {
+                    		System.out.println("Fraude detectado ");
+                    		Notification sample = new Notification("Fraude Detectado");
+                        	sample.show(Page.getCurrent());
+                    	}
+                    	else{
+                    		Notification sample = new Notification("No existe fraude");
+                        	sample.show(Page.getCurrent());
+                    	}
+                    	//temaWindow.close();
+                   }
+                });
            }
         });
 	}
@@ -328,7 +341,7 @@ public class FormAdminAV extends PanelDinamico{
 		tableVirtualStorage = new Table("Almacenes Virtuales");
 		tableVirtualStorage.addContainerProperty("Nombre", String.class, null);
 		tableVirtualStorage.addContainerProperty("Fecha Creación", Date.class, null);
-		tableVirtualStorage.addContainerProperty("Creador", String.class, null);
+		//tableVirtualStorage.addContainerProperty("Creador", String.class, null);
 		tableVirtualStorage.addContainerProperty("URL", String.class, null);
 		tableVirtualStorage.addContainerProperty("Bloqueado", Boolean.class, null);
 	    ArrayList<String> nombreEncuestador = new ArrayList<String>();
@@ -338,7 +351,7 @@ public class FormAdminAV extends PanelDinamico{
 	    	Item row1 = tableVirtualStorage.getItem(newItemId);
 	    	row1.getItemProperty("Nombre").setValue(vs.getName());
 	    	row1.getItemProperty("Fecha Creación").setValue(vs.getCreatedDate());
-	    	row1.getItemProperty("Creador").setValue(vs.getOwner().getName());
+	    	//row1.getItemProperty("Creador").setValue(vs.getOwner().getName());
 	    	row1.getItemProperty("URL").setValue(vs.getUrl());   
 	    	row1.getItemProperty("Bloqueado").setValue(vs.getBlocked());
 	    }
@@ -430,7 +443,7 @@ public class FormAdminAV extends PanelDinamico{
 	private Boolean fraudeProductos(){
 		List<Product>  listaProductosTemp;
 		int totalProd = listaProductos.size();
-		int iguales = 0;
+		int iguales = 0, igualesFinal=0;
 		for (VirtualStorage vs : listaVirtualStorage){
 			if(listaVirtualStorage.get((int) tableVirtualStorage.getValue()-1).getId() != vs.getId()){
 				listaProductosTemp = servicioProducto.getAllProducts(vs.getId());
@@ -443,16 +456,57 @@ public class FormAdminAV extends PanelDinamico{
 					System.out.println("NOentro, P: " + p.getBarCode());
 				}
 				System.out.println("Almacen ");
+				if (igualesFinal <= iguales ){
+					igualesFinal = iguales;
+					iguales = 0;
+				}
+
 			}	
 			
 		}
 		System.out.println("totalProd * porcentajeSeleccionado " + totalProd * porcentajeSeleccionado);
-		System.out.println("iguales * 100 " + iguales * 100);
+		System.out.println("iguales * 100 " + igualesFinal * 100);
 		if(porcentajeIgualdad.getValue().equals("50"))porcentajeSeleccionado = 50;
 		else if(porcentajeIgualdad.getValue().equals("80"))porcentajeSeleccionado = 80;
 		else if(porcentajeIgualdad.getValue().equals("100"))porcentajeSeleccionado = 100;
 		
-		if(totalProd * porcentajeSeleccionado <= iguales * 100){
+		if(totalProd * porcentajeSeleccionado <= igualesFinal * 100){
+			System.out.println("retorna true producto" + porcentajeSeleccionado);
+			return true;
+		}
+		return false;
+	}
+	
+	private Boolean fraudeCategorias(){
+		List<Category>  listaCtegoriasTemp;
+		int totalCat = listaCategorias.size();
+		int iguales = 0, igualesFinal=0;
+		for (VirtualStorage vs : listaVirtualStorage){
+			if(listaVirtualStorage.get((int) tableVirtualStorage.getValue()-1).getId() != vs.getId()){
+				listaCtegoriasTemp = servicioCategoria.getAllCategories(vs.getId());
+				for (Category c : listaCategorias){
+					if (servicioCategoria.estaEnLista(c,listaCtegoriasTemp)){
+						iguales++;
+						System.out.println("entro, iguales: " + iguales);
+						System.out.println("entro, P: " + c.getName());
+					}
+					System.out.println("NOentro, P: " + c.getName());
+				}
+				System.out.println("Almacen ");
+				if (igualesFinal <= iguales ){
+					igualesFinal = iguales;
+					iguales = 0;
+				}
+			}	
+			
+		}
+		System.out.println("totalProd * porcentajeSeleccionado " + totalCat * porcentajeSeleccionado);
+		System.out.println("iguales * 100 " + igualesFinal * 100);
+		if(porcentajeIgualdad.getValue().equals("50"))porcentajeSeleccionado = 50;
+		else if(porcentajeIgualdad.getValue().equals("80"))porcentajeSeleccionado = 80;
+		else if(porcentajeIgualdad.getValue().equals("100"))porcentajeSeleccionado = 100;
+		
+		if(totalCat * porcentajeSeleccionado <= igualesFinal * 100){
 			System.out.println("retorna true producto" + porcentajeSeleccionado);
 			return true;
 		}

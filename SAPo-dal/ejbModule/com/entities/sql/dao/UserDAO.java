@@ -113,4 +113,23 @@ public class UserDAO {
 		}	
 		 return foundEntity;
 	}
+
+	public Boolean pasarAPremium(String nick, String paypalTransactionId) {
+		Query query =  em.createQuery("SELECT u FROM Usuario u WHERE u.nick=:nick ")
+		.setParameter("nick", nick);
+		Usuario usuario = (Usuario) query.getResultList().get(0);
+		usuario.setType("PREMIUM");
+		usuario.setPaypalTransactionId(paypalTransactionId);
+		em.merge(usuario);
+		return true;
+	}
+
+	public Boolean geolocalizar(String nick, String geolocation) {
+		Query query =  em.createQuery("SELECT u FROM Usuario u WHERE u.nick=:nick ")
+		.setParameter("nick", nick);
+		Usuario usuario = (Usuario) query.getResultList().get(0);
+		usuario.setGeolocation(geolocation);
+		em.merge(usuario);
+		return true;
+	}
 }
