@@ -1,7 +1,6 @@
 package com.entities.sql;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,8 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator;
 
 @Entity
 public class Usuario implements Serializable {
@@ -31,13 +36,20 @@ public class Usuario implements Serializable {
 	private String twitterId;
 	private String paypalTransactionId;
 	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@JsonIdentityInfo(generator = PropertyGenerator.class, property = "id")
+	@JsonIdentityReference(alwaysAsId = true) 
+	private Set<VirtualStorage> tenantCreados;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "tenantCreados")
-	private List <VirtualStorage> tenantCreados;
-	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<VirtualStorage>tenantSeguidor;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "seguidores_vs",
+			joinColumns={@JoinColumn (name="user_id", referencedColumnName="id")},
+			inverseJoinColumns={@JoinColumn (name="vs_id", referencedColumnName="id")})
+	@JsonProperty(value = "vs_seguidos")
+	@JsonIdentityInfo(generator = PropertyGenerator.class, property = "id")
+	@JsonIdentityReference(alwaysAsId = true) 
+	private Set<VirtualStorage> tenantSeguidor;
 	
 
 	public Usuario() {
@@ -108,11 +120,11 @@ public class Usuario implements Serializable {
 		this.tenantSeguidor = tenantSeguidor;
 	}
 
-	public List<VirtualStorage> getTenantCreados() {
+	public Set<VirtualStorage> getTenantCreados() {
 		return tenantCreados;
 	}
 
-	public void setTenantCreados(List<VirtualStorage> tenantCreados) {
+	public void setTenantCreados(Set<VirtualStorage> tenantCreados) {
 		this.tenantCreados = tenantCreados;
 	}
 

@@ -2,9 +2,9 @@ package com.entities.sql.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -13,6 +13,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.entities.sql.Usuario;
 import com.entities.sql.VirtualStorage;
@@ -47,11 +48,34 @@ public class VirtualStorageDAO {
 	
 	
 	public List<VirtualStorage> getVirtualStorageByOwner(int ownerId){
-		Query query =  em.createQuery("SELECT vs FROM VirtualStorage vs WHERE tenantcreados = :ownerId")
+		TypedQuery<VirtualStorage> query =  
+				em.createQuery("SELECT vs FROM VirtualStorage vs WHERE vs.owner.id = :ownerId", VirtualStorage.class)
 				.setParameter("ownerId", ownerId);
 		List<VirtualStorage> virtualStorages = query.getResultList();
 		
 		return virtualStorages;
+	}
+	
+	public HashMap<String, List<VirtualStorage>> getMyVirtualStorages(int userId){
+		//Query owned VSs
+		TypedQuery<VirtualStorage> queryOwned =  
+				em.createQuery("SELECT vs FROM VirtualStorage vs WHERE vs.owner.id = :ownerId", VirtualStorage.class)
+				.setParameter("ownerId", userId);
+		List<VirtualStorage> virtualStoragesOwned = queryOwned.getResultList();
+		
+		//Query following VSs
+		TypedQuery<VirtualStorage> queryFollowing =  
+				em.createQuery(
+						"SELECT vs FROM VirtualStorage vs join vs.seguidores seg WHERE seg.id = :seguidorId",
+						VirtualStorage.class)
+				.setParameter("seguidorId", userId);
+		List<VirtualStorage> virtualStoragesFollowing = queryFollowing.getResultList();
+		
+		HashMap<String, List<VirtualStorage>> result = new HashMap<String, List<VirtualStorage>>();
+		result.put("owned", virtualStoragesOwned);
+		result.put("following", virtualStoragesFollowing);
+
+		return result;
 		//return em.find(VirtualStorage.class, name);		
 	}
 	
