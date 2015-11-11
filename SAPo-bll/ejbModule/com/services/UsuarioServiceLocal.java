@@ -90,6 +90,18 @@ public interface UsuarioServiceLocal {
 	@Path("/loginTwitter")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Usuario getLoginTwitter (final TwitterUserBean input);
+	
+	@POST
+	@Path("/pasarAPremium")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Boolean pasarAPremium (@QueryParam("nick") String nick,
+								  @QueryParam("paypalTransactionId") String paypalTransactionId);
+	
+	@POST
+	@Path("/geolocalizar")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Boolean geolocalizar (@QueryParam("nick") String nick,
+								  @QueryParam("geolocation") String geolocation);
 	//	public Usuario getLoginTwitter( @QueryParam("nick") String nick,
 //			  				 @QueryParam("twitterId") String twitterId);
 	
