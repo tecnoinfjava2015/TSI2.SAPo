@@ -73,6 +73,15 @@ public class CategoryDAO {
 		return ds.find(Category.class).field("virtualStorageId")
 				.equal(virtualStorageId).offset(offset).limit(limit).asList();
 	}
+	
+	public List<Category> getAllCategories(long virtualStorageId) {
+		if (!(virtualStorageId > 0)) {
+			return null;
+		}
+
+		return ds.find(Category.class).field("virtualStorageId")
+				.equal(virtualStorageId).asList();
+	}
 	public List<Category> getAllStarredCategories(long virtualStorageId, int offset, int limit) {
 		if (!(virtualStorageId > 0)) {
 			return null;

@@ -3,6 +3,7 @@ package com.services.interfaces;
 import java.util.List;
 
 import com.entities.mongo.Category;
+import com.entities.mongo.Product;
 
 public interface ICategoryBL {
 	public Category createCategory(Category category);
@@ -15,7 +16,10 @@ public interface ICategoryBL {
 
 	public List<Category> getAllCategories(long virtualStorageId, int offset, int limit);
 	
+	public List<Category> getAllCategories(long virtualStorageId);
+	
 	public List<Category> getAllStarredCategories(long virtualStorageId, int offset, int limit);
 
+	public boolean estaEnLista(Category ct, List<Category> listaCategoriasTemp);
 
 }
