@@ -1,8 +1,12 @@
 <div layout="row" layout-padding="" layout-wrap="" layout-fill="" style="padding-bottom: 32px;" ng-cloak="" class="whiteframedemoBasicUsage" >
 	
-	<md-whiteframe class="md-whiteframe-3dp" style="margin:32px" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout="column" layout-align="center center" ng-repeat="vs in virtualStorages">
-		<h3>{{vs.name}}</h3>
-		<img class="md-card-image" src="{{vs.logo}}" alt="{{vs.name}}"  style="padding:15px" layout layout-align="center center">
-	</md-whiteframe>
+	<div ng-repeat="vs in virtualStorages">
+		<a ng-href="/SAPo-FO/index.html#/{{vs.name}}">
+		<md-whiteframe class="md-whiteframe-3dp" style="margin:32px" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout="column" layout-align="center center">
+			<h3>{{vs.name}}</h3>
+			<img class="md-card-image" src="{{vs.logo}}" alt="{{vs.name}}"  style="padding:15px" layout layout-align="center center">
+		</md-whiteframe></a>
+	</div>
+	
 	
 </div>
