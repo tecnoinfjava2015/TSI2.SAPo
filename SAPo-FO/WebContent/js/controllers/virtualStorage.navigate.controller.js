@@ -19,8 +19,7 @@
         	console.log(error);
         
         });
-    	alert($scope.virtualStorages.length);
-    	
+    	console.log($scope.virtualStorages);
     	
     }
 })();
