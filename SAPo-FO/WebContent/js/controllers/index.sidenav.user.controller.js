@@ -7,12 +7,17 @@
     /* @ngInject */
     function SidenavUserController($scope,$cookies) {
     	var userTwitter = $cookies.getObject('sapoUser')
-        $scope.userLogged = (userTwitter.twitterId!==0);
-        $scope.userName = userTwitter.name;
-        if (userTwitter.mail==""){
-        	$scope.userMail = "...";	
-        }else{
-        	$scope.userMail = userTwitter.mail;
-        }
+    	$scope.userLogged = false;
+    	
+		if ((typeof userTwitter !== "undefined") && (userTwitter !== null)) {
+			$scope.userLogged = (userTwitter.twitterId!==0);
+	        $scope.userName = userTwitter.name;
+	        if (userTwitter.mail==""){
+	        	$scope.userMail = "...";	
+	        }else{
+	        	$scope.userMail = userTwitter.mail;
+	        }
+		} 
+        
     }
 })();
