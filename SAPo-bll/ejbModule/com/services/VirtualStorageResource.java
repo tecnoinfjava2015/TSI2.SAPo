@@ -30,7 +30,7 @@ public class VirtualStorageResource {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public String createVS(VirtualStorage vs) {
 		//validar que el getOwner no sea null y que el id exista
 		return dao.createVS(vs, vs.getOwner().getId());
