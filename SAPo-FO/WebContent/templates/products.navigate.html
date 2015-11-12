@@ -11,7 +11,7 @@
             </md-button>
         </div>
     </div>
-    <div flex layout-wrap layout="row" ng-show="list" infinite-scroll="getProducts()" infinite-scroll-distance="3">
+    <div flex layout-wrap layout="row" ng-show="list" >
         <div ng-repeat="product in products" flex="grow"> 
             <md-card flex="grow">
                 <div layout="row"  layout-fill>
@@ -34,7 +34,7 @@
             </md-card>
         </div>
     </div>
-    <div flex layout-wrap layout="row" ng-show="!list" infinite-scroll="getProducts()" infinite-scroll-distance="3">
+    <div flex layout-wrap layout="row" ng-show="!list">
         <div ng-repeat="product in products" flex-sd="100" flex-md="50" flex-gt-md="33">
             <md-card>
                 <div layout="column">

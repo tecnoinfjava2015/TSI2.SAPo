@@ -51,6 +51,7 @@
 <script src="js/controllers/virtualStorage.controller.js"></script>
 <script src="js/controllers/index.sidenav.menu.controller.js"></script>
 <script src="js/controllers/index.sidenav.categories.controller.js"></script>
+<script src="js/controllers/index.sidenav.user.controller.js"></script>
 <script src="js/controllers/profile.controller.js"></script>
 <script src="js/controllers/dashboard.controller.js"></script>
 <script src="js/controllers/cookie.controller.js"></script>
@@ -73,13 +74,12 @@
 		<md-toolbar class="md-tall md-hue-2"
 			style="background-image: url('images/mdBackgrounds/mb-bg-fb-01.png');background-size: cover;">
 		<span flex></span>
-		<div layout="column" class="md-toolbar-tools-bottom inset">
+		<div layout="column" class="md-toolbar-tools-bottom inset" ng-controller="SidenavUserController">
 			<user-avatar></user-avatar>
-			<span></span>
-			<div>Firstname Lastname</div>
-			<div>email@domainname.com</div>
+			<div>{{userName}}</div>
+			<div>{{userMail}}</div>
 			
-			<div id="twitterLoginButton" >
+			<div id="twitterLoginButton" ng-show="!userLogged")>
 				<a href="twitter_login.xhtml"> <img border="0"
 					alt="Login with Twitter"
 					src="resources/sign-in-with-twitter-gray.png">

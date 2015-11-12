@@ -2,6 +2,7 @@ package com.entities.sql;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,11 +10,17 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator;
 
 @Entity
+@XmlRootElement
 public class VirtualStorage implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -34,13 +41,25 @@ public class VirtualStorage implements Serializable {
 	@Column(length=10485760)
 	private String logo;
 	private Boolean enabled;
-	private Boolean blocked; 
+	private Boolean blocked;
 	
-	@ManyToOne (optional = true,fetch = FetchType.LAZY)
-    @JoinColumn(name = "tenantCreados")
-	
+	@ManyToOne (optional = true,fetch = FetchType.EAGER)
+	@JsonIdentityInfo(generator = PropertyGenerator.class, property = "id")
+	@JsonIdentityReference(alwaysAsId = true) 
 	private Usuario owner;
 	
+	@ManyToMany (mappedBy = "tenantSeguidor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonProperty(value = "id_seguidores")
+	@JsonIdentityInfo(generator = PropertyGenerator.class, property = "id")
+	@JsonIdentityReference(alwaysAsId = true) 
+	private Set<Usuario> seguidores;
+	
+	public Set<Usuario> getSeguidores() {
+		return seguidores;
+	}
+	public void setSeguidores(Set<Usuario> seguidores) {
+		this.seguidores = seguidores;
+	}
 	public int getId() {
 		return id;
 	}
@@ -120,4 +139,28 @@ public class VirtualStorage implements Serializable {
 	public void setBlocked(Boolean blocked) {
 		this.blocked = blocked;
 	}
+	public VirtualStorage(int id, String connection, String url,
+			Date createdDate, String name, String theme, String sidenavTop,
+			String sidenavBottom, Boolean progressLinear, String logo,
+			Boolean enabled, Boolean blocked, Usuario owner,
+			Set<Usuario> seguidores) {
+		super();
+		this.id = id;
+		this.connection = connection;
+		this.url = url;
+		this.createdDate = createdDate;
+		this.name = name;
+		this.theme = theme;
+		this.sidenavTop = sidenavTop;
+		this.sidenavBottom = sidenavBottom;
+		this.progressLinear = progressLinear;
+		this.logo = logo;
+		this.enabled = enabled;
+		this.blocked = blocked;
+		this.owner = owner;
+		this.seguidores = seguidores;
+	}
+	
+	public VirtualStorage(){}
+	
 }

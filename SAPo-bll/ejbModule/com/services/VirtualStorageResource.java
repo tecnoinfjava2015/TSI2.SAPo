@@ -1,5 +1,6 @@
 package com.services;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -49,7 +50,15 @@ public class VirtualStorageResource {
 		List<VirtualStorage> virtualStorages = dao.getVirtualStorageByOwner(ownerId);
 		
 		return virtualStorages;
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("myVSs/{userId}")
+	public HashMap<String, List<VirtualStorage>> getMyVirtualStorages(@PathParam("userId") int userId) { //owned + following
+		HashMap<String, List<VirtualStorage>> virtualStorages = dao.getMyVirtualStorages(userId);
 		
+		return virtualStorages;
 	}
 	
 	@POST
