@@ -12,6 +12,8 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
 import com.entities.sql.ProductMovement;
+import com.entities.mongo.Product;
+import com.entities.mongo.dao.ProductDAO;
 
 @Stateless 
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -19,7 +21,11 @@ public class ProductMovementDAO {
 	@PersistenceContext(unitName="SAPo-dal")
 	private EntityManager em;
 	
-	public ProductMovement createBill(ProductMovement productMovementAux){
+	public ProductMovement createMovement(ProductMovement productMovementAux){
+		ProductDAO PDAO = new ProductDAO();
+		Product Paux = PDAO.getByBarCode(productMovementAux.getVirtualStorageId(), productMovementAux.getBarCode());
+		double doAux = Paux.getStock() + productMovementAux.getStock();
+		PDAO.updateStock(doAux, productMovementAux.getVirtualStorageId(), productMovementAux.getBarCode());
 		em.persist(productMovementAux);
 		em.flush();
 		return productMovementAux;
@@ -66,7 +72,7 @@ public class ProductMovementDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<ProductMovement> getWhereStockChangeBetweenDates(Calendar startD, Calendar endD, long VSId, String bCode){
+	public List<ProductMovement> getWhereStockChangeBetweenDates(long VSId, String bCode, Calendar startD, Calendar endD){
 		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.dateMov BETWEEN :startD AND :endD AND m.virtualStorageId=:VSId AND m.barCode=:bCode AND m.stock <> 0")
 				.setParameter("startD", startD, TemporalType.DATE).setParameter("endD", endD, TemporalType.DATE).setParameter("VSId", VSId).setParameter("bCode", bCode);
 		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();

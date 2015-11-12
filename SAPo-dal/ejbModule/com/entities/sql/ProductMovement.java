@@ -33,7 +33,7 @@ public class ProductMovement {
 	private boolean toAV;
 	private long origin;
 	private long destination;
-	private long stock;
+	private long stock; //es el cambio de stock ej -2
 	
 	public long getMovimentID() {
 		return movimentID;

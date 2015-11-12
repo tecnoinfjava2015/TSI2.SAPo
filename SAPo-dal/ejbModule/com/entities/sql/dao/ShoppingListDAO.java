@@ -3,6 +3,9 @@ package com.entities.sql.dao;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -11,6 +14,8 @@ import com.entities.mongo.Product;
 import com.entities.mongo.dao.ProductDAO;
 import com.entities.sql.ShoppingListItem;
 
+@Stateless 
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class ShoppingListDAO {
 	@PersistenceContext(unitName="SAPo-dal")
 	EntityManager em;
