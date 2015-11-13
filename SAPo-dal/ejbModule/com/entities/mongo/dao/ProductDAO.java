@@ -198,8 +198,20 @@ public class ProductDAO {
 		Query<Product> query = ds.createQuery(Product.class);
 		query.and(query.criteria("barCode").equal(barCode), 
 				query.criteria("virtualStorageId").equal(virtualStorageId));
+		if(change<0) change = 0;
 		UpdateOperations<Product> updateOp = ds.createUpdateOperations(Product.class).set("stock", change);
 		ds.update(query, updateOp);
 		}
+	}
+	
+	public double getVSValue(long virtualStorageId){
+		Query<Product> query = ds.createQuery(Product.class);
+		query.criteria("virtualStorageId").equal(virtualStorageId).criteria("stock").greaterThan(0);
+		List<Product> auxList = query.asList();
+		double value = 0;
+		for( Product prodAux : auxList ){
+			value = value + (prodAux.getSalePrice() * prodAux.getStock());
+		}
+		return value;
 	}
 }
