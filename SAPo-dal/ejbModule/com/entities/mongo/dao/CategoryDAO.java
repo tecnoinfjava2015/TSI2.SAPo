@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 
+import com.entities.mongo.BaseEntity;
 import com.entities.mongo.Category;
 import com.mongo.utilities.GenericPersistence;
 import com.mongo.utilities.MongoDB;
@@ -82,6 +83,11 @@ public class CategoryDAO {
 		return ds.find(Category.class).field("virtualStorageId")
 				.equal(virtualStorageId).asList();
 	}
+	
+	public List<Category> getAllCategories() {
+		return ds.find(Category.class).asList();
+	}
+	
 	public List<Category> getAllStarredCategories(long virtualStorageId, int offset, int limit) {
 		if (!(virtualStorageId > 0)) {
 			return null;
@@ -99,5 +105,9 @@ public class CategoryDAO {
 		if (!(virtualStorageId < 0)) {
 			ds.delete(ds.createQuery(Category.class));
 		}
+	}
+
+	public Category getByName(String name) {	
+		return (Category) ds.find(Category.class).field("name").equal(name);
 	}
 }

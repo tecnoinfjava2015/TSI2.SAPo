@@ -4,50 +4,131 @@ import com.bo.principal.PanelDinamico;
 import com.ejt.vaadin.sizereporter.ComponentResizeEvent;
 import com.ejt.vaadin.sizereporter.ComponentResizeListener;
 import com.ejt.vaadin.sizereporter.SizeReporter;
+import com.entities.mongo.Product;
+import com.entities.sql.Usuario;
+import com.services.UsuarioServiceLocal;
+import com.vaadin.data.Item;
+import com.vaadin.data.Property;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Table.ColumnResizeEvent;
+import com.vaadin.ui.themes.ValoTheme;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.ejb.EJBException;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 
 public class FormReportes extends PanelDinamico{
-    //@Override
-    public FormReportes() {
-        final VerticalLayout layout = new VerticalLayout();
-        layout.setMargin(true);
-        layout.setSpacing(true);
+	 /**
+	 * 
+	 */
+	
+	
+	private static final long serialVersionUID1 = 1L;
+	
+	private Button reportar;
+	private Window temaWindow;
+	private Table table;
+	private List<Usuario>  listaUsuarios;
 
-        final Panel panel = new Panel();
-        panel.setContent(new Label("Why do you want to know my size?"));
-        panel.setWidth("100%");
-        layout.addComponent(panel);
-
-        final Label sizeLabel = new Label();
-        layout.addComponent(sizeLabel);
-
-        Button button = new Button("Add single use size reporter");
-        layout.addComponent(button);
-        button.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                new SizeReporter(panel).addResizeListenerOnce(new ComponentResizeListener() {
-                    @Override
-                    public void sizeChanged(ComponentResizeEvent event) {
-                        layout.addComponent(new Label("Panel size at " + new Date() + ": " + event.getWidth() + " x " + event.getHeight()));
-                    }
-                });
-            }
-        });
-
-        SizeReporter sizeReporter = new SizeReporter(panel);
-        sizeReporter.addResizeListener(new ComponentResizeListener() {
-            @Override
-            public void sizeChanged(ComponentResizeEvent event) {
-                sizeLabel.setValue("Panel size: " + event.getWidth() + " x " + event.getHeight());
-            }
-        });
-        this.addComponent(layout);
-        this.setSizeFull();
-        layout.setSizeFull();
-        //setContent(layout);
-    }
+private UsuarioServiceLocal servicio;
+	
+	private void lookup() {
+			InitialContext context = null;
+			try {
+				context = new InitialContext();					
+				servicio = (UsuarioServiceLocal) context.lookup("java:app/SAPo-BO/UsuarioServiceBean");
+			} catch (NamingException e) {
+				throw new EJBException(
+						"It was not possible to get a reference to one of the required services",
+						e);
+			} finally {
+				try {
+					context.close();
+				} catch (NamingException e) {
+					
+				}
+			}
+	
+	}
+	
+	public FormReportes(){
+		lookup();
+		listaUsuarios = servicio.getUsuariosHabilitados();
+		reportar = new Button("reportar");
+		final Button print = new Button("Print This Page");
+		
+		
+		this.addComponent(reportar);
+		
+		reportar.addClickListener(new ClickListener() {
+	        private static final long serialVersionUID = 1L;
+	        @Override
+	        public void buttonClick(final ClickEvent event) {
+	        	
+	        	temaWindow = new Window("Estilo");
+	        	VerticalLayout windowCont = new VerticalLayout();
+	        	windowCont.setMargin(true);
+	        	temaWindow.setContent(windowCont);
+	            windowCont.addComponent(print);    
+	            windowCont.setWidth("500px");
+	            windowCont.setHeight("300px"); 
+	            temaWindow.center();
+	            UI.getCurrent().addWindow(temaWindow);
+	            print.addClickListener(new ClickListener() {
+	                private static final long serialVersionUID = 1L;
+	                @Override
+	                public void buttonClick(final ClickEvent event) {
+	    		        JavaScript.getCurrent().execute("print();");
+	    		    }
+	    		});	
+	            
+	            table = new Table("Usuarios cargados");
+	    	    table.addContainerProperty("Nombre", String.class, null);
+	    	   
+	    	
+	    	   
+	    	        //para ordenar tabla por nombre
+	    		 table.addColumnResizeListener(new Table.ColumnResizeListener(){
+	    	    	  public void columnResize(ColumnResizeEvent event) {
+	    	    	        int width = event.getCurrentWidth();
+	    	    	        String column = (String) event.getPropertyId();
+	    	    	        table.setColumnFooter(column, String.valueOf(width) + "Nombre");
+	    	       	  }
+	    		 }); 
+	    		 table.setImmediate(true);
+	    		 table.setSelectable(true);
+	    		 table.select(1);
+	    		 table.setNullSelectionItemId(false);
+	    		 table.setPageLength(table.size());
+	    		 table.setWidth("80%");
+	    		 windowCont.setMargin(true);
+	    		 windowCont.addComponent(table);
+	    		 windowCont.setComponentAlignment(table, Alignment.MIDDLE_CENTER);
+	    		 
+	    		 table.addContainerProperty("Nombre", String.class, null);
+	    		 table.addContainerProperty("Tipo", String.class, null);
+	    		 table.addContainerProperty("Mail", String.class, null);
+	  	    		 
+	    		    for (Usuario u : listaUsuarios) {
+	    		    	Object newItemId = table.addItem();
+	    		    	Item row1 = table.getItem(newItemId);
+	    		    	row1.getItemProperty("Nombre").setValue(u.getName());
+	    		    	row1.getItemProperty("Tipo").setValue(u.getType());
+	    		    	row1.getItemProperty("Mail").setValue(u.getMail());
+	    		    	//row1.getItemProperty("Stock").setValue(listaP.getStock());   	
+	    		    }
+	       }
+			
+	    });
+	
+	}	
+	
 }
