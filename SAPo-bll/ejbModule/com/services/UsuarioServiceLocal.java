@@ -93,9 +93,11 @@ public interface UsuarioServiceLocal {
 	
 	@POST
 	@Path("/pasarAPremium")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Boolean pasarAPremium (@QueryParam("nick") String nick,
-								  @QueryParam("paypalTransactionId") String paypalTransactionId);
+	public Usuario pasarAPremium ( PayPalUserBean input);
+	//	public Boolean pasarAPremium (@QueryParam("nick") String nick,
+//								  @QueryParam("paypalTransactionId") String paypalTransactionId);
 	
 	@POST
 	@Path("/geolocalizar")
@@ -104,5 +106,5 @@ public interface UsuarioServiceLocal {
 								  @QueryParam("geolocation") String geolocation);
 	//	public Usuario getLoginTwitter( @QueryParam("nick") String nick,
 //			  				 @QueryParam("twitterId") String twitterId);
-	
+
 }
