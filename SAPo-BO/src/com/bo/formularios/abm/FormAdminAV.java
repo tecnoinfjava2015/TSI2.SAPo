@@ -71,6 +71,7 @@ public class FormAdminAV extends PanelDinamico{
 	private TextField texMailDestino, texMensaje;
 	private Button btnEnviarMensaje;
 	private int porcentajeSeleccionado;
+	private String fraudeDe; 
 	
 	private void lookup() {
 		InitialContext context = null;
@@ -220,12 +221,13 @@ public class FormAdminAV extends PanelDinamico{
                     @Override
                     public void buttonClick(final ClickEvent event) {
                     	if (fraudeProductos()) {
-                    		System.out.println("Fraude detectado ");
-                    		Notification sample = new Notification("Fraude Detectado");
+                    		Notification sample = new Notification("Fraude Detectado con el Almcen Virtual " + fraudeDe);
+                    		sample.setDelayMsec(2000);
                         	sample.show(Page.getCurrent());
                     	}
                     	else{
                     		Notification sample = new Notification("No existe fraude");
+                    		sample.setDelayMsec(2000);
                         	sample.show(Page.getCurrent());
                     	}
                     	//temaWindow.close();
@@ -236,12 +238,14 @@ public class FormAdminAV extends PanelDinamico{
                     @Override
                     public void buttonClick(final ClickEvent event) {
                     	if (fraudeCategorias()) {
-                    		System.out.println("Fraude detectado ");
-                    		Notification sample = new Notification("Fraude Detectado");
+                    		Notification sample = new Notification("Fraude Detectado con el Almcen Virtual " + fraudeDe);
+                    		sample.setDelayMsec(2000);
                         	sample.show(Page.getCurrent());
                     	}
                     	else{
+                    		
                     		Notification sample = new Notification("No existe fraude");
+                    		sample.setDelayMsec(2000);
                         	sample.show(Page.getCurrent());
                     	}
                     	//temaWindow.close();
@@ -450,28 +454,21 @@ public class FormAdminAV extends PanelDinamico{
 				for (Product p : listaProductos){
 					if (servicioProducto.estaEnLista(p,listaProductosTemp)){
 						iguales++;
-						System.out.println("entro, iguales: " + iguales);
-						System.out.println("entro, P: " + p.getBarCode());
 					}
-					System.out.println("NOentro, P: " + p.getBarCode());
 				}
-				System.out.println("Almacen ");
 				if (igualesFinal <= iguales ){
 					igualesFinal = iguales;
 					iguales = 0;
+					fraudeDe = vs.getName();
 				}
-
-			}	
-			
+			}		
 		}
-		System.out.println("totalProd * porcentajeSeleccionado " + totalProd * porcentajeSeleccionado);
-		System.out.println("iguales * 100 " + igualesFinal * 100);
 		if(porcentajeIgualdad.getValue().equals("50"))porcentajeSeleccionado = 50;
 		else if(porcentajeIgualdad.getValue().equals("80"))porcentajeSeleccionado = 80;
 		else if(porcentajeIgualdad.getValue().equals("100"))porcentajeSeleccionado = 100;
 		
 		if(totalProd * porcentajeSeleccionado <= igualesFinal * 100){
-			System.out.println("retorna true producto" + porcentajeSeleccionado);
+
 			return true;
 		}
 		return false;
@@ -496,6 +493,7 @@ public class FormAdminAV extends PanelDinamico{
 				if (igualesFinal <= iguales ){
 					igualesFinal = iguales;
 					iguales = 0;
+					fraudeDe = vs.getName();
 				}
 			}	
 			

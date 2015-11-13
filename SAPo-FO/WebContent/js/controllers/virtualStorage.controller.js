@@ -35,8 +35,11 @@
 
 
 			$scope.vs.$save(function(r) {
+				showAlert('Exito!','Se ha creado su almac&eacute;n virtual de forma exitosa');
+			}, function(r){
+				showAlert('Error!','Ocurrió un error al procesar su petición');
 			});
-			
+			 
 			//pepe.$promise.then(function(result){alert(result.status);});
 			
 			reset();
@@ -52,7 +55,7 @@
 		};
 		
 
-		function showAlert() {
+		function showAlert(title,content) {
 			// Appending dialog to document.body to cover sidenav in docs app
 			// Modal dialogs should fully cover application
 			// to prevent interaction outside of dialog
@@ -63,9 +66,8 @@
 									angular.element(document
 											.querySelector('#popupContainer')))
 							.clickOutsideToClose(true)
-							.title('Exito!')
-							.content(
-									'Se ha creado su almac&eacute;n virtual de forma exitosa')
+							.title(title)
+							.content(content)
 							.ariaLabel('Alert Dialog Demo').ok('Cerrar'));
 		};
 

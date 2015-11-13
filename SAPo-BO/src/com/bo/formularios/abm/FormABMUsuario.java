@@ -26,6 +26,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.JavaScript;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.Table;
@@ -186,6 +187,8 @@ public class FormABMUsuario extends PanelDinamico{
            }
         });
         
+        
+        
 	}
 	
 	public VerticalLayout generarPanelDerecha() {
@@ -336,4 +339,6 @@ public class FormABMUsuario extends PanelDinamico{
 	    return panIzq;
 	   
 	}
+	
+	
 }

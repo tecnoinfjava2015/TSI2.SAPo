@@ -43,7 +43,10 @@ public class UserDAO {
 	}	
 	
 	public Usuario buscar(String nombre){
-		return em.find(Usuario.class, nombre);		
+		Usuario result = (Usuario) em.createQuery("SELECT u FROM Usuario u WHERE u.name = :nombre")
+                .setParameter("nombre", nombre).getSingleResult();
+		//return em.find(Usuario.class, nombre);
+		return result;
 	}
 	
 	public String insert(Usuario u){

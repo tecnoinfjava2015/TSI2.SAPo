@@ -82,4 +82,14 @@ public class CategoryBL implements ICategoryBL {
 		}
 		return false;
 	}
+
+	@Override
+	public List<Category> getAllCategories() {
+			return dao.getAllCategories();
+	}
+
+	@Override
+	public void deleteCategoryOfName(String name) {
+		dao.remove(dao.getByName(name).getId());
+	}
 }

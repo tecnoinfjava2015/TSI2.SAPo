@@ -28,30 +28,27 @@ body {
 </head>
 
 <body bgcolor="#ffffff">
-	<table style="border: 1px solid #CAD6E0" align="center" cellpadding="0"
-		cellspacing="0" border="0" width="400">
+	<table style="border: 0px" align="center" cellpadding="0"
+		cellspacing="0" border="0" width="50%">
 		<tbody>
-
 			<tr>
-				<td class="header" height="42" align="center" valign="middle"
-					width="100%" bgcolor="#E4EBEB"><ui:insert name="pageHeader">It's a Blast!</ui:insert>
-
-				</td>
+				<td align="center"><img src="resources/sapologoreflex.png"
+					style="max-height: 300px;"></img></td>
 			</tr>
-			<tr>
-				<td height="1" width="100%" bgcolor="#CAD6E0"></td>
-			</tr>
-
 			<tr>
 				<td width="100%" colspan="2">
 					<table width="100%" style="height: 150px" align="left"
 						cellpadding="0" cellspacing="0" border="0">
 						<tbody>
-							<tr align="center"><td>Just $19.99</td>
+							<tr align="center">
+								<td>
+									<h1>
+										<span style="color: #000080;">Limited Time Offer!<br />Just $19,99</span>
+									</h1>
+								</td>
 							</tr>
 							<tr>
 								<td align="center" width="100%" valign="middle">
-
 									<form method="post" action="${initParam['posturl']}">
 										<input type="hidden" name="upload" value="1" /> <input
 											type="hidden" name="return" value="${initParam['returnurl']}" />
@@ -66,21 +63,19 @@ body {
 											name="amount_1" value="19.99" /> <input type="hidden"
 											name="quantity_1" value="1" /> <input type="image"
 											src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" />
-
 									</form>
 								</td>
 							</tr>
-							<tr align="center" >
-								<td>Lifetime Membership!</td>
+							<tr align="center">
+								<td>
+									<h1>
+										<span style="color: #000080;">Lifetime Membership!</span>
+									</h1>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</td>
-			</tr>
-
-			<tr>
-				<td colspan="2" valign="bottom" height="1" width="100%"
-					bgcolor="#CAD6E0"></td>
 			</tr>
 		</tbody>
 	</table>
