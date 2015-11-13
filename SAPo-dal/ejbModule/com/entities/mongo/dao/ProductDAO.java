@@ -8,6 +8,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 
 import com.entities.mongo.Alert;
 import com.entities.mongo.Category;
@@ -187,9 +188,18 @@ public class ProductDAO {
 	
 	public List<Product> stockLessOrEqualThan(double stockMax, long virtualStorageId, int limit){
 		Query<Product> query = ds.createQuery(Product.class);
-		query.and(query.criteria("stock").lessThanOrEq(stockMax));
-		query.criteria("virtualStorageId").equal(virtualStorageId);
+		query.and(query.criteria("stock").lessThanOrEq(stockMax), query.criteria("virtualStorageId").equal(virtualStorageId));
 		query.limit(limit);
 		return query.asList();
+	}
+	
+	public void updateStock(double change, long virtualStorageId, String barCode){
+		if(change != 0 && virtualStorageId > 0 && barCode != null){
+		Query<Product> query = ds.createQuery(Product.class);
+		query.and(query.criteria("barCode").equal(barCode), 
+				query.criteria("virtualStorageId").equal(virtualStorageId));
+		UpdateOperations<Product> updateOp = ds.createUpdateOperations(Product.class).set("stock", change);
+		ds.update(query, updateOp);
+		}
 	}
 }

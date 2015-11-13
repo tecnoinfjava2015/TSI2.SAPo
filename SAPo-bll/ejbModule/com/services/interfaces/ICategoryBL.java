@@ -21,5 +21,9 @@ public interface ICategoryBL {
 	public List<Category> getAllStarredCategories(long virtualStorageId, int offset, int limit);
 
 	public boolean estaEnLista(Category ct, List<Category> listaCategoriasTemp);
+	
+	public List<Category> getAllCategories();
+
+	public void deleteCategoryOfName(String value);
 
 }

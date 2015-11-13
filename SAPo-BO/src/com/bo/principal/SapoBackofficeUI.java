@@ -2,6 +2,7 @@ package com.bo.principal;
 
 import javax.inject.Inject;
 
+import com.bo.formularios.abm.FormABMCategoria;
 import com.bo.formularios.abm.FormABMHARD;
 import com.bo.formularios.abm.FormABMProductoGenerico;
 import com.bo.formularios.abm.FormABMUsuario;
@@ -34,6 +35,7 @@ public class SapoBackofficeUI extends UI {
 	private BarraUsuario barraUsuario;
 	private FormABMUsuario formABMUsuario;
 	private FormABMProductoGenerico formABMProductoGenerico;
+	private FormABMCategoria formABMCategoriaGenerico;
 	private FormAdminAV formAdminAV;
 	private FormABMHARD formABMHard;
 	private FormReportes formReportes;
@@ -94,12 +96,7 @@ public void cargarContenido(){
        setContent(mainLayout);
        barraUsuario = new BarraUsuario(datosSesion.getUsuario().getName());
        mainLayout.addComponent(barraUsuario);
-//       Resource imagenLogo = new ThemeResource("images/logo.jpg");
-//       Image log = new Image(null, imagenLogo);
-//       log.setSizeFull();
-//       logo.addComponent(log);
-//       logo.setSizeFull();
-//       mainLayout.addComponent(logo);  
+
     	  TabSheet tabSheet = new TabSheet();
           tabSheet.setHeight(100.0f, Unit.PERCENTAGE);
           tabSheet.addStyleName(ValoTheme.TABSHEET_FRAMED);
@@ -115,6 +112,11 @@ public void cargarContenido(){
           formABMProductoGenerico = new FormABMProductoGenerico();
           layout2.addComponent(formABMProductoGenerico);
           tabSheet.addTab(layout2, "Gestion Producto Generico"); 
+          
+          PanelDinamico layout3 = new PanelDinamico();
+          formABMCategoriaGenerico = new FormABMCategoria();
+          layout3.addComponent(formABMCategoriaGenerico);
+          tabSheet.addTab(layout3, "Gestion Categoria Generico"); 
           
           PanelDinamico layout4 = new PanelDinamico();
           formAdminAV = new FormAdminAV();
@@ -136,7 +138,6 @@ public void cargarContenido(){
           layout7.addComponent(formPrueba);              
           tabSheet.addTab(layout7, "tree");
           
-         // mainLayout.setExpandRatio(logo, 10);
           mainLayout.addComponent(tabSheet);
           mainLayout.setExpandRatio(tabSheet, 70);
           mainLayout.addComponent(new PiePagina());
