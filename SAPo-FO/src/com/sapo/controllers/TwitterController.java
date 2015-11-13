@@ -107,7 +107,8 @@ public class TwitterController {
 	    	return result;
 	    } else {
 	    	//el json vino vacío, por ende es el primer ingreso del usuario
-	    	//llamo al REST registroTwitter que registra y devuelve el json del user creado
+	    	//llamo al REST registroTwitter que registra y 
+	    	//luego el login que devuelve el json del user creado
 	    	registroTwitter(body);
 	    	return postToRest(loginTwitterURL, body);
 	    }
