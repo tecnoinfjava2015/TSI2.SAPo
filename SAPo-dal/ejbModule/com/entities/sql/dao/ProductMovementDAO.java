@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
 
 import com.entities.sql.ProductMovement;
 import com.entities.mongo.Product;
@@ -25,10 +26,17 @@ public class ProductMovementDAO {
 		ProductDAO PDAO = new ProductDAO();
 		Product Paux = PDAO.getByBarCode(productMovementAux.getVirtualStorageId(), productMovementAux.getBarCode());
 		double doAux = Paux.getStock() + productMovementAux.getStock();
+		if(doAux < 0) throw new IllegalArgumentException("The resultant stock cannot be negative.");
 		PDAO.updateStock(doAux, productMovementAux.getVirtualStorageId(), productMovementAux.getBarCode());
 		em.persist(productMovementAux);
 		em.flush();
 		return productMovementAux;
+	}
+	
+	public long getMovementQuantity(long VSId){
+		TypedQuery<Long> query =  em.createQuery("SELECT COUNT(m) FROM ProductMovement m WHERE m.virtualStorageId=:VSId", Long.class)
+				.setParameter("VSId", VSId);
+		return query.getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
