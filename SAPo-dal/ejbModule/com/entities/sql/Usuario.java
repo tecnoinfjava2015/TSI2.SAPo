@@ -36,7 +36,7 @@ public class Usuario implements Serializable {
 	private String twitterId;
 	private String paypalTransactionId;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "owner")//, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@JsonIdentityInfo(generator = PropertyGenerator.class, property = "id")
 	@JsonIdentityReference(alwaysAsId = true) 
 	private Set<VirtualStorage> tenantCreados;
