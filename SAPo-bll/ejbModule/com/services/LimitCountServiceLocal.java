@@ -48,4 +48,9 @@ public interface LimitCountServiceLocal {
 	@Produces(MediaType.APPLICATION_JSON)
 	public int limitePorTipo(String type);
 
+	@GET
+	@Path("/avisarPorTipo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int AvisarPorTipo(String type);
+
 }
