@@ -3,6 +3,8 @@ package com.bo.formularios.abm;
 import java.util.List;
 
 import javax.ejb.EJBException;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -10,6 +12,7 @@ import com.bo.principal.PanelDinamico;
 import com.entities.sql.LimitCount;
 import com.entities.sql.Usuario;
 import com.entities.sql.VirtualStorage;
+import com.services.Correo;
 import com.services.LimitCountServiceLocal;
 import com.services.UsuarioServiceLocal;
 import com.services.VirtualStorageServiceLocal;
@@ -25,6 +28,8 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.Window;
 import com.vaadin.ui.Table.ColumnResizeEvent;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -41,10 +46,13 @@ public class FormUsuarioAV extends PanelDinamico{
 		private Table table; 
 		private Button enviarNotificacion;
 		private Usuario usuarioSeleccionado;
-			
+		private Window temaWindow;	
 		private LimitCountServiceLocal servicioLC;
 		private UsuarioServiceLocal servicioU;
 		private VirtualStorageServiceLocal servicioVS;
+		private String mailDestino, mensaje;
+		private TextField texMailDestino, texMensaje;
+		private Button btnEnviarMensaje;
 		
 		private void lookup() {
 				InitialContext context = null;
@@ -96,19 +104,64 @@ public class FormUsuarioAV extends PanelDinamico{
 			});
 	    	
 	        enviarNotificacion.addClickListener(new ClickListener() {
+	        	
 	            private static final long serialVersionUID = 1L;
 	            @Override
-	            public void buttonClick(final ClickEvent event) {
-	                alta();
-	            }
-				private void alta() {	
-						//servicioLC.registroLimitCount(type.getValue(),  Integer.parseInt(limit.getValue()), Integer.parseInt(avisarLimite.getValue()));
-			        	Notification notif = new Notification("Nuevo tipo de cuenta cargado exitosamente");
-			        	notif.setDelayMsec(2000);
-			        	notif.show(Page.getCurrent());
-			            actualizarTabla();
-				}			   
-	        });  
+	            public void buttonClick(final ClickEvent event){
+	            	usuarioSeleccionado = (listaUsuarios.get((int) table.getValue()-1));
+	            	temaWindow = new Window("Estilo");
+	            	VerticalLayout windowCont = new VerticalLayout();
+	            	windowCont.setMargin(true);
+	            	temaWindow.setContent(windowCont);
+	   
+	            	texMailDestino = new TextField("Destino", usuarioSeleccionado.getMail());
+	            	texMailDestino.setWidth("70%");       
+	            	windowCont.addComponent(texMailDestino);
+	        	    texMailDestino.setRequired (true);
+	        	    
+	        	    if(usuarioSeleccionado.getType().equals("Free")){
+	        	    	texMensaje = new TextField("Mensaje", "Estimado usuario " + usuarioSeleccionado.getNick() 
+	        	    											+ " usted posee " 
+	        	    											+ servicioVS.AVPorUsuario(usuarioSeleccionado.getNick()) + 
+	        	    											" almacenes virtuales creados. Su límite de almacenes es " +
+	        	    											servicioLC.limitePorTipo("Free") + 
+	        	    											" ,le recomendamos pasarse a usaurio Premium, y usted podrá tener " + 
+	        	    											servicioLC.limitePorTipo("Premium"));
+		        	    texMensaje.setWidth("70%");
+	        	    }
+	        	    else{
+	        	    	texMensaje = new TextField("Mensaje", "Estimado usuario " + usuarioSeleccionado.getNick() 
+								+ " usted posee " 
+								+ servicioVS.AVPorUsuario(usuarioSeleccionado.getNick()) + 
+								" almacenes virtuales creados. Su límite de almacenes es " +
+								servicioLC.limitePorTipo(usuarioSeleccionado.getType()));
+		        	    texMensaje.setWidth("70%");  
+	        	    }     
+	            	windowCont.addComponent(texMensaje);
+	            	texMensaje.setRequired (true);
+	            	
+	            	btnEnviarMensaje = new Button("Enviar Mensaje");
+	            	btnEnviarMensaje.addStyleName(ValoTheme.BUTTON_PRIMARY);
+	            	btnEnviarMensaje.setWidth("70%");
+	
+	                windowCont.addComponent(texMailDestino);
+	                windowCont.addComponent(texMensaje);
+	                windowCont.addComponent(btnEnviarMensaje);
+	                windowCont.setWidth("500px");
+	                windowCont.setHeight("300px"); 
+	                temaWindow.center();
+	                UI.getCurrent().addWindow(temaWindow);
+	                btnEnviarMensaje.addClickListener(new ClickListener() {
+	                    private static final long serialVersionUID = 1L;
+	                    @Override
+	                    public void buttonClick(final ClickEvent event) {
+	                    	enviarCorreo(texMailDestino.getValue(),texMensaje.getValue()); 
+	                    	temaWindow.close();
+	                   }
+	        			
+	                });
+	           }			   
+		        });  
 	    }
 		
 		public VerticalLayout generarPanelDerecha() {
@@ -194,5 +247,17 @@ public class FormUsuarioAV extends PanelDinamico{
 		    return panIzq;
 		}
 		
-
+		private void enviarCorreo(String destino, String mensaje){
+			Correo c = new Correo();  //pw: 2015sseadmin			
+				try {
+					c.enviarMensajeConAuth("smtp.gmail.com", 587,"sapoTSI2@gmail.com", destino,"sapoTSI2pass", "Mail enviado desde sistema SAPo", 
+							mensaje);
+				} catch (AddressException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 }
