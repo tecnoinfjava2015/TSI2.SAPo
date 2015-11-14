@@ -11,6 +11,11 @@ public class IntervalDates {
 		this.date2 = null;
 	}
 	
+	public IntervalDates(Calendar date1, Calendar date2){
+		this.date1 = date1;
+		this.date2 = date2;
+	}
+	
 	public Calendar getDate1() {
 		return date1;
 	}
