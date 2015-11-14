@@ -52,7 +52,13 @@ public class LimitCountDAO {
 		Query query =  em.createQuery("SELECT u FROM LimitCount u where u.tipo =:tipo");
 		query.setParameter("tipo", tipo);
 		List<LimitCount> list = query.getResultList();
-		System.out.println("servicio Limit DAO limite: " + list.get(0).getLimit());
 		return list.isEmpty() ? 0 : list.get(0).getLimit();
+	}
+
+	public int avisarPorTipo(String tipo) {
+		Query query =  em.createQuery("SELECT u FROM LimitCount u where u.tipo =:tipo");
+		query.setParameter("tipo", tipo);
+		List<LimitCount> list = query.getResultList();
+		return list.isEmpty() ? 0 : list.get(0).getAvisarFaltando();
 	}
 }
