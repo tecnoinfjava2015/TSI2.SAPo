@@ -30,6 +30,13 @@ public class ProductMovementResource {
 	}
 	
 	@GET
+	@Path("/{virtualStorageId}/movementQuantity")
+	@Produces(MediaType.APPLICATION_JSON)
+	public long getMovementQuantity( @PathParam("virtualStorageId") long virtualStorageId ){
+		return PMBL.getMovementQuantity(virtualStorageId);
+	}
+	
+	@GET
 	@Path("/{virtualStorageId}/byProdAndAV")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ProductMovement> getByProductAndAV( @PathParam("virtualStorageId") long virtualStorageId,

@@ -47,9 +47,8 @@ public class PayPalController {
 		//Llamar al REST que ponga el transactionID en la DB
 		JSONObject body = new JSONObject();
 		body.put("nick", result.getCustom());
-		body.put("twitterTransactionId", result.getTxn_id());
-		//TODO: Verificar la url del REST y cambiarla en el properties. 
-		//Debería devolver el JSON del user con el campo paypaltransactionid != null
+		body.put("paypalTransactionId", result.getTxn_id());
+		//TODO: Debería devolver el JSON del user con el campo paypaltransactionid != null
 		String paypalTxREST = props.getProperty("paypalTransactionUpdateREST");
 		String sapoUser = postToRest(paypalTxREST, body);
 

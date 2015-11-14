@@ -117,14 +117,16 @@ public class UserDAO {
 		 return foundEntity;
 	}
 
-	public Boolean pasarAPremium(String nick, String paypalTransactionId) {
+	public Usuario pasarAPremium(String nick, String paypalTransactionId) {
+		System.out.println("nick = " + nick);
+		System.out.println("paypal = " + paypalTransactionId);
 		Query query =  em.createQuery("SELECT u FROM Usuario u WHERE u.nick=:nick ")
 		.setParameter("nick", nick);
 		Usuario usuario = (Usuario) query.getResultList().get(0);
 		usuario.setType("PREMIUM");
 		usuario.setPaypalTransactionId(paypalTransactionId);
 		em.merge(usuario);
-		return true;
+		return usuario;
 	}
 
 	public Boolean geolocalizar(String nick, String geolocation) {

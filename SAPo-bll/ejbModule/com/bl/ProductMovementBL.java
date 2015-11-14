@@ -9,9 +9,17 @@ import com.entities.sql.dao.ProductMovementDAO;
 public class ProductMovementBL {
 
 	private final ProductMovementDAO PMovDAO = new ProductMovementDAO();
+	
+	public ProductMovementBL(){
+		
+	}
 
 	public ProductMovement createMovement(ProductMovement productMovementAux) {
 		return PMovDAO.createMovement(productMovementAux);
+	}
+	
+	public long getMovementQuantity(long VSId){
+		return PMovDAO.getMovementQuantity(VSId);
 	}
 
 	public List<ProductMovement> getByProductAndAV(long virtualStorageId,

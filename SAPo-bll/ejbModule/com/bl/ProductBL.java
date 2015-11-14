@@ -115,4 +115,10 @@ public class ProductBL implements IProductBL {
 		return false;
 	}
 
+	@Override
+	public double getVSVaue(long virtualStorageId) {
+		if(virtualStorageId < 0) return 0;
+		return dao.getVSValue(virtualStorageId);
+	}
+
 }

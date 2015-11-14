@@ -9,6 +9,10 @@ import com.entities.sql.dao.ShoppingListDAO;
 public class ShoppingListBL {
 
 	private final ShoppingListDAO SListDAO = new ShoppingListDAO();
+	
+	public ShoppingListBL(){
+		
+	}
 
 	public List<ShoppingListItem> returnShoppingList(long virtualStorageId) {
 		return SListDAO.returnShoppingList(virtualStorageId);

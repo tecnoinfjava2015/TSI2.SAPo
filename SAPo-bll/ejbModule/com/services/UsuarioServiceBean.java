@@ -105,8 +105,8 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	}
 
 	@Override
-	public Boolean pasarAPremium (String nick, String paypalTransactionId){
-		return udao.pasarAPremium(nick, paypalTransactionId);
+	public Usuario pasarAPremium(PayPalUserBean input){//String nick, String paypalTransactionId){
+		return udao.pasarAPremium(input.nick, input.paypalTransactionId);
 	}
 
 	@Override
