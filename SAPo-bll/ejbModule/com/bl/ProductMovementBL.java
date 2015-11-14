@@ -21,6 +21,10 @@ public class ProductMovementBL {
 	public long getMovementQuantity(long VSId){
 		return PMovDAO.getMovementQuantity(VSId);
 	}
+	
+	public long getMovimentQuantityBetweenDates(long VSId, Calendar startD, Calendar endD){
+		return PMovDAO.getMovimentQuantityBetweenDates(VSId, startD, endD);
+	}
 
 	public List<ProductMovement> getByProductAndAV(long virtualStorageId,
 			String barcode) {

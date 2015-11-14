@@ -37,6 +37,24 @@ public class ProductMovementResource {
 	}
 	
 	@GET
+	@Path("/{virtualStorageId}/movementQuantityBetweenDates")
+	@Produces(MediaType.APPLICATION_JSON)
+	public long getMovementQuantityBetweenDates( @PathParam("virtualStorageId") long virtualStorageId,
+			@QueryParam("fecha1") String fecha1,  @QueryParam("fecha2") String fecha2){
+		Calendar cal1 = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"); //ejemplo "2015-11-09T03:00:00.000Z"
+		try {
+			cal1.setTime(sdf.parse(fecha1));
+			cal2.setTime(sdf.parse(fecha2));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return PMBL.getMovimentQuantityBetweenDates(virtualStorageId, cal1, cal2);
+	}
+	
+	@GET
 	@Path("/{virtualStorageId}/byProdAndAV")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ProductMovement> getByProductAndAV( @PathParam("virtualStorageId") long virtualStorageId,
