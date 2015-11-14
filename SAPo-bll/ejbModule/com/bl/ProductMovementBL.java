@@ -5,8 +5,9 @@ import java.util.List;
 
 import com.entities.sql.ProductMovement;
 import com.entities.sql.dao.ProductMovementDAO;
+import com.services.interfaces.IProductMovementBL;
 
-public class ProductMovementBL {
+public class ProductMovementBL implements IProductMovementBL {
 
 	private final ProductMovementDAO PMovDAO = new ProductMovementDAO();
 	
