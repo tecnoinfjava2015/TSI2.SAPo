@@ -21,5 +21,6 @@
             $rootScope.navTopRight  = "templates/index.sidenav.tweets.html";
             $rootScope.navBottomRight = "";
             $rootScope.virtualStorageView = "templates/virtualStorage.view.html";
+            $rootScope.virtualStorageFollowingView = "templates/virtualStorageFollowing.view.html";
 		});
 })();

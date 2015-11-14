@@ -39,7 +39,7 @@ public class VirtualStorageResource {
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public String updateVS(VirtualStorage vs) {
 		return dao.updateVS(vs);
 	}

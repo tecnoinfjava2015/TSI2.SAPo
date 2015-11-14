@@ -92,4 +92,20 @@ public class ProductMovementDAO {
 		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
 		return PMList;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ProductMovement> getBetweenDates(long VSId, Calendar startD, Calendar endD){
+		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.dateMov BETWEEN :startD AND :endD AND m.virtualStorageId=:VSId AND m.stock > 0")
+				.setParameter("startD", startD, TemporalType.DATE).setParameter("endD", endD, TemporalType.DATE).setParameter("VSId", VSId);
+		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
+		return PMList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ProductMovement> getMovementsByUser(long VSId, int usrID){
+		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.virtualStorageId=:VSId AND m.userID=:usrID")
+				.setParameter("usrID", usrID);
+		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
+		return PMList;
+	}
 }
