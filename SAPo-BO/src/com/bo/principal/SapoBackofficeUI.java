@@ -4,10 +4,12 @@ import javax.inject.Inject;
 
 import com.bo.formularios.abm.FormABMCategoria;
 import com.bo.formularios.abm.FormABMHARD;
+import com.bo.formularios.abm.FormABMLimitCount;
 import com.bo.formularios.abm.FormABMProductoGenerico;
 import com.bo.formularios.abm.FormABMUsuario;
 import com.bo.formularios.abm.FormReportes;
 import com.bo.formularios.abm.FormAdminAV;
+import com.bo.formularios.abm.FormUsuarioAV;
 import com.bo.formularios.abm.Login;
 import com.bo.formularios.abm.prueba;
 import com.entities.sql.Usuario;
@@ -39,7 +41,8 @@ public class SapoBackofficeUI extends UI {
 	private FormAdminAV formAdminAV;
 	private FormABMHARD formABMHard;
 	private FormReportes formReportes;
-	private prueba formPrueba;
+	private FormABMLimitCount formLimitCount;
+	private FormUsuarioAV formUsuarioAV;
 	
 	@Inject 
 	private DatosSesion datosSesion;	
@@ -134,9 +137,14 @@ public void cargarContenido(){
           tabSheet.addTab(layout6, "Reportes");
           
           PanelDinamico layout7 = new PanelDinamico();
-          formPrueba = new prueba();
-          layout7.addComponent(formPrueba);              
-          tabSheet.addTab(layout7, "tree");
+          formLimitCount = new FormABMLimitCount();
+          layout7.addComponent(formLimitCount);              
+          tabSheet.addTab(layout7, "Gestión Tipos de Cuentas");
+          
+          PanelDinamico layout8 = new PanelDinamico();
+          formUsuarioAV = new FormUsuarioAV();
+          layout8.addComponent(formUsuarioAV);              
+          tabSheet.addTab(layout8, "Gestión límites de Cuentas");
           
           mainLayout.addComponent(tabSheet);
           mainLayout.setExpandRatio(tabSheet, 70);

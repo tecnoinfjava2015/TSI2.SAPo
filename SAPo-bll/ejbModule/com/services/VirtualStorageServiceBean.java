@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 
 
 
+
 import com.bl.ProductBL;
 import com.entities.mongo.Product;
 import com.entities.sql.VirtualStorage;
@@ -99,5 +100,10 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 			resultado += p.getSalePrice();
 		}
 		return resultado;
+	}
+
+	@Override
+	public int AVPorUsuario(String nick) {
+		return vsdao.AVPorUsuario(nick);
 	}
 }

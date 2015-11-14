@@ -142,6 +142,7 @@ public class FormAceptarUsuarios extends PanelDinamico{
 		 table.setNullSelectionItemId(false);
 		 table.setPageLength(table.size());
 		 table.setWidth("80%");
+		 table.setHeight("18em");
 	     panDer.setMargin(true);
 	     panDer.addComponent(table);
 	     panDer.setComponentAlignment(table, Alignment.MIDDLE_CENTER);

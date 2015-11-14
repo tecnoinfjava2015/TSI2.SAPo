@@ -151,5 +151,17 @@ public class VirtualStorageDAO {
 			em.flush(); 
 			return vs.getName();
 		}		
+	}
+
+	public int AVPorUsuario(String nick) {
+		Query query =  em.createQuery("SELECT vs FROM VirtualStorage vs ");
+		List<VirtualStorage>  retorno = query.getResultList();
+		int total = 0;
+		for(VirtualStorage vs : retorno){
+			if(vs.getOwner().getNick().equals(nick)){
+				total++;
+			}
+		}
+		return total;
 	}	
 }

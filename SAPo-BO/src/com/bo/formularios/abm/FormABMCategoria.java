@@ -1,16 +1,14 @@
 package com.bo.formularios.abm;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import com.bl.CategoryBL;
+import java.util.List;
 
 
 import com.bl.GenericCategoryBL;
 import com.bo.principal.PanelDinamico;
-import com.entities.mongo.Category;
+
 import com.entities.mongo.GenericCategory;
-import com.services.interfaces.ICategoryBL;
+
 import com.services.interfaces.IGenericCategoryBL;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
@@ -167,6 +165,7 @@ public class FormABMCategoria  extends PanelDinamico{
 			 table.setNullSelectionItemId(false);
 			 table.setPageLength(table.size());
 			 table.setWidth("80%");
+			 table.setHeight("18em");
 		     panDer.setMargin(true);
 		     panDer.addComponent(table);
 		     panDer.setComponentAlignment(table, Alignment.MIDDLE_CENTER);
@@ -251,17 +250,17 @@ public class FormABMCategoria  extends PanelDinamico{
 		    eliminar.setEnabled(false);
 		    
 		    recargar = new Button("Reiniciar Pantalla");
-		    recargar.addStyleName(ValoTheme.BUTTON_TINY);
-		    recargar.setWidth("50%");
+		    recargar.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		    recargar.setWidth("70%");
 		    panIzq.addComponent(recargar);
 		
-		    panIzq.setComponentAlignment(name, Alignment.TOP_CENTER);
+		    panIzq.setComponentAlignment(name, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(icon, Alignment.BOTTOM_CENTER);
-		    panIzq.setComponentAlignment(description, Alignment.TOP_CENTER);
+		    panIzq.setComponentAlignment(description, Alignment.BOTTOM_CENTER);
 		    
-		    panIzq.setComponentAlignment(alta, Alignment.MIDDLE_CENTER);
+		    panIzq.setComponentAlignment(alta, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(modificar, Alignment.BOTTOM_CENTER);
-		    panIzq.setComponentAlignment(eliminar, Alignment.MIDDLE_CENTER);
+		    panIzq.setComponentAlignment(eliminar, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(recargar, Alignment.BOTTOM_CENTER);
 		    return panIzq;
 		}
