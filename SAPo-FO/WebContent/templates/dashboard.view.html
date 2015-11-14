@@ -7,6 +7,11 @@
         <div ng-include="virtualStorageView" ng-controller="VirtualStorageNavigateController as ctrl"></div>
         </md-content>
       </md-tab>
+      <md-tab label="Almacenes virtuales que sigo">
+        <md-content class="md-padding" >
+        <div ng-include="virtualStorageFollowingView" ng-controller="VirtualStorageNavigateController as ctrl"></div>
+        </md-content>
+      </md-tab>
       <md-tab label="Lista de recomendaciones">
         <md-content class="md-padding" >
         <div ng-include="virtualStorageView"></div>

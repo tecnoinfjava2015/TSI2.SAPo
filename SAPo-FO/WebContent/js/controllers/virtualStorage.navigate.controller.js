@@ -16,7 +16,9 @@
     	VirtualStorageViewResource.query({
             oId: 151
         }).$promise.then(function(result) {
-            $scope.virtualStorages = result;
+        	console.log(result);
+            $scope.virtualStorages = result.owned;
+            $scope.virtualStoragesFollowing = result.following;
             $scope.loading = false;
         },function(error) {
         	console.log(error);

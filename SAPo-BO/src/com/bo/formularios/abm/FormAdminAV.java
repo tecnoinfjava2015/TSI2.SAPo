@@ -11,10 +11,12 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.bl.CategoryBL;
+import com.bl.GenericProductBL;
 import com.bl.ProductBL;
 import com.bo.principal.PanelDinamico;
 import com.entities.mongo.Alert;
 import com.entities.mongo.Category;
+import com.entities.mongo.GenericProduct;
 import com.entities.mongo.Product;
 import com.entities.mongo.Spec;
 import com.entities.sql.Unit;
@@ -24,6 +26,7 @@ import com.services.Correo;
 import com.services.UsuarioServiceLocal;
 import com.services.VirtualStorageServiceLocal;
 import com.services.interfaces.ICategoryBL;
+import com.services.interfaces.IGenericProductBL;
 import com.services.interfaces.IProductBL;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
@@ -53,6 +56,7 @@ public class FormAdminAV extends PanelDinamico{
 	 */
 	private IProductBL servicioProducto = new ProductBL();
 	private ICategoryBL servicioCategoria = new CategoryBL();
+	private IGenericProductBL servicioGenericProduct = new GenericProductBL();
 	
 	private static final long serialVersionUID = 1L;
 	private VerticalLayout panelArriba, panelAbajo;
@@ -63,7 +67,7 @@ public class FormAdminAV extends PanelDinamico{
 	private Window temaWindow;
 	private Table tableVirtualStorage, tableProductos, tableCategorias;
 	private Button bloquearAV, enviarMensaje, analizarFraude, imprimirReporte;
-	private Button convertirGenerico, eliminarProucto, buscarProducto;
+	private Button convertirGenerico, eliminarProducto, buscarProducto;
 	private Button analizarProductos, analizarCategorias;
 	private ComboBox porcentajeIgualdad;
 	private VirtualStorageServiceLocal servicioVS;
@@ -253,6 +257,34 @@ public class FormAdminAV extends PanelDinamico{
                 });
            }
         });
+        
+        eliminarProducto.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public void buttonClick(final ClickEvent event) {
+            	servicioProducto.deleteProduct(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId(), listaProductos.get(((int)tableProductos.getValue()-1)).getBarCode());
+            	Notification sample = new Notification("Producto Eliminado");
+        		sample.setDelayMsec(2000);
+            	sample.show(Page.getCurrent());
+           }
+			
+        });
+        
+        convertirGenerico.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public void buttonClick(final ClickEvent event) {
+            	GenericProduct gp = new GenericProduct();
+            	gp.setBarcode(listaProductos.get(((int)tableProductos.getValue()-1)).getBarCode());
+            	gp.setDescription(listaProductos.get(((int)tableProductos.getValue()-1)).getDescription());
+            	gp.setName(listaProductos.get(((int)tableProductos.getValue()-1)).getName());
+            	servicioGenericProduct.createGenericProduct(gp);
+            	Notification sample = new Notification("Producto Generico Creado");
+        		sample.setDelayMsec(2000);
+            	sample.show(Page.getCurrent());
+           }
+			
+        });
 	}
 
 	private VerticalLayout generarPanelAbajo() {
@@ -319,11 +351,11 @@ public class FormAdminAV extends PanelDinamico{
 	    convertirGenerico.setWidth("70%");
 	    panDer.addComponent(convertirGenerico);
 	    
-	    eliminarProucto = new Button("Eliminar Producto");
-	    eliminarProucto.addStyleName(ValoTheme.BUTTON_PRIMARY);
-	    eliminarProucto.setWidth("70%");
-	    panDer.addComponent(eliminarProucto);
-	    eliminarProucto.setEnabled(true);
+	    eliminarProducto = new Button("Eliminar Producto");
+	    eliminarProducto.addStyleName(ValoTheme.BUTTON_PRIMARY);
+	    eliminarProducto.setWidth("70%");
+	    panDer.addComponent(eliminarProducto);
+	    eliminarProducto.setEnabled(true);
 	    
 	    buscarProducto = new Button(" Buscar Producto en otros AV");
 	    buscarProducto.addStyleName(ValoTheme.BUTTON_PRIMARY);
@@ -332,7 +364,7 @@ public class FormAdminAV extends PanelDinamico{
 	
 	    
 	    panDer.setComponentAlignment(convertirGenerico, Alignment.MIDDLE_CENTER);
-	    panDer.setComponentAlignment(eliminarProucto, Alignment.MIDDLE_CENTER);
+	    panDer.setComponentAlignment(eliminarProducto, Alignment.MIDDLE_CENTER);
 	    panDer.setComponentAlignment(buscarProducto, Alignment.MIDDLE_CENTER);
 	    
 	     
@@ -431,7 +463,7 @@ public class FormAdminAV extends PanelDinamico{
 	}
 	
 	private void enviarCorreo(String destino, String mensaje){
-		Correo c = new Correo();  //pw: 2015sseadmin			
+		Correo c = new Correo();  			
 			try {
 				c.enviarMensajeConAuth("smtp.gmail.com", 587,"sapoTSI2@gmail.com", destino,"sapoTSI2pass", "Mail enviado desde sistema SAPo", 
 						mensaje);

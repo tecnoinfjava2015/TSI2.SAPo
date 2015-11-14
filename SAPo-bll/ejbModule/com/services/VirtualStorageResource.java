@@ -31,14 +31,15 @@ public class VirtualStorageResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String createVS(VirtualStorage vs) {
+	@Path("{ownerId}")
+	public String createVS(VirtualStorage vs, @PathParam("ownerId") int ownerId) {
 		//validar que el getOwner no sea null y que el id exista
-		return dao.createVS(vs, vs.getOwner().getId());
+		return dao.createVS(vs, ownerId);
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public String updateVS(VirtualStorage vs) {
 		return dao.updateVS(vs);
 	}
