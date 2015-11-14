@@ -47,5 +47,11 @@ public class LimitCountServiceBean implements LimitCountServiceLocal {
 	public LimitCount buscarType(String type) {
 		return lcdao.buscarType(type);
 	}
+
+	@Override
+	public int limitePorTipo(String type) {
+		System.out.println("servicio Limit Coun tipo: " + type);
+		return lcdao.limitePorTipo(type);
+	}
 	
 }

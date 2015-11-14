@@ -1,26 +1,14 @@
 package com.bo.formularios.abm;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import com.bl.CategoryBL;
-
-
-import com.bl.GenericCategoryBL;
 import com.bo.principal.PanelDinamico;
-import com.entities.mongo.Category;
-import com.entities.mongo.GenericCategory;
 import com.entities.sql.LimitCount;
 import com.services.LimitCountServiceLocal;
-import com.services.UsuarioServiceLocal;
-import com.services.VirtualStorageServiceLocal;
-import com.services.interfaces.ICategoryBL;
-import com.services.interfaces.IGenericCategoryBL;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.event.ShortcutAction.KeyCode;

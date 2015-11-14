@@ -42,5 +42,10 @@ public interface LimitCountServiceLocal {
 	@Path("/buscar")
 	@Produces(MediaType.APPLICATION_JSON)
 	public LimitCount buscarType(String type);
+	
+	@GET
+	@Path("/limitePorTipo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int limitePorTipo(String type);
 
 }

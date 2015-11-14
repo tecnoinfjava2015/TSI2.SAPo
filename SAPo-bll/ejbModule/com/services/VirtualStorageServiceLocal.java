@@ -86,4 +86,9 @@ public interface VirtualStorageServiceLocal {
 		@Produces(MediaType.APPLICATION_JSON)
 		public double valorarAV(@QueryParam("id") int id);
 		
+		@POST
+		@Path("/AVporUsuario")
+		@Produces(MediaType.APPLICATION_JSON)
+		public int AVPorUsuario(@QueryParam("nick") String nick);
+		
 }
