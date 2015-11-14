@@ -62,17 +62,17 @@ public class VirtualStorageResource {
 	}
 	
 	@POST
-	@Path("/valorar")
+	@Path("/worth")
 	@Produces(MediaType.APPLICATION_JSON)
-	public double valorarAV(@QueryParam("id") int id){
-		IProductBL servicioProducto = new ProductBL();
-		List<Product>  listaProductos;
-		listaProductos = servicioProducto.getAllProducts(id);
-		double resultado = 0;
-		for(Product p : listaProductos){
-			resultado += p.getSalePrice();
+	public double getVirtualStorageWorth(@QueryParam("id") int id){
+		IProductBL productBL = new ProductBL();
+		List<Product>  products;
+		products = productBL.getAllProducts(id);
+		double result = 0;
+		for (Product p : products) {
+			result += p.getSalePrice();
 		}
-		return resultado;
+		return result;
 	}
 
 }
