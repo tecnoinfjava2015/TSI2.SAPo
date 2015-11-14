@@ -18,6 +18,8 @@
 		$scope.upload = upload;
 		$scope.insert = insert;
 		$scope.reset = reset;
+		$scope.cancel = cancel;
+		
 		
 		function upload() {
 			document.getElementById("file").click();
@@ -36,7 +38,8 @@
 			$scope.vs.$save(function(r) {
 				showAlert('Exito!','Se ha creado su almac&eacute;n virtual de forma exitosa');
 			}, function(r){
-				showAlert('Error!','Ocurrió un error al procesar su petición');
+				console.log(r);
+				showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
 			});
 			 
 			//pepe.$promise.then(function(result){alert(result.status);});
@@ -68,6 +71,11 @@
 							.title(title)
 							.content(content)
 							.ariaLabel('Alert Dialog Demo').ok('Cerrar'));
+		};
+		
+
+    	function cancel() {
+    		$mdDialog.cancel();
 		};
 
 	}

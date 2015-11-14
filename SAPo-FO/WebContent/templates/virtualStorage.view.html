@@ -1,12 +1,27 @@
-<div layout="row" layout-padding="" layout-wrap="" layout-fill="" style="padding-bottom: 32px;" ng-cloak="" class="whiteframedemoBasicUsage" >
-	
+<div layout="row" layout-padding="" layout-wrap="" layout-fill=""
+	style="padding-bottom: 32px;" ng-cloak=""
+	class="whiteframedemoBasicUsage">
+
 	<div ng-repeat="vs in virtualStorages">
 		<!-- <a ng-href="/SAPo-FO/index.html#/{{vs.name}}"> -->
-		<md-whiteframe class="md-whiteframe-3dp" style="width: 200px; margin:32px" layout="column" layout-align="center center">
-			<h3><a ng-href="/SAPo-FO/index.html#/virtualStorage/{{vs.name}}" style="text-decoration:none">{{vs.name}}</a></h3>
-			<a ng-href="/SAPo-FO/index.html#/virtualStorage/{{vs.name}}"><img class="md-card-image" src="{{vs.logo}}" alt="{{vs.name}}" style="padding:15px" layout layout-align="center center"></a>	
-			<md-button ng-click="editVirtualStorage(vs.name);">Editar</md-button>
-		</md-whiteframe><!-- </a>  -->
-	</div>	
+		<md-whiteframe class="md-whiteframe-3dp"
+			style="width: 200px; margin:32px" layout="column"
+			layout-align="center center">
+		<h3>
+			<a ng-href="/SAPo-FO/index.html#/virtualStorage/{{vs.name}}"
+				style="text-decoration: none">{{vs.name}}</a>
+		</h3>
+		<a ng-href="/SAPo-FO/index.html#/virtualStorage/{{vs.name}}"><img
+			class="md-card-image" src="{{vs.logo}}" alt="{{vs.name}}"
+			style="padding: 15px; height:150px;" layout layout-align="center center"></a> <md-button
+			ng-click="editVirtualStorage(vs.name);">Editar</md-button> </md-whiteframe>
+		<!-- </a>  -->
+	</div>
+
+	<md-button ng-transclude aria-label="Nuevo"
+		style="max-height: 100px; margin-top:120px"
+		 ng-click="showAdvanced($event)"> Crear almac&eacute;n virtual </md-button>
+
+
 	
 </div>

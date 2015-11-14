@@ -22,7 +22,7 @@
                 templateUrl: 'templates/virtualStorage.create.html',
                 controllerAs: 'vm'
             })
-            .when('/edit', {
+            .when('/:tenantName/edit', {
                 controller: 'VirtualStorageController',
                 templateUrl: 'templates/virtualStorage.edit.html',
                 controllerAs: 'vm'
