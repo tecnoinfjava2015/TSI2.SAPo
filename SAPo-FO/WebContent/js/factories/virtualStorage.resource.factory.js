@@ -6,9 +6,10 @@
     VirtualStorageResource.$inject = ['$resource'];
     /* @ngInject */
     function VirtualStorageResource($resource) {
-        return $resource('/SAPo-FO/api/VirtualStorage');
+        return $resource('/SAPo-FO/api/VirtualStorage/:vsId', {vsId:'@vsId'});
     }
 })(); 
+
 
 (function() {
     'use strict';
