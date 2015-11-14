@@ -16,10 +16,13 @@ VS >>> {{vs}}
         <input ng-model="vs.name" name="vsName" required>
       </md-input-container>
       <md-input-container >
-        <label>Logo</label>
+        <label><i class="material-icons" align="center">photo_size_select_actual</i> Logo</label>
+        
         <md-tooltip md-direction="left">
           Ingrese el logo de su almac&eacute;n virtual
         </md-tooltip>
+        
+        
         <input ng-model="logoFile.filename" ng-focus="upload()" id="fileName">
         
       </md-input-container>

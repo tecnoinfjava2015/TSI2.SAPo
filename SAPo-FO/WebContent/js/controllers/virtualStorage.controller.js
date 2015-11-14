@@ -7,7 +7,6 @@
 	/* @ngInject */
 	function VirtualStorageController(VirtualStorageResource, $scope, $mdDialog) {
 		$scope.vs = new VirtualStorageResource();
-		$scope.test = 'Crear Almac&eacute;n Virtual';
 		$scope.master = {};
 		$scope.logoFile;
 		$scope.themes = [ 'theme test' ];

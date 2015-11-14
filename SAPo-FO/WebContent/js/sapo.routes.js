@@ -7,9 +7,24 @@
     /* @ngInject */
     function config($routeProvider) {
         $routeProvider
+	        .when('/virtualStorage/:tenantName', {
+	        	controller: 'VirtualStorageController',
+                templateUrl: 'templates/virtualstorage.home.html',
+                controllerAs: 'vm'
+	        })
             .when('/test', {
                 controller: 'TestController',
                 templateUrl: 'templates/test.html',
+                controllerAs: 'vm'
+            })
+            .when('/vs', {
+                controller: 'VirtualStorageController',
+                templateUrl: 'templates/virtualStorage.create.html',
+                controllerAs: 'vm'
+            })
+            .when('/edit', {
+                controller: 'VirtualStorageController',
+                templateUrl: 'templates/virtualStorage.edit.html',
                 controllerAs: 'vm'
             })
             .when('/', {
@@ -17,9 +32,9 @@
                 templateUrl: 'templates/products.navigate.html',
                 controllerAs: 'vm'
             })
-            .when('/vs', {
-                controller: 'VirtualStorageController',
-                templateUrl: 'templates/virtualStorage.create.html',
+            .when('/:tenantName/createCategory', {
+                controller: 'ProductsNavigationController',
+                templateUrl: 'templates/category.create.html',
                 controllerAs: 'vm'
             })
             .when('/:tenantName/createProduct', {
