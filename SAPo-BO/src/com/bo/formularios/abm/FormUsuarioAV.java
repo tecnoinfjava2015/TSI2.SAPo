@@ -94,6 +94,20 @@ public class FormUsuarioAV extends PanelDinamico{
 	        rootLayout.setExpandRatio(panelIzquierda, 1);
 	        rootLayout.setExpandRatio(panelDerecha, 1);
 	        this.addComponent(rootLayout);
+	        
+	        //avisar usuarios
+	        
+	        for (Usuario lu : listaUsuarios) {
+	        	System.out.println("servicio Limit limite: " + servicioLC.limitePorTipo(lu.getType()));
+	        	System.out.println("creados  " + servicioVS.AVPorUsuario(lu.getNick()));
+	        	System.out.println("avisar  " + servicioLC.AvisarPorTipo(lu.getType()));
+		    	if(servicioLC.limitePorTipo(lu.getType()) <= servicioVS.AVPorUsuario(lu.getNick()) + servicioLC.AvisarPorTipo(lu.getType())) {
+		    		enviarCorreo(lu.getMail(),"Aviso automático, usted está llegano al límite de AV que puede generar"); 
+		    	}
+		    	
+		    }
+	        
+	        
 	    	table.addValueChangeListener(new Property.ValueChangeListener() {
 				@Override
 				public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
