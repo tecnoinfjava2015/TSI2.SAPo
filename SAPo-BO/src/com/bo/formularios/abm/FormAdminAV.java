@@ -75,7 +75,7 @@ public class FormAdminAV extends PanelDinamico{
 	private TextField texMailDestino, texMensaje;
 	private Button btnEnviarMensaje;
 	private int porcentajeSeleccionado;
-	private String fraudeDe; 
+	private String fraudeDe, repetidoEn; 
 	
 	private void lookup() {
 		InitialContext context = null;
@@ -97,6 +97,7 @@ public class FormAdminAV extends PanelDinamico{
 	
 	public FormAdminAV(){    
 		lookup();
+		repetidoEn = new String("");
 		listaVirtualStorage = servicioVS.getVS();
 		panelArriba = new VerticalLayout();
         panelAbajo = new VerticalLayout();
@@ -285,6 +286,31 @@ public class FormAdminAV extends PanelDinamico{
            }
 			
         });
+        
+        buscarProducto.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public void buttonClick(final ClickEvent event) {
+            	//listaProductos.get(((int)tableProductos.getValue()-1)).getBarCode();
+            	//repetidoEn = "";
+            	List<Product>  listaProductosTemp;
+        		for (VirtualStorage vs : listaVirtualStorage){
+        			if(listaVirtualStorage.get((int) tableVirtualStorage.getValue()-1).getId() != vs.getId()){
+        				listaProductosTemp = servicioProducto.getAllProducts(vs.getId());
+        				for (Product p : listaProductos){
+        					if (servicioProducto.estaEnLista(p,listaProductosTemp)){
+        						repetidoEn = " " + repetidoEn + vs.getName();
+        					}
+        				}
+        			}		
+        		}
+            	Notification sample = new Notification("Producto Repetido en " + repetidoEn);
+        		sample.setDelayMsec(2000);
+            	sample.show(Page.getCurrent());
+           }
+			
+        });
+        
 	}
 
 	private VerticalLayout generarPanelAbajo() {

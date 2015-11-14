@@ -1,5 +1,7 @@
 package com.bo.formularios.abm;
 
+import Reportes.ReporteUsuarios;
+
 import com.bo.principal.PanelDinamico;
 import com.ejt.vaadin.sizereporter.ComponentResizeEvent;
 import com.ejt.vaadin.sizereporter.ComponentResizeListener;
@@ -9,6 +11,7 @@ import com.entities.sql.Usuario;
 import com.services.UsuarioServiceLocal;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
+import com.vaadin.server.BrowserWindowOpener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
@@ -78,17 +81,11 @@ private UsuarioServiceLocal servicio;
 	        	windowCont.setMargin(true);
 	        	temaWindow.setContent(windowCont);
 	            windowCont.addComponent(print);    
-	            windowCont.setWidth("500px");
-	            windowCont.setHeight("300px"); 
+	            windowCont.setWidth("100em");
+	            windowCont.setHeight("100em"); 
 	            temaWindow.center();
 	            UI.getCurrent().addWindow(temaWindow);
-	            print.addClickListener(new ClickListener() {
-	                private static final long serialVersionUID = 1L;
-	                @Override
-	                public void buttonClick(final ClickEvent event) {
-	    		        JavaScript.getCurrent().execute("print();");
-	    		    }
-	    		});	
+	           
 	            
 	            table = new Table("Usuarios cargados");
 	    	    table.addContainerProperty("Nombre", String.class, null);
@@ -125,7 +122,20 @@ private UsuarioServiceLocal servicio;
 	    		    	row1.getItemProperty("Mail").setValue(u.getMail());
 	    		    	//row1.getItemProperty("Stock").setValue(listaP.getStock());   	
 	    		    }
+	    		    print.addClickListener(new ClickListener() {
+		                private static final long serialVersionUID = 1L;
+		                @Override
+		                public void buttonClick(final ClickEvent event) {
+		    		        
+		                	BrowserWindowOpener opener = new BrowserWindowOpener(ReporteUsuarios.class);
+		                	opener.setFeatures("height=200,width=400,resizable");
+		                	
+		                	Button print = new Button("Click to Print");
+		                	opener.extend(print);
+		    		    }
+		    		});	
 	       }
+	        
 			
 	    });
 	
