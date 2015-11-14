@@ -195,12 +195,16 @@ public class FormABMUsuario extends PanelDinamico{
 		VerticalLayout panDer = new VerticalLayout();
 	    table = new Table("Usuarios cargados");
 	    table.addContainerProperty("Nombre", String.class, null);
+	    table.addContainerProperty("Tipo", String.class, null);
+	    table.addContainerProperty("Mail", String.class, null);
 	    ArrayList<String> nombreEncuestador = new ArrayList<String>();
 	
 	    for (Usuario usuario : listaUsuarios) {
 	    	Object newItemId = table.addItem();
 	    	Item row1 = table.getItem(newItemId);
 	    	row1.getItemProperty("Nombre").setValue(usuario.getNick());
+	    	row1.getItemProperty("Tipo").setValue(usuario.getType());
+	    	row1.getItemProperty("Mail").setValue(usuario.getMail());
 	    }
 	     
 	        //para ordenar tabla por nombre
@@ -321,19 +325,19 @@ public class FormABMUsuario extends PanelDinamico{
 	    eliminar.setEnabled(false);
 	    
 	    recargar = new Button("Reiniciar Pantalla");
-	    recargar.addStyleName(ValoTheme.BUTTON_TINY);
-	    recargar.setWidth("50%");
+	    recargar.addStyleName(ValoTheme.BUTTON_PRIMARY);
+	    recargar.setWidth("70%");
 	    panIzq.addComponent(recargar);
 	
-	    panIzq.setComponentAlignment(nick, Alignment.TOP_CENTER);
+	    panIzq.setComponentAlignment(nick, Alignment.BOTTOM_CENTER);
 	    panIzq.setComponentAlignment(password, Alignment.BOTTOM_CENTER);
-	    panIzq.setComponentAlignment(passwordConfirm, Alignment.TOP_CENTER);
-	    panIzq.setComponentAlignment(mail, Alignment.TOP_CENTER);
-	    panIzq.setComponentAlignment(tipo, Alignment.TOP_CENTER);
+	    panIzq.setComponentAlignment(passwordConfirm, Alignment.BOTTOM_CENTER);
+	    panIzq.setComponentAlignment(mail, Alignment.BOTTOM_CENTER);
+	    panIzq.setComponentAlignment(tipo, Alignment.BOTTOM_CENTER);
 	    
-	    panIzq.setComponentAlignment(alta, Alignment.MIDDLE_CENTER);
+	    panIzq.setComponentAlignment(alta, Alignment.BOTTOM_CENTER);
 	    panIzq.setComponentAlignment(modificar, Alignment.BOTTOM_CENTER);
-	    panIzq.setComponentAlignment(eliminar, Alignment.MIDDLE_CENTER);
+	    panIzq.setComponentAlignment(eliminar, Alignment.BOTTOM_CENTER);
 	    panIzq.setComponentAlignment(recargar, Alignment.BOTTOM_CENTER);
 	
 	    return panIzq;
