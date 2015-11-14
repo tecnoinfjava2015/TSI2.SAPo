@@ -6,6 +6,11 @@ public class IntervalDates {
 	private Calendar date1;
 	private Calendar date2;
 	
+	public IntervalDates(){
+		this.date1 = null;
+		this.date2 = null;
+	}
+	
 	public Calendar getDate1() {
 		return date1;
 	}

@@ -1,8 +1,5 @@
 package com.services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -38,7 +35,16 @@ public class ProductMovementResource {
 	}
 	
 	@GET
+	@Path("/{virtualStorageId}/movementByUser")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ProductMovement> getMovementByUser( @PathParam("virtualStorageId") long virtualStorageId,
+			@QueryParam("userID") int usrID){
+		return PMBL.getMovementsByUser(virtualStorageId, usrID);
+	}
+	
+	@GET
 	@Path("/{virtualStorageId}/movementQuantityBetweenDates")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public long getMovementQuantityBetweenDates( @PathParam("virtualStorageId") long virtualStorageId,
 			IntervalDates dates){
