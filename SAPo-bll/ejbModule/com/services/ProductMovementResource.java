@@ -2,6 +2,7 @@ package com.services;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,12 +13,16 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.bl.ProductMovementBL;
+import com.entities.sql.dao.ProductMovementDAO;
 import com.entities.sql.ProductMovement;
 import com.utilities.IntervalDates;
 
 @Path("/movement")
 public class ProductMovementResource {
 
+	@EJB
+	private ProductMovementDAO dao;
+	
 	ProductMovementBL PMBL = new ProductMovementBL();
 	
 	@POST
@@ -66,7 +71,8 @@ public class ProductMovementResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ProductMovement> getByProductAndAV( @PathParam("virtualStorageId") long virtualStorageId,
 			@QueryParam("barcode") String barcode ){
-		return PMBL.getByProductAndAV(virtualStorageId, barcode);
+		return dao.getByProductAndAV(virtualStorageId, barcode);
+		//return PMBL.getByProductAndAV(virtualStorageId, barcode);
 	}
 	
 	@GET

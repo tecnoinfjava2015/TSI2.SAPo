@@ -87,7 +87,7 @@ public class TwitterController {
 		Long userId = twitterK.getId();
 		sessionMap.put("twitterScreenName", userScreenName);
 		sessionMap.put("twitterUserId", userId);
-
+	
 		//llamo a login y guardo datos de usuario en cookie (y en sesion)
 		String sapoUser = sapoLogin(userScreenName, userId);
 		Cookie userCookie = new Cookie("sapoUser", sapoUser);
