@@ -15,7 +15,7 @@ import com.entities.sql.ProductMovement;
 import com.utilities.IntervalDates;
 
 @Local
-@Path("/movemen")
+@Path("/movement")
 public interface ProductMovementServiceLocal{
 
 	@POST
