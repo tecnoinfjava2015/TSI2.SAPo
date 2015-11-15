@@ -38,7 +38,7 @@
     	}
     	
     	function addAttribute() {
-    		$scope.fields.push({'id':'choice'});
+    		$scope.fields.push({});
     	}
     }
 })();
