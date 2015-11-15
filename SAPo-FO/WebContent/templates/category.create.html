@@ -1,2 +1,47 @@
-<h1>{{test}}</h1>
-
+category >>> {{category}}
+<form name="inputForm" novalidate>
+		<div class="md-toolbar-tools">
+			<h2>Crear Categor&iacute;a</h2>
+			<span flex></span>
+		</div>
+	
+		<md-input-container>
+			<label>Nombre</label> 
+			<md-tooltip md-direction="left">Seleccione el nombre de la categor&iacute;a </md-tooltip> 
+			
+			<input ng-model="category.name" name="categoryName" required> 
+		</md-input-container> 
+		
+		
+		<md-input-container>
+			<label>Nombre</label> 
+			<md-tooltip md-direction="left">Seleccione el nombre de la categor&iacute;a </md-tooltip> 
+			
+			<input ng-model="category.virtualStorageName" > 
+		</md-input-container> 
+		<md-input-container>
+			<label>Nombre</label> 
+			<md-tooltip md-direction="left">Seleccione el nombre de la categor&iacute;a </md-tooltip> 
+			
+			<input ng-model="category.virtualStorageId" > 
+		</md-input-container> 
+		
+		
+		<md-input-container> 
+			<md-radio-group flex layout='row' ng-model="category.starred">
+				<div layout-align="start center">
+					<md-radio-button flex ng-value="true" class="md-primary">
+					<label>Categor&iacute;a preferida</label> </md-radio-button>
+				</div>
+				<div layout-align="start center">
+					<md-radio-button flex ng-value="false" class="md-primary ">
+					<label>Categor&iacute;a com&uacute;n</label></md-radio-button>
+				</div>
+			</md-radio-group> 
+		
+		</md-input-container> 
+		<span flex></span> 
+		
+		<md-button class="md-raised md-primary"	ng-click='create(category)'>Crear</md-button> 
+		<md-button class="md-raised" ng-click="cancel()">Cancelar</md-button> 
+</form>
