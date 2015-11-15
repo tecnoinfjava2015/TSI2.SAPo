@@ -18,7 +18,7 @@ import com.entities.sql.ShoppingListItem;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class ShoppingListDAO {
 	@PersistenceContext(unitName="SAPo-dal")
-	EntityManager em;
+	private EntityManager em;
 	
 	public boolean existShoppingListItemForVS(String barcode, long VSId){
 		Query query =  em.createQuery("SELECT s FROM ShoppingListItem s WHERE s.productBarcode=:barcode AND s.virtualStorageId=:VSId")
@@ -41,14 +41,14 @@ public class ShoppingListDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<ShoppingListItem> returnShoppingList(long VSId){
-		Query query =  em.createQuery("SELECT s FROM ShoppingList s WHERE s.virtualStorageId=:VSId")
+		Query query =  em.createQuery("SELECT s FROM ShoppingListItem s WHERE s.virtualStorageId=:VSId")
 		.setParameter("VSId", VSId);
 		List<ShoppingListItem> shoppingList = (List<ShoppingListItem>) query.getResultList();
 		return shoppingList;
 	}
 	
 	public ShoppingListItem returnShoppingListItem(long VSId, String barcode){
-		Query query =  em.createQuery("SELECT s FROM ShoppingList s WHERE s.virtualStorageId=:VSId AND s.productBarcode=:barcode")
+		Query query =  em.createQuery("SELECT s FROM ShoppingListItem s WHERE s.virtualStorageId=:VSId AND s.productBarcode=:barcode")
 		.setParameter("VSId", VSId).setParameter("barcode", barcode);
 		ShoppingListItem shoppingListItem = (ShoppingListItem) query.getResultList().get(0);
 		return shoppingListItem;
@@ -60,7 +60,7 @@ public class ShoppingListDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<ShoppingListItem> getOldersThan(Calendar auxDate){
-		Query query = em.createQuery("SELECT s FROM ShoppingList s WHERE s.creationDate < :auxDate")
+		Query query = em.createQuery("SELECT s FROM ShoppingListItem s WHERE s.creationDate < :auxDate")
 		.setParameter("auxDate", auxDate);
 		List<ShoppingListItem> shoppingList = (List<ShoppingListItem>) query.getResultList();
 		return shoppingList;
