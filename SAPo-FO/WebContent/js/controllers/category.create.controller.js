@@ -3,31 +3,32 @@
     angular
         .module('sapo')
         .controller('CreateCategoryController', CreateCategoryController);
-    CreateCategoryController.$inject = ['$scope', 'CreateCategoriesResource'];
+    CreateCategoryController.$inject = ['CreateCategoryResource',  '$scope', '$cookies', '$location'];
     /* @ngInject */
-    function CreateCategoryController(CreateCategoriesResource, $scope) {
-    	$scope.master = {};
-    	$scope.create = create;
-		$scope.reset = reset;
-		
-		function create(data) {			
-			alert('hola');
-			$scope.tenantId = 151;
-			$scope.category.$save(function(r) {
-				showAlert('Exito!','Se ha creado su categor&iacute;a de forma exitosa');
-			}, function(r){
-				console.log(r);
-				showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
-			});
-			 
-			//pepe.$promise.then(function(result){alert(result.status);});
-			
-			// showAlert();
-		}
-
-
-		function reset() {
-			$scope.category = angular.copy($scope.master);
-		};
+    function CreateCategoryController(CreateCategoryResource, $scope, $cookies, $location) {
+    	$scope.fields = []; 
+    	$scope.insert = insert;
+    	$scope.tenantId = 1;
+    	var userId = $cookies.getObject("sapoUser");
+    	
+    	var res = $location.path().split("/");
+    	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
+    	var count = virtualStorages.owned.length;
+    	var i = 0;
+    	for (i = 0; i < count; i++) {
+    		if (virtualStorages.owned[i].name == res[2]) {
+    			$scope.virtualStorageName = virtualStorages.owned[i].name;
+    			$scope.virtualStorageId = virtualStorages.owned[i].id;
+    		}
+    	}
+    	
+    	
+    	function insert( data) {   
+    		data.virtualStorageName = $scope.virtualStorageName;
+    		data.virtualStorageId = $scope.virtualStorageId;
+    		CreateCategoryResource.save({tenantId: $scope.tenantId },data,function(){
+    		});
+    	}
+    	
     }
 })();

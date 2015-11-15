@@ -23,7 +23,11 @@
     		var mongoImages = [];
     		var i = 0;
     		console.log($scope.fields);
-    		//data.attributes = $scope.fields;
+    		data.attributes = "";
+    		for (i = 0; i < $scope.fields.length; i++) {
+    			data.attributes += JSON.stringify($scope.fields[i]);
+    		}
+    		//data.attributes = JSON.stringify($scope.fields);
     		
     		for (i = 0; i < count; i++) {
     			 			
