@@ -197,7 +197,6 @@ public class FormABMUsuario extends PanelDinamico{
 	    table.addContainerProperty("Nombre", String.class, null);
 	    table.addContainerProperty("Tipo", String.class, null);
 	    table.addContainerProperty("Mail", String.class, null);
-	    ArrayList<String> nombreEncuestador = new ArrayList<String>();
 	
 	    for (Usuario usuario : listaUsuarios) {
 	    	Object newItemId = table.addItem();
