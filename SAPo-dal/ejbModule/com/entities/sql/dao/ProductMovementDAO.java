@@ -102,9 +102,9 @@ public class ProductMovementDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<ProductMovement> getMovementsByUser(long VSId, int usrID){
-		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.virtualStorageId=:VSId AND m.userID=:usrID")
-				.setParameter("usrID", usrID).setParameter("VSId", VSId);
+	public List<ProductMovement> getMovementsByUser(int usrID){
+		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.userID=:usrID")
+				.setParameter("usrID", usrID);
 		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
 		return PMList;
 	}
