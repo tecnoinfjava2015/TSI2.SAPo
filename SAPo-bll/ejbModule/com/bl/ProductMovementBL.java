@@ -5,8 +5,9 @@ import java.util.List;
 
 import com.entities.sql.ProductMovement;
 import com.entities.sql.dao.ProductMovementDAO;
+import com.services.interfaces.IProductMovementBL;
 
-public class ProductMovementBL {
+public class ProductMovementBL implements IProductMovementBL {
 
 	private final ProductMovementDAO PMovDAO = new ProductMovementDAO();
 	
@@ -52,5 +53,9 @@ public class ProductMovementBL {
 	public List<ProductMovement> getWhereStockChangeBetweenDates(
 			long virtualStorageId, String barcode, Calendar cal1, Calendar cal2) {
 		return PMovDAO.getWhereStockChangeBetweenDates(virtualStorageId, barcode, cal1, cal2);
+	}
+	
+	public List<ProductMovement> getMovementsByUser(long VSId, int usrID){
+		return PMovDAO.getMovementsByUser(VSId, usrID);
 	}
 }
