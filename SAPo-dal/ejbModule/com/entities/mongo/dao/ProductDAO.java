@@ -141,7 +141,7 @@ public class ProductDAO {
 	
 	public ObjectId removeImage(Product product, int position){
 		if (position>0 && !(product==null)){
-			List <byte[]> images = product.getImages();
+			List <String> images = product.getImages();
 			images.remove(position);
 			product.setImages(images);
 			return dao.persist(product);
