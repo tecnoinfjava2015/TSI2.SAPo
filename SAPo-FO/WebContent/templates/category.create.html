@@ -1,30 +1,20 @@
+<md-dialog aria-label="Crear Categor&iacute;a" ng-cloak
+	style="width: 50%;height:40%">
 <form name="inputForm" novalidate>
+	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<h2>Crear Categor&iacute;a</h2>
 			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()"> <i class="material-icons" aria-label="Close dialog">clear</i> </md-button>
 		</div>
-	
+	</md-toolbar>
+	<md-dialog-content style="max-width:100%;max-height:100%; ">
 		<md-input-container>
 			<label>Nombre</label> 
 			<md-tooltip md-direction="left">Seleccione el nombre de la categor&iacute;a </md-tooltip> 
 			
 			<input ng-model="category.name" name="categoryName" required> 
 		</md-input-container> 
-		
-		
-		<md-input-container>
-			<label>Nombre</label> 
-			<md-tooltip md-direction="left">Seleccione el nombre de la categor&iacute;a </md-tooltip> 
-			
-			<input ng-model="category.virtualStorageName" > 
-		</md-input-container> 
-		<md-input-container>
-			<label>Nombre</label> 
-			<md-tooltip md-direction="left">Seleccione el nombre de la categor&iacute;a </md-tooltip> 
-			
-			<input ng-model="category.virtualStorageId" > 
-		</md-input-container> 
-		
 		
 		<md-input-container> 
 			<md-radio-group flex layout='row' ng-model="category.starred">
@@ -40,7 +30,11 @@
 		
 		</md-input-container> 
 		<span flex></span> 
-		
+	</md-dialog-content>
+	<md-dialog-actions class="md-actions" layout="row">
+		<span flex></span> 	
 		<md-button class="md-raised md-primary"	ng-click='insert(category)'>Crear</md-button> 
 		<md-button class="md-raised" ng-click="cancel()">Cancelar</md-button> 
+	</md-dialog-actions>
 </form>
+</md-dialog>

@@ -1,5 +1,10 @@
 <h1>Bienvenido a su almac&eacute;n virtual</h1>
 
 <md-content class="md-padding" >
+	<md-button ng-transclude aria-label="Nuevo"
+		style="max-height: 100px; margin-top:120px"
+		 ng-click="showAdvanced($event)"> Crear nueva categor&iacute;a
+	</md-button>
+
 	<div ng-include="productsView" ng-controller="ProductsNavigationController as ctrl"></div>
 </md-content>

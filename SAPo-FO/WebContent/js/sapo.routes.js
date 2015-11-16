@@ -8,7 +8,7 @@
     function config($routeProvider) {
         $routeProvider
 	        .when('/virtualStorage/:tenantName', {
-	        	controller: 'VirtualStorageController',
+	        	controller: 'VirtualStorageHomeController',
                 templateUrl: 'templates/virtualstorage.home.html',
                 controllerAs: 'vm'
 	        })

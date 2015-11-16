@@ -3,13 +3,15 @@
     angular
         .module('sapo')
         .controller('CreateCategoryController', CreateCategoryController);
-    CreateCategoryController.$inject = ['CreateCategoryResource',  '$scope', '$cookies', '$location'];
+    CreateCategoryController.$inject = ['CreateCategoryResource',  '$scope', '$cookies', '$location', '$mdDialog'];
     /* @ngInject */
-    function CreateCategoryController(CreateCategoryResource, $scope, $cookies, $location) {
+    function CreateCategoryController(CreateCategoryResource, $scope, $cookies, $location, $mdDialog) {
     	$scope.fields = []; 
     	$scope.insert = insert;
     	$scope.tenantId = 1;
     	var userId = $cookies.getObject("sapoUser");
+    	
+    	$scope.cancel = cancel;
     	
     	var res = $location.path().split("/");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
@@ -24,11 +26,17 @@
     	
     	
     	function insert( data) {   
+    		
     		data.virtualStorageName = $scope.virtualStorageName;
     		data.virtualStorageId = $scope.virtualStorageId;
     		CreateCategoryResource.save({tenantId: $scope.tenantId },data,function(){
     		});
     	}
+    	
+
+    	function cancel() {
+    		$mdDialog.cancel();
+		};
     	
     }
 })();
