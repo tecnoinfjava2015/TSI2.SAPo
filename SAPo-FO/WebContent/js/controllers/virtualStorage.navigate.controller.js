@@ -27,8 +27,21 @@
     	console.log($scope.virtualStorages);
     	
     	
-    	function editVirtualStorage(virtualStorageName) {
-    		$location.url('http://localhost:8080/SAPo-FO/index.html#/virtualStorage/' + virtualStorageName + '/edit');
+    	function editVirtualStorage(ev) {
+    		$mdDialog.show({
+    	    	controller: 'VirtualStorageEditController',
+                templateUrl: 'templates/virtualstorage.edit.html',
+    	    	
+    	        parent: angular.element(document.body),
+    	        targetEvent: ev,
+    	        clickOutsideToClose:true
+    	    })
+    	    .then(function(answer) {
+    	        $scope.status = 'You said the information was "' + answer + '".';
+    	    }, function() {
+    	        $scope.status = 'You cancelled the dialog.';
+    	    });
+    		//$location.url('http://localhost:8080/SAPo-FO/index.html#/virtualStorage/' + virtualStorageName + '/edit');
     	}
     	
     	

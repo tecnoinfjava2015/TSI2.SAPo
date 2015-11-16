@@ -11,6 +11,19 @@
     }
 })(); 
 
+(function() {
+    'use strict';
+    angular
+        .module('sapo')
+        .factory('VirtualStorageEditResource', VirtualStorageEditResource);
+    VirtualStorageEditResource.$inject = ['$resource', '$cookies'];
+    /* @ngInject */
+    function VirtualStorageEditResource($resource, $cookies) {
+    	var userId = $cookies.getObject("sapoUser").id;
+        return $resource('/SAPo-FO/api/VirtualStorage/' + userId, {});
+    }
+})(); 
+
 
 (function() {
     'use strict';

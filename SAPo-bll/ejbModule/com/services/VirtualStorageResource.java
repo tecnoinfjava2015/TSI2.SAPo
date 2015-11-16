@@ -41,6 +41,7 @@ public class VirtualStorageResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateVS(VirtualStorage vs) {
+		System.out.println(vs);
 		return dao.updateVS(vs);
 	}
 	

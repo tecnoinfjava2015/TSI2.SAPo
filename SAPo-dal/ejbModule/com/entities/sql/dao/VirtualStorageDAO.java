@@ -28,6 +28,7 @@ public class VirtualStorageDAO {
 	private UserDAO udao;
 	
 	public String updateVS(VirtualStorage vs){
+		System.out.println(vs);
 		try {
 			em.merge(vs);
 			return "200-Success-Virtual_Storage_Updated";
