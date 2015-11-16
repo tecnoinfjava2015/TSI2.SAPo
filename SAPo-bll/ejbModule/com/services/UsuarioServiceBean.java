@@ -41,6 +41,7 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 		u.setEnabled(true);
 		u.setAceptado(true);
 		u.setTwitterId(input.twitterId);
+		u.setGeolocation(input.geoLocation);
 		udao.insert(u);
 	}
 	

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
@@ -24,6 +25,7 @@ import twitter4j.JSONObject;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.User;
 import twitter4j.auth.RequestToken;
 
 @ManagedBean(name = "twitter")
@@ -62,7 +64,7 @@ public class TwitterController {
 		externalContext.redirect(authURL);
 	}
 	
-	public void verify() throws TwitterException, IOException, JSONException {
+	public void verify() throws TwitterException, IOException, JSONException {		
 		//Traigo el request para tomar parametros de la URL y atributos de la sesion.
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		HttpServletRequest origRequest = (HttpServletRequest) externalContext.getRequest();
@@ -83,19 +85,25 @@ public class TwitterController {
 		//AccessToken at = twitterK.getOAuthAccessToken(requestToken, verifier);
 		twitterK.getOAuthAccessToken(requestToken, verifier);
 		
+		//get user info
 		String userScreenName = twitterK.getScreenName();
-		Long userId = twitterK.getId();
+		User twitterUser = twitterK.showUser(userScreenName);
+		Long userId = twitterUser.getId();
+		String userLocation = twitterUser.getLocation();
+		
+		String geoLocation = null;
+		if(userLocation != null && !userLocation.isEmpty()) {
+			geoLocation = getGoogleGeolocation(userLocation);
+		}
+
 		sessionMap.put("twitterScreenName", userScreenName);
 		sessionMap.put("twitterUserId", userId);
 	
 		//llamo a login y guardo datos de usuario en cookie (y en sesion)
-		String sapoUser = sapoLogin(userScreenName, userId);
+		String sapoUser = sapoLogin(userScreenName, userId, geoLocation);
 		Cookie userCookie = new Cookie("sapoUser", sapoUser);
 		response.addCookie(userCookie);
 		
-		//sessionMap.put("sapoUser", sapoUser);
-		//externalContext.addResponseCookie("sapoUser", sapoUser, null);
-	
 		//paso el string a JSON para usar datos en la siguiente llamada
 		JSONObject sapoUserJson = new JSONObject(sapoUser);
 		
@@ -109,6 +117,35 @@ public class TwitterController {
 		response.addCookie(vsCookie);
 		
 		externalContext.redirect("#/");
+	}
+
+	private String getGoogleGeolocation(String userLocation) throws IOException, JSONException {
+
+		Properties props = new Properties();
+		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
+		String googleAPIkey = props.getProperty("googleAPIkey");
+		String googleAPIurl = props.getProperty("geoLocationURL");
+		
+		
+		URL url = new URL(googleAPIurl + "json?address=" + userLocation.replace(" ", "+") + "&key=" + googleAPIkey);
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestMethod("GET");
+		
+		StringBuilder result = new StringBuilder();
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		String line;
+		while ((line = br.readLine()) != null) {
+			result.append(line);
+		}
+		br.close();
+		
+		JSONObject geolocationResponse = new JSONObject(result.toString());
+		JSONObject location = geolocationResponse.getJSONArray("results").getJSONObject(0)
+				.getJSONObject("geometry").getJSONObject("location");
+		return location.getString("lat") + "," + location.getString("lng");
+		
+		//return null;
 	}
 
 	private JSONObject removeLogos(String myVSs) throws JSONException {
@@ -153,8 +190,8 @@ public class TwitterController {
 		return result;
 	}
 
-	private String sapoLogin(String userScreenName, Long userId) throws IOException, JSONException {
-		//Traigo la url para el post dsde el restLocation.properties
+	private String sapoLogin(String userScreenName, Long userId, String geoLocation) throws IOException, JSONException {
+		//Traigo la url para el post dsde el sapo-config.properties
 		Properties props = new Properties();
 		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
 		String loginTwitterURL = props.getProperty("twitterLoginREST");
@@ -163,6 +200,7 @@ public class TwitterController {
 		JSONObject body = new JSONObject();
 		body.put("nombre", userScreenName);
 		body.put("twitterId", userId);
+		body.put("geoLocation", geoLocation);
 
 		String result = postToRest(loginTwitterURL, body);
 
