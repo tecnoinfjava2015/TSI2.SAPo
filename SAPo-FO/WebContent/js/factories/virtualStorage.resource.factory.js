@@ -11,6 +11,20 @@
     }
 })(); 
 
+(function() {
+    'use strict';
+    angular
+        .module('sapo')
+        .factory('VirtualStorageEditResource', VirtualStorageEditResource);
+    VirtualStorageEditResource.$inject = ['$resource'];
+    /* @ngInject */
+    function VirtualStorageEditResource($resource) {
+        return $resource('/SAPo-FO/api/VirtualStorage/', {},{
+            'update': { method:'PUT' }
+        });
+    }
+})(); 
+
 
 (function() {
     'use strict';
