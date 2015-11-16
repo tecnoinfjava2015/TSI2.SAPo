@@ -141,7 +141,9 @@ public class TwitterController {
 		br.close();
 		
 		JSONObject geolocationResponse = new JSONObject(result.toString());
-		if(geolocationResponse.getJSONArray("results").length() > 0){
+		if(geolocationResponse.getString("status").equals("OK") && 
+				geolocationResponse.getJSONArray("results").length() > 0){
+			
 			JSONObject location = geolocationResponse.getJSONArray("results").getJSONObject(0)
 					.getJSONObject("geometry").getJSONObject("location");
 			return location.getString("lat") + "," + location.getString("lng");
