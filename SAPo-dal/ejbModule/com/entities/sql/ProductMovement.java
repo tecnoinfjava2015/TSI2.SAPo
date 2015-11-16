@@ -1,5 +1,6 @@
 package com.entities.sql;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
@@ -15,7 +16,11 @@ import javax.persistence.TemporalType;
 import com.entities.sql.Unit;
 
 @Entity
-public class ProductMovement {
+public class ProductMovement implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long movimentID; 

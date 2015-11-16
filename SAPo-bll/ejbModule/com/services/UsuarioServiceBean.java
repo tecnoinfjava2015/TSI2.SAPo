@@ -101,7 +101,15 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	@Override
 	public Usuario getLoginTwitter(TwitterUserBean input) {//(String nick, String twitterId) {
 		//en el dao revisa el nick, que es igual al nombre
-		return udao.getLoginTwitter(input.nombre, input.twitterId);
+		Usuario result = udao.getLoginTwitter(input.nombre, input.twitterId);
+		
+		//en caso que devuelva null, es el primer ingreso, llamo a registro y luego a login nuevamente
+		if(result == null) {
+			registroUsuarioTwitter(input);
+			result = udao.getLoginTwitter(input.nombre, input.twitterId);
+		}
+		return result;
+		//return udao.getLoginTwitter(input.nombre, input.twitterId);
 	}
 
 	@Override

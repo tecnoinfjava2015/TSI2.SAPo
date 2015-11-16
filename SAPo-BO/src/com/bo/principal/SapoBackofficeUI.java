@@ -2,6 +2,8 @@ package com.bo.principal;
 
 import javax.inject.Inject;
 
+import Reportes.ReporteUsuarios;
+
 import com.bo.formularios.abm.FormABMCategoria;
 import com.bo.formularios.abm.FormABMHARD;
 import com.bo.formularios.abm.FormABMLimitCount;
@@ -43,6 +45,7 @@ public class SapoBackofficeUI extends UI {
 	private FormReportes formReportes;
 	private FormABMLimitCount formLimitCount;
 	private FormUsuarioAV formUsuarioAV;
+	private ReporteUsuarios formReporteUsuario;
 	
 	@Inject 
 	private DatosSesion datosSesion;	
@@ -145,6 +148,11 @@ public void cargarContenido(){
           formUsuarioAV = new FormUsuarioAV();
           layout8.addComponent(formUsuarioAV);              
           tabSheet.addTab(layout8, "Gestión límites de Cuentas");
+          
+          PanelDinamico layout9 = new PanelDinamico();
+          formReporteUsuario = new ReporteUsuarios();
+          layout9.addComponent(formReporteUsuario);              
+          tabSheet.addTab(layout9, "Reporte Usuario");
           
           mainLayout.addComponent(tabSheet);
           mainLayout.setExpandRatio(tabSheet, 70);
