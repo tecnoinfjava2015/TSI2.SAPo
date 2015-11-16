@@ -16,11 +16,12 @@
     angular
         .module('sapo')
         .factory('VirtualStorageEditResource', VirtualStorageEditResource);
-    VirtualStorageEditResource.$inject = ['$resource', '$cookies'];
+    VirtualStorageEditResource.$inject = ['$resource'];
     /* @ngInject */
-    function VirtualStorageEditResource($resource, $cookies) {
-    	var userId = $cookies.getObject("sapoUser").id;
-        return $resource('/SAPo-FO/api/VirtualStorage/' + userId, {});
+    function VirtualStorageEditResource($resource) {
+        return $resource('/SAPo-FO/api/VirtualStorage/', {},{
+            'update': { method:'PUT' }
+        });
     }
 })(); 
 

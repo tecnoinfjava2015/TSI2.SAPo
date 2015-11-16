@@ -3,9 +3,9 @@
     angular
         .module('sapo')
         .controller('VirtualStorageNavigateController', VirtualStorageNavigateController);
-    VirtualStorageNavigateController.$inject = ['VirtualStorageViewResource', '$scope', '$location', '$mdDialog'];
+    VirtualStorageNavigateController.$inject = ['VirtualStorageViewResource', '$scope', '$location', '$mdDialog', '$rootScope'];
     /* @ngInject */
-    function VirtualStorageNavigateController(VirtualStorageViewResource, $scope, $location, $mdDialog) {
+    function VirtualStorageNavigateController(VirtualStorageViewResource, $scope, $location, $mdDialog, $rootScope) {
     	var vm = this;
     	$scope.virtualStorages = {};
     	$scope.title = 'Almacenes virtuales';    
@@ -27,7 +27,9 @@
     	console.log($scope.virtualStorages);
     	
     	
-    	function editVirtualStorage(ev) {
+    	function editVirtualStorage(ev, virtualStorage) {
+    		$rootScope.tenantName = virtualStorage.name;
+    		$rootScope.tenantId = virtualStorage.id;
     		$mdDialog.show({
     	    	controller: 'VirtualStorageEditController',
                 templateUrl: 'templates/virtualstorage.edit.html',

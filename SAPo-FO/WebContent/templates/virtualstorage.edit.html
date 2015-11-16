@@ -1,16 +1,23 @@
 
-<md-dialog aria-label="Crear Almac&eacute;n Virtual" ng-cloak
+<md-dialog aria-label="Editar Almac&eacute;n Virtual" ng-cloak
 	style="width: 80%;height:95%">
 <form name="inputForm" novalidate>
 	<md-toolbar>
 		<div class="md-toolbar-tools">
-			<h2>Crear Almac&eacute;n Virtual</h2>
+			<h2>Editar Almac&eacute;n Virtual</h2>
 			<span flex></span>
 			<md-button class="md-icon-button" ng-click="cancel()"> <i class="material-icons" aria-label="Close dialog">clear</i> </md-button>
 		</div>
 	</md-toolbar>
 	
 	<md-dialog-content style="max-width:100%;max-height:100%; ">
+		<md-input-container>
+			<label>Nombre</label> 
+			<md-tooltip md-direction="left">Seleccione el nombre de su almac&eacute;n virtual </md-tooltip> 
+			
+			<input ng-model="vs.name" name="vsName" required> 
+		</md-input-container> 
+		
 		<md-input-container>
 			<label><i class="material-icons" align="center">photo_size_select_actual</i>Logo</label> 
 			<md-tooltip md-direction="left"> Ingrese el logo de	su almac&eacute;n virtual </md-tooltip> 
