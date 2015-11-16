@@ -1,6 +1,7 @@
 package Reportes;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import javax.naming.NamingException;
 import utils.Encrypter;
 
 import com.bl.ProductBL;
-import com.bl.ProductMovementBL;
+//import com.bl.ProductMovementBL;
 import com.bo.principal.PanelDinamico;
 import com.bo.principal.PiePagina;
 import com.entities.sql.ProductMovement;
@@ -21,9 +22,10 @@ import com.entities.sql.ProductMovement;
 //import com.vaadin.ui.Label;
 //import com.vaadin.ui.UI;
 import com.entities.sql.Usuario;
+import com.services.ProductMovementServiceLocal;
 import com.services.UsuarioServiceLocal;
 import com.services.interfaces.IProductBL;
-import com.services.interfaces.IProductMovementBL;
+//import com.services.interfaces.IProductMovementBL;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.event.ShortcutAction.KeyCode;
@@ -67,8 +69,8 @@ private UsuarioServiceLocal servicio;
 private static final long serialVersionUID1 = 1L;
 
 
-
-private IProductMovementBL servicioProductoMov = new ProductMovementBL();
+private ProductMovementServiceLocal servicioPM;
+//private IProductMovementBL servicioProductoMov = new ProductMovementBL();
 
 private void lookup() {
 	InitialContext context = null;
@@ -164,7 +166,7 @@ private void lookup() {
 		     
 		     tableMovimientos = new Table("Movimientos Usuario");
 		     tableMovimientos.addContainerProperty("Producto", String.class, null);
-		     listaMovimientos = servicioProductoMov.getMovementsByUser(1,listaUsuarios.get(((int)tableUsuario.getValue()-1)).getId());
+		     listaMovimientos = servicioPM.getMovementByUser(listaUsuarios.get(((int)tableUsuario.getValue()-1)).getId());
 //		     tableMovimientos.addContainerProperty("Tipo", String.class, null);
 //		     tableMovimientos.addContainerProperty("Mail", String.class, null);
 			 
