@@ -22,5 +22,6 @@
             $rootScope.navBottomRight = "";
             $rootScope.virtualStorageView = "templates/virtualStorage.view.html";
             $rootScope.virtualStorageFollowingView = "templates/virtualStorageFollowing.view.html";
+            $rootScope.productsView = "templates/products.navigate.html";
 		});
 })();

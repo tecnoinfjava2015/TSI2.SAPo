@@ -33,7 +33,7 @@ public class Product extends BaseEntity{
 	private double purchasePrice;
 	private double stock;
 	private List<Alert> alerts; 
-	private List<byte[]> images;
+	private List<String> images;
 	private List<Spec> specs;
 	private List<Category> categories;
 	private boolean active;
@@ -47,7 +47,7 @@ public class Product extends BaseEntity{
 	public Product(long virtualStorageId, String virtualStorageName,
 			String barCode, String name, String description, Unit unit,
 			double salePrice, double purchasePrice, double stock,
-			List<Alert> alerts, List<byte[]> images, List<Spec> specs,
+			List<Alert> alerts, List<String> images, List<Spec> specs,
 			List<Category> categories, boolean active) {
 		super();
 		this.virtualStorageId = virtualStorageId;
@@ -167,12 +167,12 @@ public class Product extends BaseEntity{
 	}
 
 
-	public List<byte[]> getImages() {
+	public List<String> getImages() {
 		return images;
 	}
 
 
-	public void setImages(List<byte[]> images) {
+	public void setImages(List<String> images) {
 		this.images = images;
 	}
 

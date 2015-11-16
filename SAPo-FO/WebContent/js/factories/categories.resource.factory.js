@@ -12,3 +12,15 @@
         });
     }
 })();
+
+(function() {
+    'use strict';
+    angular
+        .module('sapo')
+        .factory('CreateCategoryResource', CreateCategoryResource);
+    CreateCategoryResource.$inject = ['$resource'];
+    /* @ngInject */
+    function CreateCategoryResource($resource) {
+        return $resource('/SAPo-FO/api/:tenantId/categories',{tenantId:'@tenantId'});
+    }
+})(); 

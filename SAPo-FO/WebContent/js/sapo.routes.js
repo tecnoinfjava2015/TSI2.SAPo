@@ -8,18 +8,13 @@
     function config($routeProvider) {
         $routeProvider
 	        .when('/virtualStorage/:tenantName', {
-	        	controller: 'VirtualStorageController',
+	        	controller: 'VirtualStorageHomeController',
                 templateUrl: 'templates/virtualstorage.home.html',
                 controllerAs: 'vm'
 	        })
             .when('/test', {
                 controller: 'TestController',
                 templateUrl: 'templates/test.html',
-                controllerAs: 'vm'
-            })
-            .when('/vs', {
-                controller: 'VirtualStorageController',
-                templateUrl: 'templates/virtualStorage.create.html',
                 controllerAs: 'vm'
             })
             .when('/:tenantName/edit', {
@@ -32,12 +27,12 @@
                 templateUrl: 'templates/products.navigate.html',
                 controllerAs: 'vm'
             })
-            .when('/:tenantName/createCategory', {
-                controller: 'ProductsNavigationController',
+            .when('/virtualStorage/:tenantName/category', {
+                controller: 'CreateCategoryController',
                 templateUrl: 'templates/category.create.html',
                 controllerAs: 'vm'
             })
-            .when('/:tenantName/createProduct', {
+            .when('/virtualStorage/:tenantName/createProduct', {
                 controller: 'CreateProductController',
                 templateUrl: 'templates/product.create.html',
                 controllerAs: 'vm'

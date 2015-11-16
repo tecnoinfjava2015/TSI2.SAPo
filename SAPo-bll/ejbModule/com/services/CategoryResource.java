@@ -44,7 +44,7 @@ public class CategoryResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public Category createCategory(Category category) {
 		return bl.createCategory(category);
 	}
