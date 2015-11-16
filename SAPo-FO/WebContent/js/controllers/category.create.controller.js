@@ -12,6 +12,7 @@
     	var userId = $cookies.getObject("sapoUser");
     	
     	$scope.cancel = cancel;
+    	$scope.showAlert = showAlert;
     	
     	var res = $location.path().split("/");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
@@ -30,8 +31,29 @@
     		data.virtualStorageName = $scope.virtualStorageName;
     		data.virtualStorageId = $scope.virtualStorageId;
     		CreateCategoryResource.save({tenantId: $scope.tenantId },data,function(){
-    		});
+    		showAlert('Exito!','Se ha creado su categor&iacute;a de forma exitosa');
+			}, function(r){
+				console.log(r);
+				showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
+			});
     	}
+    	
+    	function showAlert(title,content) {
+			// Appending dialog to document.body to cover sidenav in docs app
+			// Modal dialogs should fully cover application
+			// to prevent interaction outside of dialog
+			$mdDialog
+					.show($mdDialog
+							.alert()
+							.parent(
+									angular.element(document
+											.querySelector('#popupContainer')))
+							.clickOutsideToClose(true)
+							.title(title)
+							.content(content)
+							.ariaLabel('Alert Dialog Demo').ok('Cerrar'));
+		};
+		
     	
 
     	function cancel() {

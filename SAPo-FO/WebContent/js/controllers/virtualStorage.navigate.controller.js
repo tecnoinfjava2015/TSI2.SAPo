@@ -3,9 +3,9 @@
     angular
         .module('sapo')
         .controller('VirtualStorageNavigateController', VirtualStorageNavigateController);
-    VirtualStorageNavigateController.$inject = ['VirtualStorageViewResource', '$scope', '$location', '$mdDialog'];
+    VirtualStorageNavigateController.$inject = ['VirtualStorageViewResource', '$scope', '$location', '$mdDialog', '$rootScope'];
     /* @ngInject */
-    function VirtualStorageNavigateController(VirtualStorageViewResource, $scope, $location, $mdDialog) {
+    function VirtualStorageNavigateController(VirtualStorageViewResource, $scope, $location, $mdDialog, $rootScope) {
     	var vm = this;
     	$scope.virtualStorages = {};
     	$scope.title = 'Almacenes virtuales';    
@@ -27,8 +27,23 @@
     	console.log($scope.virtualStorages);
     	
     	
-    	function editVirtualStorage(virtualStorageName) {
-    		$location.url('http://localhost:8080/SAPo-FO/index.html#/virtualStorage/' + virtualStorageName + '/edit');
+    	function editVirtualStorage(ev, virtualStorage) {
+    		$rootScope.tenantName = virtualStorage.name;
+    		$rootScope.tenantId = virtualStorage.id;
+    		$mdDialog.show({
+    	    	controller: 'VirtualStorageEditController',
+                templateUrl: 'templates/virtualstorage.edit.html',
+    	    	
+    	        parent: angular.element(document.body),
+    	        targetEvent: ev,
+    	        clickOutsideToClose:true
+    	    })
+    	    .then(function(answer) {
+    	        $scope.status = 'You said the information was "' + answer + '".';
+    	    }, function() {
+    	        $scope.status = 'You cancelled the dialog.';
+    	    });
+    		//$location.url('http://localhost:8080/SAPo-FO/index.html#/virtualStorage/' + virtualStorageName + '/edit');
     	}
     	
     	
