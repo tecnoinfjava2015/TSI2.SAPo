@@ -141,11 +141,18 @@ public class TwitterController {
 		br.close();
 		
 		JSONObject geolocationResponse = new JSONObject(result.toString());
-		JSONObject location = geolocationResponse.getJSONArray("results").getJSONObject(0)
-				.getJSONObject("geometry").getJSONObject("location");
-		return location.getString("lat") + "," + location.getString("lng");
+		if(geolocationResponse.getString("status").equals("OK") && 
+				geolocationResponse.getJSONArray("results").length() > 0){
+			
+			JSONObject location = geolocationResponse.getJSONArray("results").getJSONObject(0)
+					.getJSONObject("geometry").getJSONObject("location");
+			return location.getString("lat") + "," + location.getString("lng");
+		}
+//		JSONObject location = geolocationResponse.getJSONArray("results").getJSONObject(0)
+//				.getJSONObject("geometry").getJSONObject("location");
+//		return location.getString("lat") + "," + location.getString("lng");
 		
-		//return null;
+		return null;
 	}
 
 	private JSONObject removeLogos(String myVSs) throws JSONException {

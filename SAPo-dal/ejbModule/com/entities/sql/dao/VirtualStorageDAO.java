@@ -60,14 +60,17 @@ public class VirtualStorageDAO {
 	public HashMap<String, List<VirtualStorage>> getMyVirtualStorages(int userId){
 		//Query owned VSs
 		TypedQuery<VirtualStorage> queryOwned =  
-				em.createQuery("SELECT vs FROM VirtualStorage vs WHERE vs.owner.id = :ownerId", VirtualStorage.class)
+				em.createQuery("SELECT vs FROM VirtualStorage vs "
+						+ "WHERE vs.owner.id = :ownerId "
+						+ "AND vs.enabled = true", VirtualStorage.class)
 				.setParameter("ownerId", userId);
 		List<VirtualStorage> virtualStoragesOwned = queryOwned.getResultList();
 		
 		//Query following VSs
 		TypedQuery<VirtualStorage> queryFollowing =  
 				em.createQuery(
-						"SELECT vs FROM VirtualStorage vs join vs.seguidores seg WHERE seg.id = :seguidorId",
+						"SELECT vs FROM VirtualStorage vs join vs.seguidores seg "
+						+ "WHERE seg.id = :seguidorId AND vs.enabled = true",
 						VirtualStorage.class)
 				.setParameter("seguidorId", userId);
 		List<VirtualStorage> virtualStoragesFollowing = queryFollowing.getResultList();

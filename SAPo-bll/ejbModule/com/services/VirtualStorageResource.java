@@ -28,6 +28,14 @@ public class VirtualStorageResource {
 	
 	//VirtualStorageBL bl = new VirtualStorageBL();
 	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}") 
+	public VirtualStorage getVirtualStorage(@PathParam("id") int vsId){
+		System.out.println("PRUEBA_AAAA");
+		return dao.buscarVSporID(vsId);
+	}
+	 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
@@ -35,13 +43,15 @@ public class VirtualStorageResource {
 	public String createVS(VirtualStorage vs, @PathParam("ownerId") int ownerId) {
 		//validar que el getOwner no sea null y que el id exista
 		return dao.createVS(vs, ownerId);
-	}
+	} 
 	
 	@PUT
+	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String updateVS(VirtualStorage vs) {
-		System.out.println("VS >>> " + vs.getId());
+	public String updateVS(@PathParam("id") int vsId ,VirtualStorage vs) {
+		System.out.println("PRUEBA");
+		vs.setId(vsId);
 		return dao.updateVS(vs);
 	}
 	

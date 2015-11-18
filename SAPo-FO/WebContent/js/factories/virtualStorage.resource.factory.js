@@ -6,10 +6,10 @@
     VirtualStorageResource.$inject = ['$resource', '$cookies'];
     /* @ngInject */
     function VirtualStorageResource($resource, $cookies) {
-    	var userId = $cookies.getObject("sapoUser").id;
+        var userId = $cookies.getObject("sapoUser").id;
         return $resource('/SAPo-FO/api/VirtualStorage/' + userId, {});
     }
-})(); 
+})();
 
 (function() {
     'use strict';
@@ -19,13 +19,23 @@
     VirtualStorageEditResource.$inject = ['$resource'];
     /* @ngInject */
     function VirtualStorageEditResource($resource) {
-        return $resource('/SAPo-FO/api/VirtualStorage/', {},{
-            'update': { method:'PUT' }
+        // return $resource('/SAPo-FO/api/VirtualStorage/:id', {
+        //     id: '@id' 
+        // }, {
+        //     'update': {
+        //         method: 'PUT'
+        //     }
+        // });
+        return $resource('/SAPo-FO/api/VirtualStorage/:id', {id:'@vsId'}, {
+            'update': {
+                method: 'PUT' 
+            }
         });
+
     }
-})(); 
+})();
 
-
+ 
 (function() {
     'use strict';
     angular
@@ -34,8 +44,12 @@
     VirtualStorageViewResource.$inject = ['$resource', '$cookies'];
     /* @ngInject */
     function VirtualStorageViewResource($resource, $cookies) {
-    	var userId = $cookies.getObject("sapoUser").id;
+        var userId = $cookies.getObject("sapoUser").id;
         return $resource('/SAPo-FO/api/VirtualStorage/myVSs/' + userId, {}, {
-            query: {method:'GET',isArray:false}});
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
     }
-})(); 
+})();
