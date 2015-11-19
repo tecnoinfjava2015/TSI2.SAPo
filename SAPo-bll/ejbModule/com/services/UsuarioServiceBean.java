@@ -119,6 +119,11 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	}
 
 	@Override
+	public Usuario pasarAFreemium(TwitterUserBean input){//String nick, String paypalTransactionId){
+		return udao.pasarAFreemium(input.nick);
+	}
+
+	@Override
 	public Boolean geolocalizar(String nick, String geolocation) {
 		return udao.geolocalizar(nick, geolocation);
 	}

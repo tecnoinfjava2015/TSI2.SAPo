@@ -129,6 +129,17 @@ public class UserDAO {
 		return usuario;
 	}
 
+	public Usuario pasarAFreemium(String nick) {
+		Query query =  em.createQuery("SELECT u FROM Usuario u WHERE u.nick=:nick ")
+		.setParameter("nick", nick);
+		Usuario usuario = (Usuario) query.getResultList().get(0);
+		if(!usuario.getType().equals("PREMIUM")){
+			usuario.setType("FREEMIUM");			
+			em.merge(usuario);
+		}
+		return usuario;
+	}
+
 	public Boolean geolocalizar(String nick, String geolocation) {
 		Query query =  em.createQuery("SELECT u FROM Usuario u WHERE u.nick=:nick ")
 		.setParameter("nick", nick);

@@ -1,6 +1,7 @@
 package com.entities.sql.dao;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -26,6 +27,14 @@ public class ProductMovementDAO {
 		ProductDAO PDAO = new ProductDAO();
 		Product Paux = PDAO.getByBarCode(productMovementAux.getVirtualStorageId(), productMovementAux.getBarCode());
 		double doAux = Paux.getStock() + productMovementAux.getStock();
+		productMovementAux.setUnit(Paux.getUnit());
+		productMovementAux.setProductName(Paux.getName());
+		Calendar cal = productMovementAux.getDateMov();
+		if(cal == null) { //desde Android la fecha vine vacía
+			Calendar now = Calendar.getInstance();
+			productMovementAux.setDateMov(now);
+		}
+		
 		if(doAux < 0) throw new IllegalArgumentException("The resultant stock cannot be negative.");
 		PDAO.updateStock(doAux, productMovementAux.getVirtualStorageId(), productMovementAux.getBarCode());
 		em.persist(productMovementAux);
