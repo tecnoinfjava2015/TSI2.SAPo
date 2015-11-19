@@ -3,40 +3,17 @@
     angular
         .module('sapo')
         .controller('TestController', TestController);
-    TestController.$inject = ['$rootScope'];
+    TestController.$inject = ['$scope'];
     /* @ngInject */
-    function TestController($rootScope) {
+    function TestController($scope) {
         var vm = this;
         vm.title = 'SAPO Your Cloud Storage';
-        vm.theme = $rootScope.theme;
-        $rootScope.theme = vm.theme;
         vm.changeTheme = changeTheme;
-        vm.crossSidenav = crossSidenav;
-        vm.hideSidenavAux = hideSidenavAux;
-        vm.showSidenavAux = showSidenavAux;
-
-        function changeTheme(t){
-            $rootScope.theme = t;
-        }
-
-        function crossSidenav() {
-            if ($rootScope.sidenav=="left") {
-                $rootScope.sidenav="right"
-            } else{
-                $rootScope.sidenav="left"
-            };
-        }
-        function hideSidenavAux(){
-            $rootScope.sidenavAux = ''
-        }
+        $scope.$emit('menuOption',"NULL"); 
         
-        function showSidenavAux(){
-            if ($rootScope.sidenav=="left") {
-                $rootScope.sidenavAux="right"
-            } else{
-                $rootScope.sidenavAux="left"
-            };
+        function changeTheme(t) {
+            alert(t);
+            $scope.$emit('changeTheme', t);
         }
-
     }
 })();
