@@ -16,6 +16,9 @@
     	$scope.virtualStorages = {};
     	$scope.title = 'Almacenes virtuales';    
     	
+        //JPMC Para emitir el menu, se levanta en el indexcontroller
+        $scope.$emit('menuOption',"VS_NAVIGATION"); 
+        
     	$scope.showAdvanced = showAdvanced;
     	$scope.editVirtualStorage = editVirtualStorage;
     	$scope.cancel = cancel;
@@ -75,7 +78,6 @@
 							.ariaLabel('Alert Dialog Demo').ok('Cerrar'));
 		};
     	
-    	
     	function showAdvanced(ev) {
     		if (loggedUser.type === 'Free' && virtualStorages.owned.length > 0) {
     			showAlert('Error!', 'Usted ha alcanzado el m&aacute;ximo de almacenes virtuales permitidos.</br>Si desea agregar m&aacute;s almacenes virutales debe realizar un upgrade de su cuenta.');
@@ -89,7 +91,7 @@
                     templateUrl: 'templates/virtualStorage.create.html',
         	    	
         	        parent: angular.element(document.body),
-        	        targetEvent: ev,
+        	         targetEvent: ev,
         	        clickOutsideToClose:true
         	    })
         	    .then(function(answer) {
