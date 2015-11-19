@@ -31,6 +31,14 @@ public class GenericProductService {
 			@PathParam("barcode") String barcode) {
 		return gpbl.getGenericProductByBarCode(barcode);
 	}
+	
+	@GET
+	@Path("{name}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public GenericProduct getByName(
+			@PathParam("name") String name) {
+		return gpbl.getGenericProductByName(name);
+	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
