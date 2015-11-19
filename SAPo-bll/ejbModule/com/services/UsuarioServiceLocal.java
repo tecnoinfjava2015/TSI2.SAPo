@@ -100,6 +100,12 @@ public interface UsuarioServiceLocal {
 //								  @QueryParam("paypalTransactionId") String paypalTransactionId);
 	
 	@POST
+	@Path("/pasarAFreemium")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Usuario pasarAFreemium ( TwitterUserBean input );
+
+	@POST
 	@Path("/geolocalizar")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Boolean geolocalizar (@QueryParam("nick") String nick,
