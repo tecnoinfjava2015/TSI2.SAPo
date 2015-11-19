@@ -26,6 +26,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
+import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
 @ManagedBean(name = "twitter")
@@ -42,12 +43,15 @@ public class TwitterController {
 		String authURL = "noSoupForYou!!!";
 		RequestToken requestToken = null;
 		Twitter twitterK = null;
+		//AccessToken accessToken = null;
+
 		try {
 			 twitterK = new TwitterFactory().getInstance();
-			 //Pasar datos a archivo properties
+			 
 			 twitterK.setOAuthConsumer(twitterConsumerKey, twitterConsumerSecret);
 			 requestToken = twitterK.getOAuthRequestToken(twitterCalbackURL);
 			 authURL = requestToken.getAuthenticationURL();
+			 //accessToken = twitterK.getOAuthAccessToken();
 			 
 			 
 			 //request.getSession().setAttribute("requestToken", requestToken);
@@ -60,6 +64,7 @@ public class TwitterController {
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		sessionMap.put("requestToken", requestToken);
 		sessionMap.put("twitterK", twitterK);
+		//sessionMap.put("accessToken", accessToken);
 
 		externalContext.redirect(authURL);
 	}
@@ -83,7 +88,7 @@ public class TwitterController {
 		
 		//Cargo en twitterK el access token mandando los datos que obtuve
 		//AccessToken at = twitterK.getOAuthAccessToken(requestToken, verifier);
-		twitterK.getOAuthAccessToken(requestToken, verifier);
+		AccessToken accessToken = (AccessToken) twitterK.getOAuthAccessToken(requestToken, verifier);
 		
 		//get user info
 		String userScreenName = twitterK.getScreenName();
@@ -95,9 +100,12 @@ public class TwitterController {
 		if(userLocation != null && !userLocation.isEmpty()) {
 			geoLocation = getGoogleGeolocation(userLocation);
 		}
+		
+//		twitterK.createFriendship("SAPotsijee03");
 
 		sessionMap.put("twitterScreenName", userScreenName);
 		sessionMap.put("twitterUserId", userId);
+		sessionMap.put("accessToken", accessToken);
 	
 		//llamo a login y guardo datos de usuario en cookie (y en sesion)
 		String sapoUser = sapoLogin(userScreenName, userId, geoLocation);
@@ -286,5 +294,27 @@ public class TwitterController {
 	    String sbStr = sb.toString();
 	    
 	    return sbStr;
+	}
+
+	public void follow() throws IOException, TwitterException, IllegalStateException, JSONException {
+		Properties props = new Properties();
+		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
+
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+
+		Twitter twitterK = (Twitter) sessionMap.get("twitterK");
+		User dummy = twitterK.createFriendship("SAPotsijee03");
+		
+		JSONObject body = new JSONObject();
+		body.put("nick", twitterK.getScreenName());
+		
+		String restURL = props.getProperty("freemiumREST");
+		String result = postToRest(restURL, body);
+		
+		Cookie userCookie = new Cookie("sapoUser", result);
+		response.addCookie(userCookie);
+
 	}
 }
