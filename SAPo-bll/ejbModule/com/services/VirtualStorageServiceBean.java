@@ -97,7 +97,7 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 		listaProductos = servicioProducto.getAllProducts(id);
 		double resultado = 0;
 		for(Product p : listaProductos){
-			resultado += p.getSalePrice();
+			resultado += ( p.getPurchasePrice() * p.getStock() );
 		}
 		return resultado;
 	}
