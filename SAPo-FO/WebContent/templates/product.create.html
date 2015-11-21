@@ -1,6 +1,5 @@
 <h1>{{title}}</h1>
 
-{{prod}}
 <!-- <md-button class="md-raised md-warn" ng-click='insert(vs)' >Warn</md-button> -->
 
 <form name="inputForm" novalidate>
@@ -31,7 +30,6 @@
       </md-input-container>
       
       <input type='file' ng-model='images' id="file" base-sixty-four-input hidden multiple="multiple" >
-      Files >>> {{images}}
       <md-input-container >
       	<md-tooltip md-direction="top">
           Ingrese la unidad de valoraci&oacute;n del producto
@@ -71,11 +69,14 @@
        
 	  <div data-ng-repeat="field in fields" layout>
 	  <md-container layout="row">
-	  	<md-input-container style="width:50%">	  		
+	  	<md-input-container>	  		
 	      	<input ng-model="field.name" placeholder="Nombre de atributo">
 	    </md-input-container>
-	    <md-input-container style="width:50%">
+	    <md-input-container>
 	      	<input ng-model="field.value" placeholder="Valor de atributo">
+	    </md-input-container>
+	    <md-input-container>
+	      	<input ng-model="field.type" placeholder="Tipo de atributo">
 	    </md-input-container>
 	  </md-container>
 	  	

@@ -2,10 +2,12 @@
 	'use strict';
 	angular.module('sapo').controller('VirtualStorageController',
 			VirtualStorageController);
-	VirtualStorageController.$inject = [ 'VirtualStorageResource', '$scope',
+	VirtualStorageController.$inject = [ 'VirtualStorageResource', '$scope', '$cookies', 
 			'$mdDialog' ];
 	/* @ngInject */
-	function VirtualStorageController(VirtualStorageResource, $scope, $mdDialog) {
+	function VirtualStorageController(VirtualStorageResource, $scope, $cookies, $mdDialog) {
+		var user = $cookies.getObject("sapoUser");
+		
 		$scope.vs = new VirtualStorageResource();
 		$scope.master = {};
 		$scope.logoFile;
@@ -33,19 +35,26 @@
 				$scope.vs.logo = $scope.vs.logo + $scope.logoFile.base64;
 			}
 			
-
-
-			$scope.vs.$save(function(r) {
-				showAlert('Exito!','Se ha creado su almac&eacute;n virtual de forma exitosa');
-			}, function(r){
-				console.log(r);
-				showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
-			});
-			 
-			//pepe.$promise.then(function(result){alert(result.status);});
-			
-			reset();
-			// showAlert();
+			if (typeof $scope.vs.name !== 'undefined') {
+				$scope.vs.$save(function(r) {
+					var i = 0;
+					var vsIdAux = '';
+					while (typeof r[i] !== 'undefined') {
+						vsIdAux += r[i];						
+						i++;
+					}
+					user.tenantCreados.push(vsIdAux);
+					
+					showAlert('Exito!', 'Se ha creado su almac&eacute;n virtual de forma exitosa');
+				}, function(r){
+					console.log(r);
+					showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
+				});
+				reset();
+			}
+			else {
+				showAlert('Error', 'Debe ingresar el nombre del almac&eacute;n');
+			}
 		}
 
 		
