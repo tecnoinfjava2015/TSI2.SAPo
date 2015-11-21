@@ -3,12 +3,28 @@
     angular
         .module('sapo')
         .controller('ProductMovementController', ProductMovementController);
-    ProductMovementController.$inject = ['$scope'];
+    ProductMovementController.$inject = ['$scope','ProductsResource'];
     /* @ngInject */
-    function ProductMovementController($scope) {
+    function ProductMovementController($scope,ProductsResource) {
     	var vm = this
+		vm.title = "Nuevo Movimiento";
 		vm.newMovement=newMovement;
+		vm.loadProducts = loadProducts;
+		
 
+
+		function loadProducts(s){
+			ProductsResource.query({
+	            tenantId: 1,
+	            limit: 5,
+	            minSearch: true,
+	            search: s
+	        }).$promise.then(function(result) {
+	            
+	            return result;
+	            
+	        }); 
+		}
 		function newMovement(type){
 			switch(type) {
 				case '+':
