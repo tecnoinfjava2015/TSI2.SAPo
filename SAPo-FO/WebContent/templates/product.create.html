@@ -1,95 +1,107 @@
-<h1>{{title}}</h1>
+<md-dialog aria-label="Crear Producto" ng-cloak
+	style="width: 80%;height:95%">
+	
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			
+			<h2>{{title}}</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()"> <i class="material-icons" aria-label="Close dialog">clear</i> </md-button>
+		</div>
+	</md-toolbar>
 
 <!-- <md-button class="md-raised md-warn" ng-click='insert(vs)' >Warn</md-button> -->
 
-<form name="inputForm" novalidate>
-
-  	 <md-input-container >
-  	 	<md-tooltip md-direction="top">
-          Ingrese nombre del producto
-        </md-tooltip>
-        <label>Nombre</label>
-        <input ng-model="prod.name" name="prodName" required>
-      </md-input-container>
-      <md-input-container >
-        <md-tooltip md-direction="top">
-          Ingrese la descripci&oacute;n del producto
-        </md-tooltip>
-        <label>Descripci&oacute;n</label>
-        <textarea ng-model="prod.description" columns="1" md-maxlength="150"></textarea>
-      </md-input-container>
-      <md-input-container >
-      	<md-tooltip md-direction="top">
-          Ingrese las im&aacute;genes del producto
-        </md-tooltip>
-        <label>Im&aacute;genes</label>
-        <md-tooltip md-direction="left">
-          Ingrese las im&aacute;genes de su producto
-        </md-tooltip>
-        <input ng-model="images.filename" ng-focus="upload()" id="fileName">        
-      </md-input-container>
-      
-      <input type='file' ng-model='images' id="file" base-sixty-four-input hidden multiple="multiple" >
-      <md-input-container >
-      	<md-tooltip md-direction="top">
-          Ingrese la unidad de valoraci&oacute;n del producto
-        </md-tooltip>
-        <label>Unidad</label>
-        <input ng-model="prod.unit.name">
-      </md-input-container>
-      <md-input-container >
-      	<md-tooltip md-direction="top">
-          Ingrese el precio de venta del producto
-        </md-tooltip>
-        <label>Precio de venta</label>
-        <input ng-model="prod.salePrice">
-      </md-input-container>
-      <md-input-container >
-      	<md-tooltip md-direction="top">
-          Ingrese el precio de compra del producto
-        </md-tooltip>
-        <label>Precio de compra</label>
-        <input ng-model="prod.purchasePrice">
-      </md-input-container>
-      <md-input-container >
-      	<md-tooltip md-direction="top">
-          Ingrese el stock inicial del producto
-        </md-tooltip>
-        <label>Stock</label>
-        <input ng-model="prod.stock">
-      </md-input-container>
-      <md-input-container >
-      	<md-tooltip md-direction="top">
-          Ingrese el c&oacute;digo de barras del producto
-        </md-tooltip>
-        <label>C&oacute;digo de barras</label>
-        <input ng-model="prod.barCode" required>
-      </md-input-container>
-       
-       
-	  <div data-ng-repeat="field in fields" layout>
-	  <md-container layout="row">
-	  	<md-input-container>	  		
-	      	<input ng-model="field.name" placeholder="Nombre de atributo">
-	    </md-input-container>
-	    <md-input-container>
-	      	<input ng-model="field.value" placeholder="Valor de atributo">
-	    </md-input-container>
-	    <md-input-container>
-	      	<input ng-model="field.type" placeholder="Tipo de atributo">
-	    </md-input-container>
-	  </md-container>
-	  	
-	  	
-	  </div>
-      <md-input-container>
-	      	<md-tooltip md-direction="top">
-	          Agregar nuevo atributo
+	<form name="inputForm" novalidate>
+		<md-dialog-content style="max-width:100%;max-height:100%; ">
+	  	 <md-input-container >
+	  	 	<md-tooltip md-direction="top">
+	          Ingrese nombre del producto
 	        </md-tooltip>
-	      	<md-button ng-click="addAttribute()"> <i class="material-icons">add_circle_outline</i></md-button>
-      </md-input-container>
-      
-      
-      <md-button class="md-raised md-primary" ng-click='insert(prod)' >Crear</md-button>
-      <md-button class="md-raised" >Cancelar</md-button>
-</form>
+	        <label>Nombre</label>
+	        <input ng-model="prod.name" name="prodName" required>
+	      </md-input-container>
+	      <md-input-container >
+	        <md-tooltip md-direction="top">
+	          Ingrese la descripci&oacute;n del producto
+	        </md-tooltip>
+	        <label>Descripci&oacute;n</label>
+	        <textarea ng-model="prod.description" columns="1" md-maxlength="150"></textarea>
+	      </md-input-container>
+	      <md-input-container >
+	      	<md-tooltip md-direction="top">
+	          Ingrese las im&aacute;genes del producto
+	        </md-tooltip>
+	        <label>Im&aacute;genes</label>
+	        <md-tooltip md-direction="left">
+	          Ingrese las im&aacute;genes de su producto
+	        </md-tooltip>
+	        <input ng-model="images.filename" ng-focus="upload()" id="fileName">        
+	      </md-input-container>
+	      
+	      <input type='file' ng-model='images' id="file" base-sixty-four-input hidden multiple="multiple" >
+	      <md-input-container >
+	      	<md-tooltip md-direction="top">
+	          Ingrese la unidad de valoraci&oacute;n del producto
+	        </md-tooltip>
+	        <label>Unidad</label>
+	        <input ng-model="prod.unit.name">
+	      </md-input-container>
+	      <md-input-container >
+	      	<md-tooltip md-direction="top">
+	          Ingrese el precio de venta del producto
+	        </md-tooltip>
+	        <label>Precio de venta</label>
+	        <input ng-model="prod.salePrice">
+	      </md-input-container>
+	      <md-input-container >
+	      	<md-tooltip md-direction="top">
+	          Ingrese el precio de compra del producto
+	        </md-tooltip>
+	        <label>Precio de compra</label>
+	        <input ng-model="prod.purchasePrice">
+	      </md-input-container>
+	      <md-input-container >
+	      	<md-tooltip md-direction="top">
+	          Ingrese el stock inicial del producto
+	        </md-tooltip>
+	        <label>Stock</label>
+	        <input ng-model="prod.stock">
+	      </md-input-container>
+	      <md-input-container >
+	      	<md-tooltip md-direction="top">
+	          Ingrese el c&oacute;digo de barras del producto
+	        </md-tooltip>
+	        <label>C&oacute;digo de barras</label>
+	        <input ng-model="prod.barCode" required>
+	      </md-input-container>
+	       
+	       
+		  <div data-ng-repeat="field in fields" layout>
+		  <md-container layout="row">
+		  	<md-input-container>	  		
+		      	<input ng-model="field.name" placeholder="Nombre de atributo">
+		    </md-input-container>
+		    <md-input-container>
+		      	<input ng-model="field.value" placeholder="Valor de atributo">
+		    </md-input-container>			
+		  </md-container>
+		  	
+		  	
+		  </div>
+	      <md-input-container>
+		      	<md-tooltip md-direction="top">
+		          Agregar nuevo atributo
+		        </md-tooltip>
+		      	<md-button ng-click="addAttribute()"> <i class="material-icons">add_circle_outline</i></md-button>
+	      </md-input-container>
+	  </md-dialog-content>
+	  
+	  <md-dialog-actions class="md-actions" layout="row">
+		<span flex></span> 
+	      
+	      <md-button class="md-raised md-primary" ng-click='insert(prod)' >Crear</md-button>
+	      <md-button class="md-raised" ng-click="cancel()" >Cancelar</md-button>
+	  </md-dialog-actions>
+	</form>
+</md-dialog>

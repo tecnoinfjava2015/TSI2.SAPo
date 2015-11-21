@@ -4,6 +4,10 @@
 	<md-button ng-transclude aria-label="Nuevo"
 		 ng-click="showAdvanced($event)"> Crear nueva categor&iacute;a
 	</md-button>
+	
+	<md-button ng-transclude aria-label="Nuevo"
+		 ng-click="createProduct($event)"> Crear Producto
+	</md-button>
 
 	<div ng-include="productsView" ng-controller="ProductsNavigationController as ctrl"></div>
 </md-content>
