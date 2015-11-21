@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 
 import com.entities.mongo.Category;
 import com.entities.mongo.Product;
@@ -34,7 +35,7 @@ public class ProductTest {
 		Category cat7 = new Category(7, 1, null, "Cat 7", false, null);
 		
 		List<Category> listCat1 = new ArrayList<>();
-		List<Category> listCat2 = new ArrayList<>();
+		List<Category> listCat2 = new ArrayList<>(); 
 
 		listCat1.add(cat1);
 		listCat1.add(cat2);
@@ -79,11 +80,11 @@ public class ProductTest {
 		product.setBarCode("5.0987654321");
 		product.setVirtualStorageId(1);
 		id1 = genericPersistence.persist(product);		
-		
-//		assertNotNull("Deber�a haberse generado un ObjectId cuando se persistio la entidad", id1);
-//		assertEquals("El valor existente en la base y el generado deber�an ser el mismo",
-//				product.getId(), id1);
-//		
+			
+	}
+	@Test 
+	public void search(){
+		dao.getProductsBarCodeAndName(1, "test", 5);
 	}
 	
 }
