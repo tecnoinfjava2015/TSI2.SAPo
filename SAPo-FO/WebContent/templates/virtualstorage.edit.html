@@ -13,14 +13,14 @@
 	<md-dialog-content style="max-width:100%;max-height:100%; ">
 		<md-input-container>
 			<label>Nombre</label> 
-			<md-tooltip md-direction="left">Seleccione el nombre de su almac&eacute;n virtual </md-tooltip> 
+			<md-tooltip md-direction="top">Seleccione el nombre de su almac&eacute;n virtual </md-tooltip> 
 			
 			<input ng-model="vs.name" name="vsName" required> 
 		</md-input-container> 
 		
 		<md-input-container>
 			<label><i class="material-icons" align="center">photo_size_select_actual</i>Logo</label> 
-			<md-tooltip md-direction="left"> Ingrese el logo de	su almac&eacute;n virtual </md-tooltip> 
+			<md-tooltip md-direction="top"> Ingrese el logo de	su almac&eacute;n virtual </md-tooltip> 
 			
 			<input ng-model="logoFile.filename"	ng-focus="upload()" id="fileName"> 
 		</md-input-container> 
@@ -29,7 +29,7 @@
 		
 		<md-input-container>
 			<label>Tema del almac&eacute;n virtual</label> 
-			<md-tooltip	md-direction="left"> Seleccione los colores y estilos para su almac&eacute;n virtual </md-tooltip> 
+			<md-tooltip	md-direction="top"> Seleccione los colores y estilos para su almac&eacute;n virtual </md-tooltip> 
 			
 			<md-select ng-model="vs.theme">
 				<md-option ng-repeat="theme in themes" value="{{theme}}">{{theme}}</md-option>
@@ -37,14 +37,14 @@
 		</md-input-container> 
 		<md-input-container> 
 			<label>Navegaci&oacute;n superior del almac&eacute;n virtual</label> 
-			<md-tooltip md-direction="left">Seleccione la navegaci&oacute;n superior de su almac&eacute;n virtual </md-tooltip>
+			<md-tooltip md-direction="top">Seleccione la navegaci&oacute;n superior de su almac&eacute;n virtual </md-tooltip>
 			<md-select ng-model="vs.sidenavTop"> 
 				<md-option ng-repeat="sidenavTop in sidenavTops" value="{{sidenavTop}}">{{sidenavTop}}</md-option>
 			</md-select> 
 		</md-input-container> 
 		<md-input-container> 
 			<label>Navegaci&oacute;n inferior del almac&eacute;n virtual</label> 
-			<md-tooltip md-direction="left">Seleccione la navegaci&oacute;n inferior de su almac&eacute;n virtual </md-tooltip>
+			<md-tooltip md-direction="top">Seleccione la navegaci&oacute;n inferior de su almac&eacute;n virtual </md-tooltip>
 			<md-select ng-model="vs.sidenavBottom"> 
 				<md-option ng-repeat="sidenavBottom in sidenavBottoms" value="{{sidenavBottom}}">{{sidenavBottom}}</md-option>
 			</md-select> 

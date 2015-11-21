@@ -12,7 +12,7 @@
         $scope.themes = ['theme test'];
         $scope.sidenavTops = ['side nav test'];
         $scope.sidenavBottoms = ['side nav bottom test'];
-
+        var userId = $cookies.getObject("sapoUser").id;
 
         var virtualStorages = $cookies.getObject("sapoVirtualStorages");
         var count = virtualStorages.owned.length;
@@ -23,10 +23,10 @@
 
             }
         }
+        var tenantid = $rootScope.tenantId;
         
-
         $scope.vs = VirtualStorageEditResource.get({
-            id: vsId
+            id: tenantid
         });
 
 
@@ -47,29 +47,28 @@
                 vs.logo = "data:" + $scope.logoFile.filetype + ";base64,";
                 vs.logo = $scope.vs.logo + $scope.logoFile.base64;
             }
-            console.log("VS>>>" + vs);
+            
             // var resource = VirtualStorageEditResource.get({
             //     id: data.id
             // });
-            // resource.id = $rootScope.tenantId;
+            
             // alert(resource.id);
             //$scope.id = resource.id;
 
             //$scope.vs.id = $scope.virtualStorageId;
-
-            VirtualStorageEditResource.update({id: vs.id}, vs).$promise.then(function(data){
-            	showAlert('Exito!','Se ha editado su almac&eacute;n virtual de forma exitosa');
-            	
-            }, function(error){
-            	showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
-            });
-            /*
-	    	VirtualStorageEditResource.$save(function(r) {
-				showAlert('Exito!','Se ha editado su almac&eacute;n virtual de forma exitosa');
-			}, function(r){
-				console.log(r);
-				showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
-			});*/ 
+            if (typeof $scope.vs.name !== 'undefined') {
+            	VirtualStorageEditResource.update({id: vs.id}, vs).$promise.then(function(data){
+                	showAlert('Exito!','Se ha eliminado su almac&eacute;n virtual de forma exitosa');
+                	$location.path('/dashboard');
+                	
+                }, function(error){
+                	showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
+                });
+            }
+            else {
+				showAlert('Error', 'Debe ingresar el nombre del almac&eacute;n');
+			}
+            
 
         }
 

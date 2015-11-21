@@ -224,4 +224,11 @@ public class ProductDAO {
 		}
 		return value;
 	}
+	
+	public List<Product> getProductsBarCodeAndName(long virtualStorageId, String search, int limit){
+		Query<Product> query = ds.createQuery(Product.class);
+		query.and(query.criteria("name").containsIgnoreCase(search), query.criteria("virtualStorageId").equal(virtualStorageId));
+		query.limit(limit).order("name").retrievedFields(true,"barCode","name");
+		return query.asList();
+	}
 }
