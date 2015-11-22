@@ -16,6 +16,6 @@
     	else {
     		$scope.disableReport = true;
     	}
-    	console.log(tenant);
+    	//console.log(tenant);
     }
 })();

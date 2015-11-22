@@ -37,6 +37,7 @@ public class Product extends BaseEntity{
 	private List<Spec> specs;
 	private List<Category> categories;
 	private boolean active;
+	private List<String> chips;
 	
 	
 	public Product() {
@@ -48,7 +49,7 @@ public class Product extends BaseEntity{
 			String barCode, String name, String description, Unit unit,
 			double salePrice, double purchasePrice, double stock,
 			List<Alert> alerts, List<String> images, List<Spec> specs,
-			List<Category> categories, boolean active) {
+			List<Category> categories, boolean active, List<String> chips) {
 		super();
 		this.virtualStorageId = virtualStorageId;
 		this.virtualStorageName = virtualStorageName;
@@ -64,6 +65,7 @@ public class Product extends BaseEntity{
 		this.specs = specs;
 		this.categories = categories;
 		this.active = active;
+		this.chips = chips;
 	}
 
 
@@ -206,6 +208,14 @@ public class Product extends BaseEntity{
 		this.active = active;
 	}
 
+	public List<String> getChips() {
+		return chips;
+	}
+
+
+	public void setChips(List<String> chips) {
+		this.chips = chips;
+	}
 
 
 }

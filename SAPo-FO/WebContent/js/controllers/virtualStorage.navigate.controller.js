@@ -35,7 +35,7 @@
         	console.log(error);
         
         });
-    	console.log($scope.virtualStorages);
+    	//console.log($scope.virtualStorages);
     	
     	
     	function editVirtualStorage(ev, virtualStorage) {
