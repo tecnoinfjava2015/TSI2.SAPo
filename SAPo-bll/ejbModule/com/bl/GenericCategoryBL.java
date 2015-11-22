@@ -51,4 +51,10 @@ public class GenericCategoryBL implements IGenericCategoryBL{
 		GenericCategory gCategory = dao.getByName(name);
 		dao.deleteGenericCategory(gCategory.getId());		
 	}
+	
+	@Override
+	public Boolean estaCategoria(long virtualStorageId, String name) {
+		if(virtualStorageId < 0) return false;
+		return dao.estaCategoria(virtualStorageId,name);
+	}
 }

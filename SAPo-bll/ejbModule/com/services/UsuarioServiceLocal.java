@@ -71,6 +71,11 @@ public interface UsuarioServiceLocal {
 	public Usuario getUsuario(String nick);
 	
 	@GET
+	@Path("/buscar")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Usuario getUsuario(int id);
+	
+	@GET
 	@Path("/baja")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Boolean borrarUsuario(String nick);

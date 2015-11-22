@@ -36,7 +36,15 @@ public class ProductMovementDAO {
 		}
 		
 		if(doAux < 0) throw new IllegalArgumentException("The resultant stock cannot be negative.");
+		
 		PDAO.updateStock(doAux, productMovementAux.getVirtualStorageId(), productMovementAux.getBarCode());
+		
+		if( productMovementAux.getFinalPrice() != 0 ){
+			PDAO.updatePrice(productMovementAux.getVirtualStorageId(),
+							productMovementAux.getBarCode(),
+							productMovementAux.getFinalPrice());			
+		}
+		
 		em.persist(productMovementAux);
 		em.flush();
 		return productMovementAux;
@@ -116,5 +124,28 @@ public class ProductMovementDAO {
 				.setParameter("usrID", usrID);
 		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
 		return PMList;
+	}
+
+	public long getMovimientosStockProduto(long vSId, String barcode, Calendar startD, Calendar endD) {
+		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.dateMov BETWEEN :startD AND :endD AND m.virtualStorageId=:VSId AND m.barCode=:bCode")
+				.setParameter("startD", startD, TemporalType.DATE)
+				.setParameter("endD", endD, TemporalType.DATE)
+				.setParameter("VSId", vSId)
+				.setParameter("bCode", barcode);
+		int resultado = 0;
+		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
+		for (ProductMovement pm : PMList){
+			resultado+= pm.getStock();
+		}
+		return resultado;
+	}
+
+	public Calendar getoFechaCreadoProduto(long virtualStorageId, String barCode) {
+		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.virtualStorageId=:VSId AND m.barCode=:bCode")
+				.setParameter("VSId", virtualStorageId)
+				.setParameter("bCode", barCode);
+		int resultado = 0;
+		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
+		return PMList.get(0).getDateMov();
 	}
 }

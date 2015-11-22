@@ -44,8 +44,6 @@ public class FormABMUsuario extends PanelDinamico{
 	
 	private static final long serialVersionUID = 1L;
 	private List<Usuario>  listaUsuarios;
-
-
 	private VerticalLayout panelIzquierda, panelDerecha;
 	private HorizontalLayout rootLayout;
 	private Table table; 
@@ -79,10 +77,6 @@ public class FormABMUsuario extends PanelDinamico{
 		this.addStyleName("outlined");
         this.setSizeFull();
         listaUsuarios = servicio.getUsuariosHabilitados();
-        for(Usuario u : listaUsuarios){
-        	System.out.println("usuario " + u.getNick());
-        }
-        
         panelIzquierda = new VerticalLayout();
         panelDerecha = new VerticalLayout();
         rootLayout = new HorizontalLayout(panelIzquierda,panelDerecha);

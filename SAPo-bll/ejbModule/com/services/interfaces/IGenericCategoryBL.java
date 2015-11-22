@@ -12,4 +12,5 @@ public interface IGenericCategoryBL {
 	public GenericCategory getGenericCategoryByName(String name);
 	public List<GenericCategory> getAllGenericCategory();
 	public void deleteGenericCategory(String name);
+	public Boolean estaCategoria(long virtualStorageId, String name);
 }

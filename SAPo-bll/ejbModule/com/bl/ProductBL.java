@@ -120,14 +120,18 @@ public class ProductBL implements IProductBL {
 		if(virtualStorageId < 0) return 0;
 		return dao.getVSValue(virtualStorageId);
 	}
+	
+	@Override
+	public Boolean estaProducto(long virtualStorageId, String barcode) {
+		if(virtualStorageId < 0) return false;
+		return dao.estaProducto(virtualStorageId,barcode);
+	}
 
 	@Override
 	public List<Product> getProductsBarCodeAndName(long virtualStorageId, String search, int limit){
 		if (!(virtualStorageId > 0)){
 			return null;
 		}
-		return dao.getProductsBarCodeAndName(virtualStorageId, search, limit);
-		
-		
+		return dao.getProductsBarCodeAndName(virtualStorageId, search, limit);	
 	}
 }

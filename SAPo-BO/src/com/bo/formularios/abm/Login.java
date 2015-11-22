@@ -140,14 +140,10 @@ public class Login extends VerticalLayout {
         }
     
         Usuario usuario;
-        System.out.println("antes del try");
         try {   
-        	System.out.println("servicio " + servicio);
            	String md5 = new Encrypter().MD5(clave.getValue());
 	    	usuario = servicio.getLogin(username.getValue(),md5);
-	    	System.out.println("dentro del try despues de asignar ");
             if (!(usuario == null)) {
-            	System.out.println("encontro usuario");
                 if (usuario.getType().equals("Administrador")){
                 	
                 		((SapoBackofficeUI) UI.getCurrent()).login(usuario);
@@ -157,9 +153,7 @@ public class Login extends VerticalLayout {
                 cargarError("Usuario/Clave incorrectos o no esta registrado");
             }
         } catch (Exception e) {
-        	System.out.println("en el catch");
-        	
-            cargarError(e.getMessage());
+              cargarError(e.getMessage());
         }
     }
 

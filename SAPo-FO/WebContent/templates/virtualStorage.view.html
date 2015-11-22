@@ -18,16 +18,9 @@
 			<div layout layout="row">
 			<md-button class="md-raised md-primary"
 			ng-click="editVirtualStorage($event, vs);">Editar</md-button> 
-			<md-button class="md-warn" ng-click="editVirtualStorage($event, vs);">Borrar</md-button>
+			<md-button class="md-warn" ng-click="deleteVirtualStorage(vs);">Borrar</md-button>
 			</div>
 			</md-whiteframe>
 		<!-- </a>  -->
-	</div>
-
-	<md-button ng-transclude aria-label="Nuevo"
-		style="max-height: 100px; margin-top:120px"
-		 ng-click="showAdvanced($event)"> Crear almac&eacute;n virtual </md-button>
-
-
-	
+	</div>	
 </div>

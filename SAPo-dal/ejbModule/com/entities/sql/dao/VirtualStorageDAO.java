@@ -28,7 +28,6 @@ public class VirtualStorageDAO {
 	private UserDAO udao;
 	
 	public String updateVS(VirtualStorage vs){
-		System.out.println(vs.getId());
 		try {
 			em.merge(vs);
 			return "200-Success-Virtual_Storage_Updated";
@@ -112,7 +111,7 @@ public class VirtualStorageDAO {
 				vs.setCreatedDate(new Date());
 				em.persist(vs);
 				em.flush(); 
-				return "VSCreado";
+				return String.valueOf(vs.getId());
 			}
 			return "500-Error-no_existe_usuario";
 		}
@@ -157,6 +156,12 @@ public class VirtualStorageDAO {
 		}		
 	}
 
+	public VirtualStorage getVirtualStorageById(int id) {
+		VirtualStorage ret =  em.find(VirtualStorage.class, id);
+		
+		return ret;
+	}
+	
 	public int AVPorUsuario(String nick) {
 		Query query =  em.createQuery("SELECT vs FROM VirtualStorage vs ");
 		List<VirtualStorage>  retorno = query.getResultList();

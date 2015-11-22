@@ -2,6 +2,8 @@ package com.services.interfaces;
 
 import java.util.List;
 
+import javax.ws.rs.PathParam;
+
 import com.entities.mongo.Product;
 
 public interface IProductBL {
@@ -17,6 +19,8 @@ public interface IProductBL {
 	public List<Product> getProductsByCategoriesOr(long virtualStorageId, List<Integer> categories, int offset, int limit);
 	public void deleteProduct(long virtualStorageId, String barcode);
 	public boolean estaEnLista(Product p, List<Product> listaProductosTemp);
+	public Boolean estaProducto(long virtualStorageId, String barcode);
 	public double getVSVaue(long virtualStorageId);
 	public List<Product> getProductsBarCodeAndName(long virtualStorageId,String search, int limit); 
 }
+

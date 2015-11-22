@@ -11,7 +11,9 @@ import com.bl.GenericProductBL;
 import com.bl.ProductBL;
 import com.bo.principal.PanelDinamico;
 import com.entities.mongo.GenericProduct;
+import com.entities.sql.VirtualStorage;
 import com.services.GenericProductService;
+import com.services.VirtualStorageServiceLocal;
 import com.services.interfaces.IGenericProductBL;
 import com.services.interfaces.IProductBL;
 import com.vaadin.data.Item;
@@ -41,41 +43,42 @@ public class FormABMProductoGenerico extends PanelDinamico{
 		private VerticalLayout panelIzquierda, panelDerecha;
 		private HorizontalLayout rootLayout;
 		private Table table; 
-		private Button modificar, alta, eliminar, recargar;
+		private Button modificar, alta, eliminar, masUtilizado;
 		private TextField barCode, name, description;
 		//private GenericProductService servicioProducto;
 		private IGenericProductBL servicioProducto =   new GenericProductBL();
-//		private GenericProductService servicio;	
-		
-//		private void lookup() {
-//				InitialContext context = null;
-//				try {
-//					context = new InitialContext();					
-//					servicio = (GenericProductService) context.lookup("java:app/SAPo-bll/GenericProductService");
-//				} catch (NamingException e) {
-//					throw new EJBException(
-//							"It was not possible to get a reference to one of the required services",
-//							e);
-//				} finally {
-//					try {
-//						context.close();
-//					} catch (NamingException e) {
-//						
-//					}
-//				}
-//		
-//		}
+		private IProductBL serProducto =   new ProductBL();
+		private VirtualStorageServiceLocal servicioVS;	
+		private List<VirtualStorage>  listaVirtualStorage;
+		private void lookup() {
+			InitialContext context = null;
+			try {
+				context = new InitialContext();					
+				servicioVS = (VirtualStorageServiceLocal) context.lookup("java:app/SAPo-BO/VirtualStorageServiceBean");
+			} catch (NamingException e) {
+				throw new EJBException(
+						"It was not possible to get a reference to one of the required services",
+						e);
+			} finally {
+				try {
+					context.close();
+				} catch (NamingException e) {
+					
+				}
+			}
+		}
 		
 		public FormABMProductoGenerico(){    
-			//lookup();
+			lookup();
+			listaVirtualStorage = servicioVS.getVS();
 			this.addStyleName("outlined");
 	        this.setSizeFull();
-	        System.out.println(servicioProducto);
+	        //System.out.println(servicioProducto);
 	        listaProductosGenericos = servicioProducto.getAllGenericProducts();
-	        System.out.println("lista de productos Genericos " + listaProductosGenericos);
+	      //  System.out.println("lista de productos Genericos " + listaProductosGenericos);
 	        if (listaProductosGenericos == null){
 	        	for(GenericProduct u : listaProductosGenericos){
-		        	System.out.println("Producto " + u.getName());
+		        	//System.out.println("Producto " + u.getName());
 		        }
 	        }
 	        
@@ -155,12 +158,29 @@ public class FormABMProductoGenerico extends PanelDinamico{
 	            }
 	        });
 	            
-	        recargar.addClickListener(new ClickListener() {
+	        masUtilizado.addClickListener(new ClickListener() {
 	            private static final long serialVersionUID = 1L;
 	            @Override
 	            public void buttonClick(final ClickEvent event) {
-					actualizarTabla();
-					reiniciarCampos(); 
+	            	GenericProduct masUtilizado = new GenericProduct();
+	            	int cantidad = 0, estaEn = 0;
+	            	for (GenericProduct gp : listaProductosGenericos){
+	            		estaEn = 0;
+	            		System.out.println("producto : "  + gp.getBarcode());
+		            	for (VirtualStorage vs : listaVirtualStorage){
+		            		if(serProducto.estaProducto(vs.getId(),gp.getBarcode())){
+		            			System.out.println("vs : "  + vs.getId());
+		            			estaEn++;
+		            		}
+		            	}
+		            	if(cantidad < estaEn){
+		            		cantidad = estaEn;
+		            		masUtilizado = gp;
+		            	}
+	            	}
+	            	Notification sample = new Notification("Producto mas utilizado es: " + masUtilizado.getName());
+	            	sample.setDelayMsec(3000);
+		        	sample.show(Page.getCurrent());
 	           }
 	        });
 	        
@@ -285,10 +305,10 @@ public class FormABMProductoGenerico extends PanelDinamico{
 		    panIzq.addComponent(eliminar);
 		    eliminar.setEnabled(false);
 		    
-		    recargar = new Button("Reiniciar Pantalla");
-		    recargar.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		    recargar.setWidth("70%");
-		    panIzq.addComponent(recargar);
+		    masUtilizado = new Button("Producto más Utilizado");
+		    masUtilizado.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		    masUtilizado.setWidth("70%");
+		    panIzq.addComponent(masUtilizado);
 		
 		    panIzq.setComponentAlignment(name, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(barCode, Alignment.BOTTOM_CENTER);
@@ -297,7 +317,7 @@ public class FormABMProductoGenerico extends PanelDinamico{
 		    panIzq.setComponentAlignment(alta, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(modificar, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(eliminar, Alignment.BOTTOM_CENTER);
-		    panIzq.setComponentAlignment(recargar, Alignment.BOTTOM_CENTER);
+		    panIzq.setComponentAlignment(masUtilizado, Alignment.BOTTOM_CENTER);
 		    return panIzq;
 		}
 		

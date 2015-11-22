@@ -25,5 +25,7 @@ public interface ICategoryBL {
 	public List<Category> getAllCategories();
 
 	public void deleteCategoryOfName(String value);
+	
+	public Boolean estaCategoria(long virtualStorageId, String name);
 
 }

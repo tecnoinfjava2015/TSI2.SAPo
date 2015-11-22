@@ -3,9 +3,9 @@
     angular
         .module('sapo')
         .controller('VirtualStorageNavigateController', VirtualStorageNavigateController);
-    VirtualStorageNavigateController.$inject = ['VirtualStorageViewResource', '$scope', '$location', '$mdDialog', '$rootScope', '$cookies'];
+    VirtualStorageNavigateController.$inject = ['VirtualStorageViewResource', 'VirtualStorageEditResource', '$scope', '$location', '$mdDialog', '$rootScope', '$cookies'];
     /* @ngInject */
-    function VirtualStorageNavigateController(VirtualStorageViewResource, $scope, $location, $mdDialog, $rootScope, $cookies) {
+    function VirtualStorageNavigateController(VirtualStorageViewResource, VirtualStorageEditResource, $scope, $location, $mdDialog, $rootScope, $cookies) {
     	var loggedUser = $cookies.getObject("sapoUser");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
     	/*
@@ -21,11 +21,11 @@
         
     	$scope.showAdvanced = showAdvanced;
     	$scope.editVirtualStorage = editVirtualStorage;
+    	$scope.deleteVirtualStorage = deleteVirtualStorage;
     	$scope.cancel = cancel;
     	$scope.showAlert = showAlert;
     	
     	VirtualStorageViewResource.query({
-            oId: 151
         }).$promise.then(function(result) {
         	console.log(result);
             $scope.virtualStorages = result.owned;
@@ -35,7 +35,7 @@
         	console.log(error);
         
         });
-    	console.log($scope.virtualStorages);
+    	//console.log($scope.virtualStorages);
     	
     	
     	function editVirtualStorage(ev, virtualStorage) {
@@ -56,6 +56,18 @@
     	        $scope.status = 'You cancelled the dialog.';
     	    });
     		//$location.url('http://localhost:8080/SAPo-FO/index.html#/virtualStorage/' + virtualStorageName + '/edit');
+    	}
+    	
+    	
+    	function deleteVirtualStorage(vs) {
+    		vs.enabled = false;
+    		VirtualStorageEditResource.update({id: vs.id}, vs).$promise.then(function(data){
+            	showAlert('Exito!','Se ha eliminado su almac&eacute;n virtual de forma exitosa');
+        		$scope.$apply();
+            }, function(error){
+            	showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
+            });
+
     	}
     	
     	function cancel() {

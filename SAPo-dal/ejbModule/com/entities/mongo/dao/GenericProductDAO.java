@@ -64,4 +64,6 @@ public class GenericProductDAO {
 	public void deleteGenericProduct(ObjectId id) {
 		dao.remove(GenericProduct.class, id);
 	}
+
+	
 }
