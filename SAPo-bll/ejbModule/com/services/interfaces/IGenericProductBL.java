@@ -11,4 +11,5 @@ public interface IGenericProductBL {
 	public GenericProduct getGenericProductByName(String name);
 	public List<GenericProduct> getAllGenericProducts();
 	public void deleteGenericProduct(String barcode);
+	public List<GenericProduct> getGenericsBarcodeAndName(String search, int limit);
 }
