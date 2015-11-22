@@ -167,7 +167,7 @@ public class FormABMCategoria  extends PanelDinamico{
 		            	}
 	            	}
 	            	if (masUtilizado.getName() == null){
-	            		Notification sample = new Notification("No se han utilizdo categorías genérics");
+	            		Notification sample = new Notification("No se han utilizdo categorías genéricas");
 	            		sample.setDelayMsec(3000);
 			        	sample.show(Page.getCurrent());
 	            	}

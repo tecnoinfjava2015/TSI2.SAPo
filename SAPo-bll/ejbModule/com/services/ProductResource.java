@@ -27,12 +27,17 @@ public class ProductResource {
 			@QueryParam("criteria") String criteria,
 			@QueryParam("category") List<Integer> categories,
 			@QueryParam("offset") int offset,
-			@QueryParam("limit") int limit) {
+			@QueryParam("limit") int limit,
+			@QueryParam("minSearch") boolean minSearch,
+			@QueryParam("search") String search) {
 		if (!(categories==null || categories.isEmpty())) {
 			if (!(criteria==null || criteria.isEmpty())){
 				return pbl.getProductsByCategoriesOr(virtualStorageId, categories, offset, limit);
 			}
 			return pbl.getProductsByCategories(virtualStorageId, categories, offset, limit);
+		}
+		if(minSearch){
+			return pbl.getProductsBarCodeAndName(virtualStorageId, search, limit);
 		}
 		return pbl.getAllProductsPaginated(virtualStorageId, offset, limit);//(virtualStorageId);
 	}

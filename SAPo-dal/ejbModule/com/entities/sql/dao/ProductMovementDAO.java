@@ -36,7 +36,15 @@ public class ProductMovementDAO {
 		}
 		
 		if(doAux < 0) throw new IllegalArgumentException("The resultant stock cannot be negative.");
+		
 		PDAO.updateStock(doAux, productMovementAux.getVirtualStorageId(), productMovementAux.getBarCode());
+		
+		if( productMovementAux.getFinalPrice() != 0 ){
+			PDAO.updatePrice(productMovementAux.getVirtualStorageId(),
+							productMovementAux.getBarCode(),
+							productMovementAux.getFinalPrice());			
+		}
+		
 		em.persist(productMovementAux);
 		em.flush();
 		return productMovementAux;

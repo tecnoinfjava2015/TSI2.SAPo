@@ -315,6 +315,8 @@ public class TwitterController {
 		
 		Cookie userCookie = new Cookie("sapoUser", result);
 		response.addCookie(userCookie);
+		
+		externalContext.redirect("#/dashboard");
 
 	}
 }

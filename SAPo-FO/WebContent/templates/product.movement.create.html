@@ -1,0 +1,26 @@
+<h1>{{title}}</h1>
+<form name="inputForm" novalidate>
+
+
+    <md-autocomplete md-selected-item="user.group" md-items="item in loadProducts(filterText)" md-item-text="item.name" md-search-text="filterText">
+        <md-item-template>
+            {{ item.name }}
+        </md-item-template>
+        <md-not-found>Ningún producto para esa descripción.</md-not-found>
+    </md-autocomplete>
+    
+    <md-input-container>
+        <md-tooltip md-direction="top">
+            Ingrese nombre del producto
+        </md-tooltip>
+        <label>Nombre</label>
+        <input ng-model="prod.name" name="prodName" required>
+    </md-input-container>
+    <md-input-container>
+        <md-tooltip md-direction="top">
+            Ingrese la descripci&oacute;n del producto
+        </md-tooltip>
+        <label>Descripci&oacute;n</label>
+        <textarea ng-model="prod.description" columns="1" md-maxlength="150"></textarea>
+    </md-input-container>
+</form>

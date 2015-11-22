@@ -127,4 +127,13 @@ public class ProductBL implements IProductBL {
 		return dao.estaProducto(virtualStorageId,barcode);
 	}
 
+	@Override
+	public List<Product> getProductsBarCodeAndName(long virtualStorageId, String search, int limit){
+		if (!(virtualStorageId > 0)){
+			return null;
+		}
+		return dao.getProductsBarCodeAndName(virtualStorageId, search, limit);
+		
+		
+	}
 }
