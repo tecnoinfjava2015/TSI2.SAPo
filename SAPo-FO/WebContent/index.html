@@ -63,12 +63,19 @@
                 <span flex></span>
                 <div layout="column" class="md-toolbar-tools-bottom inset" ng-controller="SidenavUserController as user">
                     <user-avatar></user-avatar>
-                    <div>{{user.userName}}</div>
+                    <div>
+                    	{{user.userName}}
+	                    <md-button class="md-primary" ng-click="logout()" ng-show="user.userLogged">
+	                    	<i class="material-icons">directions_run</i>
+	                    </md-button> 
+	                    
+                    </div>
                     <div>{{user.userMail}}</div>
                     <div id="twitterLoginButton" ng-show="!user.userLogged" )>
                         <a href="twitter_login.xhtml"> <img border="0" alt="Login with Twitter" src="resources/sign-in-with-twitter-gray.png">
                         </a>
                     </div>
+                   
                 </div>
             </md-toolbar>
             <div ng-include="index.navTopLeft"></div>
