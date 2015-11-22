@@ -118,8 +118,6 @@ public class UserDAO {
 	}
 
 	public Usuario pasarAPremium(String nick, String paypalTransactionId) {
-		System.out.println("nick = " + nick);
-		System.out.println("paypal = " + paypalTransactionId);
 		Query query =  em.createQuery("SELECT u FROM Usuario u WHERE u.nick=:nick ")
 		.setParameter("nick", nick);
 		Usuario usuario = (Usuario) query.getResultList().get(0);
@@ -147,5 +145,12 @@ public class UserDAO {
 		usuario.setGeolocation(geolocation);
 		em.merge(usuario);
 		return true;
+	}
+
+	public Usuario buscar(int id) {
+		Usuario result = (Usuario) em.createQuery("SELECT u FROM Usuario u WHERE u.id = :id")
+                .setParameter("id", id).getSingleResult();
+		//return em.find(Usuario.class, nombre);
+		return result;
 	}
 }

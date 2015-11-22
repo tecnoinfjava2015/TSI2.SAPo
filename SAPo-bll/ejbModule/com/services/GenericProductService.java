@@ -46,6 +46,8 @@ public class GenericProductService {
 	public GenericProduct createGenericProduct(GenericProduct gProduct) {
 		return gpbl.createGenericProduct(gProduct);
 	}
+	
+	
 
 	@PUT
 	@Path("{update}")

@@ -1,5 +1,6 @@
 package com.bo.formularios.abm;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -120,7 +121,7 @@ public class FormAdminAV extends PanelDinamico{
 					//listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1));
 					listaProductos = servicioProducto.getAllProducts(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId());
 					listaCategorias = servicioCategoria.getAllCategories(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId(),0,20);
-					System.out.println(listaProductos);
+				//	System.out.println(listaProductos);
 					
 					VerticalLayout nuevoPanDer = new VerticalLayout();
 					nuevoPanDer = generarPanelAbajo();
@@ -219,6 +220,7 @@ public class FormAdminAV extends PanelDinamico{
                 windowCont.addComponent(porcentajeIgualdad);
                 windowCont.setWidth("500px");
                 windowCont.setHeight("300px"); 
+          
                 temaWindow.center();
                 UI.getCurrent().addWindow(temaWindow);
                 analizarProductos.addClickListener(new ClickListener() {
@@ -236,6 +238,7 @@ public class FormAdminAV extends PanelDinamico{
                         	sample.show(Page.getCurrent());
                     	}
                     	//temaWindow.close();
+               
                    }
                 });	
                 analizarCategorias.addClickListener(new ClickListener() {
@@ -267,6 +270,7 @@ public class FormAdminAV extends PanelDinamico{
             	Notification sample = new Notification("Producto Eliminado");
         		sample.setDelayMsec(2000);
             	sample.show(Page.getCurrent());
+            	actualizar();
            }
 			
         });
@@ -314,6 +318,8 @@ public class FormAdminAV extends PanelDinamico{
 	}
 
 	private VerticalLayout generarPanelAbajo() {
+		VerticalLayout arribaDer = new VerticalLayout();
+		VerticalLayout abajoDer = new VerticalLayout();
 		//listaProductos = listaProductos((int)tableVirtualStorage.getValue()-1));	
 		//listaProductos = servicioProducto.getAllProducts(1);
 		listaProductos = servicioProducto.getAllProducts(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId());
@@ -342,9 +348,9 @@ public class FormAdminAV extends PanelDinamico{
 	    //tableProductos.setPageLength(tableProductos.size());
 	    tableProductos.setWidth("80%");
 	    tableProductos.setHeight("18em");
-	    panDer.setMargin(true);
-	    panDer.addComponent(tableProductos);
-	    panDer.setComponentAlignment(tableProductos, Alignment.MIDDLE_CENTER);
+	    arribaDer.setMargin(true);
+	    arribaDer.addComponent(tableProductos);
+	    arribaDer.setComponentAlignment(tableProductos, Alignment.MIDDLE_CENTER);
 	    
 	    tableCategorias = new Table("Categorias del Almacen");
 	    tableCategorias.addContainerProperty("Nombre", String.class, null);
@@ -366,54 +372,35 @@ public class FormAdminAV extends PanelDinamico{
 	    tableCategorias.setPageLength(tableCategorias.size());
 	    tableCategorias.setWidth("80%");
 	    tableCategorias.setHeight("18em");
-	    panDer.setMargin(true);
-	    panDer.addComponent(tableCategorias);
-	    panDer.setComponentAlignment(tableCategorias, Alignment.MIDDLE_CENTER);
+	    abajoDer.setMargin(true);
+	    abajoDer.addComponent(tableCategorias);
+	    abajoDer.setComponentAlignment(tableCategorias, Alignment.MIDDLE_CENTER);
 	    
-	    //convertirGenerico, eliminarProucto, buscarProducto
-	    convertirGenerico = new Button("Convertir Producto en Genérico");
-	    convertirGenerico.addStyleName(ValoTheme.BUTTON_PRIMARY);
-	    
-	    convertirGenerico.setWidth("70%");
-	    panDer.addComponent(convertirGenerico);
-	    
-	    eliminarProducto = new Button("Eliminar Producto");
-	    eliminarProducto.addStyleName(ValoTheme.BUTTON_PRIMARY);
-	    eliminarProducto.setWidth("70%");
-	    panDer.addComponent(eliminarProducto);
-	    eliminarProducto.setEnabled(true);
-	    
-	    buscarProducto = new Button(" Buscar Producto en otros AV");
-	    buscarProducto.addStyleName(ValoTheme.BUTTON_PRIMARY);
-	    buscarProducto.setWidth("70%");
-	    panDer.addComponent(buscarProducto);
-	
-	    
-	    panDer.setComponentAlignment(convertirGenerico, Alignment.MIDDLE_CENTER);
-	    panDer.setComponentAlignment(eliminarProducto, Alignment.MIDDLE_CENTER);
-	    panDer.setComponentAlignment(buscarProducto, Alignment.MIDDLE_CENTER);
-	    
-	     
+	    panDer.addComponent(arribaDer);
+	    panDer.addComponent(abajoDer);
 	    return panDer;
 	}
 	
 
 	private VerticalLayout generarPanelArriba() {
 		VerticalLayout panIzq = new VerticalLayout();
+		VerticalLayout arribaIzq = new VerticalLayout();
+		VerticalLayout abajoIzq = new VerticalLayout();
 		tableVirtualStorage = new Table("Almacenes Virtuales");
 		tableVirtualStorage.addContainerProperty("Nombre", String.class, null);
-		tableVirtualStorage.addContainerProperty("Fecha Creación", Date.class, null);
-		//tableVirtualStorage.addContainerProperty("Creador", String.class, null);
+		tableVirtualStorage.addContainerProperty("Fecha Creación", String.class, null);
+		tableVirtualStorage.addContainerProperty("Creador", String.class, null);
 		tableVirtualStorage.addContainerProperty("URL", String.class, null);
 		tableVirtualStorage.addContainerProperty("Bloqueado", Boolean.class, null);
 	    ArrayList<String> nombreEncuestador = new ArrayList<String>();
-	
+	    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	    for (VirtualStorage vs : listaVirtualStorage) {
 	    	Object newItemId = tableVirtualStorage.addItem();
 	    	Item row1 = tableVirtualStorage.getItem(newItemId);
 	    	row1.getItemProperty("Nombre").setValue(vs.getName());
-	    	row1.getItemProperty("Fecha Creación").setValue(vs.getCreatedDate());
-	    	//row1.getItemProperty("Creador").setValue(vs.getOwner().getName());
+	    	String date = sdf.format(vs.getCreatedDate());
+	    	row1.getItemProperty("Fecha Creación").setValue(date);
+	    	row1.getItemProperty("Creador").setValue(vs.getOwner().getName());
 	    	row1.getItemProperty("URL").setValue(vs.getUrl());   
 	    	row1.getItemProperty("Bloqueado").setValue(vs.getBlocked());
 	    }
@@ -425,40 +412,65 @@ public class FormAdminAV extends PanelDinamico{
 	    tableVirtualStorage.setNullSelectionItemId(false);
 	    tableVirtualStorage.setPageLength(tableVirtualStorage.size());
 	    tableVirtualStorage.setWidth("80%");
-	    panIzq.setMargin(true);
-	    panIzq.addComponent(tableVirtualStorage);
-	    panIzq.setComponentAlignment(tableVirtualStorage, Alignment.MIDDLE_CENTER);
+	    tableVirtualStorage.setHeight("12em");
+	    
+	    arribaIzq.setMargin(true);
+	    
+	    arribaIzq.addComponent(tableVirtualStorage);
+	    arribaIzq.setComponentAlignment(tableVirtualStorage, Alignment.TOP_CENTER);
 	   
 	    bloquearAV = new Button("Bloquear Almacen Virtual");
 	    bloquearAV.addStyleName(ValoTheme.BUTTON_PRIMARY);
 	    bloquearAV.setClickShortcut(KeyCode.ENTER);
 	    bloquearAV.setWidth("70%");
-	    panIzq.addComponent(bloquearAV);
+	    abajoIzq.addComponent(bloquearAV);
 	    
 	    enviarMensaje = new Button("Enviar Mensaje a Administrador");
 	    enviarMensaje.addStyleName(ValoTheme.BUTTON_PRIMARY);
 	    enviarMensaje.setWidth("70%");
-	    panIzq.addComponent(enviarMensaje);
+	    abajoIzq.addComponent(enviarMensaje);
 	    enviarMensaje.setEnabled(true);
 	    
 	    analizarFraude = new Button("Analizar Fraude");
 	    analizarFraude.addStyleName(ValoTheme.BUTTON_PRIMARY);
 	    analizarFraude.setWidth("70%");
-	    panIzq.addComponent(analizarFraude);
+	    abajoIzq.addComponent(analizarFraude);
 	    analizarFraude.setEnabled(true);
 	    
 	    imprimirReporte = new Button("Imprimir Reporte");
 	    imprimirReporte.addStyleName(ValoTheme.BUTTON_PRIMARY);
 	    imprimirReporte.setWidth("70%");
-	    panIzq.addComponent(imprimirReporte);
-	
+	    abajoIzq.addComponent(imprimirReporte);
 	    
-	    panIzq.setComponentAlignment(bloquearAV, Alignment.BOTTOM_CENTER);
-	    panIzq.setComponentAlignment(enviarMensaje, Alignment.BOTTOM_CENTER);
-	    panIzq.setComponentAlignment(analizarFraude, Alignment.BOTTOM_CENTER);
-	    panIzq.setComponentAlignment(imprimirReporte, Alignment.BOTTOM_CENTER);
-	     
+	    convertirGenerico = new Button("Convertir Producto en Genérico");
+	    convertirGenerico.addStyleName(ValoTheme.BUTTON_PRIMARY);
+	    convertirGenerico.setWidth("70%");
+	    abajoIzq.addComponent(convertirGenerico);
+	    
+	    eliminarProducto = new Button("Eliminar Producto");
+	    eliminarProducto.addStyleName(ValoTheme.BUTTON_PRIMARY);
+	    eliminarProducto.setWidth("70%");
+	    abajoIzq.addComponent(eliminarProducto);
+	    eliminarProducto.setEnabled(true);
+	    
+	    buscarProducto = new Button(" Buscar Producto en otros AV");
+	    buscarProducto.addStyleName(ValoTheme.BUTTON_PRIMARY);
+	    buscarProducto.setWidth("70%");
+	    abajoIzq.addComponent(buscarProducto);
+		    
+	    abajoIzq.setComponentAlignment(bloquearAV, Alignment.BOTTOM_CENTER);
+	    abajoIzq.setComponentAlignment(enviarMensaje, Alignment.BOTTOM_CENTER);
+	    abajoIzq.setComponentAlignment(analizarFraude, Alignment.BOTTOM_CENTER);
+	    abajoIzq.setComponentAlignment(imprimirReporte, Alignment.BOTTOM_CENTER);
+	    abajoIzq.setComponentAlignment(convertirGenerico, Alignment.BOTTOM_CENTER);
+	    abajoIzq.setComponentAlignment(eliminarProducto, Alignment.BOTTOM_CENTER);
+	    abajoIzq.setComponentAlignment(buscarProducto, Alignment.BOTTOM_CENTER);
+	    abajoIzq.setSizeFull(); 
+	    
+	    panIzq.addComponent(arribaIzq);
+	    panIzq.addComponent(abajoIzq);
 	    return panIzq;
+	    
 	}	
 	
 	private void bloquearAV() {
@@ -542,28 +554,20 @@ public class FormAdminAV extends PanelDinamico{
 				for (Category c : listaCategorias){
 					if (servicioCategoria.estaEnLista(c,listaCtegoriasTemp)){
 						iguales++;
-						System.out.println("entro, iguales: " + iguales);
-						System.out.println("entro, P: " + c.getName());
 					}
-					System.out.println("NOentro, P: " + c.getName());
 				}
-				System.out.println("Almacen ");
 				if (igualesFinal <= iguales ){
 					igualesFinal = iguales;
 					iguales = 0;
 					fraudeDe = vs.getName();
 				}
 			}	
-			
 		}
-		System.out.println("totalProd * porcentajeSeleccionado " + totalCat * porcentajeSeleccionado);
-		System.out.println("iguales * 100 " + igualesFinal * 100);
+		
 		if(porcentajeIgualdad.getValue().equals("50"))porcentajeSeleccionado = 50;
 		else if(porcentajeIgualdad.getValue().equals("80"))porcentajeSeleccionado = 80;
 		else if(porcentajeIgualdad.getValue().equals("100"))porcentajeSeleccionado = 100;
-		
 		if(totalCat * porcentajeSeleccionado <= igualesFinal * 100){
-			System.out.println("retorna true producto" + porcentajeSeleccionado);
 			return true;
 		}
 		return false;

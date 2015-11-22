@@ -117,4 +117,27 @@ public class ProductMovementDAO {
 		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
 		return PMList;
 	}
+
+	public long getMovimientosStockProduto(long vSId, String barcode, Calendar startD, Calendar endD) {
+		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.dateMov BETWEEN :startD AND :endD AND m.virtualStorageId=:VSId AND m.barCode=:bCode")
+				.setParameter("startD", startD, TemporalType.DATE)
+				.setParameter("endD", endD, TemporalType.DATE)
+				.setParameter("VSId", vSId)
+				.setParameter("bCode", barcode);
+		int resultado = 0;
+		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
+		for (ProductMovement pm : PMList){
+			resultado+= pm.getStock();
+		}
+		return resultado;
+	}
+
+	public Calendar getoFechaCreadoProduto(long virtualStorageId, String barCode) {
+		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.virtualStorageId=:VSId AND m.barCode=:bCode")
+				.setParameter("VSId", virtualStorageId)
+				.setParameter("bCode", barCode);
+		int resultado = 0;
+		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
+		return PMList.get(0).getDateMov();
+	}
 }

@@ -13,7 +13,7 @@ import com.bo.formularios.abm.FormReportes;
 import com.bo.formularios.abm.FormAdminAV;
 import com.bo.formularios.abm.FormUsuarioAV;
 import com.bo.formularios.abm.Login;
-import com.bo.formularios.abm.prueba;
+
 import com.entities.sql.Usuario;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -41,11 +41,12 @@ public class SapoBackofficeUI extends UI {
 	private FormABMProductoGenerico formABMProductoGenerico;
 	private FormABMCategoria formABMCategoriaGenerico;
 	private FormAdminAV formAdminAV;
-	private FormABMHARD formABMHard;
-	private FormReportes formReportes;
+//	private FormABMHARD formABMHard;
+//	private FormReportes formReportes;
 	private FormABMLimitCount formLimitCount;
 	private FormUsuarioAV formUsuarioAV;
 	private ReporteUsuarios formReporteUsuario;
+	
 	
 	@Inject 
 	private DatosSesion datosSesion;	
@@ -129,15 +130,15 @@ public void cargarContenido(){
           layout4.addComponent(formAdminAV);
           tabSheet.addTab(layout4, "Gestion Almacen Virtual");
           
-          PanelDinamico layout5 = new PanelDinamico();
-          formABMHard = new FormABMHARD();
-          layout5.addComponent(formABMHard);              
-          tabSheet.addTab(layout5, "Cargas Automáticas");
-          
-          PanelDinamico layout6 = new PanelDinamico();
-          formReportes = new FormReportes();
-          layout6.addComponent(formReportes);              
-          tabSheet.addTab(layout6, "Reportes");
+//          PanelDinamico layout5 = new PanelDinamico();
+//          formABMHard = new FormABMHARD();
+//          layout5.addComponent(formABMHard);              
+//          tabSheet.addTab(layout5, "Cargas Automáticas");
+//          
+//          PanelDinamico layout6 = new PanelDinamico();
+//          formReportes = new FormReportes();
+//          layout6.addComponent(formReportes);              
+//          tabSheet.addTab(layout6, "Reportes");
           
           PanelDinamico layout7 = new PanelDinamico();
           formLimitCount = new FormABMLimitCount();
@@ -153,7 +154,7 @@ public void cargarContenido(){
           formReporteUsuario = new ReporteUsuarios();
           layout9.addComponent(formReporteUsuario);              
           tabSheet.addTab(layout9, "Reporte Usuario");
-          
+
           mainLayout.addComponent(tabSheet);
           mainLayout.setExpandRatio(tabSheet, 70);
           mainLayout.addComponent(new PiePagina());

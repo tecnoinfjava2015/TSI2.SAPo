@@ -8,6 +8,7 @@ import org.mongodb.morphia.query.Query;
 
 import com.entities.mongo.BaseEntity;
 import com.entities.mongo.Category;
+import com.entities.mongo.Product;
 import com.mongo.utilities.GenericPersistence;
 import com.mongo.utilities.MongoDB;
 
@@ -109,5 +110,14 @@ public class CategoryDAO {
 
 	public Category getByName(String name) {	
 		return (Category) ds.find(Category.class).field("name").equal(name);
+	}
+	
+	public Boolean estaCategoria(long virtualStorageId, String name) {
+		Query<Category> query = ds.createQuery(Category.class);
+		query.and(query.criteria("name").equal(name), 
+				query.criteria("virtualStorageId").equal(virtualStorageId));
+		List<Category> auxList = query.asList();
+		if (auxList.size() == 0) return false;
+		return true;
 	}
 }

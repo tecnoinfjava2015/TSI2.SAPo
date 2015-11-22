@@ -214,4 +214,13 @@ public class ProductDAO {
 		}
 		return value;
 	}
+
+	public Boolean estaProducto(long virtualStorageId, String barcode) {
+		Query<Product> query = ds.createQuery(Product.class);
+		query.and(query.criteria("barCode").equal(barcode), 
+				query.criteria("virtualStorageId").equal(virtualStorageId));
+		List<Product> auxList = query.asList();
+		if (auxList.size() == 0) return false;
+		return true;
+	}
 }

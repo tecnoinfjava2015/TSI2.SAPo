@@ -1,5 +1,7 @@
 package com.services;
 
+
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -66,4 +68,19 @@ public class ProductMovementServiceBean implements ProductMovementServiceLocal{
 			String barcode, IntervalDates dates) {
 		return pmdao.getWhereStockChangeBetweenDates(VSId, barcode, dates.getDate1(), dates.getDate2());
 	}
+
+	@Override
+	public long getovimientosStockProduto(long VSId, String barcode,
+			IntervalDates dates) {
+		return pmdao.getMovimientosStockProduto(VSId, barcode, dates.getDate1(), dates.getDate2());
+	}
+
+	@Override
+	public Calendar getoFechaCreadoProduto(long virtualStorageId, String barCode) {
+		return pmdao.getoFechaCreadoProduto(virtualStorageId, barCode);
+	}
+
+	
+
+	
 }
