@@ -141,7 +141,7 @@ private UsuarioServiceLocal servicio;
 //	
 //	}	
 				public FormReportes(){
-//					BrowserWindowOpener opener = new BrowserWindowOpener(ReporteUsuarios.class);
+//					//BrowserWindowOpener opener = new BrowserWindowOpener(SapoBackofficeUI());
 //	            	opener.setFeatures("height=200,width=400,resizable");
 //	            	
 //	            	Button print = new Button("Click to Print");

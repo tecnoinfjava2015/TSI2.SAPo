@@ -128,5 +128,10 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 		return udao.geolocalizar(nick, geolocation);
 	}
 
+	@Override
+	public Usuario getUsuario(int id) {
+		return udao.buscar(id);
+	}
+
 	
 }

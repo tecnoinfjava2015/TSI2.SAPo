@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.entities.mongo.dao;
 
 import java.util.List;
@@ -230,5 +227,14 @@ public class ProductDAO {
 		query.and(query.criteria("name").containsIgnoreCase(search), query.criteria("virtualStorageId").equal(virtualStorageId));
 		query.limit(limit).order("name").retrievedFields(true,"barCode","name");
 		return query.asList();
+	}
+
+	public Boolean estaProducto(long virtualStorageId, String barcode) {
+		Query<Product> query = ds.createQuery(Product.class);
+		query.and(query.criteria("barCode").equal(barcode), 
+				query.criteria("virtualStorageId").equal(virtualStorageId));
+		List<Product> auxList = query.asList();
+		if (auxList.size() == 0) return false;
+		return true;
 	}
 }

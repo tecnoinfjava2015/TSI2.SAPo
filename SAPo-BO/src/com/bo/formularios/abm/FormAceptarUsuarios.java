@@ -73,7 +73,7 @@ public class FormAceptarUsuarios extends PanelDinamico{
         this.setSizeFull();
         listaUsuarios = servicio.getUsuariosPendientesAceptar();
         for(Usuario u : listaUsuarios){
-        	System.out.println("usuario " + u.getNick());
+        	//System.out.println("usuario " + u.getNick());
         }
         
         panelIzquierda = new VerticalLayout();

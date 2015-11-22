@@ -1,5 +1,6 @@
 package com.services;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -75,4 +76,14 @@ public interface ProductMovementServiceLocal{
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ProductMovement> getWhereStockChangeBetweenDates( @QueryParam("VSId") long VSId,
 			@QueryParam("barcode") String barcode,  IntervalDates dates);
+	
+	@GET
+	@Path("/movimientosStockProduto")
+	@Produces(MediaType.APPLICATION_JSON)
+	public long getovimientosStockProduto( @QueryParam("VSId") long VSId, @QueryParam("barcode") String barcode,  IntervalDates dates);
+	
+	@GET
+	@Path("/getoFechaCreadoProduto")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Calendar getoFechaCreadoProduto(@QueryParam("VSId") long virtualStorageId, @QueryParam("barcode") String barCode);
 }

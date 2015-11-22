@@ -56,4 +56,13 @@ public class GenericCategoryDAO {
 	public void deleteGenericCategory(ObjectId id) {
 		dao.remove(GenericCategory.class, id);
 	}
+
+	public Boolean estaCategoria(long virtualStorageId, String name) {
+		Query<Category> query = ds.createQuery(Category.class);
+		query.and(query.criteria("name").equal(name), 
+				query.criteria("virtualStorageId").equal(virtualStorageId));
+		List<Category> auxList = query.asList();
+		if (auxList.size() == 0) return false;
+		return true;
+	}
 }

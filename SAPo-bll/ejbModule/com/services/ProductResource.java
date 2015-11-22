@@ -57,6 +57,13 @@ public class ProductResource {
 		return pbl.getVSVaue(virtualStorageId);
 	}
 	
+	@GET
+	@Path("{barcode}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Boolean estaProducto(@PathParam("virtualStorageId") long virtualStorageId, @PathParam("barcode") String barcode){
+		return pbl.estaProducto(virtualStorageId,barcode);
+	}
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

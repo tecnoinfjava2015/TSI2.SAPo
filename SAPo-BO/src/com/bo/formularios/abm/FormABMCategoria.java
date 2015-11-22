@@ -4,11 +4,18 @@ package com.bo.formularios.abm;
 import java.util.List;
 
 
+
+
+import javax.ejb.EJBException;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import com.bl.GenericCategoryBL;
 import com.bo.principal.PanelDinamico;
-
 import com.entities.mongo.GenericCategory;
-
+import com.entities.mongo.GenericProduct;
+import com.entities.sql.VirtualStorage;
+import com.services.VirtualStorageServiceLocal;
 import com.services.interfaces.IGenericCategoryBL;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
@@ -36,16 +43,36 @@ public class FormABMCategoria  extends PanelDinamico{
 		private VerticalLayout panelIzquierda, panelDerecha;
 		private HorizontalLayout rootLayout;
 		private Table table; 
-		private Button modificar, alta, eliminar, recargar;
+		private Button modificar, alta, eliminar, masUtilizada;
 		private TextField icon, name, description;
 		private IGenericCategoryBL servicioCategoria =   new GenericCategoryBL();
+		private VirtualStorageServiceLocal servicioVS;
+		private List<VirtualStorage>  listaVirtualStorage;
+		private void lookup() {
+			InitialContext context = null;
+			try {
+				context = new InitialContext();					
+				servicioVS = (VirtualStorageServiceLocal) context.lookup("java:app/SAPo-BO/VirtualStorageServiceBean");
+			} catch (NamingException e) {
+				throw new EJBException(
+						"It was not possible to get a reference to one of the required services",
+						e);
+			} finally {
+				try {
+					context.close();
+				} catch (NamingException e) {
+					
+				}
+			}
+		}
 		
 		public FormABMCategoria(){    
-			//lookup();
+			lookup();
+			listaVirtualStorage = servicioVS.getVS();
 			this.addStyleName("outlined");
 	        this.setSizeFull();
 	        listaCategorias = servicioCategoria.getAllGenericCategory();
-	        System.out.println("lista de Categorias " + listaCategorias);    
+	        //System.out.println("lista de Categorias " + listaCategorias);    
 	        
 	        panelIzquierda = new VerticalLayout();
 	        panelDerecha = new VerticalLayout();
@@ -121,12 +148,36 @@ public class FormABMCategoria  extends PanelDinamico{
 	            }
 	        });
 	            
-	        recargar.addClickListener(new ClickListener() {
+	        masUtilizada.addClickListener(new ClickListener() {
 	            private static final long serialVersionUID = 1L;
 	            @Override
 	            public void buttonClick(final ClickEvent event) {
-					actualizarTabla();
-					reiniciarCampos(); 
+	            	GenericCategory masUtilizado = new GenericCategory();
+	            	int cantidad = 0, estaEn = 0;
+	            	for (GenericCategory gc : listaCategorias){
+	            		estaEn = 0;
+		            	for (VirtualStorage vs : listaVirtualStorage){
+		            		if(servicioCategoria.estaCategoria(vs.getId(),gc.getName())){
+		            			estaEn++;
+		            		}
+		            	}
+		            	if(cantidad < estaEn){
+		            		cantidad = estaEn;
+		            		masUtilizado = gc;
+		            	}
+	            	}
+	            	if (masUtilizado.getName() == null){
+	            		Notification sample = new Notification("No se han utilizdo categorías genéricas");
+	            		sample.setDelayMsec(3000);
+			        	sample.show(Page.getCurrent());
+	            	}
+	            	else{
+	            		Notification sample = new Notification("Categoría más utilizada es: " + masUtilizado.getName());
+	            		sample.setDelayMsec(3000);
+			        	sample.show(Page.getCurrent());
+	            	}
+	            	
+	            	
 	           }
 	        });
 	        
@@ -237,22 +288,22 @@ public class FormABMCategoria  extends PanelDinamico{
 		    alta.setWidth("70%");
 		    panIzq.addComponent(alta);
 		    
-		    modificar = new Button("Modificar Datos Categoria");
+		    modificar = new Button("Modificar Datos Categoría");
 		    modificar.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		    modificar.setWidth("70%");
 		    panIzq.addComponent(modificar);
 		    modificar.setEnabled(false);
 		    
-		    eliminar = new Button("Eliminar Cateogoria");
+		    eliminar = new Button("Eliminar Cateogoría");
 		    eliminar.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		    eliminar.setWidth("70%");
 		    panIzq.addComponent(eliminar);
 		    eliminar.setEnabled(false);
 		    
-		    recargar = new Button("Reiniciar Pantalla");
-		    recargar.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		    recargar.setWidth("70%");
-		    panIzq.addComponent(recargar);
+		    masUtilizada = new Button("Categoría más utilizada");
+		    masUtilizada.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		    masUtilizada.setWidth("70%");
+		    panIzq.addComponent(masUtilizada);
 		
 		    panIzq.setComponentAlignment(name, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(icon, Alignment.BOTTOM_CENTER);
@@ -261,7 +312,7 @@ public class FormABMCategoria  extends PanelDinamico{
 		    panIzq.setComponentAlignment(alta, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(modificar, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(eliminar, Alignment.BOTTOM_CENTER);
-		    panIzq.setComponentAlignment(recargar, Alignment.BOTTOM_CENTER);
+		    panIzq.setComponentAlignment(masUtilizada, Alignment.BOTTOM_CENTER);
 		    return panIzq;
 		}
 		

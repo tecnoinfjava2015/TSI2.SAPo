@@ -33,7 +33,7 @@ public class VirtualStorageResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}") 
 	public VirtualStorage getVirtualStorage(@PathParam("id") int vsId){
-		System.out.println("PRUEBA_AAAA");
+		
 		return dao.buscarVSporID(vsId);
 	}
 	 
@@ -51,7 +51,6 @@ public class VirtualStorageResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateVS(@PathParam("id") int vsId ,VirtualStorage vs) {
-		
 		VirtualStorage vsAux = dao.getVirtualStorageById(vsId);
 		vs.setOwner(vsAux.getOwner());
 		vs.setId(vsId);

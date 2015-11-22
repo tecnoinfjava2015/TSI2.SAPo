@@ -92,4 +92,10 @@ public class CategoryBL implements ICategoryBL {
 	public void deleteCategoryOfName(String name) {
 		dao.remove(dao.getByName(name).getId());
 	}
+
+	@Override
+	public Boolean estaCategoria(long virtualStorageId, String name) {
+		if(virtualStorageId < 0) return false;
+		return dao.estaCategoria(virtualStorageId,name);
+	}
 }
