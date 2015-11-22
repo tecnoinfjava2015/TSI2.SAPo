@@ -2,10 +2,10 @@
     'use strict';
     angular
         .module('sapo')
-        .controller('CreateCategoryController', CreateCategoryController);
-    CreateCategoryController.$inject = ['CreateCategoryResource',  '$scope', '$cookies', '$location', '$mdDialog'];
+        .controller('EditCategoryController', EditCategoryController);
+    EditCategoryController.$inject = ['CreateCategoryResource',  '$scope', '$cookies', '$location', '$mdDialog'];
     /* @ngInject */
-    function CreateCategoryController(CreateCategoryResource, $scope, $cookies, $location, $mdDialog) {
+    function EditCategoryController(CreateCategoryResource, $scope, $cookies, $location, $mdDialog) {
     	$scope.fields = []; 
     	$scope.insert = insert;
     	$scope.tenantId = 1;
