@@ -1,1 +1,45 @@
-<h2>{{title}}</h2>
+<md-content ng-cloak >
+	<h2>{{product.name}}</h2>
+	
+	<md-content layout layout="row">
+		<div style="width:50%">
+		</div>
+		<div>
+			<h4>Informaci&oacute;n general</h4>
+	
+			<table class="table table-hover" style="width:100%">
+				<tr >
+					<td style="width:30%; padding-right:10px">C&oacute;digo de barras:</td>
+					<td style="width:70%;">{{product.barCode}}</td>
+				</tr>
+				<tr>
+					<td style="width:30%; padding-right:10px">Descripci&oacute;n:</td>
+					<td style="width:70%;">{{product.description}}</td>
+				</tr>
+				<tr>
+					<td style="width:30%; padding-right:10px">Categor&iacute;as:</td>
+					<td style="width:70%;">{{product.categories}}</td>
+				</tr>
+				<tr>
+					<td style="width:30%; padding-right:10px">Palabras claves:</td>
+					<td style="width:70%;">{{product.chips}}</td>
+				</tr>
+				
+			</table>
+		</div>
+	</md-content>
+	
+	
+	<md-tabs md-dynamic-height md-border-bottom style="margin-top:5%">
+		<md-tab label="Hist&oacute;rico de stock">
+			<md-content class="md-padding" >
+			<div ng-include="virtualStorageView"></div>
+			</md-content>
+		</md-tab>
+		<md-tab label="Hist&oacute;rico de precios">
+			<md-content class="md-padding" >
+			<div ng-include="virtualStorageFollowingView"></div>
+			</md-content>
+		</md-tab>
+	</md-tabs>
+</md-content>

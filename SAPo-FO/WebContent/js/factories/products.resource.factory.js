@@ -6,7 +6,13 @@
     ProductsResource.$inject = ['$resource'];
     /* @ngInject */
     function ProductsResource($resource) {
-        return $resource('/SAPo-FO/api/:tenantId/products/:productId',{tenantId:'@tenantId', productId:'@productId'});
+        return $resource('/SAPo-FO/api/:tenantId/products/:barcode',{tenantId:'@barcode', barcode:'@barcode'}, {
+            'get': {
+                method: 'GET',
+                tenantId: '@tenantId',
+                barcode : '@barcode'
+            }
+        });
     }
 })(); 
 
