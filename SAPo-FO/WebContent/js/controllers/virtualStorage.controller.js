@@ -44,7 +44,12 @@
 						i++;
 					}
 					user.tenantCreados.push(vsIdAux);
+					var auxUser = JSON.stringify(user);
 					
+					var aux2 = JSON.parse(auxUser);
+					console.log(aux2);
+					
+					$cookies.put("newUser", aux2);
 					showAlert('Exito!', 'Se ha creado su almac&eacute;n virtual de forma exitosa');
 				}, function(r){
 					console.log(r);
