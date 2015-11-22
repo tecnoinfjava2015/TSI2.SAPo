@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.entities.mongo.dao;
 
 import java.util.List;
@@ -204,6 +201,16 @@ public class ProductDAO {
 		}
 	}
 	
+	public void updatePrice(long virtualStorageId, String barCode, double newPrice){
+		if(newPrice >= 0 && virtualStorageId > 0 && barCode != null){
+			Query<Product> query = ds.createQuery(Product.class);
+			query.and(query.criteria("barCode").equal(barCode), 
+					query.criteria("virtualStorageId").equal(virtualStorageId));
+			UpdateOperations<Product> updateOp = ds.createUpdateOperations(Product.class).set("purchasePrice", newPrice);
+			ds.update(query, updateOp);
+		}
+	}
+		
 	public double getVSValue(long virtualStorageId){
 		Query<Product> query = ds.createQuery(Product.class);
 		query.criteria("virtualStorageId").equal(virtualStorageId).criteria("stock").greaterThan(0);
@@ -213,6 +220,13 @@ public class ProductDAO {
 			value = value + (prodAux.getSalePrice() * prodAux.getStock());
 		}
 		return value;
+	}
+	
+	public List<Product> getProductsBarCodeAndName(long virtualStorageId, String search, int limit){
+		Query<Product> query = ds.createQuery(Product.class);
+		query.and(query.criteria("name").containsIgnoreCase(search), query.criteria("virtualStorageId").equal(virtualStorageId));
+		query.limit(limit).order("name").retrievedFields(true,"barCode","name");
+		return query.asList();
 	}
 
 	public Boolean estaProducto(long virtualStorageId, String barcode) {

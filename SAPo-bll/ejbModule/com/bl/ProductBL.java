@@ -132,8 +132,6 @@ public class ProductBL implements IProductBL {
 		if (!(virtualStorageId > 0)){
 			return null;
 		}
-		return dao.getProductsBarCodeAndName(virtualStorageId, search, limit);
-		
-		
+		return dao.getProductsBarCodeAndName(virtualStorageId, search, limit);	
 	}
 }

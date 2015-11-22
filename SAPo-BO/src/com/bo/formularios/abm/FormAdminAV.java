@@ -412,10 +412,9 @@ public class FormAdminAV extends PanelDinamico{
 	    tableVirtualStorage.setNullSelectionItemId(false);
 	    tableVirtualStorage.setPageLength(tableVirtualStorage.size());
 	    tableVirtualStorage.setWidth("80%");
-	    tableVirtualStorage.setHeight("12em");
+	    tableVirtualStorage.setHeight("18em");
 	    
 	    arribaIzq.setMargin(true);
-	    
 	    arribaIzq.addComponent(tableVirtualStorage);
 	    arribaIzq.setComponentAlignment(tableVirtualStorage, Alignment.TOP_CENTER);
 	   

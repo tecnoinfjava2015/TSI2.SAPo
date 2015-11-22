@@ -20,6 +20,7 @@ public interface IProductBL {
 	public void deleteProduct(long virtualStorageId, String barcode);
 	public boolean estaEnLista(Product p, List<Product> listaProductosTemp);
 	public Boolean estaProducto(long virtualStorageId, String barcode);
-	
-	public double getVSVaue(long virtualStorageId); 
+	public double getVSVaue(long virtualStorageId);
+	public List<Product> getProductsBarCodeAndName(long virtualStorageId,String search, int limit); 
 }
+

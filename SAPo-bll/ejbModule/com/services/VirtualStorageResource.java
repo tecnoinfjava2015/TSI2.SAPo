@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -50,6 +51,8 @@ public class VirtualStorageResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateVS(@PathParam("id") int vsId ,VirtualStorage vs) {
+		VirtualStorage vsAux = dao.getVirtualStorageById(vsId);
+		vs.setOwner(vsAux.getOwner());
 		vs.setId(vsId);
 		return dao.updateVS(vs);
 	}
