@@ -1,13 +1,18 @@
-<h1>Bienvenido a su almac&eacute;n virtual</h1>
-
-<md-content class="md-padding" >
 	<md-button ng-transclude aria-label="Nuevo"
-		 ng-click="showAdvanced($event)"> Crear nueva categor&iacute;a
+		 ng-click="createCategory($event)"> Crear nueva categor&iacute;a
 	</md-button>
-	
+	<!-- <md-button ng-transclude aria-label="Edit"
+		 ng-click="editCategory($event)"> Editar categor&iacute;a
+	</md-button>
+	 -->
 	<md-button ng-transclude aria-label="Nuevo"
 		 ng-click="createProduct($event)"> Crear Producto
 	</md-button>
+
+<h1>Bienvenido a su almac&eacute;n virtual</h1>
+
+<md-content class="md-padding" >
+	
 
 	<div ng-include="productsView" ng-controller="ProductsNavigationController as ctrl"></div>
 </md-content>
