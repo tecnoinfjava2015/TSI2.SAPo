@@ -84,7 +84,7 @@ public class VirtualStorageResource {
 		products = productBL.getAllProducts(id);
 		double result = 0;
 		for (Product p : products) {
-			result += p.getSalePrice();
+			result += (p.getPurchasePrice() * p.getStock());
 		}
 		return result;
 	}
