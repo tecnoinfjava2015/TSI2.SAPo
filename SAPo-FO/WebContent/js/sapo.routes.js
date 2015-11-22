@@ -32,9 +32,9 @@
                 templateUrl: 'templates/category.create.html',
                 controllerAs: 'vm'
             })
-            .when('/virtualStorage/:tenantName/createProduct', {
-                controller: 'CreateProductController',
-                templateUrl: 'templates/product.create.html',
+            .when('/virtualStorage/:tenantName/Product/:productName', {
+                controller: 'ViewProductController',
+                templateUrl: 'templates/product.view.html',
                 controllerAs: 'vm'
             })
             .when('/userProfile', {
@@ -42,7 +42,7 @@
                 templateUrl: 'templates/profile.view.html',
                 controllerAs: 'vm'
             })
-            .when('/:tenantName/dashboard', {
+            .when('/virtualStorage/:tenantName/dashboard', {
                 controller: 'DashboardController',
                 templateUrl: 'templates/dashboard.view.html',
                 controllerAs: 'vm'
