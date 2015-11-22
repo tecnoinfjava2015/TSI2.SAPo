@@ -2,10 +2,9 @@
 	'use strict';
 	angular.module('sapo').controller('VirtualStorageController',
 			VirtualStorageController);
-	VirtualStorageController.$inject = [ 'VirtualStorageResource', '$scope', '$cookies', 
-			'$mdDialog' ];
+	VirtualStorageController.$inject = [ 'VirtualStorageResource', '$scope', '$cookies', '$mdDialog', '$window'];
 	/* @ngInject */
-	function VirtualStorageController(VirtualStorageResource, $scope, $cookies, $mdDialog) {
+	function VirtualStorageController(VirtualStorageResource, $scope, $cookies, $mdDialog, $window) {
 		var user = $cookies.getObject("sapoUser");
 		
 		$scope.vs = new VirtualStorageResource();
@@ -27,16 +26,17 @@
 			document.getElementById("file").click();
 		}
 
-		function insert(data) {			
-			$scope.vs.enabled = true;
+		function insert(vs) {			
+			var vsName = vs.name;
+			vs.enabled = true;
 			
 			if (typeof $scope.logoFile !== 'undefined' && $scope.logoFile !== null) {
-				$scope.vs.logo = "data:" + $scope.logoFile.filetype + ";base64,";
-				$scope.vs.logo = $scope.vs.logo + $scope.logoFile.base64;
+				vs.logo = "data:" + $scope.logoFile.filetype + ";base64,";
+				vs.logo = vs.logo + $scope.logoFile.base64;
 			}
 			
-			if (typeof $scope.vs.name !== 'undefined') {
-				$scope.vs.$save(function(r) {
+			if (typeof vs.name !== 'undefined') {
+				vs.$save(function(r) {
 					var i = 0;
 					var vsIdAux = '';
 					while (typeof r[i] !== 'undefined') {
@@ -49,8 +49,12 @@
 					var aux2 = JSON.parse(auxUser);
 					console.log(aux2);
 					
-					$cookies.put("newUser", aux2);
+					//$cookies.put("newUser", aux2);
 					showAlert('Exito!', 'Se ha creado su almac&eacute;n virtual de forma exitosa');
+					var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html#/virtualStorage/" + vsName;
+					console.log(landingUrl);
+					$window.location.href = landingUrl;
+					
 				}, function(r){
 					console.log(r);
 					showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
