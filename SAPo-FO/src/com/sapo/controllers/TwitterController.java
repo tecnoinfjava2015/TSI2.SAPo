@@ -9,6 +9,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -34,12 +36,14 @@ import twitter4j.auth.RequestToken;
 public class TwitterController {
 
 	public void login() throws IOException {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		Properties props = new Properties();
 		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
 		String twitterConsumerKey = props.getProperty("twitterConsumerKey");
 		String twitterConsumerSecret = props.getProperty("twitterConsumerSecret");
 		String twitterCalbackURL = props.getProperty("twitterCallbackURL");
-
+		String serverURL = getServerURL(externalContext);
+		
 		String authURL = "noSoupForYou!!!";
 		RequestToken requestToken = null;
 		Twitter twitterK = null;
@@ -49,10 +53,9 @@ public class TwitterController {
 			 twitterK = new TwitterFactory().getInstance();
 			 
 			 twitterK.setOAuthConsumer(twitterConsumerKey, twitterConsumerSecret);
-			 requestToken = twitterK.getOAuthRequestToken(twitterCalbackURL);
+			 requestToken = twitterK.getOAuthRequestToken(serverURL+twitterCalbackURL);
 			 authURL = requestToken.getAuthenticationURL();
 			 //accessToken = twitterK.getOAuthAccessToken();
-			 
 			 
 			 //request.getSession().setAttribute("requestToken", requestToken);
 			 //response.sendRedirect(authURL);
@@ -60,8 +63,8 @@ public class TwitterController {
 			 twitterException.printStackTrace();
 			 }
 		
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
+
 		sessionMap.put("requestToken", requestToken);
 		sessionMap.put("twitterK", twitterK);
 		//sessionMap.put("accessToken", accessToken);
@@ -69,17 +72,30 @@ public class TwitterController {
 		externalContext.redirect(authURL);
 	}
 	
+	private String getServerURL(ExternalContext ec) {
+		if(ec.getRequestScheme().equals("http") && ec.getRequestServerPort() == 80) {
+			return ec.getRequestScheme()+"://"+ec.getRequestServerName();
+		}
+		else if(ec.getRequestScheme().equals("https") && ec.getRequestServerPort() == 443) {
+			return ec.getRequestScheme()+"://"+ec.getRequestServerName();
+		}
+		else {
+			return ec.getRequestScheme()+"://"+ec.getRequestServerName()+":"+ec.getRequestServerPort();
+		}
+	}
+
 	public void verify() throws TwitterException, IOException, JSONException {		
 		//Traigo el request para tomar parametros de la URL y atributos de la sesion.
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		HttpServletRequest origRequest = (HttpServletRequest) externalContext.getRequest();
 		HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
-
+		String serverURL = getServerURL(externalContext);
+		
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		
 		//Traigo el objeto Twitter que guardé en el login()
 		Twitter twitterK = (Twitter) sessionMap.get("twitterK");
-		
+
 		//Tomo el verifier de la URL
 		String verifier = origRequest.getParameter("oauth_verifier");
 		
@@ -109,22 +125,81 @@ public class TwitterController {
 	
 		//llamo a login y guardo datos de usuario en cookie (y en sesion)
 		String sapoUser = sapoLogin(userScreenName, userId, geoLocation);
-		Cookie userCookie = new Cookie("sapoUser", sapoUser);
-		response.addCookie(userCookie);
+		sessionMap.put("sapoUser", sapoUser);
+//		Cookie userCookie = new Cookie("sapoUser", sapoUser);
+//		response.addCookie(userCookie);
 		
 		//paso el string a JSON para usar datos en la siguiente llamada
-		JSONObject sapoUserJson = new JSONObject(sapoUser);
+		JSONObject sapoUserJSON = new JSONObject(sapoUser);
 		
 		//llamo a pedir los VS del usuario y guardarlos en otra cookie
-		String myVSs = getMyVSs(sapoUserJson.getString("id"));
+		String myVSs = getMyVSs(serverURL, sapoUserJSON.getString("id"));
 		JSONObject vsJSON = removeLogos(myVSs);
 		
 		
 		//Cookie vsCookie = new Cookie("sapoVirtualStorages", myVSs);
 		Cookie vsCookie = new Cookie("sapoVirtualStorages", vsJSON.toString());
 		response.addCookie(vsCookie);
+
+		String sapoUserCookie = removeDisabledVS(sapoUserJSON, vsJSON);
+		Cookie userCookie = new Cookie("sapoUser", sapoUserCookie);
+		response.addCookie(userCookie);
 		
 		externalContext.redirect("#/");
+	}
+
+	private String removeDisabledVS(JSONObject sapoUserJSON, JSONObject vsJSON) throws JSONException {
+		
+		JSONArray vsOwnedAll;
+		JSONArray vsOwnedActive;
+		List<Integer> vsOwnedEnabled = new ArrayList<Integer>();
+		if(sapoUserJSON.getJSONArray("tenantCreados").length() != 0){
+			vsOwnedAll = sapoUserJSON.getJSONArray("tenantCreados");
+			vsOwnedActive = vsJSON.getJSONArray("owned");
+			//List<Integer> vsOwnedEnabled = new ArrayList<Integer>();
+			for(int i = 0; i<vsOwnedAll.length(); i++){
+				int position = vsOwnedAll.getInt(i);
+				
+				if(vsOwnedActive.toString().contains("\"id\":"+position+"}")){
+					vsOwnedEnabled.add(position);
+				}
+			}
+		}
+		
+		JSONArray vsFollowingAll;
+		JSONArray vsFollowingActive;
+		List<Integer> vsFollowingEnabled = new ArrayList<Integer>();
+		if(sapoUserJSON.getJSONArray("vs_seguidos").length() != 0){
+			vsFollowingAll = sapoUserJSON.getJSONArray("vs_seguidos");
+			vsFollowingActive = vsJSON.getJSONArray("following");
+			//List<Integer> vsFollowingEnabled = new ArrayList<Integer>();
+			for(int i = 0; i<vsFollowingAll.length(); i++){
+				int position = vsFollowingAll.getInt(i);
+				
+				if(vsFollowingActive.toString().contains("\"id\":"+position+"}")){
+					vsFollowingEnabled.add(position);
+				}
+			}
+		}
+		
+		int[] vsOwnedResult = new int[vsOwnedEnabled.size()];
+		int index = 0;
+		for(int vs : vsOwnedEnabled) {
+			vsOwnedResult[index] = vs;
+			index++;
+		}
+		sapoUserJSON.put("tenantCreados", vsOwnedResult);
+		
+		int[] vsFollowingResult = new int[vsFollowingEnabled.size()];
+		index = 0;
+		for(int vs : vsFollowingEnabled) {
+			vsFollowingResult[index] = vs;
+			index++;
+		}
+		sapoUserJSON.put("vs_seguidos", vsFollowingResult);
+		
+		
+		return sapoUserJSON.toString();
 	}
 
 	private String getGoogleGeolocation(String userLocation) throws IOException, JSONException {
@@ -206,6 +281,8 @@ public class TwitterController {
 	}
 
 	private String sapoLogin(String userScreenName, Long userId, String geoLocation) throws IOException, JSONException {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		String serverURL = getServerURL(externalContext);
 		//Traigo la url para el post dsde el sapo-config.properties
 		Properties props = new Properties();
 		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
@@ -217,7 +294,7 @@ public class TwitterController {
 		body.put("twitterId", userId);
 		body.put("geoLocation", geoLocation);
 
-		String result = postToRest(loginTwitterURL, body);
+		String result = postToRest(serverURL+loginTwitterURL, body);
 
 	    if(!result.isEmpty()){
 	    	return result;
@@ -225,19 +302,19 @@ public class TwitterController {
 	    	//el json vino vacío, por ende es el primer ingreso del usuario
 	    	//llamo al REST registroTwitter que registra y 
 	    	//luego el login que devuelve el json del user creado
-	    	registroTwitter(body);
-	    	return postToRest(loginTwitterURL, body);
+	    	registroTwitter(serverURL, body);
+	    	return postToRest(serverURL+loginTwitterURL, body);
 	    }
 	    
 	}
 	
-	private String registroTwitter(JSONObject body) throws IOException {
+	private String registroTwitter(String serverURL, JSONObject body) throws IOException {
 		
 		Properties props = new Properties();
 		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
 		String registroTwitterURL = props.getProperty("twitterRegisterREST");
 
-		String result = postToRest(registroTwitterURL, body);
+		String result = postToRest(serverURL+registroTwitterURL, body);
 		return result;
 	}
 
@@ -267,12 +344,12 @@ public class TwitterController {
 	    return sbStr;
 	}
 
-	private String getMyVSs (String userId) throws IOException {
+	private String getMyVSs (String serverURL, String userId) throws IOException {
 		Properties props = new Properties();
 		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
 		String restURL = props.getProperty("getVirtualStoragesREST")+userId;
 		//Conecto al rest para el login
-		URL url = new URL(restURL);
+		URL url = new URL(serverURL+restURL);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod("GET");
 		connection.setRequestProperty("Accept", "application/json");
@@ -310,8 +387,9 @@ public class TwitterController {
 		JSONObject body = new JSONObject();
 		body.put("nick", twitterK.getScreenName());
 		
+		String serverURL = getServerURL(externalContext);
 		String restURL = props.getProperty("freemiumREST");
-		String result = postToRest(restURL, body);
+		String result = postToRest(serverURL+restURL, body);
 		
 		Cookie userCookie = new Cookie("sapoUser", result);
 		response.addCookie(userCookie);

@@ -40,8 +40,14 @@
 		<param-value>sapo-owner@gmail.com</param-value>
 	</context-param>
 
-	<context-param>
-		<param-name>returnurl</param-name>
-		<param-value>http://localhost:8080/SAPo-FO/success.xhtml</param-value>
-	</context-param>
+<!-- 	<context-param> -->
+<!-- 		<param-name>returnurl</param-name> -->
+<!-- 		<param-value>/SAPo-FO/success.xhtml</param-value> -->
+<!-- 	</context-param> -->
+
+<!-- 	<context-param> -->
+<!-- 		<param-name>serverurl</param-name> -->
+<!-- 		<param-value>http://localhost:8080</param-value> -->
+<!-- 	</context-param> -->
+
 </web-app>
