@@ -58,7 +58,7 @@
             //$scope.vs.id = $scope.virtualStorageId;
             if (typeof $scope.vs.name !== 'undefined') {
             	VirtualStorageEditResource.update({id: vs.id}, vs).$promise.then(function(data){
-                	showAlert('Exito!','Se ha eliminado su almac&eacute;n virtual de forma exitosa');
+                	showAlert('Exito!','Se ha editado su almac&eacute;n virtual de forma exitosa');
                 	$location.path('/dashboard');
                 	
                 }, function(error){

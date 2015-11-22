@@ -35,41 +35,51 @@
 		}
     	
     	function insert( data) {   
-    		var images = $scope.images;
-    		if (images != null && typeof images !== 'undefined') {
-    			var count = images.length;
-        		var mongoImages = [];
-        		var i = 0;
-        		
-        		//data.attributes = JSON.stringify($scope.fields);
-        		
-        		for (i = 0; i < count; i++) {
-        			 			
-        			var image = "data:" + images[i].filetype + ";base64," + images[i].base64;
-        			mongoImages.push(image);
-        			
-        		}
-        		
-        		data.images = mongoImages;
-    		}
+    		if (data != null && typeof data.name !== 'undefined' && typeof data.barCode !== 'undefined' ) {
+    			$scope.loading = true;
+	    		var images = $scope.images;
+	    		if (images != null && typeof images !== 'undefined') {
+	    			var count = images.length;
+	        		var mongoImages = [];
+	        		var i = 0;
+	        		
+	        		//data.attributes = JSON.stringify($scope.fields);
+	        		
+	        		for (i = 0; i < count; i++) {
+	        			 			
+	        			var image = "data:" + images[i].filetype + ";base64," + images[i].base64;
+	        			mongoImages.push(image);
+	        			
+	        		}
+	        		
+	        		data.images = mongoImages;
+	    		}
+	    		
+	    		console.log($scope.fields);
+	    		data.specs = [];
+	    		data.virtualStorageId = $scope.tenantId;
+	    		data.virtualStorageName = $scope.virtualStorageName;
+	    		for (i = 0; i < $scope.fields.length; i++) {
+	    			$scope.spec = new Spec( $scope.fields[i].name, $scope.fields[i].value, $scope.fields[i].type);
+	    			data.specs.push($scope.spec);
+	    			console.log(data.specs);
+	    			//data.attributes += JSON.stringify($scope.fields[i]);
+	    		}
+	    		
+	    		CreateProductsResource.save({tenantId: $scope.tenantId },data,function(){
+	    			$scope.loading = false;
+	    			showAlert('Exito!', 'Se ha creado su producto de forma exitosa');
+	    			
+	    		}, function(r){
+	    			$scope.loading = false;
+					console.log(r);
+					showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
+				});
     		
-    		console.log($scope.fields);
-    		data.specs = [];
-    		data.virtualStorageId = $scope.tenantId;
-    		data.virtualStorageName = $scope.virtualStorageName;
-    		for (i = 0; i < $scope.fields.length; i++) {
-    			$scope.spec = new Spec( $scope.fields[i].name, $scope.fields[i].value, $scope.fields[i].type);
-    			data.specs.push($scope.spec);
-    			console.log(data.specs);
-    			//data.attributes += JSON.stringify($scope.fields[i]);
     		}
-    		
-    		CreateProductsResource.save({tenantId: $scope.tenantId },data,function(){
-    			showAlert('Exito!', 'Se ha creado su producto de forma exitosa');
-    		}, function(r){
-				console.log(r);
-				showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
-			});
+    		else {
+    			showAlert('Error!','Debe ingresar nombre y c&oacute;digo de barras.');
+    		}
     	}
     	
     	function addAttribute() {
