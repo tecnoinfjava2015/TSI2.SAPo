@@ -1,1 +1,11 @@
 <h2>{{title}}</h2>
+
+
+<div style='padding: 40px;' ng-cloak>
+  <md-content layout layout="row">
+  <h4>Movimientos Desde</h4>
+  <md-datepicker ng-model="myDate" md-placeholder="Desde" md-max-date="dateFromMax"></md-datepicker>
+  <h4>Movimientos Hasta</h4>
+  <md-datepicker ng-model="myDate" md-placeholder="Hasta" md-min-date="dateToMax"></md-datepicker>
+  </md-content>
+</div>
