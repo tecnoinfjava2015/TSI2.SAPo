@@ -41,7 +41,7 @@ public interface ProductMovementServiceLocal{
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ProductMovement> getMovementByUser( @QueryParam("userID") int usrID);
 	
-	@GET
+	@POST
 	@Path("/QuantityBetweenDates")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

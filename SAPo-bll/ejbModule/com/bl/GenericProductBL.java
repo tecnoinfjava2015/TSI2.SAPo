@@ -60,6 +60,11 @@ public class GenericProductBL implements IGenericProductBL {
 		GenericProduct gProduct = dao.getByBarCode(barcode);
 		dao.deleteGenericProduct(gProduct.getId());		
 	}
+	
+	@Override
+	public List<GenericProduct> getGenericsBarcodeAndName(String search, int limit){
+		return dao.getGenericsBarcodeAndName(search, limit);		
+	}
 
 
 }

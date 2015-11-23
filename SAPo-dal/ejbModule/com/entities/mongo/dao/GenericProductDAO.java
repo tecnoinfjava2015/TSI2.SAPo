@@ -64,6 +64,13 @@ public class GenericProductDAO {
 	public void deleteGenericProduct(ObjectId id) {
 		dao.remove(GenericProduct.class, id);
 	}
+	
+	public List<GenericProduct> getGenericsBarcodeAndName(String search, int limit){
+		Query<GenericProduct> query = ds.createQuery(GenericProduct.class);
+		query.criteria("name").contains(search);
+		query.limit(limit).retrievedFields(true, "barCode","name");
+		return query.asList();
+	}
 
 	
 }
