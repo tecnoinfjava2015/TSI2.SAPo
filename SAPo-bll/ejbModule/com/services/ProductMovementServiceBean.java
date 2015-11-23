@@ -39,7 +39,8 @@ public class ProductMovementServiceBean implements ProductMovementServiceLocal{
 
 	@Override
 	public long getMovementQuantityBetweenDates(long VSId, IntervalDates dates) {
-		return pmdao.getMovimentQuantityBetweenDates(VSId, dates.getDate1(), dates.getDate2());
+		//return pmdao.getMovimentQuantityBetweenDates(VSId, dates.getDate1(), dates.getDate2());
+		return pmdao.getMovimentQuantityBetweenDates(VSId, dates.getFromDate(), dates.getToDate());
 	}
 
 	@Override
