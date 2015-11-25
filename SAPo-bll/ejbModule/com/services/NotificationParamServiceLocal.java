@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -14,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import com.entities.sql.NotificationsParam;
 
 @Local
-@Path("/notification")
+@Path("/{virtualStorageId}/notification")
 public interface NotificationParamServiceLocal {
 
 	@POST
@@ -23,12 +24,11 @@ public interface NotificationParamServiceLocal {
 	public NotificationsParam ceateNotification(NotificationsParam newNot);
 	
 	@GET
-	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<NotificationsParam> getNotificationList(@QueryParam("VSId") int VSId);
+	public List<NotificationsParam> getNotificationList(@PathParam("virtualStorageId") int VSId);
 	
 	@GET
 	@Path("/one")
 	@Produces(MediaType.APPLICATION_JSON)
-	public NotificationsParam getNotificationByProduct(@QueryParam("VSId") int VSId, @QueryParam("barcode") String barcode);
+	public NotificationsParam getNotificationByProduct(@PathParam("virtualStorageId") int VSId, @QueryParam("barcode") String barcode);
 }
