@@ -28,6 +28,8 @@
         $scope.redirect = redirect
 
         function redirect(route){
+        	console.log($location.path() + route);
+        	
             $location.path(route);
         }
     }
