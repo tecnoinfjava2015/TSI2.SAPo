@@ -2,14 +2,14 @@
 
 <form name="inputForm" novalidate>
 	<h3 class="md-headline">{{nick}}</h3>
-	<md-input-container>
-		<label>Email</label> 
-		<md-tooltip md-direction="top">Ingrese su email</md-tooltip> 
-		 <div ng-messages="inputForm.email.$error" ng-messages-include="error-messages" >
-		    <div ng-message="pattern">Please enter a valid email address!</div>
-		  </div>
-		<input type="email" ng-model="profile.email" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"> 
-	</md-input-container> 
-	
-	
+    <md-input-container>
+    <label>Email</label>
+      <input ng-model="mail" type="email" name="email" placeholder="(required)" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-required="true">
+      
+    <ng-messages for="inputForm.email.$error">
+	  <ng-message when="pattern">Ingrese un email v&aacute;lido</ng-message>
+	  <ng-message when="required">Ingrese su email</ng-message>
+	</ng-messages>
+    </md-input-container>
+    <md-button class="md-raised md-primary" ng-disabled="inputForm.$invalid">Guardar</md-button>
 </form>
