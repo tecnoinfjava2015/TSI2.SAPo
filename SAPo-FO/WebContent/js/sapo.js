@@ -7,7 +7,8 @@
             'ngResource',
             'infinite-scroll',
             'naif.base64',
-            'ngCookies'
+            'ngCookies',
+            'ui.bootstrap'
         ])
         .run(function($rootScope) {
             $rootScope.virtualStorageView = "templates/virtualStorage.view.html";
