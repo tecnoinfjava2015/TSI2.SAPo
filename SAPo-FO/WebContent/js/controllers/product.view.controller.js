@@ -13,6 +13,14 @@
 			barcode : 'test'
 		}).$promise.then(function(result) {
 			$scope.product = result;
+			
+			//hardcodeo para testear lo que va a venir en el product
+			$scope.product.chips = [];
+			$scope.product.chips.push("Tecnologia");
+			$scope.product.chips.push("Celulares");
+			$scope.product.chips.push("Android");
+			//fin hardcodeo
+			
 			console.log($scope.product);
 
 			$scope.myInterval = 3000;

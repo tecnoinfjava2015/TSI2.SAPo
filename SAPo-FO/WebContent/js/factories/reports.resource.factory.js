@@ -6,9 +6,9 @@
     ReportsResource.$inject = ['$resource'];
     /* @ngInject */
     function ReportsResource($resource) {
-        return $resource('/SAPo-FO/api/QuantityBetweenDates/:tenantId', {tenantId : '@tenantId'}, {
+        return $resource('/SAPo-FO/api/movement/QuantityBetweenDates/:tenantId', {tenantId : '@tenantId'}, {
             'get': {
-                method: 'GET',
+                method: 'POST',
                 tenantId: '@tenantId'
             }     
         });

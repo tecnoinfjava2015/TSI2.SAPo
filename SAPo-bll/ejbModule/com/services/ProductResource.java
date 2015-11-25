@@ -13,12 +13,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.bl.NotificationsParamBL;
 import com.bl.ProductBL;
 import com.entities.mongo.Product;
 
 @Path("/{virtualStorageId}/products")
 public class ProductResource {
-	ProductBL pbl = new ProductBL(); 
+	ProductBL pbl = new ProductBL();
+	NotificationsParamBL nobl = new NotificationsParamBL();
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -80,6 +82,7 @@ public class ProductResource {
 			@PathParam("barcode") String barcode, Product product) {
 		Product prodAux = pbl.getProductByBarCode(virtualStorageId, barcode);
 		product.setId(prodAux.getId());
+		nobl.changeNotificationState(product);
 		return pbl.updateProduct(product);
 	}
 

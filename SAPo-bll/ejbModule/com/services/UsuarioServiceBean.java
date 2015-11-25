@@ -46,6 +46,14 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	}
 	
 	@Override
+	public Usuario emailUpdate(UserBean input) {
+		Usuario u = udao.buscar(input.nick);
+		u.setMail(input.mail);
+		udao.modificar(u);
+		return u;
+	}
+
+	@Override
 	public List<Usuario> getUsuarios() {
 		return udao.listarUsuarios();
 	}
