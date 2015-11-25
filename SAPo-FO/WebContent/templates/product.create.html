@@ -75,8 +75,13 @@
 	        <label>C&oacute;digo de barras</label>
 	        <input ng-model="prod.barCode" required>
 	      </md-input-container>
+	       <md-input-container >
+		       <label>Categor&iacute;as</label>
 	       
-	       
+			    <md-chips ng-model="prod.chips" readonly="false">
+			    </md-chips>
+			</md-input-container>
+			  
 		  <div data-ng-repeat="field in fields" layout>
 		  <md-container layout="row">
 		  	<md-input-container>	  		

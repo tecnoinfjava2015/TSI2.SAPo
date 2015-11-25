@@ -2,17 +2,30 @@
 	'use strict';
 	angular.module('sapo').controller('ViewProductController',
 			ViewProductController);
-	ViewProductController.$inject = [ 'ProductsResource', '$scope' ];
+	ViewProductController.$inject = [ 'ProductsResource', '$scope', '$rootScope'];
 	/* @ngInject */
-	function ViewProductController(ProductsResource, $scope) {
+	function ViewProductController(ProductsResource, $scope, $rootScope) {
 		$scope.title = 'Producto';
 		var resource = new ProductsResource();
+		var vsId = 1;
+		if (typeof $rootScope.virtualStorageId !== 'undefined') {
+			vsId = $rootScope.virtualStorageId;
+		}
+		
 
 		ProductsResource.get({
-			tenantId : 279,
+			tenantId : vsId,
 			barcode : 'test'
 		}).$promise.then(function(result) {
 			$scope.product = result;
+			
+			//hardcodeo para testear lo que va a venir en el product
+			$scope.product.chips = [];
+			$scope.product.chips.push("Tecnologia");
+			$scope.product.chips.push("Celulares");
+			$scope.product.chips.push("Android");
+			//fin hardcodeo
+			
 			console.log($scope.product);
 
 			$scope.myInterval = 3000;

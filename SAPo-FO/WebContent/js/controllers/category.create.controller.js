@@ -3,12 +3,12 @@
     angular
         .module('sapo')
         .controller('CreateCategoryController', CreateCategoryController);
-    CreateCategoryController.$inject = ['CreateCategoryResource',  '$scope', '$cookies', '$location', '$mdDialog'];
+    CreateCategoryController.$inject = ['CreateCategoryResource',  '$scope', '$cookies', '$location', '$mdDialog', '$rootScope'];
     /* @ngInject */
-    function CreateCategoryController(CreateCategoryResource, $scope, $cookies, $location, $mdDialog) {
+    function CreateCategoryController(CreateCategoryResource, $scope, $cookies, $location, $mdDialog, $rootScope) {
     	$scope.fields = []; 
     	$scope.insert = insert;
-    	$scope.tenantId = 1;
+    	$scope.tenantId = $rootScope.virtualStorageId;
     	var userId = $cookies.getObject("sapoUser");
     	
     	$scope.cancel = cancel;
