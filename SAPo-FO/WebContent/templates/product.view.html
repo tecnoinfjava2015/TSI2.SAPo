@@ -1,45 +1,107 @@
 <md-content ng-cloak >
-	<h2>{{product.name}}</h2>
-	
-	<md-content layout layout="row">
-		<div style="width:50%">
-		</div>
-		<div>
-			<h4>Informaci&oacute;n general</h4>
-	
-			<table class="table table-hover" style="width:100%">
-				<tr >
-					<td style="width:30%; padding-right:10px">C&oacute;digo de barras:</td>
-					<td style="width:70%;">{{product.barCode}}</td>
-				</tr>
-				<tr>
-					<td style="width:30%; padding-right:10px">Descripci&oacute;n:</td>
-					<td style="width:70%;">{{product.description}}</td>
-				</tr>
-				<tr>
-					<td style="width:30%; padding-right:10px">Categor&iacute;as:</td>
-					<td style="width:70%;">{{product.categories}}</td>
-				</tr>
-				<tr>
-					<td style="width:30%; padding-right:10px">Palabras claves:</td>
-					<td style="width:70%;">{{product.chips}}</td>
-				</tr>
-				
-			</table>
-		</div>
-	</md-content>
-	
-	
-	<md-tabs md-dynamic-height md-border-bottom style="margin-top:5%">
-		<md-tab label="Hist&oacute;rico de stock">
-			<md-content class="md-padding" >
-			<div ng-include="virtualStorageView"></div>
-			</md-content>
-		</md-tab>
-		<md-tab label="Hist&oacute;rico de precios">
-			<md-content class="md-padding" >
-			<div ng-include="virtualStorageFollowingView"></div>
-			</md-content>
-		</md-tab>
-	</md-tabs>
+<h2 style="text-align: center;">{{product.name}}</h2>
+
+<!-- <script src="js/lib/ui-bootstrap-0.14.3.min.js" ></script> -->
+<!-- <link href="css/bootstrap.min.css" rel="stylesheet" /> -->
+
+ <div style="height: 300px; width: 400px; margin:20px auto;">
+   <uib-carousel interval="myInterval" no-wrap="noWrapSlides" >
+     <uib-slide ng-repeat="slide in slides" active="slide.active">
+       <img ng-src="{{slide.image}}" style="margin:auto; max-height: 280px;">
+       
+     </uib-slide>
+   </uib-carousel>
+ </div>
+
 </md-content>
+
+<style>
+.carousel {
+    height: 300px;
+}
+
+.carousel-inner > .item, .carousel-inner > .item:active {
+/* top: 50%; */
+transform: translateY(-50%);
+-webkit-transform: translateY(-50%);
+-ms-transform: translateY(-50%);
+}
+.carousel-inner {
+height: 100%;
+}
+.carousel-control.left {
+background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0) 100%);
+}
+.carousel-control.right {
+background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0.2) 100%);
+}
+
+</style>
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+<!-- =============================================================================== -->
+
+<md-content >
+<!-- <div style="width: 50%"> -->
+<!-- 	<div id="slides_control"> -->
+<!-- 		<div> -->
+<!-- 			<carousel interval="myInterval"> <slide -->
+<!-- 				ng-repeat="slide in slides" active="slide.active"> <img -->
+<!-- 				ng-src="{{slide.image}}"> -->
+<!-- 			<div class="carousel-caption"></div> -->
+<!-- 			</slide> </carousel> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->
+<div>
+	<h4>Informaci&oacute;n general</h4>
+
+	<table class="table table-hover" style="width: 100%">
+		<tr>
+			<td style="width: 30%; padding-right: 10px">C&oacute;digo de
+				barras:</td>
+			<td style="width: 70%;">{{product.barCode}}</td>
+		</tr>
+		<tr>
+			<td style="width: 30%; padding-right: 10px">Descripci&oacute;n:</td>
+			<td style="width: 70%;">{{product.description}}</td>
+		</tr>
+		<tr>
+			<td style="width: 30%; padding-right: 10px">Categor&iacute;as:</td>
+			<td style="width: 70%;">{{product.categories}}</td>
+		</tr>
+		<tr>
+			<td style="width: 30%; padding-right: 10px">Palabras clave:</td>
+			<td style="width: 70%;">
+			
+			<md-content class="md-padding" layout="column">
+			    <md-chips ng-model="product.chips" readonly="true">
+			    </md-chips>
+			  </md-content>
+			
+			</td>
+		</tr>
+	</table>
+</div>
+
+<style>
+md-content.md-test1-theme {
+	color: rgba(0,0,0,0.87);
+    background-color: rgba(0, 0, 0, 0);
+    padding: 0;
+}
+
+/* md-content.md-test1-theme md-chips:hover { */
+/* 	background-color: rgb(128, 128, 128); */
+/* } */
+</style>
+
+</md-content> <md-tabs md-dynamic-height md-border-bottom style="margin-top:5%">
+<md-tab label="Hist&oacute;rico de stock"> <md-content
+	class="md-padding">
+<div ng-include="virtualStorageView"></div>
+</md-content> </md-tab> <md-tab label="Hist&oacute;rico de precios"> <md-content
+	class="md-padding">
+<div ng-include="virtualStorageFollowingView"></div>
+</md-content> </md-tab> </md-tabs> </md-content>
+
