@@ -9,7 +9,7 @@
     	$scope.createCategory = createCategory;
     	$scope.editCategory = editCategory;
     	$scope.createProduct = createProduct;
-
+    	$cookies.remove("sapoCurrentVirtualStorage");
     	var res = $location.path().split("/");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
     	var count = virtualStorages.owned.length;
@@ -21,7 +21,7 @@
     		}
     	}
     	
-    	$cookies.put('sapoCurrentVirtualStorage', $scope.virtualStorageId);
+    	$cookies.put("sapoCurrentVirtualStorage", $scope.virtualStorageId);
     	    	
     	function createProduct(ev) {
     		$mdDialog.show({
