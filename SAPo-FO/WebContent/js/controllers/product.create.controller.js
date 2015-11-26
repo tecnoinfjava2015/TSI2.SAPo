@@ -3,9 +3,9 @@
     angular
         .module('sapo')
         .controller('CreateProductController', CreateProductController);
-    CreateProductController.$inject = ['CreateProductsResource',  '$scope', '$mdDialog', '$location', '$cookies', '$rootScope'];
+    CreateProductController.$inject = ['CreateProductsResource',  '$scope', '$mdDialog', '$location', '$cookies'];
     /* @ngInject */
-    function CreateProductController(CreateProductsResource, $scope, $mdDialog, $location, $cookies, $rootScope) {
+    function CreateProductController(CreateProductsResource, $scope, $mdDialog, $location, $cookies) {
     	$scope.title = 'Crear Producto';
     	$scope.fields = []; 
     	$scope.insert = insert;
@@ -13,7 +13,6 @@
     	$scope.addAttribute = addAttribute;
     	$scope.cancel = cancel;
     	$scope.showAlert = showAlert;
-    	$scope.tenantId = $rootScope.virtualStorageId;
     	
     	var res = $location.path().split("/");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");

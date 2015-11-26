@@ -3,25 +3,13 @@
     angular
         .module('sapo')
         .controller('VirtualStorageHomeController', VirtualStorageHomeController);
-    VirtualStorageHomeController.$inject = ['$scope', '$mdDialog', '$location', '$cookies', '$rootScope'];
+    VirtualStorageHomeController.$inject = ['$scope', '$mdDialog'];
     /* @ngInject */
-    function VirtualStorageHomeController($scope, $mdDialog, $location, $cookies, $rootScope) {
+    function VirtualStorageHomeController($scope, $mdDialog) {
     	$scope.createCategory = createCategory;
     	$scope.editCategory = editCategory;
     	$scope.createProduct = createProduct;
     	
-    	var res = $location.path().split("/");
-    	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
-    	var count = virtualStorages.owned.length;
-    	var i = 0;
-    	for (i = 0; i < count; i++) {
-    		if (virtualStorages.owned[i].name == res[2]) {
-    			$scope.virtualStorageName = virtualStorages.owned[i].name;
-    			$scope.virtualStorageId = virtualStorages.owned[i].id;
-    		}
-    	}
-    	
-    	$rootScope.virtualStorageId = $scope.virtualStorageId;
     	
     	function createProduct(ev) {
     		$mdDialog.show({

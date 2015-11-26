@@ -8,15 +8,8 @@
     function CategoriesSidenavController($scope, $location, CategoriesResource) {
         $scope.loading = true;
         $scope.linear = false;
-        
-        var vsId = 1;
-        if (typeof $rootScope.virtualStorageId !== 'undefined') {
-        	vsId = $rootScope.virtualStorageId;
-        }
-        
-        
         CategoriesResource.query({
-            tenantId: vsId,
+            tenantId: 1,
             limit: 10,
             starred: true
         }).$promise.then(function(result) {
