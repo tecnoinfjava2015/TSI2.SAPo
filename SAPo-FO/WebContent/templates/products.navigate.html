@@ -15,7 +15,7 @@
         <div ng-repeat="product in products" flex="grow"> 
             <md-card flex="grow">
                 <div layout="row"  layout-fill>
-                    <div flex="25" layout-margin class="productImage" style="background-image: url({{image}});">
+                    <div flex="25" layout-margin class="productImage" style="background-image: url({{product.images[0]}});">
 <!--                         <img class="md-card-image "  alt="image caption"> -->
                     </div>
                     <div flex="75" layout-margin layout-fill>
