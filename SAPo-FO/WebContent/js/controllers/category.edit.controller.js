@@ -3,12 +3,12 @@
     angular
         .module('sapo')
         .controller('EditCategoryController', EditCategoryController);
-    EditCategoryController.$inject = ['CreateCategoryResource',  '$scope', '$cookies', '$location', '$mdDialog'];
+    EditCategoryController.$inject = ['CreateCategoryResource',  '$scope', '$cookies', '$location', '$mdDialog', '$rootScope'];
     /* @ngInject */
-    function EditCategoryController(CreateCategoryResource, $scope, $cookies, $location, $mdDialog) {
+    function EditCategoryController(CreateCategoryResource, $scope, $cookies, $location, $mdDialog, $rootScope) {
     	$scope.fields = []; 
     	$scope.insert = insert;
-    	$scope.tenantId = 1;
+    	$scope.tenantId = $rootScope.virtualStorageId;
     	var userId = $cookies.getObject("sapoUser");
     	
     	$scope.cancel = cancel;
@@ -30,7 +30,7 @@
     		if (data != null && typeof data.name !== 'undefined') {
 	    		data.virtualStorageName = $scope.virtualStorageName;
 	    		data.virtualStorageId = $scope.virtualStorageId;
-	    		CreateCategoryResource.save({tenantId: $scope.tenantId },data,function(){
+	    		CreateCategoryResource.save({tenantId: $scope.virtualStorageId },data,function(){
 	    		showAlert('Exito!','Se ha creado su categor&iacute;a de forma exitosa');
 				}, function(r){
 					console.log(r);
