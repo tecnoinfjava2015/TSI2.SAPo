@@ -68,6 +68,12 @@ public class ProductMovementDAO {
 		return query.getSingleResult();
 	}
 
+	public List<ProductMovement> getMovimentsBetweenDates(long VSId, Date startD, Date endD){
+		TypedQuery<ProductMovement> query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.dateMov BETWEEN :startD AND :endD AND m.virtualStorageId=:VSId", ProductMovement.class)
+				.setParameter("startD", startD, TemporalType.DATE).setParameter("endD", endD, TemporalType.DATE).setParameter("VSId", VSId);
+		return query.getResultList();
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<ProductMovement> getByProductAndAV(long VSId, String bCode){
 		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.virtualStorageId=:VSId AND m.barCode=:bCode")

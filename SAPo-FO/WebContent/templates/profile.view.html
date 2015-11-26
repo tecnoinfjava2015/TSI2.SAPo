@@ -1,15 +1,17 @@
 <h1>{{test}}</h1>
 
-<form name="inputForm" novalidate>
+<form name="profileForm" novalidate>
 	<h3 class="md-headline">{{nick}}</h3>
     <md-input-container>
     <label>Email</label>
-      <input ng-model="mail" type="email" name="email" placeholder="(required)" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-required="true">
-      
-    <ng-messages for="inputForm.email.$error">
-	  <ng-message when="pattern">Ingrese un email v&aacute;lido</ng-message>
-	  <ng-message when="required">Ingrese su email</ng-message>
-	</ng-messages>
+      <input ng-model="mail" type="email" name="mail" placeholder="(required)" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-required="true">
+	    <ng-messages for="profileForm.mail.$error">
+		  <ng-message when="pattern">Ingrese un email v&aacute;lido</ng-message>
+		  <ng-message when="required">Ingrese su email</ng-message>
+		</ng-messages>
     </md-input-container>
-    <md-button class="md-raised md-primary" ng-disabled="inputForm.$invalid">Guardar</md-button>
+    
+    <md-dialog-actions class="md-actions" layout="row">
+		<md-button class="md-raised md-primary"	ng-click='submitMail(mail)' ng-disabled="profileForm.$invalid">Guardar</md-button> 
+	</md-dialog-actions> 
 </form>

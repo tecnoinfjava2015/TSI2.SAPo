@@ -19,6 +19,7 @@ import com.bl.ProductBL;
 import com.entities.mongo.Product;
 import com.entities.sql.VirtualStorage;
 import com.entities.sql.dao.VirtualStorageDAO;
+import com.google.gson.JsonObject;
 import com.services.interfaces.IProductBL;
 
 @Path("/VirtualStorage/")
@@ -59,7 +60,7 @@ public class VirtualStorageResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("owner/{ownerId}")
+	@Path("{ownerId}")
 	public List<VirtualStorage> getVirtualStorageByOwner(@PathParam("ownerId") int ownerId) {
 		List<VirtualStorage> virtualStorages = dao.getVirtualStorageByOwner(ownerId);
 		
@@ -75,10 +76,10 @@ public class VirtualStorageResource {
 		return virtualStorages;
 	}
 	
-	@POST
-	@Path("/worth")
+	@GET
+	@Path("worth/{tenantId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public double getVirtualStorageWorth(@QueryParam("id") int id){
+	public KeyValueBean getVirtualStorageWorth(@PathParam("tenantId") int id){
 		IProductBL productBL = new ProductBL();
 		List<Product>  products;
 		products = productBL.getAllProducts(id);
@@ -86,7 +87,8 @@ public class VirtualStorageResource {
 		for (Product p : products) {
 			result += (p.getPurchasePrice() * p.getStock());
 		}
-		return result;
+		KeyValueBean worth = new KeyValueBean(result);
+		return worth;
 	}
 
 }

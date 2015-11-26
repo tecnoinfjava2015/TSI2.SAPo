@@ -10,3 +10,21 @@
     }
 })(); 
 
+(function() {
+    'use strict';
+    angular
+        .module('sapo')
+        .factory('UserProfileResourceSubmit', UserProfileResourceSubmit);
+    UserProfileResourceSubmit.$inject = ['$resource'];
+    /* @ngInject */
+    function UserProfileResourceSubmit($resource) {
+        return $resource('/SAPo-FO/api/usuario/emailUpdate', {
+            'save': {
+                method: 'POST',
+                nick: '@nick',
+                mail: '@mail'
+            }     
+        });
+    }
+})();
+
