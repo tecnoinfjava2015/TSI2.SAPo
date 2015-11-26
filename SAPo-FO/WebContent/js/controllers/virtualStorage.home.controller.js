@@ -3,9 +3,9 @@
     angular
         .module('sapo')
         .controller('VirtualStorageHomeController', VirtualStorageHomeController);
-    VirtualStorageHomeController.$inject = ['$scope', '$mdDialog'];
+    VirtualStorageHomeController.$inject = ['$scope', '$mdDialog', '$location', '$cookies', '$rootScope'];
     /* @ngInject */
-    function VirtualStorageHomeController($scope, $mdDialog) {
+    function VirtualStorageHomeController($scope, $mdDialog, $location, $cookies, $rootScope ) {
     	$scope.createCategory = createCategory;
     	$scope.editCategory = editCategory;
     	$scope.createProduct = createProduct;

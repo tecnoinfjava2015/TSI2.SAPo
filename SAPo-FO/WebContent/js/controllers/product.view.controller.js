@@ -2,14 +2,14 @@
 	'use strict';
 	angular.module('sapo').controller('ViewProductController',
 			ViewProductController);
-	ViewProductController.$inject = [ 'ProductsResource', '$scope' ];
+	ViewProductController.$inject = [ 'ProductsResource', '$scope', '$rootScope' ];
 	/* @ngInject */
-	function ViewProductController(ProductsResource, $scope) {
+	function ViewProductController(ProductsResource, $scope, $rootScope) {
 		$scope.title = 'Producto';
 		var resource = new ProductsResource();
-
+		
 		ProductsResource.get({
-			tenantId : 279,
+			tenantId : $rootScope.virtualStorageId,
 			barcode : 'test'
 		}).$promise.then(function(result) {
 			$scope.product = result;
