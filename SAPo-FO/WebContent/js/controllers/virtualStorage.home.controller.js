@@ -21,13 +21,8 @@
     		}
     	}
     	
-    	if (typeof $scope.virtualStorageId !== 'undefined') {
-        	$rootScope.virtualStorageId = $scope.virtualStorageId;
-    	}
-    	else {
-        	$rootScope.virtualStorageId = 1;
-    	}
-    	
+    	$cookies.put('sapoCurrentVirtualStorage', $scope.virtualStorageId);
+    	    	
     	function createProduct(ev) {
     		$mdDialog.show({
     	    	controller: 'CreateProductController',

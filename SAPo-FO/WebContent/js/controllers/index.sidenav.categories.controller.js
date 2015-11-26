@@ -3,17 +3,20 @@
     angular
         .module('sapo')
         .controller('CategoriesSidenavController', CategoriesSidenavController);
-    CategoriesSidenavController.$inject = ['$scope', '$location', 'CategoriesResource', '$rootScope'];
+    CategoriesSidenavController.$inject = ['$scope', '$location', 'CategoriesResource', 
+                                           '$cookies', '$rootScope'];
     /* @ngInject */
-    function CategoriesSidenavController($scope, $location, CategoriesResource, $rootScope) {
+    function CategoriesSidenavController($scope, $location, CategoriesResource, $cookies, $rootScope) {
         $scope.loading = true;
         $scope.linear = false;
-        var vsId = 1;
-        if (typeof $rootScope.virtualStorageId !== 'undefined') {
-        	vsId = $rootScope.virtualStorageId;
-        }
+
+        var res = $location.path().split("/");
+    	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
+    	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
+    	$scope.virtualStorageName = res[2];
+        
         CategoriesResource.query({
-            tenantId: vsId,
+            tenantId: $scope.virtualStorageId,
             limit: 10,
             starred: true
         }).$promise.then(function(result) {

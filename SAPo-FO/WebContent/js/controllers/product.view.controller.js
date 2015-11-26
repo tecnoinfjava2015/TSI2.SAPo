@@ -2,14 +2,19 @@
 	'use strict';
 	angular.module('sapo').controller('ViewProductController',
 			ViewProductController);
-	ViewProductController.$inject = [ 'ProductsResource', '$scope', '$rootScope' ];
+	ViewProductController.$inject = [ 'ProductsResource', '$scope', '$cookies', '$location' ];
 	/* @ngInject */
-	function ViewProductController(ProductsResource, $scope, $rootScope) {
+	function ViewProductController(ProductsResource, $scope, $cookies, $location) {
 		$scope.title = 'Producto';
 		var resource = new ProductsResource();
 		
+		var res = $location.path().split("/");
+    	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
+    	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
+    	$scope.virtualStorageName = res[2];
+		
 		ProductsResource.get({
-			tenantId : $rootScope.virtualStorageId,
+			tenantId : $scope.virtualStorageId,
 			barcode : 'test'
 		}).$promise.then(function(result) {
 			$scope.product = result;

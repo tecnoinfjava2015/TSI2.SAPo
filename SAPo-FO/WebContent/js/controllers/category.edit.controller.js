@@ -8,23 +8,19 @@
     function EditCategoryController(CreateCategoryResource, $scope, $cookies, $location, $mdDialog, $rootScope) {
     	$scope.fields = []; 
     	$scope.insert = insert;
-    	$scope.tenantId = $rootScope.virtualStorageId;
+
+
+    	var res = $location.path().split("/");
+    	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
+    	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
+    	$scope.virtualStorageName = res[2];
+    	
+    	
     	var userId = $cookies.getObject("sapoUser");
     	
     	$scope.cancel = cancel;
     	$scope.showAlert = showAlert;
-    	
-    	var res = $location.path().split("/");
-    	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
-    	var count = virtualStorages.owned.length;
-    	var i = 0;
-    	for (i = 0; i < count; i++) {
-    		if (virtualStorages.owned[i].name == res[2]) {
-    			$scope.virtualStorageName = virtualStorages.owned[i].name;
-    			$scope.virtualStorageId = virtualStorages.owned[i].id;
-    		}
-    	}
-    	
+    	   	
     	
     	function insert( data) {   
     		if (data != null && typeof data.name !== 'undefined') {
