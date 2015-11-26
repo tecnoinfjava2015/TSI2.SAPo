@@ -7,10 +7,7 @@
 		md-items="item in vm.loadProducts(filterText)"
 		md-item-text="item.name" md-search-text="filterText">
 	<md-item-template> <span
-		md-highlight-text="searchText">{{ item.name }}</span> </md-item-template> <md-not-found>Ning&uacute;n
+		md-highlight-text="searchText" md-highlight-flags="^i"> {{ item.name }}</span> </md-item-template> <md-not-found>Ning&uacute;n
 	producto para esa descripci&oacute;n.</md-not-found> </md-autocomplete>
-	<h3>{{vm.test}}</h3>
-	<md-button ng-click="vm.loadProducts('test')"></md-button>
 
-
-</form>  
+</form>
