@@ -26,16 +26,34 @@
 			$scope.product.chips.push("Android");
 			//fin hardcodeo
 			
+			if($scope.product.categories != null) {
+				var count = $scope.product.categories.lenght;
+				var k = 0;
+				for (k = 0; k < count; k++) {
+					var category = $scope.product.categories[k];
+					$scope.product.chips.push(category.name);
+				}
+			}
+			
 			console.log($scope.product);
 
 			$scope.myInterval = 3000;
-			var i = 0;
-			$scope.slides = [];
-			var count = $scope.product.images.length;
-			for (i = 0; i < count; i++) {
+			
+			if ($scope.product.images != null) { //si el producto no tiene imagenes... le cargo una default?
+				var i = 0;
+				$scope.slides = [];
+				var count = $scope.product.images.length;
+				for (i = 0; i < count; i++) {
+					var slide = [];
+					slide.image = $scope.product.images[i];
+					slide.active = false;
+					$scope.slides.push(slide);
+				}
+			} else {
+				$scope.slides = [];
 				var slide = [];
-				slide.image = $scope.product.images[i];
-				slide.active = false;
+				slide.image = "http://2.bp.blogspot.com/-qgXP4QFYLvY/Uj4q7um1gBI/AAAAAAAAHAE/7VH2vszmAfs/s1600/imagen_no_disponible.gif";
+				slide.active = true;
 				$scope.slides.push(slide);
 			}
 			

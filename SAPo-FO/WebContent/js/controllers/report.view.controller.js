@@ -7,24 +7,29 @@
 			return moment(date).format('YYYY-MM-DD');
 		};
 	});
-	ReportsController.$inject = ['ReportsResource', '$scope' ];
+	ReportsController.$inject = ['ReportsResource', 'ReportsResourceVSWorth', 'ReportsResourceMovList', '$scope' ];
 	/* @ngInject */
-	function ReportsController(ReportsResource, $scope) {
-		//$scope.title = 'Hola Araujo!!';
-//		$scope.fromDate = null;
-//		$scope.toDate = null;
+	function ReportsController(ReportsResource, ReportsResourceVSWorth, ReportsResourceMovList, $scope) {
 		$scope.today = new Date();
-		$scope.vsValue = '$ '+'321'+',00'; //llamar a /api/VirtualStorage/worth?id={int}
 
-		ReportsResource.get({
-            tenantId: 290
+//		ReportsResource.get({
+//            tenantId: 1
+//    	}).$promise.then(function(result) {
+//            $scope.movementQty = result;
+//            console.log("qty:");
+//            console.log($scope.movementQty);
+//        });
+				
+		ReportsResourceVSWorth.get({
+            tenantId: 1
     	}).$promise.then(function(result) {
-            $scope.movementQty = result;
-            console.log($scope.movementQty);
+            $scope.vsWorth = "$ " + result.data;
         });
 		
-		
+		ReportsResourceMovList.query({tenantId: 1}, {fromDate: '2015-11-20', toDate: '2015-11-25'})
+		.$promise.then(function(result) {
+            $scope.movements = result;
+        });
+
 	}
-	
-	
 })();

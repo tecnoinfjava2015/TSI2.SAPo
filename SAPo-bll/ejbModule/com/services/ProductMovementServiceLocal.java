@@ -49,6 +49,13 @@ public interface ProductMovementServiceLocal{
 	public long getMovementQuantityBetweenDates( @PathParam("vsid") long VSId,
 			IntervalDates dates);
 	
+	@POST
+	@Path("/ListBetweenDates/{vsid}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ProductMovement> getMovementsBetweenDates( @PathParam("vsid") long VSId,
+			IntervalDates dates);
+	
 	@GET
 	@Path("/byProdAndAV")
 	@Produces(MediaType.APPLICATION_JSON)

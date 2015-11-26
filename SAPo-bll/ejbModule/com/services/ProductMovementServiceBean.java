@@ -44,6 +44,12 @@ public class ProductMovementServiceBean implements ProductMovementServiceLocal{
 	}
 
 	@Override
+	public List<ProductMovement> getMovementsBetweenDates(long VSId, IntervalDates dates) {
+		//return pmdao.getMovimentQuantityBetweenDates(VSId, dates.getDate1(), dates.getDate2());
+		return pmdao.getMovimentsBetweenDates(VSId, dates.getFromDate(), dates.getToDate());
+	}
+
+	@Override
 	public List<ProductMovement> getByProductAndAV(long VSId, String barcode) {
 		return pmdao.getByProductAndAV(VSId, barcode);
 	}
