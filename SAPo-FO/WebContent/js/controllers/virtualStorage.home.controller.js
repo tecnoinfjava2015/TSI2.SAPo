@@ -9,7 +9,24 @@
     	$scope.createCategory = createCategory;
     	$scope.editCategory = editCategory;
     	$scope.createProduct = createProduct;
+
+    	var res = $location.path().split("/");
+    	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
+    	var count = virtualStorages.owned.length;
+    	var i = 0;
+    	for (i = 0; i < count; i++) {
+    		if (virtualStorages.owned[i].name == res[2]) {
+    			$scope.virtualStorageName = virtualStorages.owned[i].name;
+    			$scope.virtualStorageId = virtualStorages.owned[i].id;
+    		}
+    	}
     	
+    	if (typeof $scope.virtualStorageId !== 'undefined') {
+        	$rootScope.virtualStorageId = $scope.virtualStorageId;
+    	}
+    	else {
+        	$rootScope.virtualStorageId = 1;
+    	}
     	
     	function createProduct(ev) {
     		$mdDialog.show({
