@@ -1,11 +1,29 @@
-<h2>{{title}}</h2>
+<style>
+.md-pane-open .md-datepicker-calendar {
+    background: beige;
+}
+#datePicker h4 {
+	margin-left: 2em;
+}
+</style>
 
-
-<div style='padding: 40px;' ng-cloak>
-  <md-content layout layout="row">
-  <h4>Movimientos Desde</h4>
-  <md-datepicker ng-model="myDate" md-placeholder="Desde" md-max-date="dateFromMax"></md-datepicker>
-  <h4>Movimientos Hasta</h4>
-  <md-datepicker ng-model="myDate" md-placeholder="Hasta" md-min-date="dateToMax"></md-datepicker>
-  </md-content>
-</div>
+<md-content flex layout-padding>
+	<p>
+	<md-content>
+		<h4>Valor Actual del Almac&eacute;n</h4>
+		<md-whiteframe class="md-whiteframe-7dp" flex="25" layout layout-align="center center">
+		    <span>{{vsValue}}</span>
+		</md-whiteframe>
+	</md-content>
+	</p>
+	<p style="margin-top: 45px;">
+	<md-content layout layout="row">
+		<h4>Cantidad de Movimientos</h4>
+		<span>Desde </span><md-datepicker ng-model="fromDate" md-placeholder="Desde" md-max-date="today"></md-datepicker>
+		<span style="margin-left: 50px;">Hasta </span><md-datepicker ng-model="toDate" md-placeholder="Hasta" md-min-date="fromDate"></md-datepicker>
+		<p>
+		<md-button ng-click="getMovements()" class="md-raised md-primary" >Ver Resultado</md-button>
+		</p>
+	</md-content>
+	</p>
+</md-content>

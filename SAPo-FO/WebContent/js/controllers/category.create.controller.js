@@ -8,29 +8,22 @@
     function CreateCategoryController(CreateCategoryResource, $scope, $cookies, $location, $mdDialog) {
     	$scope.fields = []; 
     	$scope.insert = insert;
-    	$scope.tenantId = 1;
+    	
     	var userId = $cookies.getObject("sapoUser");
     	
     	$scope.cancel = cancel;
     	$scope.showAlert = showAlert;
     	
     	var res = $location.path().split("/");
+    	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
-    	var count = virtualStorages.owned.length;
-    	var i = 0;
-    	for (i = 0; i < count; i++) {
-    		if (virtualStorages.owned[i].name == res[2]) {
-    			$scope.virtualStorageName = virtualStorages.owned[i].name;
-    			$scope.virtualStorageId = virtualStorages.owned[i].id;
-    		}
-    	}
-    	
+    	$scope.virtualStorageName = res[2];
     	
     	function insert( data) {   
     		if (data != null && typeof data.name !== 'undefined') {
 	    		data.virtualStorageName = $scope.virtualStorageName;
 	    		data.virtualStorageId = $scope.virtualStorageId;
-	    		CreateCategoryResource.save({tenantId: $scope.tenantId },data,function(){
+	    		CreateCategoryResource.save({tenantId: $scope.virtualStorageId },data,function(){
 	    		showAlert('Exito!','Se ha creado su categor&iacute;a de forma exitosa');
 				}, function(r){
 					console.log(r);

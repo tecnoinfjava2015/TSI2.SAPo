@@ -45,6 +45,11 @@ public interface UsuarioServiceLocal {
 								  @QueryParam("enabled") Boolean enabled,
 								  @QueryParam("aceptado") Boolean aceptado);
 	
+	@POST
+	@Path("/emailUpdate")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Usuario emailUpdate( UserBean input );
+	
 	@GET
 	@Path("/listar")
 	@Produces(MediaType.APPLICATION_JSON)
