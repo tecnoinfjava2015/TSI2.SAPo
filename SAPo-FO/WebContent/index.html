@@ -56,6 +56,7 @@
 	<script src="js/controllers/product.view.controller.js"></script>
 	<script src="js/controllers/report.view.controller.js"></script>
     <script src="js/controllers/product.movement.create.controller.js"></script>
+    <script src="js/controllers/chat.controller.js"></script>
 	
     <!-- Directives js files -->
     <script src="js/directives/user.avatar.directive.js"></script>
@@ -94,7 +95,7 @@
                 </div>
             </md-toolbar>
             <div ng-include="index.navTopLeft"></div>
-            <div ng-include="index.navBottomLeft"></div>
+            <div ng-include="'chat.html'"></div>
         </md-sidenav>
         <div layout="column" flex>
             <md-toolbar ng-include="index.toolbarTemplate"> </md-toolbar>
