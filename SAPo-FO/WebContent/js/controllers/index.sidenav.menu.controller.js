@@ -11,12 +11,12 @@
             name: "Home",
             url: "/"
         }];
-        var item = {
+        /*var item = {
             icon:"airplay",
             name: "Test",
             url: "/test"
         }
-        $scope.menu.push(item);
+        $scope.menu.push(item);*/
         
         var item = {
                 icon:"dashboard",
