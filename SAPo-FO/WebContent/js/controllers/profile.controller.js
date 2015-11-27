@@ -3,20 +3,16 @@
     angular
         .module('sapo')
         .controller('UserProfileController', UserProfileController);
-    UserProfileController.$inject = [/*'UserProfileResource', */ 'UserProfileResourceSubmit', '$scope', '$cookies'];
+    UserProfileController.$inject = [ 'UserProfileResourceSubmit', '$scope', '$cookies', '$mdDialog' ];
     /* @ngInject */
-    function UserProfileController(/*UserProfileResource, */UserProfileResourceSubmit, $scope, $cookies) {
+    function UserProfileController(UserProfileResourceSubmit, $scope, $cookies, $mdDialog) {
     	$scope.test = 'Perfil de usuario';    	
-    	
     	var user = $cookies.getObject("sapoUser");
     	$scope.nick = user.nick;
     	$scope.mail = user.mail;
+    	var alert;
+    	//$scope.showDialog = showDialog;
     	
-    	//el valor del input esta bindeado con $scope.mail
-    	//al guardar hay que llamar al rest: /api/usuario/emailUpdate (POST)
-    	//con un body: {"nick":"nick_del_cristiano","mail":"nuevo_email"} 
-    	//eso devuelve el nuevo json del usuario completito, incluyendo el nuevo email
-    	//que supongo se tendría que volver a cargar en la cookie
         $scope.submitMail = function(){
     	    UserProfileResourceSubmit.save({nick: $scope.nick, mail: $scope.mail})
     		.$promise.then(function(result) {
@@ -25,8 +21,18 @@
     	    });
     	    user.mail = $scope.mail;
     	    console.log(user);
-    	    $cookies.put("sapoUser", angular.toJson(user));
-        	//console.log(user);
+    	    $cookies.put("sapoUser", JSON.stringify(user));
+        	//TODO: tirar un alert o cosa linda que diga que se cambió OK.
+	        alert = $mdDialog.alert()
+	          .title('Exito!')
+	          .content('Se ha cambiado su email correctamente')
+	          .ok('Cerrar');
+
+	        $mdDialog
+	            .show( alert )
+	            .finally(function() {
+	              alert = undefined;
+	            });
         }
     }
     

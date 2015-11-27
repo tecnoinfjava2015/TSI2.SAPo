@@ -3,22 +3,33 @@
     angular
         .module('sapo')
         .controller('ProductMovementController', ProductMovementController);
-    ProductMovementController.$inject = ['$scope','$mdDialog'];
+    ProductMovementController.$inject = ['$scope','$mdDialog','ProductMovementDataService'];
     /* @ngInject */
-    function ProductMovementController($scope,$mdDialog) {
+    function ProductMovementController($scope,$mdDialog,ProductMovementDataService) {
     	var vm = this;
-		vm.title = "Nuevo Movimiento";
 		vm.newMovement=newMovement;
 
-		function newMovement(type){
+		function newMovement(ev,type){
 			switch(type) {
 				case '+':
-					alert("ENTRADA DE STOOOOOCK");
+					ProductMovementDataService.data.title = "Entrada de stock";
+					ProductMovementDataService.data.modifier = 1;				
+					console.log(ProductMovementDataService.data);
 					break;
 				case '-':
-					alert("SALIDA DE STOOOOOCK");
+					ProductMovementDataService.data.title = "Salida de stock";
+					ProductMovementDataService.data.modifier = -1;
+					console.log(ProductMovementDataService.data);
 					break;
 			}
+			$mdDialog.show({
+    	    	controller: 'ProductMovementCreateController',
+                templateUrl: 'templates/product.movement.create.html',
+    	    	
+    	        parent: angular.element(document.body),
+    	        targetEvent: ev,
+    	        clickOutsideToClose:true
+    	    })
 		}
     }  
 })();

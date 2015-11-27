@@ -56,7 +56,8 @@
 	<script src="js/controllers/product.view.controller.js"></script>
 	<script src="js/controllers/report.view.controller.js"></script>
     <script src="js/controllers/product.movement.create.controller.js"></script>
-    
+    <script src="js/controllers/chat.controller.js"></script>
+	
     <!-- Directives js files -->
     <script src="js/directives/user.avatar.directive.js"></script>
     <!-- Factories js files -->
@@ -65,6 +66,9 @@
     <script src="js/factories/virtualStorage.resource.factory.js"></script>
     <script src="js/factories/profile.resource.factory.js" type="text/javascript"></script>
 	<script src="js/factories/reports.resource.factory.js"></script>
+	<script src="js/factories/product.movement.factory.js"></script> 
+	<!-- Services js files -->
+    <script src="js/services/product.movement.service.js"></script>
 </head>
 
 <body>
@@ -91,7 +95,7 @@
                 </div>
             </md-toolbar>
             <div ng-include="index.navTopLeft"></div>
-            <div ng-include="index.navBottomLeft"></div>
+            <div ng-include="'chat.html'"></div>
         </md-sidenav>
         <div layout="column" flex>
             <md-toolbar ng-include="index.toolbarTemplate"> </md-toolbar>
@@ -104,11 +108,11 @@
                 </md-fab-trigger>
                 <md-fab-actions>
                 	<!-- MENU PRODUCTS NAVIGATE -->
-                    <md-button ng-if="index.ProductsNavigationMenu" aria-label="AddStock" class="md-fab md-raised md-mini md-accent" ng-controller="ProductMovementController as pm" ng-click="pm.newMovement('+')">
+                    <md-button ng-if="index.ProductsNavigationMenu" aria-label="AddStock" class="md-fab md-raised md-mini md-accent" ng-controller="ProductMovementController as pm" ng-click="pm.newMovement($event,'+')">
                         <md-tooltip md-direction="top">Entrada de stock</md-tooltip>
                         <md-icon>add_circle</md-icon>
                     </md-button>
-                    <md-button ng-if="index.ProductsNavigationMenu" aria-label="RemoveStock" class="md-fab md-raised md-mini md-accent" ng-controller="ProductMovementController as pm" ng-click="pm.newMovement('-')">
+                    <md-button ng-if="index.ProductsNavigationMenu" aria-label="RemoveStock" class="md-fab md-raised md-mini md-accent" ng-controller="ProductMovementController as pm" ng-click="pm.newMovement($event,'-')">
                         <md-tooltip md-direction="top">Salida de stock</md-tooltip>
                         <md-icon>remove_circle</md-icon>
                     </md-button>

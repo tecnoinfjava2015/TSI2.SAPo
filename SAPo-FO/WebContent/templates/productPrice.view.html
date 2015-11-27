@@ -1,0 +1,15 @@
+<md-content>
+	<div>
+		<table class="table table-hover">
+			<tr>
+				<th>Fecha</th>
+				<th style="text-align: center">Precio</th>
+			</tr>
+			<tr ng-repeat="item in pricemovements" ng-class-odd="odd" ng-class-even="even">
+		      <td>{{ item.dateMov | date:'yyyy-MM-dd' }}</td>
+		      <td style="text-align: center">$ {{ item.finalPrice }}</td>
+		      <td>&nbsp</td>
+		 	</tr>
+		</table>
+	</div>
+</md-content>

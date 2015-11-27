@@ -14,20 +14,21 @@
     	$scope.virtualStorageName = res[2];
 		
 		ProductsResource.get({
-			tenantId : $scope.virtualStorageId,
-			barcode : 'test'
+			tenantId : '1',
+//			tenantId : $scope.virtualStorageId,
+			barcode : '1.1234567890'
 		}).$promise.then(function(result) {
 			$scope.product = result;
 			
 			//hardcodeo para testear lo que va a venir en el product
 			$scope.product.chips = [];
-			$scope.product.chips.push("Tecnologia");
-			$scope.product.chips.push("Celulares");
-			$scope.product.chips.push("Android");
+//			$scope.product.chips.push("Tecnologia");
+//			$scope.product.chips.push("Celulares");
+//			$scope.product.chips.push("Android");
 			//fin hardcodeo
 			
 			if($scope.product.categories != null) {
-				var count = $scope.product.categories.lenght;
+				var count = $scope.product.categories.length;
 				var k = 0;
 				for (k = 0; k < count; k++) {
 					var category = $scope.product.categories[k];
@@ -59,5 +60,59 @@
 			
 		});
 
+	}
+})();
+
+(function() {
+	'use strict';
+	angular.module('sapo').controller('ViewProductStockController',
+			ViewProductStockController);
+	ViewProductStockController.$inject = [ 'ProductStockResource', '$scope', '$cookies', '$location' ];
+	/* @ngInject */
+	function ViewProductStockController(ProductStockResource, $scope, $cookies, $location) {
+    	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
+		
+		ProductStockResource.query({
+//			VSId : $scope.virtualStorageId,
+//			barcode : $scope.product.barcode
+			VSId : '1',
+			barcode : '1.1234567890'
+		}).$promise.then(function(result) {
+			$scope.stockmovements = result;
+			
+			if($scope.stockmovements != null) {
+				var count = $scope.stockmovements.length;
+				var j;
+				var finalStock = $scope.stockmovements[0].stock;
+				$scope.stockmovements[0].finalStock = finalStock;
+				
+				for (j = 1; j < count; j++) {
+					finalStock += $scope.stockmovements[j].stock;
+					$scope.stockmovements[j].finalStock = finalStock;
+				}
+			}
+			console.log($scope.stockmovements);
+		});
+	}
+})();
+
+(function() {
+	'use strict';
+	angular.module('sapo').controller('ViewProductPriceController',
+			ViewProductPriceController);
+	ViewProductPriceController.$inject = [ 'ProductPriceResource', '$scope', '$cookies', '$location' ];
+	/* @ngInject */
+	function ViewProductPriceController(ProductPriceResource, $scope, $cookies, $location) {
+    	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
+		
+		ProductPriceResource.query({
+//			VSId : $scope.virtualStorageId,
+//			barcode : $scope.product.barcode
+			VSId : '1',
+			barcode : '1.1234567890'
+		}).$promise.then(function(result) {
+			$scope.pricemovements = result;
+			console.log($scope.pricemovements);
+		});
 	}
 })();

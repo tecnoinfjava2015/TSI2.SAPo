@@ -1,13 +1,40 @@
-<h1>{{title}}</h1>
-<form name="inputForm" novalidate>
+<md-dialog aria-label="Nuevo Movimiento de Producto" ng-cloak>
 
-
-	<md-autocomplete md-selected-item="vm.test"
-		md-search-text-change="vm.loadProducts(filterText)" md-min-length="3"
-		md-items="item in vm.loadProducts(filterText)"
-		md-item-text="item.name" md-search-text="filterText">
-	<md-item-template> <span
-		md-highlight-text="searchText" md-highlight-flags="^i"> {{ item.name }}</span> </md-item-template> <md-not-found>Ning&uacute;n
-	producto para esa descripci&oacute;n.</md-not-found> </md-autocomplete>
-
-</form>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{title}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()"> <i class="material-icons" aria-label="Close dialog">clear</i> </md-button>
+        </div>
+    </md-toolbar>
+    <div layout-margin layout-padding>
+    <form name="inputForm" novalidate>
+        <md-autocomplete md-selected-item="product" md-selected-item-change="getProduct()" md-search-text-change="loadProducts(filterText)" md-min-length="3" md-items="item in loadProducts(filterText)" md-item-text="item.name" md-search-text="filterText" placeholder="Producto">
+            <md-item-template>
+                <span md-highlight-text="filterText" md-highlight-flags="^i"> {{ item.name }}</span>
+            </md-item-template>
+            <md-not-found>Ning&uacute;n producto para esa descripci&oacute;n.</md-not-found>
+        </md-autocomplete>
+        <md-input-container>
+            <label></label>
+            <input ng-model="movement.barCode" name="barCode" disabled>
+        </md-input-container>
+        <div layout="row" layout-wrap>
+            <md-input-container flex-gt-sd="50">
+                <label>Precio</label> 
+                <input ng-model="movement.finalPrice" name="precio" required>
+            </md-input-container>
+            <md-input-container flex-gt-sd="50">
+                <label>Cantidad</label>
+                <input ng-model="movement.stock" name="stock">
+            </md-input-container>
+        </div>
+        <md-dialog-actions class="md-actions" layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" ng-click='insert()'>Crear</md-button>
+            <md-button class="md-raised" ng-click="reset()">Limpiar</md-button>
+        </md-dialog-actions>
+    </form>
+    </div>
+</md-dialog>
+ 
