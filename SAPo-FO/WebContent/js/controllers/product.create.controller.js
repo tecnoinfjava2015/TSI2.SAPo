@@ -3,9 +3,9 @@
     angular
         .module('sapo')
         .controller('CreateProductController', CreateProductController);
-    CreateProductController.$inject = ['CreateProductsResource',  '$scope', '$mdDialog', '$location', '$cookies'];
+    CreateProductController.$inject = ['CreateProductsResource', 'CategoriesResource' ,'$scope', '$mdDialog', '$location', '$cookies'];
     /* @ngInject */
-    function CreateProductController(CreateProductsResource, $scope, $mdDialog, $location, $cookies) {
+    function CreateProductController(CreateProductsResource, CategoriesResource, $scope, $mdDialog, $location, $cookies) {
     	$scope.title = 'Crear Producto';
     	$scope.fields = []; 
     	$scope.insert = insert;
@@ -13,6 +13,10 @@
     	$scope.addAttribute = addAttribute;
     	$scope.cancel = cancel;
     	$scope.showAlert = showAlert;
+    	$scope.categoriesAux = [];
+    	$scope.selected = [];
+    	$scope.toggle = toggle;
+    	$scope.exists = exists;
     	
     	var res = $location.path().split("/");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
@@ -27,6 +31,11 @@
     	
     	console.log($scope.tenantId);
     	
+    	CategoriesResource.query({
+            tenantId: $scope.tenantId
+        }).$promise.then(function(result) {
+            $scope.categories = result;
+        });
     	
     	$scope.Spec = Spec;
     	
@@ -35,7 +44,23 @@
 		}
     	
     	function insert( data) {   
+    		
     		if (data != null && typeof data.name !== 'undefined' && typeof data.barCode !== 'undefined' ) {
+    			var i = 0;
+    			data.categories = [];
+    			for (i = 0; i < $scope.selected.length; i++) {
+    				var category = new Category( $scope.selected[i].name, $scope.selected[i].virtualStorageId, $scope.selected[i].virtualStorageName);
+    				console.log($scope.category);
+	    			data.categories.push(category);
+    				/*var cat = [];
+    				cat.name = $scope.selected[i].name;
+    				cat.virtualStorageId = $scope.selected[i].virtualStorageId;
+    				cat.virtualStorageName = $scope.selected[i].virtualStorageName;
+    				cat.starred = $scope.selected[i].starred;
+    				data.categories.push(cat);*/
+    			}
+    			
+    			/*data.categories = $scope.selected;*/
     			$scope.loading = true;
 	    		var images = $scope.images;
 	    		if (images != null && typeof images !== 'undefined') {
@@ -82,6 +107,19 @@
     		}
     	}
     	
+    	
+    	 
+    	function toggle (item, list) {
+	        var idx = list.indexOf(item);
+	        if (idx > -1) list.splice(idx, 1);
+	        else list.push(item);
+	    };
+	    
+	     
+	    function exists(item, list) {
+	        return list.indexOf(item) > -1;
+	      };
+    	
     	function addAttribute() {
     		$scope.fields.push({});
     	}
@@ -89,6 +127,12 @@
     	function Spec(name, value) {
     		this.name = name;
     		this.value = value;
+    	}
+    	
+    	function Category(name, virtualStorageId, virtualStorageName) {
+    		this.name = name;
+    		this.virtualStorageId = virtualStorageId;
+    		this.virtualStorageName = virtualStorageName;
     	}
     	
     	function showAlert(title,content) {
