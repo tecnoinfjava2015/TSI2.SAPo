@@ -1,0 +1,17 @@
+<md-content>
+	<div>
+		<table class="table table-hover">
+			<tr>
+				<th>Fecha</th>
+				<th>Cambio de Stock</th>
+				<th>Stock Final</th>	
+			</tr>
+			<tr ng-repeat="item in stockmovements" ng-class-odd="odd" ng-class-even="even">
+		      <td>{{ item.dateMov | date:'yyyy-MM-dd' }}</td>
+		      <td>{{ item.stock }}</td>
+		      <td>{{ item.finalStock }}</td>
+		      <td>&nbsp</td>
+		 	</tr>
+		</table>
+	</div>
+</md-content>

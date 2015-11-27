@@ -95,9 +95,9 @@ md-content.md-test1-theme {
 </md-content> <md-tabs md-dynamic-height md-border-bottom style="margin-top:5%">
 <md-tab label="Hist&oacute;rico de stock"> <md-content
 	class="md-padding">
-<div ng-include="virtualStorageView"></div>
+<div ng-include="productStockView" ng-controller="ViewProductStockController as vpsctrl"></div>
 </md-content> </md-tab> <md-tab label="Hist&oacute;rico de precios"> <md-content
 	class="md-padding">
-<div ng-include="virtualStorageFollowingView"></div>
+<div ng-include="productPriceView" ng-controller="ViewProductPriceController as vpctrl"></div>
 </md-content> </md-tab> </md-tabs> </md-content>
 

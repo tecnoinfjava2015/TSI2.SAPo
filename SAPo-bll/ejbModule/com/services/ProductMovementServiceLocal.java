@@ -67,17 +67,17 @@ public interface ProductMovementServiceLocal{
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ProductMovement> getByAV( @QueryParam("VSId") long VSId );
 	
-	@GET
-	@Path("/wherePriceChange")
+	@POST
+	@Path("/wherePriceChange/{VSId}/{barcode}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ProductMovement> getWherePriceChange( @QueryParam("VSId") long VSId,
-			@QueryParam("barcode") String barcode );
+	public List<ProductMovement> getWherePriceChange( @PathParam("VSId") long VSId,
+			@PathParam("barcode") String barcode );
 	
-	@GET
-	@Path("/whereStockChangeByProduct")
+	@POST
+	@Path("/whereStockChangeByProduct/{VSId}/{barcode}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ProductMovement> getWhereStockChangeByProduct( @QueryParam("VSId") long VSId,
-			@QueryParam("barcode") String barcode );
+	public List<ProductMovement> getWhereStockChangeByProduct( @PathParam("VSId") long VSId,
+			@PathParam("barcode") String barcode );
 	
 	@GET
 	@Path("/whereStockChangeBetweenDates")

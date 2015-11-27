@@ -92,7 +92,7 @@ public class ProductMovementDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<ProductMovement> getWherePriceChange(long VSId, String bCode){
-		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.virtualStorageId=:VSId AND m.barCode=:bCode AND m.initialPrice <> m.finalPrice")
+		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.virtualStorageId=:VSId AND m.barCode=:bCode AND m.initialPrice <> m.finalPrice ORDER BY m.movimentID ASC")
 				.setParameter("VSId", VSId).setParameter("bCode", bCode);
 		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
 		return PMList;
@@ -108,7 +108,7 @@ public class ProductMovementDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<ProductMovement> getWhereStockChangeByProduct(long VSId, String bCode){
-		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.virtualStorageId=:VSId AND m.barCode=:bCode AND m.stock <> 0")
+		Query query =  em.createQuery("SELECT m FROM ProductMovement m WHERE m.virtualStorageId=:VSId AND m.barCode=:bCode AND m.stock <> 0 ORDER BY m.movimentID ASC")
 				.setParameter("VSId", VSId).setParameter("bCode", bCode);
 		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
 		return PMList;
