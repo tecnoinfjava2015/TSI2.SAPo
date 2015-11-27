@@ -112,7 +112,7 @@ public class TwitterController {
 		Long userId = twitterUser.getId();
 		String userLocation = twitterUser.getLocation();
 		
-		String geoLocation = null;
+		JSONObject geoLocation = null;
 		if(userLocation != null && !userLocation.isEmpty()) {
 			geoLocation = getGoogleGeolocation(userLocation);
 		}
@@ -144,7 +144,11 @@ public class TwitterController {
 		String sapoUserCookie = removeDisabledVS(sapoUserJSON, vsJSON);
 		Cookie userCookie = new Cookie("sapoUser", sapoUserCookie);
 		response.addCookie(userCookie);
-		
+
+		String userAvatar = twitterUser.getProfileImageURL();
+		Cookie userAvatarCookie = new Cookie("userAvatar", userAvatar);
+		response.addCookie(userAvatarCookie);
+
 		externalContext.redirect("#/");
 	}
 
@@ -202,7 +206,7 @@ public class TwitterController {
 		return sapoUserJSON.toString();
 	}
 
-	private String getGoogleGeolocation(String userLocation) throws IOException, JSONException {
+	private JSONObject getGoogleGeolocation(String userLocation) throws IOException, JSONException {
 
 		Properties props = new Properties();
 		props.load(TwitterController.class.getResourceAsStream("sapo-config.properties"));
@@ -229,7 +233,8 @@ public class TwitterController {
 			
 			JSONObject location = geolocationResponse.getJSONArray("results").getJSONObject(0)
 					.getJSONObject("geometry").getJSONObject("location");
-			return location.getString("lat") + "," + location.getString("lng");
+			return location;
+			//return location.getString("lat") + "," + location.getString("lng");
 		}
 //		JSONObject location = geolocationResponse.getJSONArray("results").getJSONObject(0)
 //				.getJSONObject("geometry").getJSONObject("location");
@@ -280,7 +285,7 @@ public class TwitterController {
 		return result;
 	}
 
-	private String sapoLogin(String userScreenName, Long userId, String geoLocation) throws IOException, JSONException {
+	private String sapoLogin(String userScreenName, Long userId, JSONObject geoLocation) throws IOException, JSONException {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		String serverURL = getServerURL(externalContext);
 		//Traigo la url para el post dsde el sapo-config.properties
@@ -292,8 +297,10 @@ public class TwitterController {
 		JSONObject body = new JSONObject();
 		body.put("nombre", userScreenName);
 		body.put("twitterId", userId);
-		body.put("geoLocation", geoLocation);
-
+		body.put("geoLocation", "");
+		//body.put("latitud", Double.valueOf(geoLocation.getString("lat")));
+		//body.put("longitud", Double.valueOf(geoLocation.getString("lng")));
+		
 		String result = postToRest(serverURL+loginTwitterURL, body);
 
 	    if(!result.isEmpty()){

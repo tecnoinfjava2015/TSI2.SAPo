@@ -1,3 +1,5 @@
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
 <style>
 .md-pane-open .md-datepicker-calendar {
     background: beige;
@@ -18,24 +20,35 @@
 	</p>
 	<p style="margin-top: 45px;">
 	<md-content layout layout="row">
-		<h4>Movimientos</h4>
-		<span>Desde </span><md-datepicker ng-model="fromDate" md-placeholder="Desde" md-max-date="today"></md-datepicker>
-		<span style="margin-left: 50px;">Hasta </span><md-datepicker ng-model="toDate" md-placeholder="Hasta" md-min-date="fromDate"></md-datepicker>
+	<h4>Movimientos Realizados</h4>
+		<form name="movementsForm">
+			<span>Desde </span>
+			<md-datepicker name="ctrl.from_Date" ng-model="from_Date" md-placeholder="Desde" md-max-date="today"></md-datepicker>
+			<span style="margin-left: 50px;">Hasta </span>
+			<md-datepicker name="ctrl.to_Date" ng-model="to_Date" md-placeholder="Hasta" md-min-date="fromDate"></md-datepicker>
+		</form>
 		<md-button ng-click="getMovements()" class="md-raised md-primary" >Ver Resultado</md-button>
-
-		<md-list>
-	      <md-subheader class="md-no-sticky">Listado de Movimientos</md-subheader>
-	      <md-list-item class="md-1-line" ng-repeat="item in movements">
-	        <div class="md-list-item-text" layout="row">
-	          <p>Fecha: {{ item.dateMov | date:'yyyy-MM-dd' }}</p> 
-	          <p>Producto: {{ item.productName }}</p>
-	          <p>Usuario: {{ item.userID }}</p>
-	          <p>Precio: {{ item.finalPrice }}</p>
-	          <p>Variaci&oacute;n de Stock: {{ item.stock }}</p>
-	        </div>
-	      	<md-divider ></md-divider>
-	      </md-list-item>
-		</md-list>
+	</md-content>
+	<md-content>
+		<div ng-hide="hideMovements">
+			<table class="table table-hover">
+				<tr>
+					<th>Fecha</th>
+					<th>Producto</th>
+					<th>Usuario</th>
+					<th>Precio</th>
+					<th>Variaci&oacute;n de Stock</th>
+				</tr>
+				<tr ng-repeat="item in movements" ng-class-odd="odd" ng-class-even="even">
+			      <td>{{ item.dateMov | date:'yyyy-MM-dd' }}</td>
+			      <td>{{ item.productName }}</td>
+			      <td>{{ item.userID }}</td>
+			      <td>{{ item.finalPrice }}</td>
+			      <td>{{ item.stock }}</td>
+			      <td>&nbsp</td>
+			 	</tr>
+			</table>
+		</div>
 	</md-content>
 	</p>
 </md-content>
