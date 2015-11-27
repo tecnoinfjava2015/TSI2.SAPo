@@ -42,21 +42,14 @@ background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 
 <!-- =============================================================================== -->
 
 <md-content >
-<!-- <div style="width: 50%"> -->
-<!-- 	<div id="slides_control"> -->
-<!-- 		<div> -->
-<!-- 			<carousel interval="myInterval"> <slide -->
-<!-- 				ng-repeat="slide in slides" active="slide.active"> <img -->
-<!-- 				ng-src="{{slide.image}}"> -->
-<!-- 			<div class="carousel-caption"></div> -->
-<!-- 			</slide> </carousel> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- </div> -->
 <div>
 	<h4>Informaci&oacute;n general</h4>
 
 	<table class="table table-hover" style="width: 100%">
+		<tr>
+			<td style="width: 30%; padding-right: 10px">Stock:</td>
+			<td style="width: 70%;">{{product.stock}}</td>
+		</tr>
 		<tr>
 			<td style="width: 30%; padding-right: 10px">C&oacute;digo de
 				barras:</td>
@@ -86,10 +79,6 @@ md-content.md-test1-theme {
     background-color: rgba(0, 0, 0, 0);
     padding: 0;
 }
-
-/* md-content.md-test1-theme md-chips:hover { */
-/* 	background-color: rgb(128, 128, 128); */
-/* } */
 </style>
 
 </md-content> <md-tabs md-dynamic-height md-border-bottom style="margin-top:5%">
