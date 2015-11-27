@@ -11,12 +11,12 @@
             name: "Home",
             url: "/"
         }];
-        var item = {
+        /*var item = {
             icon:"airplay",
             name: "Test",
             url: "/test"
         }
-        $scope.menu.push(item);
+        $scope.menu.push(item);*/
         
         var item = {
                 icon:"dashboard",
@@ -25,10 +25,27 @@
             }
         $scope.menu.push(item);
 
-        $scope.redirect = redirect
+        $scope.redirect = redirect;
 
         function redirect(route){
-            $location.path(route);
+        	var res = $location.path().split("/");
+        	var count = res.length;
+        	var i = 0;
+        	var vsName;
+        	for (i = 0; i < count; i++) {
+        		if (res[i] == 'virtualStorage') {
+        			vsName = res[i + 1];
+        		}
+        	}
+        	console.log('virtualStorage/' + vsName + route);
+        	
+        	if (typeof vsName !== 'undefined') {
+        		$location.path('virtualStorage/' + vsName + route);
+        	}
+        	else {
+        		$location.path(route);
+        	}
+            
         }
     }
 })();
