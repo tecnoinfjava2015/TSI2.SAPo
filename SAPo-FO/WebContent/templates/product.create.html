@@ -13,7 +13,14 @@
 <!-- <md-button class="md-raised md-warn" ng-click='insert(vs)' >Warn</md-button> -->
 
 	<form name="inputForm" novalidate>
+		
 		<md-dialog-content style="max-width:100%;max-height:100%; ">
+		<div ng-repeat="cat in categories">			
+			 <md-checkbox ng-checked="exists(cat, selected)" ng-click="toggle(cat, selected)">
+              	{{cat.name}} 
+             </md-checkbox>
+		</div>
+		
 	  	 <md-input-container >
 	  	 	<md-tooltip md-direction="top">
 	          Ingrese nombre del producto
