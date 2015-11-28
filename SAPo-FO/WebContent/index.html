@@ -80,11 +80,13 @@
                 <div layout="column" class="md-toolbar-tools-bottom inset" ng-controller="SidenavUserController as user">
                     
                     <div>
-                    	<div ng-show="user.userLogged" ng-click="redirect('/userProfile')">
+                    	<div ng-show="user.userLogged" ng-click="redirectToProfile();">
 							<img src="{{userAvatar}}" style="width:50px"/>
 	                    </div> 
-                    	
-                    	{{user.userName}}
+                    	<span ng-click="redirectToProfile();">
+                    		
+                    		{{user.userName}}
+                    	</span>
 	                    <md-button class="md-primary" ng-click="logout()" ng-show="user.userLogged">
 								<img src="resources/logout.png"/>
 	                    </md-button> 

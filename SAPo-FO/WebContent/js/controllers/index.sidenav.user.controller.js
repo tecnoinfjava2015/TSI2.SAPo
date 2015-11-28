@@ -8,6 +8,8 @@
     function SidenavUserController($scope,$cookies, $location, $window) {
     	$scope.logout = logout;
     	$scope.redirect = redirect
+    	$scope.redirectToProfile = redirectToProfile;
+    	
     	
         var vm = this
     	var userTwitter = $cookies.getObject('sapoUser');
@@ -41,6 +43,15 @@
 			
 		}
 		
+		function redirectToProfile() {
+			var path = '';
+			if (typeof $location.Path !== 'undefined') {
+				path = $location.Path;
+			}
+			var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html#/" + path + "userProfile";
+			console.log($location.Path);
+			$window.location.href = landingUrl;
+		}
 		
         function redirect(route){
         	$scope.$apply(function() { $location.path(route); });
