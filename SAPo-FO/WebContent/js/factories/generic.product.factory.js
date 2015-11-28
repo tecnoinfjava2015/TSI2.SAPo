@@ -7,7 +7,7 @@
     /* @ngInject */
     function GenericProductResource($resource) {
 
-        	return $resource('/SAPo-FO/api/genericProduct/:barCode',{ barcode:'@barcode'});
+        	return $resource('/SAPo-FO/api/genericProduct/:barcode',{ barcode:'@barcode'});
 
     }
-})();  
+})();   
