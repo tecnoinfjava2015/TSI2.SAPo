@@ -134,6 +134,8 @@
 
 				console.log($scope.fields);
 				data.specs = [];
+				data.name = $('#genericName').val();
+//				alert(data.name);
 				data.virtualStorageId = $scope.tenantId;
 				data.virtualStorageName = $scope.virtualStorageName;
 				for (i = 0; i < $scope.fields.length; i++) {
