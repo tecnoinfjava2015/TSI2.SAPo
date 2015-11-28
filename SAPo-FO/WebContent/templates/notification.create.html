@@ -1,0 +1,45 @@
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			
+			<h2>Crear notificaci&oacute;n</h2>
+			<span flex></span>
+<!-- 			<md-button class="md-icon-button" ng-click="cancel()"> <i class="material-icons" aria-label="Close dialog">clear</i> </md-button> -->
+		</div>
+	</md-toolbar>
+
+	<form name="inputForm" novalidate accept-charset="utf-8">
+		<md-dialog-content style="max-width:100%;max-height:100%; ">
+		
+		<label>C&oacute;digo de Producto</label>
+	  	 <md-input-container >	  	 
+	  	 	<md-tooltip md-direction="top">
+	          Ingrese el c&oacute;digo de barras del producto
+	        </md-tooltip>	        
+	        <input ng-model="notification.barcode" name="barcode" required>	
+	      </md-input-container>
+	      
+	      <label>Mensaje</label>
+	      <md-input-container >	      
+	      	<md-tooltip md-direction="top">
+	          Ingrese el mensaje que desea recibir.
+	        </md-tooltip>
+	        <input ng-model="notification.mensaje">
+	      </md-input-container>
+	      
+	      <label>Stock minimo</label>
+	      <md-input-container >	      
+	      	<md-tooltip md-direction="top">
+	          Ingrese el stock minimo
+	        </md-tooltip>
+	        <input ng-model="notification.minStock">
+	      </md-input-container>
+	      
+	  </md-dialog-content>
+	  
+<!-- 	  <md-dialog-actions class="md-actions" layout="row"> -->
+		<span flex></span> 
+	      <md-button class="md-raised md-primary" ng-click="insert(notification)" >Crear Notificaci&oacute;n</md-button>
+	      <md-button class="md-raised" ng-click="cancel()" >Cancelar</md-button>
+<!-- 	  </md-dialog-actions> -->
+	</form>

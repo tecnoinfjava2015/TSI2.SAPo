@@ -134,16 +134,23 @@ public class TwitterController {
 		
 		//llamo a pedir los VS del usuario y guardarlos en otra cookie
 		String myVSs = getMyVSs(serverURL, sapoUserJSON.getString("id"));
-		JSONObject vsJSON = removeLogos(myVSs);
-		
-		
-		//Cookie vsCookie = new Cookie("sapoVirtualStorages", myVSs);
-		Cookie vsCookie = new Cookie("sapoVirtualStorages", vsJSON.toString());
-		response.addCookie(vsCookie);
+		JSONObject vsJSON = new JSONObject();
+		String sapoUserCookie;
+				
+		if(myVSs == null || myVSs.isEmpty()){
+			Cookie userCookie = new Cookie("sapoUser", myVSs);
+			response.addCookie(userCookie);
+		}else{
+			vsJSON = removeLogos(myVSs);
+			
+			//Cookie vsCookie = new Cookie("sapoVirtualStorages", myVSs);
+			Cookie vsCookie = new Cookie("sapoVirtualStorages", vsJSON.toString());
+			response.addCookie(vsCookie);
 
-		String sapoUserCookie = removeDisabledVS(sapoUserJSON, vsJSON);
-		Cookie userCookie = new Cookie("sapoUser", sapoUserCookie);
-		response.addCookie(userCookie);
+			sapoUserCookie = removeDisabledVS(sapoUserJSON, vsJSON);
+			Cookie userCookie = new Cookie("sapoUser", sapoUserCookie);
+			response.addCookie(userCookie);
+		}
 
 		String userAvatar = twitterUser.getProfileImageURL();
 		Cookie userAvatarCookie = new Cookie("userAvatar", userAvatar);
@@ -157,7 +164,7 @@ public class TwitterController {
 		JSONArray vsOwnedAll;
 		JSONArray vsOwnedActive;
 		List<Integer> vsOwnedEnabled = new ArrayList<Integer>();
-		if(sapoUserJSON.getJSONArray("tenantCreados").length() != 0){
+		if(!sapoUserJSON.get("tenantCreados").equals(null) && sapoUserJSON.getJSONArray("tenantCreados").length() != 0){
 			vsOwnedAll = sapoUserJSON.getJSONArray("tenantCreados");
 			vsOwnedActive = vsJSON.getJSONArray("owned");
 			//List<Integer> vsOwnedEnabled = new ArrayList<Integer>();
@@ -173,7 +180,7 @@ public class TwitterController {
 		JSONArray vsFollowingAll;
 		JSONArray vsFollowingActive;
 		List<Integer> vsFollowingEnabled = new ArrayList<Integer>();
-		if(sapoUserJSON.getJSONArray("vs_seguidos").length() != 0){
+		if(!sapoUserJSON.get("vs_seguidos").equals(null) && sapoUserJSON.getJSONArray("vs_seguidos").length() != 0){
 			vsFollowingAll = sapoUserJSON.getJSONArray("vs_seguidos");
 			vsFollowingActive = vsJSON.getJSONArray("following");
 			//List<Integer> vsFollowingEnabled = new ArrayList<Integer>();
@@ -255,7 +262,7 @@ public class TwitterController {
 		String ownedStr = jsonObject.getString("owned");
 		JSONArray owned = new JSONArray(ownedStr);
 		int len = owned.length();
-		if (owned != null) { 
+		if (owned != null && len > 0) { 
 		   for (int i=0;i<len;i++)
 		   {
 			   JSONObject position = new JSONObject(owned.get(i).toString());
@@ -268,7 +275,7 @@ public class TwitterController {
 		//JSONArray following = jsonArray.getJSONArray(1);
 		JSONArray following = new JSONArray(followingStr);
 		int len2 = following.length();
-		if (following != null) { 
+		if (following != null && len2 > 0) { 
 		   for (int i=0;i<len2;i++)
 		   {
 			   JSONObject position = new JSONObject(following.get(i).toString());

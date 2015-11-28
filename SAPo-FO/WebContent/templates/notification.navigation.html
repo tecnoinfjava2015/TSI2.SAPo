@@ -1,0 +1,32 @@
+<div layout="column" class="relative" layout-fill role="main">
+    <!-- class="relative" layout="column" layout-align="start start" flex> -->
+    <div layout="row">
+        <div flex="90">
+            <h1>Notificaciones</h1>
+        </div>        
+    </div>
+    
+    <div flex layout-wrap layout="row" ng-show="list" >
+        <div ng-repeat="product in products" flex="grow"> 
+            <md-card flex="grow">
+                <div layout="row"  layout-fill>
+                    <div flex="75" layout-margin layout-fill>
+                        <md-card-content>
+                            <p>{{vm.notification.mensaje}}</p>
+                        </md-card-content>
+                        <md-card-footer>
+                            <h3>Stock minimo: {{vm.notification.minStock}}</h3>
+                        </md-card-footer>
+                    </div>
+                </div>
+            </md-card>
+        </div>
+    </div>
+
+    <md-progress-linear md-mode="indeterminate" ng-show="loading"></md-progress-linear>
+<!--     <div class="md-actions" layout="row" layout-align="start center" ng-click="getNotifications()"> -->
+<!--         <md-button md-no-ink  class="md-primary md-hue-2" layout> -->
+<!--             <h3> Mostrar más >>> </h3> -->
+<!--         </md-button> -->
+<!--     </div> -->
+</div>
