@@ -2,9 +2,9 @@
 	'use strict';
 	angular.module('sapo').controller('VirtualStorageController',
 			VirtualStorageController);
-	VirtualStorageController.$inject = [ 'VirtualStorageResource', '$scope', '$cookies', '$mdDialog', '$window'];
+	VirtualStorageController.$inject = [ 'VirtualStorageResource', 'UnitResource', '$scope', '$cookies', '$mdDialog', '$window'];
 	/* @ngInject */
-	function VirtualStorageController(VirtualStorageResource, $scope, $cookies, $mdDialog, $window) {
+	function VirtualStorageController(VirtualStorageResource, UnitResource, $scope, $cookies, $mdDialog, $window) {
 		var user = $cookies.getObject("sapoUser");
 		
 		$scope.vs = new VirtualStorageResource();
@@ -20,7 +20,7 @@
 		$scope.insert = insert;
 		$scope.reset = reset;
 		$scope.cancel = cancel;
-		
+		$scope.unit = new UnitResource();
 		
 		function upload() {
 			document.getElementById("file").click();
@@ -50,15 +50,28 @@
 					console.log(aux2);
 					
 					//$cookies.put("newUser", aux2);
-					showAlert('Exito!', 'Se ha creado su almac&eacute;n virtual de forma exitosa');
-					var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html#/virtualStorage/" + vsName;
-					console.log(landingUrl);
-					$window.location.href = landingUrl;
+					$scope.unit.virtualStorageId = parseInt(vsIdAux);
+					UnitResource.save(
+						$scope.unit,
+						function(result) {
+							$scope.loading = false;
+							showAlert('Exito!', 'Se ha creado su almac&eacute;n virtual de forma exitosa');
+							var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html#/virtualStorage/" + vsName;
+							console.log(landingUrl);
+							$window.location.href = landingUrl;
+						},
+						function(result) {
+							$scope.loading = false;
+							console.log(r);
+							showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
+						});
+				
+					
 					
 				}, function(r){
 					console.log(r);
 					
-					showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
+					/*showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');*/
 				});
 				reset();
 			}
