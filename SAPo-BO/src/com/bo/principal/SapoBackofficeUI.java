@@ -9,11 +9,12 @@ import com.bo.formularios.abm.FormABMHARD;
 import com.bo.formularios.abm.FormABMLimitCount;
 import com.bo.formularios.abm.FormABMProductoGenerico;
 import com.bo.formularios.abm.FormABMUsuario;
+import com.bo.formularios.abm.FormCalculoGanancias;
 import com.bo.formularios.abm.FormReportes;
 import com.bo.formularios.abm.FormAdminAV;
+import com.bo.formularios.abm.FormUbicacionUsuarios;
 import com.bo.formularios.abm.FormUsuarioAV;
 import com.bo.formularios.abm.Login;
-
 import com.entities.sql.Usuario;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -46,7 +47,8 @@ public class SapoBackofficeUI extends UI {
 	private FormABMLimitCount formLimitCount;
 	private FormUsuarioAV formUsuarioAV;
 	private ReporteUsuarios formReporteUsuario;
-	
+	private FormUbicacionUsuarios formUbicacion;
+	private FormCalculoGanancias formCalculo;
 	
 	@Inject 
 	private DatosSesion datosSesion;	
@@ -135,10 +137,10 @@ public void cargarContenido(){
 //          layout5.addComponent(formABMHard);              
 //          tabSheet.addTab(layout5, "Cargas Automáticas");
 //          
-//          PanelDinamico layout6 = new PanelDinamico();
-//          formReportes = new FormReportes();
-//          layout6.addComponent(formReportes);              
-//          tabSheet.addTab(layout6, "Reportes");
+          PanelDinamico layout6 = new PanelDinamico();
+          formUbicacion = new FormUbicacionUsuarios();
+          layout6.addComponent(formUbicacion);              
+          tabSheet.addTab(layout6, "Mapa");
           
           PanelDinamico layout7 = new PanelDinamico();
           formLimitCount = new FormABMLimitCount();
@@ -154,6 +156,11 @@ public void cargarContenido(){
           formReporteUsuario = new ReporteUsuarios();
           layout9.addComponent(formReporteUsuario);              
           tabSheet.addTab(layout9, "Reporte Usuario");
+          
+          PanelDinamico layout10 = new PanelDinamico();
+          formCalculo = new FormCalculoGanancias();
+          layout10.addComponent(formCalculo);              
+          tabSheet.addTab(layout10, "Calcular Ganancias");
 
           mainLayout.addComponent(tabSheet);
           mainLayout.setExpandRatio(tabSheet, 70);
