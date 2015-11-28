@@ -2,11 +2,11 @@
 	'use strict';
 	angular.module('sapo').controller('CreateProductController',
 			CreateProductController);
-	CreateProductController.$inject = [ 'CreateProductsResource',
+	CreateProductController.$inject = [ 'CreateProductsResource', 'UnitResource',
 			'CategoriesResource', 'GenericProductResource', '$scope',
 			'$mdDialog', '$location', '$cookies' ];
 	/* @ngInject */
-	function CreateProductController(CreateProductsResource,
+	function CreateProductController(CreateProductsResource, UnitResource,
 			CategoriesResource, GenericProductResource, $scope, $mdDialog,
 			$location, $cookies) {
 		$scope.title = 'Crear Producto';
@@ -21,6 +21,7 @@
 		$scope.toggle = toggle;
 		$scope.exists = exists;
 		$scope.prod = {};
+		$scope.unit = [];
 
 		$scope.loadGenerics = loadGenerics;
 		$scope.getGeneric = getGeneric;
@@ -69,6 +70,15 @@
 		}).$promise.then(function(result) {
 			$scope.categories = result;
 		});
+		
+		console.log($scope.tenantId);
+		UnitResource.query({
+			tenantId : $scope.tenantId
+		}).$promise.then(function(result) {
+			$scope.unit = result;
+		});
+		
+		
 
 		$scope.Spec = Spec;
 
@@ -80,6 +90,9 @@
 
 			if (data != null && typeof data.name !== 'undefined'
 					&& typeof data.barCode !== 'undefined') {
+				
+				
+				
 				var i = 0;
 				data.categories = [];
 				for (i = 0; i < $scope.selected.length; i++) {
@@ -130,6 +143,8 @@
 					console.log(data.specs);
 					// data.attributes += JSON.stringify($scope.fields[i]);
 				}
+				
+				data.unit = $scope.unit;
 
 				CreateProductsResource
 						.save(
