@@ -228,12 +228,12 @@ public class FormAdminAV extends PanelDinamico{
                     @Override
                     public void buttonClick(final ClickEvent event) {
                     	if (fraudeProductos()) {
-                    		Notification sample = new Notification("Fraude Detectado con el Almcen Virtual " + fraudeDe);
+                    		Notification sample = new Notification("Posible Fraude Detectado con el Almcen Virtual " + fraudeDe);
                     		sample.setDelayMsec(2000);
                         	sample.show(Page.getCurrent());
                     	}
                     	else{
-                    		Notification sample = new Notification("No existe fraude");
+                    		Notification sample = new Notification("No se ha Detectado Fraude");
                     		sample.setDelayMsec(2000);
                         	sample.show(Page.getCurrent());
                     	}
@@ -246,13 +246,13 @@ public class FormAdminAV extends PanelDinamico{
                     @Override
                     public void buttonClick(final ClickEvent event) {
                     	if (fraudeCategorias()) {
-                    		Notification sample = new Notification("Fraude Detectado con el Almcen Virtual " + fraudeDe);
+                    		Notification sample = new Notification("Posible Fraude Detectado con el Almcen Virtual " + fraudeDe);
                     		sample.setDelayMsec(2000);
                         	sample.show(Page.getCurrent());
                     	}
                     	else{
                     		
-                    		Notification sample = new Notification("No existe fraude");
+                    		Notification sample = new Notification("No se ha dDetectado Fraude");
                     		sample.setDelayMsec(2000);
                         	sample.show(Page.getCurrent());
                     	}
@@ -322,24 +322,28 @@ public class FormAdminAV extends PanelDinamico{
 		VerticalLayout abajoDer = new VerticalLayout();
 		//listaProductos = listaProductos((int)tableVirtualStorage.getValue()-1));	
 		//listaProductos = servicioProducto.getAllProducts(1);
-		listaProductos = servicioProducto.getAllProducts(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId());
-		listaCategorias = servicioCategoria.getAllCategories(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId(),0,20);
+		if (listaVirtualStorage != null && listaVirtualStorage.size() > 0 ){
+			listaProductos = servicioProducto.getAllProducts(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId());
+			listaCategorias = servicioCategoria.getAllCategories(listaVirtualStorage.get(((int)tableVirtualStorage.getValue()-1)).getId(),0,20);
+		}
+		
+		
 		VerticalLayout panDer = new VerticalLayout();
 		tableProductos = new Table("Productos del Almacenes");
 		tableProductos.addContainerProperty("Nombre", String.class, null);
 		tableProductos.addContainerProperty("Código de Barras", String.class, null);
 		tableProductos.addContainerProperty("Descripción", String.class, null);
 		//tableProductos.addContainerProperty("Stock",  String.class, null);
-	 
-	    for (Product listaP : listaProductos) {
-	    	Object newItemId = tableProductos.addItem();
-	    	Item row1 = tableProductos.getItem(newItemId);
-	    	row1.getItemProperty("Nombre").setValue(listaP.getName());
-	    	row1.getItemProperty("Código de Barras").setValue(listaP.getBarCode());
-	    	row1.getItemProperty("Descripción").setValue(listaP.getDescription());
-	    	//row1.getItemProperty("Stock").setValue(listaP.getStock());   	
-	    }
-	     
+		if (listaProductos != null && listaProductos.size() > 0 ){
+		    for (Product listaP : listaProductos) {
+		    	Object newItemId = tableProductos.addItem();
+		    	Item row1 = tableProductos.getItem(newItemId);
+		    	row1.getItemProperty("Nombre").setValue(listaP.getName());
+		    	row1.getItemProperty("Código de Barras").setValue(listaP.getBarCode());
+		    	row1.getItemProperty("Descripción").setValue(listaP.getDescription());
+		    	//row1.getItemProperty("Stock").setValue(listaP.getStock());   	
+		    }
+		} 
 	     
 	    tableProductos.setImmediate(true);
 	    tableProductos.setSelectable(true);
@@ -355,13 +359,13 @@ public class FormAdminAV extends PanelDinamico{
 	    tableCategorias = new Table("Categorias del Almacen");
 	    tableCategorias.addContainerProperty("Nombre", String.class, null);
 	    tableCategorias.addContainerProperty("Icono", String.class, null);
-	
-	    for (Category listaC : listaCategorias) {
-	    	Object newItemId = tableCategorias.addItem();
-	    	Item row1 = tableCategorias.getItem(newItemId);
-	    	row1.getItemProperty("Nombre").setValue(listaC.getName());
-	    	row1.getItemProperty("Icono").setValue(listaC.getIcon());
-	    	   	
+	    if (listaCategorias != null && listaCategorias.size() > 0 ){
+		    for (Category listaC : listaCategorias) {
+		    	Object newItemId = tableCategorias.addItem();
+		    	Item row1 = tableCategorias.getItem(newItemId);
+		    	row1.getItemProperty("Nombre").setValue(listaC.getName());
+		    	row1.getItemProperty("Icono").setValue(listaC.getIcon());
+		    }	   	
 	    }
 	     
 	     

@@ -115,12 +115,14 @@ public interface UsuarioServiceLocal {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Usuario pasarAFreemium ( TwitterUserBean input );
 
+	
+	//public Boolean geolocalizar (@QueryParam("nick") String nick,
+		//						  @QueryParam("geolocation") String geolocation);
+	//	public Usuario getLoginTwitter( @QueryParam("nick") String nick,
+//			  				 @QueryParam("twitterId") String twitterId);
 	@POST
 	@Path("/geolocalizar")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Boolean geolocalizar (@QueryParam("nick") String nick,
-								  @QueryParam("geolocation") String geolocation);
-	//	public Usuario getLoginTwitter( @QueryParam("nick") String nick,
-//			  				 @QueryParam("twitterId") String twitterId);
+	Boolean geolocalizar(@QueryParam("nick") String nick, @QueryParam("latitud") double latitud, @QueryParam("longitud")double longitud);
 
 }

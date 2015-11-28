@@ -41,7 +41,7 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 		u.setEnabled(true);
 		u.setAceptado(true);
 		u.setTwitterId(input.twitterId);
-		u.setGeolocation(input.geoLocation);
+		//u.setLatitud(input.geoLocation);
 		udao.insert(u);
 	}
 	
@@ -132,14 +132,16 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 	}
 
 	@Override
-	public Boolean geolocalizar(String nick, String geolocation) {
-		return udao.geolocalizar(nick, geolocation);
+	public Boolean geolocalizar(String nick, double latitud, double longitud) {
+		return udao.geolocalizar(nick, latitud, longitud);
 	}
 
 	@Override
 	public Usuario getUsuario(int id) {
 		return udao.buscar(id);
 	}
+
+	
 
 	
 }
