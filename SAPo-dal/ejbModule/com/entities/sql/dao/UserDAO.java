@@ -138,11 +138,12 @@ public class UserDAO {
 		return usuario;
 	}
 
-	public Boolean geolocalizar(String nick, String geolocation) {
+	public Boolean geolocalizar(String nick, double latitud, double longitud) {
 		Query query =  em.createQuery("SELECT u FROM Usuario u WHERE u.nick=:nick ")
 		.setParameter("nick", nick);
 		Usuario usuario = (Usuario) query.getResultList().get(0);
-		usuario.setGeolocation(geolocation);
+		usuario.setLatitud(latitud);
+		usuario.setLongitud(longitud);
 		em.merge(usuario);
 		return true;
 	}

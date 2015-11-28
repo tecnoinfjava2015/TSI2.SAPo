@@ -13,6 +13,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.Page;
+import com.vaadin.server.Responsive;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -63,10 +64,12 @@ public class FormABMLimitCount extends PanelDinamico{
 			lookup();
 			this.addStyleName("outlined");
 	        this.setSizeFull();
-	        listaLimtCounts = servicioLC.listarLimitCount();
-	                
+	        Responsive.makeResponsive(this);
+	        listaLimtCounts = servicioLC.listarLimitCount(); 
 	        panelIzquierda = new VerticalLayout();
+	        Responsive.makeResponsive(panelIzquierda);
 	        panelDerecha = new VerticalLayout();
+	        Responsive.makeResponsive(panelDerecha);
 	        rootLayout = new HorizontalLayout(panelIzquierda,panelDerecha);
 	        rootLayout.setSizeFull();
 	        panelIzquierda = generarPanelIzquierda();

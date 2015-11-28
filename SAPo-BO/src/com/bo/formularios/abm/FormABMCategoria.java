@@ -175,9 +175,7 @@ public class FormABMCategoria  extends PanelDinamico{
 	            		Notification sample = new Notification("Categoría más utilizada es: " + masUtilizado.getName());
 	            		sample.setDelayMsec(3000);
 			        	sample.show(Page.getCurrent());
-	            	}
-	            	
-	            	
+	            	}	
 	           }
 	        });
 	        
@@ -189,15 +187,15 @@ public class FormABMCategoria  extends PanelDinamico{
 		    table.addContainerProperty("Nombre", String.class, null);
 		    table.addContainerProperty("Icon", String.class, null);
 		    table.addContainerProperty("Descripción", String.class, null);
-		   		
-		    for (GenericCategory gp : listaCategorias) {
-		    	Object newItemId = table.addItem();
-		    	Item row1 = table.getItem(newItemId);
-		    	row1.getItemProperty("Nombre").setValue(gp.getName());
-		    	row1.getItemProperty("Icon").setValue(gp.getIcon());
-		    	row1.getItemProperty("Descripción").setValue(gp.getDescription());
+		   	if (listaCategorias != null){
+			    for (GenericCategory gp : listaCategorias) {
+			    	Object newItemId = table.addItem();
+			    	Item row1 = table.getItem(newItemId);
+			    	row1.getItemProperty("Nombre").setValue(gp.getName());
+			    	row1.getItemProperty("Icon").setValue(gp.getIcon());
+			    	row1.getItemProperty("Descripción").setValue(gp.getDescription());
+			    }
 		    }
-		     
 		        //para ordenar tabla por nombre
 			 table.addColumnResizeListener(new Table.ColumnResizeListener(){
 		    	  public void columnResize(ColumnResizeEvent event) {
@@ -220,7 +218,6 @@ public class FormABMCategoria  extends PanelDinamico{
 		     panDer.setMargin(true);
 		     panDer.addComponent(table);
 		     panDer.setComponentAlignment(table, Alignment.MIDDLE_CENTER);
-		     
 		     return panDer;
 		}	
 
@@ -230,7 +227,6 @@ public class FormABMCategoria  extends PanelDinamico{
 		    nuevaTabla = generarPanelDerecha();
 		    rootLayout.replaceComponent(panelDerecha, nuevaTabla);
 		    panelDerecha = nuevaTabla;
-		    
 		    table.addValueChangeListener(new Property.ValueChangeListener() {
 				@Override
 				public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
@@ -248,7 +244,6 @@ public class FormABMCategoria  extends PanelDinamico{
 		}
 		
 		private void reiniciarCampos(){
-			
 			name.setValue("");
 	     	icon.setValue("");
 	     	description.setValue("");
@@ -307,14 +302,11 @@ public class FormABMCategoria  extends PanelDinamico{
 		
 		    panIzq.setComponentAlignment(name, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(icon, Alignment.BOTTOM_CENTER);
-		    panIzq.setComponentAlignment(description, Alignment.BOTTOM_CENTER);
-		    
+		    panIzq.setComponentAlignment(description, Alignment.BOTTOM_CENTER);   
 		    panIzq.setComponentAlignment(alta, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(modificar, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(eliminar, Alignment.BOTTOM_CENTER);
 		    panIzq.setComponentAlignment(masUtilizada, Alignment.BOTTOM_CENTER);
 		    return panIzq;
 		}
-		
-
 }

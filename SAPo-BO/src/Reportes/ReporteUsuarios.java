@@ -170,7 +170,7 @@ private void lookup() {
 				tableMovimientos.setWidth("80%");
 			    panDer.setMargin(true);
 			    panDer.addComponent(tableMovimientos);
-			    panDer.setComponentAlignment(tableMovimientos, Alignment.MIDDLE_CENTER);
+			    panDer.setComponentAlignment(tableMovimientos, Alignment.TOP_CENTER);
 		     
 		     return panDer;
 		}	

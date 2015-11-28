@@ -119,7 +119,7 @@ public class FormAceptarUsuarios extends PanelDinamico{
 		VerticalLayout panDer = new VerticalLayout();
 	    table = new Table("Usuarios pendientes de aceptación");
 	    table.addContainerProperty("Nombre", String.class, null);
-	    ArrayList<String> nombreEncuestador = new ArrayList<String>();
+	    
 	
 	    for (Usuario usuario : listaUsuarios) {
 	    	Object newItemId = table.addItem();

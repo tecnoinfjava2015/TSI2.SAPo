@@ -32,7 +32,8 @@ public class Usuario implements Serializable {
 	private String password;
 	private Boolean enabled;
 	private Boolean aceptado;
-	private String geolocation;
+	private double latitud;
+	private double longitud;
 	private String twitterId;
 	private String paypalTransactionId;
 	
@@ -136,12 +137,20 @@ public class Usuario implements Serializable {
 		this.aceptado = aceptado;
 	}
 
-	public String getGeolocation() {
-		return geolocation;
+	public double getLatitud() {
+		return latitud;
 	}
 
-	public void setGeolocation(String geolocation) {
-		this.geolocation = geolocation;
+	public void setLatitud(double latitud) {
+		this.latitud = latitud;
+	}
+
+	public double getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(double longitud) {
+		this.longitud = longitud;
 	}
 
 	public String getTwitterId() {
