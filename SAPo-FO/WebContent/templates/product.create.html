@@ -15,18 +15,20 @@
 	<form name="inputForm" novalidate>
 		
 		<md-dialog-content style="max-width:100%;max-height:100%; ">
-		<div ng-repeat="cat in categories">			
-			 <md-checkbox ng-checked="exists(cat, selected)" ng-click="toggle(cat, selected)">
-              	{{cat.name}} 
-             </md-checkbox>
-		</div>
-		
+				
 	  	 <md-input-container >
 	  	 	<md-tooltip md-direction="top">
 	          Ingrese nombre del producto
 	        </md-tooltip>
 	        <label>Nombre</label>
 	        <input ng-model="prod.name" name="prodName" required>
+	      </md-input-container>
+	      <md-input-container >
+	      	<md-tooltip md-direction="top">
+	          Ingrese el c&oacute;digo de barras del producto
+	        </md-tooltip>
+	        <label>C&oacute;digo de barras</label>
+	        <input ng-model="prod.barCode" required>
 	      </md-input-container>
 	      <md-input-container >
 	        <md-tooltip md-direction="top">
@@ -65,7 +67,7 @@
 	      	<md-tooltip md-direction="top">
 	          Ingrese el precio de compra del producto
 	        </md-tooltip>
-	        <label>Precio de compra</label>
+	        <label>Precio de compra ($)</label>
 	        <input ng-model="prod.purchasePrice">
 	      </md-input-container>
 	      <md-input-container >
@@ -75,15 +77,20 @@
 	        <label>Stock</label>
 	        <input ng-model="prod.stock">
 	      </md-input-container>
-	      <md-input-container >
-	      	<md-tooltip md-direction="top">
-	          Ingrese el c&oacute;digo de barras del producto
-	        </md-tooltip>
-	        <label>C&oacute;digo de barras</label>
-	        <input ng-model="prod.barCode" required>
-	      </md-input-container>
+	      
+	      <div layout layout="row" layout-wrap>
+	      <div ng-repeat="cat in categories" >	
+	      	 <div flex="25">
+				 <md-checkbox ng-checked="exists(cat, selected)" ng-click="toggle(cat, selected)" >
+				 	
+				 		
+	              	{{cat.name}} 
+				 	
+	             </md-checkbox>
+             </div>
+		  </div>
 	       
-	       
+	       </div>
 		  <div data-ng-repeat="field in fields" layout>
 		  <md-container layout="row">
 		  	<md-input-container>	  		
@@ -111,4 +118,6 @@
 	      <md-button class="md-raised" ng-click="cancel()" >Cancelar</md-button>
 	  </md-dialog-actions>
 	</form>
+	
+	<md-progress-linear md-mode="indeterminate" ng-show="loading"></md-progress-linear>
 </md-dialog>

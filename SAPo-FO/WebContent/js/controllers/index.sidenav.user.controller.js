@@ -8,11 +8,14 @@
     function SidenavUserController($scope,$cookies, $location, $window) {
     	$scope.logout = logout;
     	$scope.redirect = redirect
+    	$scope.redirectToProfile = redirectToProfile;
+    	
     	
         var vm = this
     	var userTwitter = $cookies.getObject('sapoUser');
     	vm.userLogged = false;
-        
+    	
+    	$scope.userAvatar = $cookies.get('userAvatar');
     	
 		if ((typeof userTwitter !== "undefined") && (userTwitter !== null)) {
 			vm.userLogged = (userTwitter.twitterId!==0);
@@ -27,6 +30,8 @@
 		function logout() {
 			$cookies.remove('sapoUser');
 			$cookies.remove('sapoVirtualStorages');
+			$cookies.remove('userAvatar');
+			$cookies.remove('sapoCurrentVirtualStorage');
 			
 			//var landingUrl = $window.location.host + "/SAPo-FO/index.html";
 			
@@ -38,6 +43,15 @@
 			
 		}
 		
+		function redirectToProfile() {
+			var path = '';
+			if (typeof $location.Path !== 'undefined') {
+				path = $location.Path;
+			}
+			var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html#/" + path + "userProfile";
+			console.log($location.Path);
+			$window.location.href = landingUrl;
+		}
 		
         function redirect(route){
         	$scope.$apply(function() { $location.path(route); });
