@@ -18,10 +18,10 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.shared.ui.label.ContentMode;
-//import com.vaadin.tapio.googlemaps.GoogleMap;
-//import com.vaadin.tapio.googlemaps.client.LatLon;
-//import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapMarker;
-//import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapPolygon;
+import com.vaadin.tapio.googlemaps.GoogleMap;
+import com.vaadin.tapio.googlemaps.client.LatLon;
+import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapMarker;
+import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapPolygon;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
@@ -40,7 +40,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 
 public class FormUbicacionUsuarios extends PanelDinamico {
-    /*private VerticalLayout UserComp;
+    private VerticalLayout UserComp;
     private HorizontalLayout rootLayout,mapComp;
     private ComboBox usuariosCombo;
     private Button recargarMapa;
@@ -235,5 +235,5 @@ public class FormUbicacionUsuarios extends PanelDinamico {
         mapaComponente.setSizeFull();
         return mapaComponente;
     }
-    */
+    
 }

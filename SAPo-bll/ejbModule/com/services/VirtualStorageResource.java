@@ -34,6 +34,7 @@ public class VirtualStorageResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}") 
 	public VirtualStorage getVirtualStorage(@PathParam("id") int vsId){
+		
 		return dao.buscarVSporID(vsId);
 	}
 	 
@@ -44,14 +45,6 @@ public class VirtualStorageResource {
 	public String createVS(VirtualStorage vs, @PathParam("ownerId") int ownerId) {
 		//validar que el getOwner no sea null y que el id exista
 		return dao.createVS(vs, ownerId);
-	} 
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("{vsId}/share/{nick}")
-	public String shareVS(@PathParam("vsId") int vsId, @PathParam("nick") String nick) {
-		return dao.shareVS(vsId, nick);
 	} 
 	
 	@PUT

@@ -42,7 +42,7 @@ public class SapoBackofficeUI extends UI {
 	private FormABMProductoGenerico formABMProductoGenerico;
 	private FormABMCategoria formABMCategoriaGenerico;
 	private FormAdminAV formAdminAV;
-	private FormABMHARD formABMHard;
+//	private FormABMHARD formABMHard;
 //	private FormReportes formReportes;
 	private FormABMLimitCount formLimitCount;
 	private FormUsuarioAV formUsuarioAV;
@@ -132,11 +132,11 @@ public void cargarContenido(){
           layout4.addComponent(formAdminAV);
           tabSheet.addTab(layout4, "Gestion Almacen Virtual");
           
-          PanelDinamico layout5 = new PanelDinamico();
-          formABMHard = new FormABMHARD();
-          layout5.addComponent(formABMHard);              
-          tabSheet.addTab(layout5, "Cargas Automáticas");
-          
+//          PanelDinamico layout5 = new PanelDinamico();
+//          formABMHard = new FormABMHARD();
+//          layout5.addComponent(formABMHard);              
+//          tabSheet.addTab(layout5, "Cargas Automáticas");
+//          
           PanelDinamico layout6 = new PanelDinamico();
           formUbicacion = new FormUbicacionUsuarios();
           layout6.addComponent(formUbicacion);              

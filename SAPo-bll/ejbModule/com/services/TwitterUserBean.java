@@ -10,7 +10,4 @@ public class TwitterUserBean {
     @XmlElement public String nombre;
     @XmlElement public String twitterId;
     @XmlElement public String geoLocation;
-    @XmlElement public String latitud;
-    @XmlElement public String longitud;
-    
 }

@@ -23,8 +23,8 @@
                 controllerAs: 'vm'
             })
             .when('/', {
-                controller: 'ProductsNavigationController',
-                templateUrl: 'templates/products.navigate.html',
+            	controller: 'DashboardController',
+                templateUrl: 'templates/dashboard.view.html',
                 controllerAs: 'vm'
             })
             .when('/virtualStorage/:tenantName/category', {
@@ -61,6 +61,11 @@
                 controller: 'NotificationNavigationController',
                 templateUrl: 'templates/notification.navigation.html',
                 controllerAs: 'vm'
+            })
+            .when('/virtualStorage/:tenantName/reports', {
+            	controller: 'ReportsController',
+            	templateUrl: 'templates/report.view.html',
+            	controllerAs: 'vm'
             })
             .otherwise({
                 redirectTo: '/error',

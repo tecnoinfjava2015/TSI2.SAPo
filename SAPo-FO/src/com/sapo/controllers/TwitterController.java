@@ -304,16 +304,9 @@ public class TwitterController {
 		JSONObject body = new JSONObject();
 		body.put("nombre", userScreenName);
 		body.put("twitterId", userId);
-		
-		if(geoLocation != null && !geoLocation.getString("lat").isEmpty()) {
-			body.put("latitud", Double.valueOf(geoLocation.getString("lat")));
-			body.put("longitud", Double.valueOf(geoLocation.getString("lng")));			
-		}
-		else {
-			body.put("latitud", "");
-			body.put("longitud", "");	
-		}
-		//body.put("geoLocation", "");
+		body.put("geoLocation", "");
+		//body.put("latitud", Double.valueOf(geoLocation.getString("lat")));
+		//body.put("longitud", Double.valueOf(geoLocation.getString("lng")));
 		
 		String result = postToRest(serverURL+loginTwitterURL, body);
 

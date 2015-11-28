@@ -160,35 +160,4 @@ public class ProductMovementDAO {
 		List<ProductMovement> PMList = (List<ProductMovement>) query.getResultList();
 		return PMList.get(0).getDateMov();
 	}
-
-	public ProductMovement createMovement(long vSId, int userID,
-			String barCode, Date datemov, int stock, long destination,
-			long origin, double finalprice, double initialprice,
-			boolean toav) {
-		ProductMovement productMovementAux = new ProductMovement();
-		ProductDAO PDAO = new ProductDAO();
-		Product Paux = PDAO.getByBarCode(vSId, barCode);
-		double doAux = Paux.getStock() + stock;
-		productMovementAux.setUnit(Paux.getUnit());
-		productMovementAux.setProductName(Paux.getName());
-		Calendar cal = productMovementAux.getDateMov();
-		if(cal == null) { //desde Android la fecha vine vacía
-			Calendar now = Calendar.getInstance();
-			productMovementAux.setDateMov(now);
-		}
-		
-		if(doAux < 0) throw new IllegalArgumentException("The resultant stock cannot be negative.");
-		
-		PDAO.updateStock(doAux, productMovementAux.getVirtualStorageId(), productMovementAux.getBarCode());
-		
-		if( productMovementAux.getFinalPrice() != 0 ){
-			PDAO.updatePrice(productMovementAux.getVirtualStorageId(),
-							productMovementAux.getBarCode(),
-							productMovementAux.getFinalPrice());			
-		}
-		
-		em.persist(productMovementAux);
-		em.flush();
-		return productMovementAux;
-	}
 }
