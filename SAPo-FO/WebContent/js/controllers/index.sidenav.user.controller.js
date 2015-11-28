@@ -12,7 +12,8 @@
         var vm = this
     	var userTwitter = $cookies.getObject('sapoUser');
     	vm.userLogged = false;
-        
+    	
+    	$scope.userAvatar = $cookies.get('userAvatar');
     	
 		if ((typeof userTwitter !== "undefined") && (userTwitter !== null)) {
 			vm.userLogged = (userTwitter.twitterId!==0);
@@ -27,6 +28,8 @@
 		function logout() {
 			$cookies.remove('sapoUser');
 			$cookies.remove('sapoVirtualStorages');
+			$cookies.remove('userAvatar');
+			$cookies.remove('sapoCurrentVirtualStorage');
 			
 			//var landingUrl = $window.location.host + "/SAPo-FO/index.html";
 			
