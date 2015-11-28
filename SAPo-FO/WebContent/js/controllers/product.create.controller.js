@@ -3,9 +3,9 @@
     angular
         .module('sapo')
         .controller('CreateProductController', CreateProductController);
-    CreateProductController.$inject = ['CreateProductsResource', 'CategoriesResource' ,'$scope', '$mdDialog', '$location', '$cookies'];
+    CreateProductController.$inject = ['CreateProductsResource', 'CategoriesResource', 'GenericProductResource', '$scope', '$mdDialog', '$location', '$cookies'];
     /* @ngInject */
-    function CreateProductController(CreateProductsResource, CategoriesResource, $scope, $mdDialog, $location, $cookies) {
+    function CreateProductController(CreateProductsResource, CategoriesResource, GenericProductResource, $scope, $mdDialog, $location, $cookies) {
     	$scope.title = 'Crear Producto';
     	$scope.fields = []; 
     	$scope.insert = insert;
@@ -17,6 +17,30 @@
     	$scope.selected = [];
     	$scope.toggle = toggle;
     	$scope.exists = exists;
+    	
+    	
+    	$scope.loadGenerics = loadGenerics;
+        $scope.getGeneric = getGeneric;
+
+
+        function loadGenerics(search) {
+            return GenericProductResource.query({
+                limit: 5,
+                search: search
+            }).$promise; 
+        }  
+
+        function getGeneric(barcode){
+        	GenericProductResource.get({                
+                barcode: barcode
+            }).$promise.then(function(result) {
+            	console.log(result);
+                $scope.prod.barCode = result.barCode;
+                $scope.prod.name = result.name;
+                $scope.prod.description = result.purchasePrice;
+            });           
+        }
+        
     	
     	var res = $location.path().split("/");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");

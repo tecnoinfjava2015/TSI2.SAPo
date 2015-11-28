@@ -16,13 +16,16 @@
 		
 		<md-dialog-content style="max-width:100%;max-height:100%; ">
 				
-	  	 <md-input-container >
-	  	 	<md-tooltip md-direction="top">
-	          Ingrese nombre del producto
-	        </md-tooltip>
-	        <label>Nombre</label>
-	        <input ng-model="prod.name" name="prodName" required>
-	      </md-input-container>
+	  	 <md-autocomplete md-selected-item="generic" md-selected-item-change="getGeneric(generic.barcode)" 
+	        md-search-text-change="loadGenerics(filterText)" 
+	        md-min-length="3" md-items="item in loadGenerics(filterText)" 
+	        md-item-text="item.name" md-search-text="filterText" 
+	        placeholder="Producto Gen&eacute;rico">  
+	            <md-item-template>
+	                <span md-highlight-text="filterText" md-highlight-flags="^i"> {{ item.name }}</span>
+	            </md-item-template>
+	            <md-not-found>Ning&uacute;n gen&eacute;rico para esa descripci&oacute;n.</md-not-found>
+	        </md-autocomplete>
 	      <md-input-container >
 	      	<md-tooltip md-direction="top">
 	          Ingrese el c&oacute;digo de barras del producto
