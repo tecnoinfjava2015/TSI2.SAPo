@@ -75,8 +75,7 @@
     	function shareVS(ev) {
       	    $mdDialog.show({
       	    	controller: 'VirtualStorageShareController',
-                  templateUrl: 'templates/virtualStorage.share.html',
-      	    	
+                templateUrl: 'templates/virtualStorage.share.html',
       	        parent: angular.element(document.body),
       	        targetEvent: ev,
       	        clickOutsideToClose:true
