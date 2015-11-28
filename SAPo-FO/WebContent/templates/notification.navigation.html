@@ -6,23 +6,19 @@
         </div>        
     </div>
     
-    <div flex layout-wrap layout="row" >
-        <div ng-repeat="notification in notifications" flex="grow"> 
-        	
-            <md-card flex="grow"> 
-                <div layout="row"  layout-fill>
-                    <div flex="75" layout-margin layout-fill>
-                        <md-card-content>
-                            <p>{{notification.mensaje}}</p>
-                        </md-card-content>
-                        <md-card-footer>
-                            <h3>Stock minimo: {{notification.minStock}}</h3>
-                        </md-card-footer>
-                    </div>
-                </div>
-            </md-card>
+    <div ng-cloak="" class="listdemoBasicUsage" ng-app="MyApp">
+  <md-content>
+    <md-list>
+      <md-list-item class="md-2-line" ng-repeat="notification in notifications">
+        <div class="md-list-item-text" layout="column">
+          <h3>{{ notification.mensaje }}</h3>
+          <h4>Stock minimo: {{notification.minStock}} Producto: {{ notification.barcode }}</h4>
         </div>
-    </div>
+      </md-list-item>
+      <md-divider></md-divider>
+    </md-list>
+ </md-content>
+</div>
 
     <md-progress-linear md-mode="indeterminate" ng-show="loading"></md-progress-linear>
 <!--     <div class="md-actions" layout="row" layout-align="start center" ng-click="getNotifications()"> -->

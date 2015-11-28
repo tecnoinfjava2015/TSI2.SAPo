@@ -22,7 +22,7 @@
 //		});
 //		$scope.getNotifications = function(){
 			NotificationResource.query({
-				tenantId : $scope.virtualStorageId				
+				tenantId : $scope.virtualStorageId
 			}).$promise.then(function(result){
 //				var notificationAux = $scope.notifications.concat(result);
 				$scope.notifications = result;
