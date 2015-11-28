@@ -23,8 +23,8 @@
                 controllerAs: 'vm'
             })
             .when('/', {
-                controller: 'ProductsNavigationController',
-                templateUrl: 'templates/products.navigate.html',
+            	controller: 'DashboardController',
+                templateUrl: 'templates/dashboard.view.html',
                 controllerAs: 'vm'
             })
             .when('/virtualStorage/:tenantName/category', {

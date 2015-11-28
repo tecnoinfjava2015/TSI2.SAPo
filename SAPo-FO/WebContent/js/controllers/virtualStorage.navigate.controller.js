@@ -76,7 +76,7 @@
     	
     	function deleteVirtualStorage(vs) {
     		vs.enabled = false;
-    		var index = loggedUser.tenantCreados.indexOf(vs.id.toString());
+    		/*var index = loggedUser.tenantCreados.indexOf(vs.id.toString());
     		var removed = 0;
 			if (index > -1) {
 				removed = loggedUser.tenantCreados.splice(index, 1);
@@ -95,7 +95,7 @@
 			
 			$cookies.put("sapoVirtualStorages", JSON.stringify(virtualStorages));
 			$cookies.remove("sapoUser");
-			$cookies.put("sapoUser", loggedUser);
+			$cookies.put("sapoUser", loggedUser);*/
     		VirtualStorageEditResource.update({id: vs.id}, vs).$promise.then(function(data){
     			
 				
@@ -128,27 +128,39 @@
 		};
     	
     	function showAdvanced(ev) {
-    		if (loggedUser.type === 'Free' && virtualStorages.owned.length > 0) {
-    			showAlert('Error!', 'Usted ha alcanzado el m&aacute;ximo de almacenes virtuales permitidos.</br>Si desea agregar m&aacute;s almacenes virutales debe realizar un upgrade de su cuenta.');
-    		}
-    		else if (loggedUser.type === 'FREEMIUM' && virtualStorages.owned.length > 1) {
-    			showAlert('Error!', 'Usted ha alcanzado el m&aacute;ximo de almacenes virtuales permitidos.</br>Si desea agregar m&aacute;s almacenes virutales debe realizar un upgrade de su cuenta.');
-    		}
-    		else {
-    			$mdDialog.show({
-        	    	controller: 'VirtualStorageController',
-                    templateUrl: 'templates/virtualStorage.create.html',
-        	    	
-        	        parent: angular.element(document.body),
-        	         targetEvent: ev,
-        	        clickOutsideToClose:true
-        	    })
-        	    .then(function(answer) {
-        	        $scope.status = 'You said the information was "' + answer + '".';
-        	    }, function() {
-        	        $scope.status = 'You cancelled the dialog.';
-        	    });
-    		}
+    		
+    		var virtualStoragesOwned;
+    		VirtualStorageViewResource.query({
+            }).$promise.then(function(result) {
+            	console.log(result);
+            	virtualStoragesOwned = result.owned;
+            	console.log(virtualStoragesOwned);
+        		if (loggedUser.type === 'Free' && typeof virtualStoragesOwned !== 'undefined' && virtualStoragesOwned.length > 0) {
+        			showAlert('Error!', 'Usted ha alcanzado el m&aacute;ximo de almacenes virtuales permitidos.</br>Si desea agregar m&aacute;s almacenes virutales debe realizar un upgrade de su cuenta.');
+        		}
+        		else if (loggedUser.type === 'FREEMIUM' && typeof virtualStoragesOwned !== 'undefined' && virtualStoragesOwned.length > 1) {
+        			showAlert('Error!', 'Usted ha alcanzado el m&aacute;ximo de almacenes virtuales permitidos.</br>Si desea agregar m&aacute;s almacenes virutales debe realizar un upgrade de su cuenta.');
+        		}
+        		else {
+        			$mdDialog.show({
+            	    	controller: 'VirtualStorageController',
+                        templateUrl: 'templates/virtualStorage.create.html',
+            	    	
+            	        parent: angular.element(document.body),
+            	         targetEvent: ev,
+            	        clickOutsideToClose:true
+            	    })
+            	    .then(function(answer) {
+            	        $scope.status = 'You said the information was "' + answer + '".';
+            	    }, function() {
+            	        $scope.status = 'You cancelled the dialog.';
+            	    });
+        		}
+            },function(error) {
+            	console.log(error);
+            
+            });
+    		
     	    
     	  };
     }
