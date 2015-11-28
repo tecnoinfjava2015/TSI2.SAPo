@@ -57,6 +57,7 @@
 					
 				}, function(r){
 					console.log(r);
+					
 					showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
 				});
 				reset();
