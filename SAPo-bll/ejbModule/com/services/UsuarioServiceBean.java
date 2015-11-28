@@ -41,8 +41,7 @@ public class UsuarioServiceBean implements UsuarioServiceLocal{
 		u.setEnabled(true);
 		u.setAceptado(true);
 		u.setTwitterId(input.twitterId);
-		//u.setLatitud(input.geoLocation);
-		if(input.latitud != null && !input.latitud.isEmpty()); {
+		if(input.latitud != null && !input.latitud.isEmpty() && input.latitud.length() > 0) {
 			u.setLatitud(Double.valueOf(input.latitud));
 			u.setLongitud(Double.valueOf(input.longitud));
 		}

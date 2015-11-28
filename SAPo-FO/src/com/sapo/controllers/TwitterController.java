@@ -310,8 +310,8 @@ public class TwitterController {
 			body.put("longitud", Double.valueOf(geoLocation.getString("lng")));			
 		}
 		else {
-			body.put("latitud", "");
-			body.put("longitud", "");	
+//			body.put("latitud", null);
+//			body.put("longitud", null);	
 		}
 		//body.put("geoLocation", "");
 		
