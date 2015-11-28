@@ -6,16 +6,17 @@
         </div>        
     </div>
     
-    <div flex layout-wrap layout="row" ng-show="list" >
-        <div ng-repeat="product in products" flex="grow"> 
-            <md-card flex="grow">
+    <div flex layout-wrap layout="row" >
+        <div ng-repeat="notification in notifications" flex="grow"> 
+        	
+            <md-card flex="grow"> 
                 <div layout="row"  layout-fill>
                     <div flex="75" layout-margin layout-fill>
                         <md-card-content>
-                            <p>{{vm.notification.mensaje}}</p>
+                            <p>{{notification.mensaje}}</p>
                         </md-card-content>
                         <md-card-footer>
-                            <h3>Stock minimo: {{vm.notification.minStock}}</h3>
+                            <h3>Stock minimo: {{notification.minStock}}</h3>
                         </md-card-footer>
                     </div>
                 </div>

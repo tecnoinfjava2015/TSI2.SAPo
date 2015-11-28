@@ -24,29 +24,29 @@ public class NotificationsParamDAO {
 		if(newNot.equals(null)) throw new NullPointerException("La notificacion esta vacia");		
 //		NotificationsParam notificationAux = getNotificationByProduct(newNot.getBarcode(), newNot.getVSId());
 		
-		if(exist(newNot.getBarcode(), newNot.getVSId())){
+//		if(exist(newNot.getBarcode(), newNot.getVSId())){
 			Query query =  em.createQuery("SELECT n FROM NotificationsParam n WHERE n.VSId=:VSId AND n.barcode=:barcode")
 					.setParameter("VSId", newNot.getVSId()).setParameter("barcode", newNot.getBarcode());
 			List<NotificationsParam> notificationList = (List<NotificationsParam>) query.getResultList();		
 			NotificationsParam notificationAux;
-//			if(notificationList == null || notificationList.isEmpty()){
-//				em.persist(newNot);
-//				em.flush();
-//				return newNot;
-//			}
-//			else
-//			{
+			if(notificationList == null || notificationList.isEmpty()){
+				em.persist(newNot);
+				em.flush();
+				return newNot;
+			}
+			else
+			{
 				notificationAux = notificationList.get(0);
 				notificationAux.setMensaje(newNot.getMensaje());
 				notificationAux.setMinStock(newNot.getMinStock());
 				em.merge(notificationAux);
 				em.flush();
 				return notificationAux;
-//			}
-		}
-		em.persist(newNot);
-		em.flush();
-		return newNot;
+			}
+//		}
+//		em.persist(newNot);
+//		em.flush();
+//		return newNot;
 	}
 	
 	public NotificationsParam getNotificationByProduct(String barcode, int VSId){
@@ -65,7 +65,7 @@ public class NotificationsParamDAO {
 	public boolean exist(String barcode, int VSId){
 		Query query = em.createQuery("SELECT COUNT(n) FROM NotificationsParam n WHERE n.barcode=:barcode AND n.VSId=:VSId")
 				.setParameter("barcode", barcode).setParameter("VSId", VSId);
-		return (!query.getSingleResult().equals(null));
+		return (!query.getSingleResult().equals('0'));
 	}
 	
 	public void modificar(NotificationsParam notification){
