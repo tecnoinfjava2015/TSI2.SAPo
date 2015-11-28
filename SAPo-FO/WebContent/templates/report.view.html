@@ -1,4 +1,4 @@
-<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/bootstrap.sapo.min.css" rel="stylesheet" />
 
 <style>
 .md-pane-open .md-datepicker-calendar {
@@ -14,7 +14,7 @@
 	<md-content>
 		<h4>Valor Actual del Almac&eacute;n</h4>
 		<md-whiteframe class="md-whiteframe-7dp" flex="25" layout layout-align="center center">
-		    <span>{{vsWorth}}</span>
+		    <span style="margin:20px;">{{vsWorth}}</span>
 		</md-whiteframe>
 	</md-content>
 	</p>
@@ -27,7 +27,7 @@
 			<span style="margin-left: 50px;">Hasta </span>
 			<md-datepicker name="ctrl.to_Date" ng-model="to_Date" md-placeholder="Hasta" md-min-date="fromDate"></md-datepicker>
 		</form>
-		<md-button ng-click="getMovements()" class="md-raised md-primary" >Ver Resultado</md-button>
+		<md-button ng-click="getMovements()" class="md-raised md-primary" style="margin-left: 20%;">Ver Resultado</md-button>
 	</md-content>
 	<md-content>
 		<div ng-hide="hideMovements">

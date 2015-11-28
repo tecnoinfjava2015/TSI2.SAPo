@@ -1,0 +1,27 @@
+<md-dialog aria-label="Compartir Almac&eacute;n" ng-cloak
+	style="width: 50%;height:30%">
+<form name="inputForm" novalidate>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>Compartir Almac&eacute;n</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()"> <i class="material-icons" aria-label="Close dialog">clear</i> </md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content style="max-width:100%;max-height:100%; ">
+		<md-input-container>
+			<label>Nombre del usuario</label> 
+			<md-tooltip md-direction="top">&iquest;Con qui&eacute;n desea compartir?</md-tooltip> 
+			
+			<input ng-model="nick" name="nick" required> 
+		</md-input-container> 
+		
+		<span flex></span> 
+	</md-dialog-content>
+	<md-dialog-actions class="md-actions" layout="row">
+		<span flex></span> 	
+		<md-button class="md-raised md-primary"	ng-click='share()'>Compartir</md-button> 
+		<md-button class="md-raised" ng-click="cancel()">Cancelar</md-button> 
+	</md-dialog-actions>
+</form>
+</md-dialog>
