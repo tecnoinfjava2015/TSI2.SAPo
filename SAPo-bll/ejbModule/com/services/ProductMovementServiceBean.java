@@ -2,6 +2,7 @@ package com.services;
 
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -85,6 +86,15 @@ public class ProductMovementServiceBean implements ProductMovementServiceLocal{
 	@Override
 	public Calendar getoFechaCreadoProduto(long virtualStorageId, String barCode) {
 		return pmdao.getoFechaCreadoProduto(virtualStorageId, barCode);
+	}
+
+	@Override
+	public ProductMovement createMovement(long VSId, int userID,
+			String barCode, Date datemov, int stock, long destination,
+			long origin, double finalprice, double initialprice,
+			boolean toav) {
+		
+		return pmdao.createMovement(VSId, userID, barCode, datemov, stock, destination, origin, finalprice, initialprice, toav);
 	}
 
 	

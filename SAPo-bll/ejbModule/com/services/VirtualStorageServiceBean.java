@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 
 
 
+
 import com.bl.ProductBL;
 import com.entities.mongo.Product;
 import com.entities.sql.VirtualStorage;
@@ -28,6 +29,7 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 
 	@Override
 	public void registroVS(String nombre, String conexion, String url,Date fechaCreacion, String CSS, String loading, Boolean enabled, Boolean blocked, int idCreador, String logo) {	
+		System.out.println("Entro al servicio" + idCreador);
 		VirtualStorage vs = new VirtualStorage();
 		vs.setName(nombre);
 		vs.setConnection(conexion);
@@ -38,6 +40,7 @@ public class VirtualStorageServiceBean implements VirtualStorageServiceLocal{
 		vs.setLogo(logo);
 		vs.setEnabled(enabled);
 		vs.setBlocked(blocked);
+		System.out.println("llego al servicio antes de llamar al DAO con id creador " + idCreador);
 		vsdao.insertVS(vs, idCreador);
 	}
 	

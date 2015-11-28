@@ -1,6 +1,7 @@
 package com.services;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -24,6 +25,20 @@ public interface ProductMovementServiceLocal{
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ProductMovement createMovement( ProductMovement productMovementAux );
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ProductMovement createMovement( @QueryParam("VSId") long VSId,
+			  @QueryParam("userID") int userID, 
+			  @QueryParam("barcode") String barCode,
+			  @QueryParam("datemov") Date datemov,
+			  @QueryParam("stock") int stock,
+			  @QueryParam("destination") long destination,
+			  @QueryParam("origin") long origin,
+			  @QueryParam("finalprice") double finalprice,
+			  @QueryParam("initialprice") double initialprice,
+			  @QueryParam("toav") boolean toav);
 	
 	@GET
 	@Path("/ByUserAndAV")
