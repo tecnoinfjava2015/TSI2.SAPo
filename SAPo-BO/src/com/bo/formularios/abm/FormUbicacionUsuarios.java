@@ -18,10 +18,10 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.tapio.googlemaps.GoogleMap;
-import com.vaadin.tapio.googlemaps.client.LatLon;
-import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapMarker;
-import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapPolygon;
+//import com.vaadin.tapio.googlemaps.GoogleMap;
+//import com.vaadin.tapio.googlemaps.client.LatLon;
+//import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapMarker;
+//import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapPolygon;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
@@ -46,11 +46,11 @@ public class FormUbicacionUsuarios extends PanelDinamico {
     private Button recargarMapa;
     private Label  texto2;
     private List<Usuario>  listaUsuarios;
-    protected GoogleMap googleMap;
-    protected LatLon position;
-   
-    protected ArrayList<LatLon> coordenadasZonaLatLon = new ArrayList<LatLon>();
-    protected GoogleMapPolygon poligonoZona = new GoogleMapPolygon();
+//    protected GoogleMap googleMap;
+//    protected LatLon position;
+//   
+//    protected ArrayList<LatLon> coordenadasZonaLatLon = new ArrayList<LatLon>();
+//    protected GoogleMapPolygon poligonoZona = new GoogleMapPolygon();
     private UsuarioServiceLocal servicioU;
    
     private final String apiKey = "";
@@ -99,15 +99,15 @@ public class FormUbicacionUsuarios extends PanelDinamico {
         
     }
     
-    protected void reiniciarMapa(GoogleMap googleMap){
-         googleMap.setCenter(new LatLon(-34.860963, -56.15122));
-         googleMap.setZoom(12);
-         googleMap.clearMarkers();
-         for(GoogleMapMarker m : googleMap.getMarkers()){
-            googleMap.removeMarker(m);
-        }
-               
-    } 
+//    protected void reiniciarMapa(GoogleMap googleMap){
+//         googleMap.setCenter(new LatLon(-34.860963, -56.15122));
+//         googleMap.setZoom(12);
+//         googleMap.clearMarkers();
+//         for(GoogleMapMarker m : googleMap.getMarkers()){
+//            googleMap.removeMarker(m);
+//        }
+//               
+//    } 
        
     
     
@@ -144,94 +144,95 @@ public class FormUbicacionUsuarios extends PanelDinamico {
         encComp.setComponentAlignment(recargarMapa, Alignment.BOTTOM_RIGHT);
 
         
-        usuariosCombo.addValueChangeListener(new ValueChangeListener() {
-            @Override
-            public void valueChange(ValueChangeEvent event) {
-                reiniciarMapa(googleMap);
-                
-               for(GoogleMapMarker m : googleMap.getMarkers()){
-                   googleMap.removeMarker(m);
-               }
-               googleMap.clearMarkers();
-               String valorEncuestadorCombo = usuariosCombo.getValue().toString();
-               if (!valorEncuestadorCombo.contains("Todos")){
-            	   double latitud = 0;
-	               double longitud = 0;
-	               Usuario user = servicioU.getUsuario(usuariosCombo.getValue().toString());
-	               nombreUsuario = user.getNick();
-	               boolean ubicacionOK = false;
-	               if (user.getLatitud() != 0){
-	                   latitud = user.getLatitud();
-	                   if (user.getLongitud()!= 0){
-	                       longitud = user.getLongitud();
-	                       System.out.println("Ubicación "+ nombreUsuario + ": "+ latitud + ", " + longitud);
-	                       ubicacionOK = true;
-	                   }
-	               }
-	               else{
-	                   System.out.println("Ubicación "+ nombreUsuario + " Error, sin Ubicación");
-	               }
-	                       
-	               if(ubicacionOK){
-	                   reiniciarMapa(googleMap);
-	                   GoogleMapMarker encuestadorMarker = new GoogleMapMarker();
-	                   
-	                   LatLon ubiEnc = new LatLon(latitud, longitud);
-	                   encuestadorMarker.setCaption("Usuario: "+nombreUsuario);
-	                   encuestadorMarker.setPosition(ubiEnc);
-	                   encuestadorMarker.setDraggable(false);
-	                   googleMap.addMarker(encuestadorMarker);
-	                   googleMap.setCenter(ubiEnc);
-	                   googleMap.setZoom(15);      
-	                   
-	               }
-	               else {
-	                   googleMap.removePolygonOverlay(poligonoZona);
-	                   Notification notif = new Notification("No hay datos de ubicación \n para este usuario");
-	                   notif.setDelayMsec(2000);
-	                   notif.show(Page.getCurrent());   
-	               }
-               }
-               else{
-            	   for (Usuario user : listaUsuarios) {
-            		   double latitud = 0;
-    	               double longitud = 0;
-            		   nombreUsuario = user.getNick();
-    	               boolean ubicacionOK = false;
-    	               if (user.getLatitud() != 0){
-    	                   latitud = user.getLatitud();
-    	                   if (user.getLongitud()!= 0){
-    	                       longitud = user.getLongitud();
-    	                       ubicacionOK = true;
-    	                   }
-    	               }
-    	                	                       
-    	               if(ubicacionOK){
-    	                   GoogleMapMarker encuestadorMarker = new GoogleMapMarker();
-    	                   
-    	                   LatLon ubiEnc = new LatLon(latitud, longitud);
-    	                   encuestadorMarker.setCaption("Usuario: "+nombreUsuario);
-    	                   encuestadorMarker.setPosition(ubiEnc);
-    	                   encuestadorMarker.setDraggable(false);
-    	                   googleMap.addMarker(encuestadorMarker);  
-    	               }	   
-                   }
-               }
-            }
-           });        
+//        usuariosCombo.addValueChangeListener(new ValueChangeListener() {
+//            @Override
+//            public void valueChange(ValueChangeEvent event) {
+//                reiniciarMapa(googleMap);
+//                
+//               for(GoogleMapMarker m : googleMap.getMarkers()){
+//                   googleMap.removeMarker(m);
+//               }
+//               googleMap.clearMarkers();
+//               String valorEncuestadorCombo = usuariosCombo.getValue().toString();
+//               if (!valorEncuestadorCombo.contains("Todos")){
+//            	   double latitud = 0;
+//	               double longitud = 0;
+//	               Usuario user = servicioU.getUsuario(usuariosCombo.getValue().toString());
+//	               nombreUsuario = user.getNick();
+//	               boolean ubicacionOK = false;
+//	               if (user.getLatitud() != 0){
+//	                   latitud = user.getLatitud();
+//	                   if (user.getLongitud()!= 0){
+//	                       longitud = user.getLongitud();
+//	                       System.out.println("Ubicación "+ nombreUsuario + ": "+ latitud + ", " + longitud);
+//	                       ubicacionOK = true;
+//	                   }
+//	               }
+//	               else{
+//	                   System.out.println("Ubicación "+ nombreUsuario + " Error, sin Ubicación");
+//	               }
+//	                       
+//	               if(ubicacionOK){
+//	                   reiniciarMapa(googleMap);
+//	                   GoogleMapMarker encuestadorMarker = new GoogleMapMarker();
+//	                   
+//	                   LatLon ubiEnc = new LatLon(latitud, longitud);
+//	                   encuestadorMarker.setCaption("Usuario: "+nombreUsuario);
+//	                   encuestadorMarker.setPosition(ubiEnc);
+//	                   encuestadorMarker.setDraggable(false);
+//	                   googleMap.addMarker(encuestadorMarker);
+//	                   googleMap.setCenter(ubiEnc);
+//	                   googleMap.setZoom(15);      
+//	                   
+//	               }
+//	               else {
+//	                   googleMap.removePolygonOverlay(poligonoZona);
+//	                   Notification notif = new Notification("No hay datos de ubicación \n para este usuario");
+//	                   notif.setDelayMsec(2000);
+//	                   notif.show(Page.getCurrent());   
+//	               }
+//               }
+//               else{
+//            	   for (Usuario user : listaUsuarios) {
+//            		   double latitud = 0;
+//    	               double longitud = 0;
+//            		   nombreUsuario = user.getNick();
+//    	               boolean ubicacionOK = false;
+//    	               if (user.getLatitud() != 0){
+//    	                   latitud = user.getLatitud();
+//    	                   if (user.getLongitud()!= 0){
+//    	                       longitud = user.getLongitud();
+//    	                       ubicacionOK = true;
+//    	                   }
+//    	               }
+//    	                	                       
+//    	               if(ubicacionOK){
+//    	                   GoogleMapMarker encuestadorMarker = new GoogleMapMarker();
+//    	                   
+//    	                   LatLon ubiEnc = new LatLon(latitud, longitud);
+//    	                   encuestadorMarker.setCaption("Usuario: "+nombreUsuario);
+//    	                   encuestadorMarker.setPosition(ubiEnc);
+//    	                   encuestadorMarker.setDraggable(false);
+//    	                   googleMap.addMarker(encuestadorMarker);  
+//    	               }	   
+//                   }
+//               }
+//            }
+//           });        
+//        
         return encComp;
     }
     
     
     private HorizontalLayout generarMapComp(){
         HorizontalLayout mapaComponente = new HorizontalLayout(); 
-    	googleMap = new GoogleMap(null, null, null);
-        googleMap.setSizeFull();
-        googleMap.setMinZoom(6);
-        reiniciarMapa(googleMap);
-        
-        mapaComponente.addComponent(googleMap);
-        mapaComponente.setExpandRatio(googleMap, 1.0f);
+//    	googleMap = new GoogleMap(null, null, null);
+//        googleMap.setSizeFull();
+//        googleMap.setMinZoom(6);
+//        reiniciarMapa(googleMap);
+//        
+//        mapaComponente.addComponent(googleMap);
+//        mapaComponente.setExpandRatio(googleMap, 1.0f);
         mapaComponente.setSizeFull();
         return mapaComponente;
     }

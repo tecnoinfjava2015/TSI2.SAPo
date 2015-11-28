@@ -12,11 +12,13 @@
     	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
     	$scope.virtualStorageName = res[2];
+    	$scope.barcode = res[4];
 		
 		ProductsResource.get({
-			tenantId : '1',
-//			tenantId : $scope.virtualStorageId,
-			barcode : '1.1234567890'
+			//tenantId : '1',
+			tenantId : $scope.virtualStorageId,
+			//barcode : '1.1234567890'
+			barcode: $scope.barcode
 		}).$promise.then(function(result) {
 			$scope.product = result;
 			

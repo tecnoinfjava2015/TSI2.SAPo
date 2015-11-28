@@ -3,9 +3,9 @@ package com.bo.formularios.abm;
 import Reportes.ReporteUsuarios;
 
 import com.bo.principal.PanelDinamico;
-import com.ejt.vaadin.sizereporter.ComponentResizeEvent;
-import com.ejt.vaadin.sizereporter.ComponentResizeListener;
-import com.ejt.vaadin.sizereporter.SizeReporter;
+//import com.ejt.vaadin.sizereporter.ComponentResizeEvent;
+//import com.ejt.vaadin.sizereporter.ComponentResizeListener;
+//import com.ejt.vaadin.sizereporter.SizeReporter;
 import com.entities.mongo.Product;
 import com.entities.sql.Usuario;
 import com.services.UsuarioServiceLocal;

@@ -23,7 +23,6 @@
     	}
     	
     	$cookies.put("sapoCurrentVirtualStorage", $scope.virtualStorageId);
-    	    	
     	function createProduct(ev) {
     		$mdDialog.show({
     	    	controller: 'CreateProductController',
