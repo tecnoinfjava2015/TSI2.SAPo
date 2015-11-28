@@ -62,6 +62,11 @@
                 templateUrl: 'templates/notification.navigation.html',
                 controllerAs: 'vm'
             })
+            .when('/virtualStorage/:tenantName/reports', {
+            	controller: 'ReportsController',
+            	templateUrl: 'templates/report.view.html',
+            	controllerAs: 'vm'
+            })
             .otherwise({
                 redirectTo: '/error',
                 templateUrl: 'templates/error.view.html'
