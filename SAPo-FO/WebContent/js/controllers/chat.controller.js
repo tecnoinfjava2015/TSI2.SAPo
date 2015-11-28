@@ -7,27 +7,36 @@
     /* @ngInject */
     function ChatController($cookies, $scope, $location) {
 
-
+        var userTwitter = $cookies.getObject('sapoUser');
+        var userAvatar = $cookies.get('userAvatar');
+        $scope.title = "SAPo-Chat " + userTwitter.name;
         var wsocket;
         var serviceLocation = "ws://localhost:8080/SAPo-FO/ChatEndpoint/";
         var $nickName;
-        var $message;
+        var $avatar;
+        var $message; 
         var $chatWindow; 
-        var room = '';
+        var room = '';  
 
         function onMessageReceived(evt) {
             var msg = JSON.parse(evt.data); // native API
-            var $messageLine = $('<ul>' + msg.sender + ": " + msg.message + '</ul>');
+            if (msg.avatar===userAvatar) {
+                var $messageLine = $('<md-list-item class="md-2-line" ng-repeat="item in todos"><img src='+msg.avatar+' class="md-avatar" alt="'+msg.sender+'" /><div class="md-list-item-text" layout="column"><h4>'+msg.sender+'</h4><p>'+msg.message+'</p></div></md-list-item><md-divider ></md-divider>');//('<ul>' + msg.sender + ": " + msg.message + '</ul>');
+            }else{
+                var $messageLine = $('<md-list-item class="md-2-line" ng-repeat="item in todos"><div class="md-list-item-text" layout="column"><h4>'+msg.sender+'</h4><p>'+msg.message+'</p></div><img src='+msg.avatar+' class="md-avatar" alt="'+msg.sender+'" /></md-list-item><md-divider ></md-divider>');//('<ul>' + msg.sender + ": " + msg.message + '</ul>');                
+            }
+            
             $chatWindow.append($messageLine);
-            $("#response").scrollTop($("#response")[0].scrollHeight);
-        }
+            
+            $("#responseContainer").scrollTop($("#responseContainer")[0].scrollHeight); 
+        } 
 
         function sendMessage() {
-            var msg = '{"message":"' + $message.val() + '", "sender":"' + $nickName + '"}';
+            var msg = '{"message":"' + $message.val() + '", "sender":"' + $nickName +'", "avatar":"'+$avatar + '"}';
             wsocket.send(msg);
-            $message.val('').focus();
+            $message.val('').focus(); 
         }
-
+ 
         function connectToChatserver() {
             room = 'Almacen';
             wsocket = new WebSocket(serviceLocation + room);
@@ -43,13 +52,25 @@
         }
 
         $(document).ready(function() {
-            $nickName = 'lufasoch';
+
+
+ 
+            console.log(userTwitter);
+            $nickName = userTwitter.name;
+            $avatar = userAvatar;
             $message = $('#message');
             $chatWindow = $('#response');
             $('.chat-wrapper').hide();
-
+            
+            $('#sendDiv').ready(function(){
+            	var maxHeight = ($( window ).height())-($('#sendDiv').height())-($('#chatDiv').position().top);
+            	$('#responseContainer').height(maxHeight-35);
+            });
+            
+            
+            
+            
             connectToChatserver();
-            $('.chat-wrapper h2').text('Chat # ' + $nickName + "@" + room);
             $('.chat-signin').hide();
             $('.chat-wrapper').show();
             $message.focus();

@@ -19,7 +19,10 @@ public class ChatMessageEncoder implements Encoder.Text<ChatMessage> {
 		return Json.createObjectBuilder()
 				.add("message", chatMessage.getMessage())
 				.add("sender", chatMessage.getSender())
-				/*.add("received", chatMessage.getReceived().toString())*/.build()
+				.add("avatar", chatMessage.getAvatar())
+				/*.add("received", chatMessage.getReceived().toString())*/
+				.build()
 				.toString();
 	}
 }
+ 

@@ -6,6 +6,7 @@ public class ChatMessage {
 	private String message;
 	private String sender;
 	private Date received;
+	private String avatar;
 
 	public final String getMessage() {
 		return message;
@@ -30,10 +31,19 @@ public class ChatMessage {
 	public final void setReceived(final Date received) {
 		this.received = received;
 	}
+	
+	public final String getAvatar() {
+		return avatar;
+	}
 
+	public final void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	
 	@Override
 	public String toString() {
-		return "ChatMessage [message=" + message + ", sender=" + sender + "]";
-				//+ ", received=" + received + "]";
+		return "ChatMessage [message=" + message + ", sender=" + sender + ", avatar=" + avatar + "]";
 	}
+
+
 }
