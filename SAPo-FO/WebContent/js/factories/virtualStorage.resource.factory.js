@@ -53,3 +53,20 @@
         });
     }
 })();
+
+(function() {
+    'use strict';
+    angular
+        .module('sapo')
+        .factory('VirtualStorageShareResource', VirtualStorageShareResource);
+    VirtualStorageShareResource.$inject = ['$resource', '$cookies'];
+    /* @ngInject */
+    function VirtualStorageShareResource($resource, $cookies) {
+        //var userId = $cookies.getObject("sapoUser").id;
+        return $resource('/SAPo-FO/api/VirtualStorage/:tenantId/share/:nick', {tenantId:'@tenantId', nick:'@nick'}, {
+            'save': {
+                method: 'POST'
+            }
+        });
+    }
+})();

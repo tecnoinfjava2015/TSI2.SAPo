@@ -42,7 +42,7 @@
             if (vs != null && typeof vs.name !== 'undefined') {
             	VirtualStorageEditResource.update({id: vs.id}, vs).$promise.then(function(data){
                 	showAlert('Exito!','Se ha editado su almac&eacute;n virtual de forma exitosa');
-                	var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html#/virtualStorage/" + vs.name;
+                	var landingUrl = "http://" + $window.location.host + "/SAPo-FO/#/virtualStorage/" + vs.name;
 					console.log(landingUrl);
 					$window.location.href = landingUrl;
                 	

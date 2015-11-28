@@ -15,8 +15,9 @@
 		
 		ProductsResource.get({
 			tenantId : '1',
-//			tenantId : $scope.virtualStorageId,
+			//tenantId : $scope.virtualStorageId,
 			barcode : '1.1234567890'
+			//TODO: agarrar el barcode de la llamada a esta vista
 		}).$promise.then(function(result) {
 			$scope.product = result;
 			
@@ -73,8 +74,9 @@
     	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
 		
 		ProductStockResource.query({
-//			VSId : $scope.virtualStorageId,
-//			barcode : $scope.product.barcode
+			//VSId : $scope.virtualStorageId,
+			//barcode : $scope.product.barcode
+			//TODO: Cambiar hardcodeados
 			VSId : '1',
 			barcode : '1.1234567890'
 		}).$promise.then(function(result) {
@@ -108,6 +110,7 @@
 		ProductPriceResource.query({
 //			VSId : $scope.virtualStorageId,
 //			barcode : $scope.product.barcode
+			//TODO: sacar hardcodeados
 			VSId : '1',
 			barcode : '1.1234567890'
 		}).$promise.then(function(result) {
