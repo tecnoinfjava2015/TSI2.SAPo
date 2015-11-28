@@ -142,7 +142,9 @@ public class VirtualStorageDAO {
 	}
 
 	public String insertVS(VirtualStorage vs, int idCreador){
+		System.out.println("llego al DAO VS " + idCreador);
 		Usuario creador = udao.buscarID(idCreador);
+		System.out.println("DAO VS nombre " + creador.getNick());
 		if(creador==null){
 			return "500-Error-Sin_Usuario";
 		}
@@ -150,6 +152,8 @@ public class VirtualStorageDAO {
 			return "501-Error-Ya existe AV";
 		}
 		else{
+			System.out.println("llego al DAO VS a insertVS con id creador " + creador.getId());
+			System.out.println("llego al DAO VS a insertVS con id creador pasado" + idCreador);
 			vs.setOwner(creador);
 			em.persist(vs);
 			em.flush(); 
