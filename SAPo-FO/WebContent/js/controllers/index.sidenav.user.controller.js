@@ -37,7 +37,7 @@
 			
 			//$window.location.href = landingUrl;
 			
-			var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html";
+			var landingUrl = "http://" + $window.location.host + "/SAPo-FO/";
 			console.log(landingUrl);
 			$window.location.href = landingUrl;
 			
@@ -48,7 +48,7 @@
 			if (typeof $location.Path !== 'undefined') {
 				path = $location.Path;
 			}
-			var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html#/" + path + "userProfile";
+			var landingUrl = "http://" + $window.location.host + "/SAPo-FO/#/" + path + "userProfile";
 			console.log($location.Path);
 			$window.location.href = landingUrl;
 		}

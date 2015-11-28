@@ -30,6 +30,7 @@
 
 	        $mdDialog
 	            .show( alert )
+	            
 	            .finally(function() {
 	              alert = undefined;
 	            });

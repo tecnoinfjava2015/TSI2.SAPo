@@ -9,6 +9,7 @@
     	$scope.createCategory = createCategory;
     	$scope.editCategory = editCategory;
     	$scope.createProduct = createProduct;
+    	$scope.shareVS = shareVS;
     	$cookies.remove("sapoCurrentVirtualStorage");
     	var res = $location.path().split("/");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
@@ -71,5 +72,21 @@
     	        $scope.status = 'You cancelled the dialog.';
     	    });
     	  };
+    	  
+    	function shareVS(ev) {
+      	    $mdDialog.show({
+      	    	controller: 'VirtualStorageShareController',
+                  templateUrl: 'templates/virtualStorage.share.html',
+      	    	
+      	        parent: angular.element(document.body),
+      	        targetEvent: ev,
+      	        clickOutsideToClose:true
+      	    })
+      	    .then(function(answer) {
+      	        $scope.status = 'You said the information was "' + answer + '".';
+      	    }, function() {
+      	        $scope.status = 'You cancelled the dialog.';
+      	    });
+      	  };
     }
 })();

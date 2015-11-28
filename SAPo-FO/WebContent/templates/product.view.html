@@ -1,18 +1,16 @@
-<md-content ng-cloak >
-<h2 style="text-align: center;">{{product.name}}</h2>
-
 <script src="js/lib/ui-bootstrap-0.14.3.min.js" ></script>
-<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/bootstrap.sapo.min.css" rel="stylesheet" />
 
- <div style="height: 300px; width: 400px; margin:20px auto;">
-   <uib-carousel interval="myInterval" no-wrap="noWrapSlides" >
-     <uib-slide ng-repeat="slide in slides" active="slide.active">
-       <img ng-src="{{slide.image}}" style="margin:auto; max-height: 280px;">
-       
-     </uib-slide>
-   </uib-carousel>
- </div>
-
+<md-content ng-cloak >
+	<h2 style="text-align: center;">{{product.name}}</h2>
+	<div style="height: 300px; width: 400px; margin:20px auto;">
+	  <uib-carousel interval="myInterval" no-wrap="noWrapSlides" >
+	    <uib-slide ng-repeat="slide in slides" active="slide.active">
+	      <img ng-src="{{slide.image}}" style="margin:auto; max-height: 280px;">
+	      
+	    </uib-slide>
+	  </uib-carousel>
+	</div>
 </md-content>
 
 <style>

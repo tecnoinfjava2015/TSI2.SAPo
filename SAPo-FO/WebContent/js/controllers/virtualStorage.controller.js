@@ -51,7 +51,7 @@
 					
 					//$cookies.put("newUser", aux2);
 					showAlert('Exito!', 'Se ha creado su almac&eacute;n virtual de forma exitosa');
-					var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html#/virtualStorage/" + vsName;
+					var landingUrl = "http://" + $window.location.host + "/SAPo-FO/#/virtualStorage/" + vsName;
 					console.log(landingUrl);
 					$window.location.href = landingUrl;
 					
