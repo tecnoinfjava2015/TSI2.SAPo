@@ -35,6 +35,21 @@
         	console.log(error);
         
         });
+    	
+    	$scope.$on("editVirtualStorage", function(event,option) {
+    		VirtualStorageViewResource.query({
+            }).$promise.then(function(result) {
+            	console.log(result);
+                $scope.virtualStorages = result.owned;
+                $scope.virtualStoragesFollowing = result.following;
+                $scope.loading = false;
+            },function(error) {
+            	console.log(error);
+            
+            });
+		})
+		
+		
     	//console.log($scope.virtualStorages);
     	
     	
@@ -61,7 +76,29 @@
     	
     	function deleteVirtualStorage(vs) {
     		vs.enabled = false;
+    		var index = loggedUser.tenantCreados.indexOf(vs.id.toString());
+    		var removed = 0;
+			if (index > -1) {
+				removed = loggedUser.tenantCreados.splice(index, 1);
+				console.log(removed);
+			}
+
+			loggedUser = JSON.stringify(loggedUser);
+			
+			index = virtualStorages.owned.indexOf(vs.id.toString());
+			if (index > -1) {
+				virtualStorages.owned.splice(index, 1);
+			}
+			
+			
+			$cookies.remove("sapoVirtualStorages");
+			
+			$cookies.put("sapoVirtualStorages", JSON.stringify(virtualStorages));
+			$cookies.remove("sapoUser");
+			$cookies.put("sapoUser", loggedUser);
     		VirtualStorageEditResource.update({id: vs.id}, vs).$promise.then(function(data){
+    			
+				
             	showAlert('Exito!','Se ha eliminado su almac&eacute;n virtual de forma exitosa');
         		$scope.$apply();
             }, function(error){

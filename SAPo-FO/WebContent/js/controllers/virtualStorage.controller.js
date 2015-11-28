@@ -6,6 +6,7 @@
 	/* @ngInject */
 	function VirtualStorageController(VirtualStorageResource, UnitResource, $scope, $cookies, $mdDialog, $window) {
 		var user = $cookies.getObject("sapoUser");
+		var virtualStorages = $cookies.getObject("sapoVirtualStorages");
 		
 		$scope.vs = new VirtualStorageResource();
 		$scope.master = {};
@@ -44,12 +45,16 @@
 						i++;
 					}
 					user.tenantCreados.push(vsIdAux);
-					var auxUser = JSON.stringify(user);
+					user = JSON.stringify(user);
 					
-					var aux2 = JSON.parse(auxUser);
-					console.log(aux2);
+					virtualStorages.owned.push(vsIdAux);
 					
-					//$cookies.put("newUser", aux2);
+					console.log(virtualStorages);
+					$cookies.remove("sapoVirtualStorages");
+					
+					$cookies.put("sapoVirtualStorages", JSON.stringify(virtualStorages));
+					$cookies.remove("sapoUser");
+					$cookies.put("sapoUser", user);
 					$scope.unit.virtualStorageId = parseInt(vsIdAux);
 					UnitResource.save(
 						$scope.unit,
