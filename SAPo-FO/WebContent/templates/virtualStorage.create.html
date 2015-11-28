@@ -23,7 +23,20 @@
 			<input ng-model="logoFile.filename"	ng-focus="upload()" id="fileName"> 
 		</md-input-container> 
 		
-		<input type='file'	ng-model='logoFile' id="file" base-sixty-four-input hidden> 
+		<input type='file'	ng-model='logoFile' id="file" base-sixty-four-input style="display: none"> 
+		<md-input-container>
+			<label>Unidad</label> 
+			<md-tooltip md-direction="top">Seleccione la unidad de valoraci&oacute;n de su almac&eacute;n virtual </md-tooltip> 
+			
+			<input ng-model="u.name" required> 
+		</md-input-container> 
+		
+		<md-input-container>
+			<label>Unidad</label> 
+			<md-tooltip md-direction="top">Seleccione la abreviaci&oacute;n para la unidad de valoraci&oacute;n de su almac&eacute;n virtual </md-tooltip> 
+			
+			<input ng-model="u.short" required> 
+		</md-input-container> 
 		
 		<md-input-container>
 			<label>Tema del almac&eacute;n virtual</label> 
