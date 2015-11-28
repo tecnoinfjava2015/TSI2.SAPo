@@ -22,38 +22,55 @@ public class NotificationsParamDAO {
 	
 	public NotificationsParam createNotification(NotificationsParam newNot){
 		if(newNot.equals(null)) throw new NullPointerException("La notificacion esta vacia");		
-		NotificationsParam notificationAux = getNotificationByProduct(newNot.getBarrcode(), newNot.getVSId());
-		if(notificationAux.getBarrcode() == newNot.getBarrcode() && notificationAux.getVSId() == newNot.getVSId()){
-			em.merge(newNot);
-			em.flush();
-			return newNot;
+//		NotificationsParam notificationAux = getNotificationByProduct(newNot.getBarcode(), newNot.getVSId());
+		
+		if(exist(newNot.getBarcode(), newNot.getVSId())){
+			Query query =  em.createQuery("SELECT n FROM NotificationsParam n WHERE n.VSId=:VSId AND n.barcode=:barcode")
+					.setParameter("VSId", newNot.getVSId()).setParameter("barcode", newNot.getBarcode());
+			List<NotificationsParam> notificationList = (List<NotificationsParam>) query.getResultList();		
+			NotificationsParam notificationAux;
+//			if(notificationList == null || notificationList.isEmpty()){
+//				em.persist(newNot);
+//				em.flush();
+//				return newNot;
+//			}
+//			else
+//			{
+				notificationAux = notificationList.get(0);
+				notificationAux.setMensaje(newNot.getMensaje());
+				notificationAux.setMinStock(newNot.getMinStock());
+				em.merge(notificationAux);
+				em.flush();
+				return notificationAux;
+//			}
 		}
-		else{
-			em.persist(newNot);
-			em.flush();
-			return newNot;
-		}
+		em.persist(newNot);
+		em.flush();
+		return newNot;
 	}
 	
 	public NotificationsParam getNotificationByProduct(String barcode, int VSId){
 		if(exist(barcode, VSId)){
 			Query query =  em.createQuery("SELECT n FROM NotificationsParam n WHERE n.VSId=:VSId AND n.barcode=:barcode")
 					.setParameter("VSId", VSId).setParameter("barcode", barcode);
-			NotificationsParam notification = (NotificationsParam) query.getResultList().get(0);
-			return notification;
+			List<NotificationsParam> notification = (List<NotificationsParam>) query.getResultList();
+			if(notification == null || notification.isEmpty())
+				return null;
+			else
+				return notification.get(0);
 		}
 		return null;
 	}
 	
 	public boolean exist(String barcode, int VSId){
-		TypedQuery<Long> query = em.createQuery("SELECT n FROM NotificationsParam n WHERE n.barcode=:barcode AND n.VSId=:VSId", long.class)
+		Query query = em.createQuery("SELECT COUNT(n) FROM NotificationsParam n WHERE n.barcode=:barcode AND n.VSId=:VSId")
 				.setParameter("barcode", barcode).setParameter("VSId", VSId);
-		return (query.getSingleResult() > 0);
+		return (!query.getSingleResult().equals(null));
 	}
 	
 	public void modificar(NotificationsParam notification){
 		if(notification.equals(null)) throw new NullPointerException("La notificacion esta vacia");
-		if(!exist(notification.getBarrcode(),notification.getVSId())) throw new IllegalArgumentException("No existe una notificacion para este producto");
+		if(!exist(notification.getBarcode(),notification.getVSId())) throw new IllegalArgumentException("No existe una notificacion para este producto");
 		em.merge(notification);
 	}
 	

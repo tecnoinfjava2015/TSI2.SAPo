@@ -25,7 +25,7 @@ public interface NotificationParamServiceLocal {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<NotificationsParam> getNotificationList(@PathParam("virtualStorageId") int VSId);
+	public List<NotificationsParam> getNotification(@PathParam("virtualStorageId") int VSId);
 	
 	@GET
 	@Path("/one")

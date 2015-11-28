@@ -17,6 +17,8 @@ public class NotificationsParam {
 	private int VSId;
 	private int minStock;
 	private boolean active;
+	@Column(length=255)
+	private String mensaje;
 	
 	public long getId() {
 		return id;
@@ -24,11 +26,11 @@ public class NotificationsParam {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getBarrcode() {
+	public String getBarcode() {
 		return barcode;
 	}
-	public void setBarrcode(String barrcode) {
-		this.barcode = barrcode;
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
 	}
 	public int getVSId() {
 		return VSId;
@@ -57,6 +59,4 @@ public class NotificationsParam {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	@Column(length=255)
-	private String mensaje;
 }

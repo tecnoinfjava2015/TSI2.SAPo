@@ -20,7 +20,7 @@ public class NotificationParamServiceBean implements NotificationParamServiceLoc
 	}
 
 	@Override
-	public List<NotificationsParam> getNotificationList(int VSId) {
+	public List<NotificationsParam> getNotification(int VSId) {
 		return noDAO.getNotificationByVSId(VSId);
 	}
 

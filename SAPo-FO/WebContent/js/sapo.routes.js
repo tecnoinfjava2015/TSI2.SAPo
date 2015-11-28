@@ -52,6 +52,16 @@
                 templateUrl: 'templates/dashboard.view.html',
                 controllerAs: 'vm'
             })
+            .when('/notification', {
+                controller: 'NotificationCreateController',
+                templateUrl: 'templates/notification.create.html',
+                controllerAs: 'vm'
+            })
+            .when('/notificationlist', {
+                controller: 'NotificationNavigationController',
+                templateUrl: 'templates/notification.navigation.html',
+                controllerAs: 'vm'
+            })
             .otherwise({
                 redirectTo: '/error',
                 templateUrl: 'templates/error.view.html'
