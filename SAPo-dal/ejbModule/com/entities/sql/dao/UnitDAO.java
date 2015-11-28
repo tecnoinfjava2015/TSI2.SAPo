@@ -1,5 +1,7 @@
 package com.entities.sql.dao;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
@@ -26,6 +28,17 @@ public class UnitDAO {
 		.setParameter("unitId", unitId);
 		Unit unit = (Unit) query.getResultList().get(0);
 		return unit;
+	}
+	
+	public Unit getUnitByVS(long VSId){
+		Query query =  em.createQuery("SELECT u FROM Unit u WHERE u.virtualStorageId=:VSId")
+		.setParameter("VSId", VSId);
+		List<Unit> units = (List<Unit>) query.getResultList();
+		if (units != null && units.size() > 0) {
+			return units.get(0);
+		}
+		
+		return null;
 	}
 	
 	public Unit getOneByNameAndVS(String name, long VSId){
