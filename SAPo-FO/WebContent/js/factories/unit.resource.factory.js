@@ -6,6 +6,6 @@
     UnitResource.$inject = ['$resource'];
     /* @ngInject */
     function UnitResource($resource) {
-        return $resource('/SAPo-FO/api/Unit/:tenantId',{tenantId:'@tenantId'});
+        return $resource('/SAPo-FO/api/Unit/:tenantId',{tenantId:'@tenantId'}, {'query': { method: 'GET' }});
     }
 })(); 

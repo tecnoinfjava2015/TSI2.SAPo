@@ -51,27 +51,18 @@
 	        <input ng-model="images.filename" ng-focus="upload()" id="fileName">        
 	      </md-input-container>
 	      
-	      <input type='file' ng-model='images' id="file" base-sixty-four-input hidden multiple="multiple" >
-	      <md-input-container >
-	      	<md-tooltip md-direction="top">
-	          Ingrese la unidad de valoraci&oacute;n del producto
-	        </md-tooltip>
-	        <label>Unidad</label>
-	        <input ng-model="prod.unit.name">
-	      </md-input-container>
-	      
 	      <md-input-container >
 	      	<md-tooltip md-direction="top">
 	          Ingrese el precio de compra del producto
 	        </md-tooltip>
-	        <label>Precio de compra ($)</label>
+	        <label>Precio de compra ({{unit.abbreviation}})</label>
 	        <input ng-model="prod.purchasePrice">
 	      </md-input-container>
 	      <md-input-container >
 	      	<md-tooltip md-direction="top">
 	          Ingrese el precio de venta del producto
 	        </md-tooltip>
-	        <label>Precio de venta</label>
+	        <label>Precio de venta ({{unit.abbreviation}})</label>
 	        <input ng-model="prod.salePrice">
 	      </md-input-container>
 	      <md-input-container >
