@@ -41,9 +41,8 @@
             
             if (vs != null && typeof vs.name !== 'undefined') {
             	VirtualStorageEditResource.update({id: vs.id}, vs).$promise.then(function(data){
-            		$rootScope.$broadcast('editVirtualStorage',"EDIT_VIRTUAL_STORAGE"); 
-            		
                 	showAlert('Exito!','Se ha editado su almac&eacute;n virtual de forma exitosa');
+
                 }, function(error){
                 	showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
                 });

@@ -2,9 +2,9 @@
 	'use strict';
 	angular.module('sapo').controller('VirtualStorageController',
 			VirtualStorageController);
-	VirtualStorageController.$inject = [ 'VirtualStorageResource', '$scope', '$cookies', '$mdDialog', '$window'];
+	VirtualStorageController.$inject = [ 'VirtualStorageResource', 'UnitResource', '$scope', '$cookies', '$mdDialog', '$window'];
 	/* @ngInject */
-	function VirtualStorageController(VirtualStorageResource, $scope, $cookies, $mdDialog, $window) {
+	function VirtualStorageController(VirtualStorageResource, UnitResource, $scope, $cookies, $mdDialog, $window) {
 		var user = $cookies.getObject("sapoUser");
 		var virtualStorages = $cookies.getObject("sapoVirtualStorages");
 		
@@ -21,7 +21,7 @@
 		$scope.insert = insert;
 		$scope.reset = reset;
 		$scope.cancel = cancel;
-		
+		$scope.unit = new UnitResource();
 		
 		function upload() {
 			document.getElementById("file").click();
@@ -48,7 +48,7 @@
 					user = JSON.stringify(user);
 					
 					virtualStorages.owned.push(vsIdAux);
-	
+					
 					console.log(virtualStorages);
 					$cookies.remove("sapoVirtualStorages");
 					
@@ -75,7 +75,8 @@
 					
 				}, function(r){
 					console.log(r);
-					showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
+					
+					/*showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');*/
 				});
 				reset();
 			}
