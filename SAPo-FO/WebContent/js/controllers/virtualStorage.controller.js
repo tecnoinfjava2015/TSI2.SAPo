@@ -6,6 +6,7 @@
 	/* @ngInject */
 	function VirtualStorageController(VirtualStorageResource, $scope, $cookies, $mdDialog, $window) {
 		var user = $cookies.getObject("sapoUser");
+		var virtualStorages = $cookies.getObject("sapoVirtualStorages");
 		
 		$scope.vs = new VirtualStorageResource();
 		$scope.master = {};
@@ -44,16 +45,33 @@
 						i++;
 					}
 					user.tenantCreados.push(vsIdAux);
-					var auxUser = JSON.stringify(user);
+					user = JSON.stringify(user);
 					
-					var aux2 = JSON.parse(auxUser);
-					console.log(aux2);
+					virtualStorages.owned.push(vsIdAux);
+	
+					console.log(virtualStorages);
+					$cookies.remove("sapoVirtualStorages");
 					
-					//$cookies.put("newUser", aux2);
-					showAlert('Exito!', 'Se ha creado su almac&eacute;n virtual de forma exitosa');
-					var landingUrl = "http://" + $window.location.host + "/SAPo-FO/#/virtualStorage/" + vsName;
-					console.log(landingUrl);
-					$window.location.href = landingUrl;
+					$cookies.put("sapoVirtualStorages", JSON.stringify(virtualStorages));
+					$cookies.remove("sapoUser");
+					$cookies.put("sapoUser", user);
+					$scope.unit.virtualStorageId = parseInt(vsIdAux);
+					UnitResource.save(
+						$scope.unit,
+						function(result) {
+							$scope.loading = false;
+							showAlert('Exito!', 'Se ha creado su almac&eacute;n virtual de forma exitosa');
+							var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html#/virtualStorage/" + vsName;
+							console.log(landingUrl);
+							$window.location.href = landingUrl;
+						},
+						function(result) {
+							$scope.loading = false;
+							console.log(r);
+							showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
+						});
+				
+					
 					
 				}, function(r){
 					console.log(r);

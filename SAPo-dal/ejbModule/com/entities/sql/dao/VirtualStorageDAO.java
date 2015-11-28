@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -142,9 +141,7 @@ public class VirtualStorageDAO {
 	}
 
 	public String insertVS(VirtualStorage vs, int idCreador){
-		System.out.println("llego al DAO VS " + idCreador);
 		Usuario creador = udao.buscarID(idCreador);
-		System.out.println("DAO VS nombre " + creador.getNick());
 		if(creador==null){
 			return "500-Error-Sin_Usuario";
 		}
@@ -152,8 +149,6 @@ public class VirtualStorageDAO {
 			return "501-Error-Ya existe AV";
 		}
 		else{
-			System.out.println("llego al DAO VS a insertVS con id creador " + creador.getId());
-			System.out.println("llego al DAO VS a insertVS con id creador pasado" + idCreador);
 			vs.setOwner(creador);
 			em.persist(vs);
 			em.flush(); 
@@ -177,27 +172,5 @@ public class VirtualStorageDAO {
 			}
 		}
 		return total;
-	}
-
-	public String shareVS(int vsId, String nick) {
-		Query vsquery =  em.createQuery("SELECT v FROM VirtualStorage v WHERE v.id=:vsId")
-				.setParameter("vsId", vsId);
-		VirtualStorage virtualStorage = (VirtualStorage) vsquery.getResultList().get(0);
-		Query userquery =  em.createQuery("SELECT u FROM Usuario u WHERE u.nick=:nick")
-				.setParameter("nick", nick);
-		List<Usuario> result = (List<Usuario>) userquery.getResultList();
-		if(result != null && !result.isEmpty()){
-			Usuario newfollower = (Usuario) result.get(0);
-			Set<VirtualStorage> following = newfollower.getTenantSeguidor();
-			following.add(virtualStorage);
-			newfollower.setTenantSeguidor(following);
-			
-			em.merge(newfollower);
-			em.flush(); 
-			return "Seguidor agregado correctamente.";
-		}
-		else{
-			return "No existe el usuario seguidor.";
-		}
 	}	
 }

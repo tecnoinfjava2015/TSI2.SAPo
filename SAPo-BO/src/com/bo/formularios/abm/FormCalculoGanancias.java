@@ -73,6 +73,7 @@ public class FormCalculoGanancias extends PanelDinamico {
         	for (Usuario u : listaUsuarios){
             	if( u.getType().equals("Premium")){
             		listaUsuariosPremium.add(u);
+            		System.out.println("entro");
             	}
             }
         }
@@ -136,6 +137,7 @@ public class FormCalculoGanancias extends PanelDinamico {
 		VerticalLayout panDer = new VerticalLayout();
 	    table = new Table("Usuarios Premium");
 	    table.addContainerProperty("Nombre", String.class, null);
+	    System.out.println("largo de la lista " + listaUsuariosPremium.size());
 	    if(listaUsuariosPremium != null && listaUsuariosPremium.size() > 0 ){
 		    for (Usuario usuario : listaUsuariosPremium) {
 		    	Object newItemId = table.addItem();

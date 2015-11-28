@@ -19,6 +19,7 @@
     		if (virtualStorages.owned[i].name == res[2]) {
     			$scope.virtualStorageName = virtualStorages.owned[i].name;
     			$scope.tenantId = virtualStorages.owned[i].id;
+    			console.log($scope.tenantId);
     		}
     	}
     	console.log('hola2');

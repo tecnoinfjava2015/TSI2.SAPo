@@ -3,9 +3,11 @@
     angular
         .module('sapo')
         .controller('MenuController', MenuController);
-    MenuController.$inject = ['$scope','$location'];
+    MenuController.$inject = ['$scope','$location', '$cookies'];
     /* @ngInject */
-    function MenuController($scope,$location) {
+    function MenuController($scope,$location, $cookies) {
+    	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
+    	
         $scope.menu = [{
             icon:"home",
             name: "Home",
@@ -24,6 +26,15 @@
                 url: "/dashboard"
             }
         $scope.menu.push(item);
+        
+        if (typeof $scope.virtualStorageId !== 'undefined') {
+        	var item = {
+                    icon:"assessment",
+                    name: "Reports",
+                    url: "/reports"
+                }
+            $scope.menu.push(item);
+        }
 
         $scope.redirect = redirect;
 
