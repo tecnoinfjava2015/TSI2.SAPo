@@ -80,26 +80,6 @@
     	
     	function deleteVirtualStorage(vs) {
     		vs.enabled = false;
-    		/*var index = loggedUser.tenantCreados.indexOf(vs.id.toString());
-    		var removed = 0;
-			if (index > -1) {
-				removed = loggedUser.tenantCreados.splice(index, 1);
-				console.log(removed);
-			}
-
-			loggedUser = JSON.stringify(loggedUser);
-			
-			index = virtualStorages.owned.indexOf(vs.id.toString());
-			if (index > -1) {
-				virtualStorages.owned.splice(index, 1);
-			}
-			
-			
-			$cookies.remove("sapoVirtualStorages");
-			
-			$cookies.put("sapoVirtualStorages", JSON.stringify(virtualStorages));
-			$cookies.remove("sapoUser");
-			$cookies.put("sapoUser", loggedUser);*/
     		VirtualStorageEditResource.update({id: vs.id}, vs).$promise.then(function(data){
     			
 				
@@ -116,9 +96,6 @@
 		};
 		
 		function showAlert(title,content) {
-			// Appending dialog to document.body to cover sidenav in docs app
-			// Modal dialogs should fully cover application
-			// to prevent interaction outside of dialog
 			$mdDialog
 					.show($mdDialog
 							.alert()
@@ -132,7 +109,6 @@
 		};
     	
     	function showAdvanced(ev) {
-    		
     		var virtualStoragesOwned;
     		VirtualStorageViewResource.query({
             }).$promise.then(function(result) {
@@ -162,10 +138,7 @@
         		}
             },function(error) {
             	console.log(error);
-            
             });
-    		
-    	    
     	  };
     	  
     	  function updateIndex(vs){
@@ -177,7 +150,6 @@
     		  $cookies.remove("sapoCurrentVirtualStorage");
     		  $cookies.put("sapoCurrentVirtualStorage", vs.id);
     		  $cookies.put("sapoCurrentVirtualStorageName", vs.name);
-    		  
     		  $window.location.href = "#/virtualStorage/"+vs.name;
     	  }
     }

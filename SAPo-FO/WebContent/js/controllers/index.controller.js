@@ -7,12 +7,11 @@
 		var vm = this;
 
 		var cookieStyle = $cookies.getObject('vsStyle');
-		console.log(cookieStyle);
 		if (typeof cookieStyle!=='undefined' && cookieStyle!==null && cookieStyle!=='' ){
 			vm.sidenavImage = "background-image: url('images/mdBackgrounds/"+cookieStyle.sidenavTop+".png');background-size: cover;";
 			vm.theme = cookieStyle.theme;
 		}else{
-			vm.sidenavImage = "background-image: url('images/mdBackgrounds/Barras1.png');background-size: cover;";
+			vm.sidenavImage = "background-image: url('images/mdBackgrounds/Servilletas4.png');background-size: cover;";
 			vm.theme = "indigopink";
 		}
     	var userTwitter = $cookies.getObject('sapoUser');
@@ -30,6 +29,7 @@
 		vm.b=false;
 		
 		$scope.$on("changeTheme", function(event, t) {
+			console.log("ON CHANGE THEME INDEX");
 			vm.theme = t.theme; 
 			vm.sidenavImage = "background-image: url('images/mdBackgrounds/"+t.sidenavTop+".png');background-size: cover;";
 			$cookies.remove('vsStyle');
