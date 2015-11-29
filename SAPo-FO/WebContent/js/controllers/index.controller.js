@@ -15,16 +15,11 @@
 			vm.sidenavImage = "background-image: url('images/mdBackgrounds/Barras1.png');background-size: cover;";
 			vm.theme = "indigopink";
 		}
-		
     	var userTwitter = $cookies.getObject('sapoUser');
     	vm.userLogged = false;
 		if ((typeof userTwitter !== "undefined") && (userTwitter !== null)) {
 			vm.userLogged = (userTwitter.twitterId!==0);
 		}  
-		
-		
-		
-		
 		
 		vm.sidenavAux = '';
 		vm.toolbarTemplate = 'templates/index.toolbar.html';

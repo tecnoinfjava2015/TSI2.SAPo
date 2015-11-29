@@ -19,13 +19,6 @@
     VirtualStorageEditResource.$inject = ['$resource'];
     /* @ngInject */
     function VirtualStorageEditResource($resource) {
-        // return $resource('/SAPo-FO/api/VirtualStorage/:id', {
-        //     id: '@id' 
-        // }, {
-        //     'update': {
-        //         method: 'PUT'
-        //     }
-        // });
         return $resource('/SAPo-FO/api/VirtualStorage/:id', {id:'@vsId'}, {
             'update': {
                 method: 'PUT' 
