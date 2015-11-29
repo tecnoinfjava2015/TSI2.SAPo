@@ -70,7 +70,7 @@
       	    });
 		}
 		
-		function edititem(data) {
+		function edititem(item) {
 			console.log("edititem");
 		}
 		
