@@ -1,24 +1,25 @@
-<div layout="column" class="relative" layout-fill role="main">
-    <!-- class="relative" layout="column" layout-align="start start" flex> -->
-    <div layout="row">
-        <div flex="90">
-            <h1>Notificaciones</h1>
-        </div>        
-    </div>
-    
-    <div ng-cloak class="listdemoBasicUsage" >
-  <md-content>
-    <md-list>
-      <md-list-item class="md-2-line" ng-repeat="notification in notifications">
-        <div class="md-list-item-text" layout="column">
-          <h2>{{ notification.mensaje }}</h2>
-          <h4>Stock minimo: {{notification.minStock}} Producto: {{ notification.barcode }}</h4>
-        </div>
-      </md-list-item>
-      <md-divider></md-divider>
-    </md-list>
- </md-content>
-</div>
+<link href="css/bootstrap.sapo.min.css" rel="stylesheet" />
 
-    <md-progress-linear md-mode="indeterminate" ng-show="loading"></md-progress-linear>
-</div>
+<md-content flex layout-padding>
+	<md-content layout layout="row">
+		<h3>Notificaciones</h3>
+	</md-content>
+	<md-content>
+		<div>
+			<table class="table table-hover">
+				<tr>
+					<th>Producto</th>
+					<th style="text-align: center;">Stock minimo</th>
+					<th style="text-align: center;">Mensaje</th>
+				</tr>
+				<tr ng-repeat="notification in notifications" >
+			      <td style="vertical-align: middle;">{{ notification.barcode }}</td>
+			      <td style="vertical-align: middle;">{{notification.minStock}}</td>
+			      <td style="text-align: center; vertical-align: middle;">{{notification.mensaje}}</td>
+			      
+			 	</tr>
+			</table>
+		</div>
+		
+	</md-content>
+</md-content>
