@@ -3,9 +3,9 @@
 	angular.module('sapo')
 	.controller('ShoppingListController', ShoppingListController);
 	
-	ShoppingListController.$inject = ['$scope', 'ShoppingListProductsResource', 'ShoppingListResource', 'ShoppingListInsertResource', '$cookies', '$mdDialog'];
+	ShoppingListController.$inject = ['$scope', 'ShoppingListDeleteResource', 'ShoppingListProductsResource', 'ShoppingListResource', 'ShoppingListInsertResource', '$cookies', '$mdDialog'];
 	/* @ngInject */
-	function ShoppingListController($scope, ShoppingListProductsResource, ShoppingListResource, ShoppingListInsertResource, $cookies, $mdDialog) {
+	function ShoppingListController($scope, ShoppingListDeleteResource, ShoppingListProductsResource, ShoppingListResource, ShoppingListInsertResource, $cookies, $mdDialog) {
 		$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
 		$scope.additem = additem;
 		$scope.edititem = edititem;
@@ -16,6 +16,7 @@
 		$scope.showAlert = showAlert;
 		$scope.getProduct = getProduct;
 		$scope.loadProducts = loadProducts;
+		$scope.removeItem = removeItem;
 		
 		ShoppingListResource.get({
 			VSId: $scope.virtualStorageId
@@ -53,7 +54,7 @@
             });
         }
 		
-		function additem(ev) {
+		function additem(ev) { //llama al modal que permite agregar nuevo item
 			$mdDialog.show({
       	    	controller: 'ShoppingListController',
                 templateUrl: 'templates/shoppingList.item.create.html',
@@ -73,24 +74,31 @@
 			console.log("edititem");
 		}
 		
-		function deleteitem(data) {
-			console.log("deleteitem");
+		function deleteitem(item) {
+			ShoppingListDeleteResource.delete({ VSId: $scope.virtualStorageId, barcode: item.productBarcode })
+			.$promise;
+			
+			removeItem(item);
+			showAlert('Exito!','Se ha eliminado el item a la lista');
+			
+		}
+		
+		function removeItem(item) { //Remueve de la lista de la UI
+			var index = $scope.shoppingList.indexOf(item);
+			$scope.shoppingList.splice(index, 1);     
 		}
 		
 		function buyitem(data) {
 			console.log("buyitem");
 		}
 
-      	function insertItem(data) {
-      		ShoppingListInsertResource.save({virtualStorageId: $scope.virtualStorageId, productBarcode: $scope.productBarcode, productname: $scope.productname, quantity: $scope.quantity })
+      	function insertItem(data) { //Inserta en la DB
+      		ShoppingListInsertResource.save({virtualStorageId: $scope.virtualStorageId, productBarcode: $scope.product.barCode, productname: $scope.productname, quantity: $scope.quantity })
 			.$promise.then(function(result) {
-				console.log("en el then");
 				$scope.newItem = result;
-	            console.log($scope.newItem);
 				showAlert('Exito!','Se ha agregado el item a la lista');
 				$scope.shoppingList.push($scope.newItem);
 				$scope.$apply();
-	            console.log($scope.shoppingList);
 	        });
       	}
 //		$scope.getMovements = function(){
