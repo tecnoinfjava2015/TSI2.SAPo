@@ -13,12 +13,13 @@
     	$scope.showAlert = showAlert;   	
     	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
 
+    	console.log($scope.virtualStorageId);
     	function share() {   
     		if ($scope.nick != null) {
 	    		VirtualStorageShareResource.save({tenantId: $scope.virtualStorageId, nick: $scope.nick}, function(){
 	    		showAlert('Exito!','Ha compartido su almac&eacute;n con ' + $scope.nick);
 				}, function(r){
-					console.log(r);
+					//console.log(r);
 					showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
 				});
 	    		
