@@ -5,7 +5,7 @@
 	/* @ngInject */
 	function IndexController($scope,$cookies) {
 		var vm = this;
-		
+
 		var cookieStyle = $cookies.getObject('vsStyle');
 		console.log(cookieStyle);
 		if (typeof cookieStyle!=='undefined' && cookieStyle!==null && cookieStyle!=='' ){
@@ -25,6 +25,7 @@
 		vm.menuShow=false;
 		vm.a=true;
 		vm.b=false;
+		
 		$scope.$on("changeTheme", function(event, t) {
 			vm.theme = t.theme; 
 			vm.sidenavImage = "background-image: url('images/mdBackgrounds/"+t.sidenavTop+".png');background-size: cover;";
@@ -33,11 +34,13 @@
 			
 		});
 		$scope.$on("menuOption",function(event,option){
-			vm.ProductsNavigationMenu = (option=="PRODUCTS_NAVIGATION");
+			vm.ProductsNavigationMenu = (option=="PRODUCTS_NAVIGATION"||option=="VS_HOME" || option=="VS_HOME_CAT");
 			vm.VirtualStorageNavigateMenu = (option=="VS_NAVIGATION");
+			vm.VirtualStorageHome	= (option=="VS_HOME" || option=="VS_HOME_CAT");
+			vm.VirtualStorageHomeCat = (option=="VS_HOME_CAT");
 			vm.menuShow=(!(option=="NULL"));
 			
 		})
-
+ 
 	}
 })(); 
