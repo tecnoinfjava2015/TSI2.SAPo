@@ -171,6 +171,8 @@
     		  style.sidenavTop = vs.sidenavTop 
     		  console.log(style);
     		  $rootScope.$broadcast("changeTheme",style);
+    		  $cookies.remove("sapoCurrentVirtualStorage");
+    		  $cookies.put("sapoCurrentVirtualStorage", vs.id);
     		  
     	  }
     }
