@@ -2,12 +2,17 @@
     <md-button class="md-icon-button" aria-label="menu" hide-gt-md ng-click="toggleSidenavLeft()">
         <i class="material-icons">menu</i>
     </md-button>
-    <img src="{{vs.logo}}" class="logoVS"/>
+    <img ng-show="vsSelected"  src="{{vs.logo}}" class="logoVS"/>
+    <img ng-show="!vsSelected"  src="images/littleFrog.gif" class="logoVS"/>
     
-    <h2 class="vsName">
+    <h2 ng-show="vsSelected" class="vsName">
         <span>{{vs.name}}</span>
     </h2>
     
+        <h2 ng-show="!vsSelected" class="vsName">
+        <span>SAPo</span>
+    </h2>
+     
     <span flex></span>
 
     <a href="premium.xhtml">

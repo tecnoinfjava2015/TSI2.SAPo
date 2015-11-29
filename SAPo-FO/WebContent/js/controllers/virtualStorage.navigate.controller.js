@@ -38,7 +38,7 @@
         });
     	
     	$scope.$on("editVirtualStorage", function(event,option) {
-    		console.log("EN EDIT VIRTUAL STORAGE");
+//    		console.log("EN EDIT VIRTUAL STORAGE");
     		$scope.virtualStorages = [];
     		$scope.virtualStoragesFollowing=[];
     		VirtualStorageViewResource.query({
@@ -84,7 +84,20 @@
     			
 				
             	showAlert('Exito!','Se ha eliminado su almac&eacute;n virtual de forma exitosa');
-        		$scope.$apply();
+        		$scope.virtualStorages = [];
+        		$scope.virtualStoragesFollowing=[];
+        		VirtualStorageViewResource.query({
+                }).$promise.then(function(result) {
+                	console.log(result);
+                    $scope.virtualStorages = result.owned;
+                    $scope.virtualStoragesFollowing = result.following;
+                    $scope.loading = false;
+                },function(error) {
+                	console.log(error);
+                
+                });
+//        		$scope.$apply();
+        		
             }, function(error){
             	showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
             });
@@ -145,11 +158,11 @@
     		  var style = {};
     		  style.theme = vs.theme;
     		  style.sidenavTop = vs.sidenavTop 
-    		  console.log(style);
-    		  $rootScope.$broadcast("changeTheme",style);
-    		  $cookies.remove("sapoCurrentVirtualStorage");
+    		  style.vsId = vs.id;
+			  $cookies.remove("sapoCurrentVirtualStorage");
     		  $cookies.put("sapoCurrentVirtualStorage", vs.id);
     		  $cookies.put("sapoCurrentVirtualStorageName", vs.name);
+    		  $rootScope.$broadcast("changeTheme",style);    		  
     		  $window.location.href = "#/virtualStorage/"+vs.name;
     	  }
     }
