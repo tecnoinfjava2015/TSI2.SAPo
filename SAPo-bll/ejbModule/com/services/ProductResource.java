@@ -58,13 +58,12 @@ public class ProductResource {
 //	public double getVSVaue(@PathParam("virtualStorageId") long virtualStorageId){
 //		return pbl.getVSVaue(virtualStorageId);
 //	}
-	
-	@GET
-	@Path("{barcode}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Boolean estaProducto(@PathParam("virtualStorageId") long virtualStorageId, @PathParam("barcode") String barcode){
-		return pbl.estaProducto(virtualStorageId,barcode);
-	}
+//	@GET
+//	@Path("{barcode}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Boolean estaProducto(@PathParam("virtualStorageId") long virtualStorageId, @PathParam("barcode") String barcode){
+//		return pbl.estaProducto(virtualStorageId,barcode);
+//	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
