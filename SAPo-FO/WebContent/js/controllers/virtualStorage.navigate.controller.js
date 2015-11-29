@@ -173,6 +173,9 @@
     		  $rootScope.$broadcast("changeTheme",style);
     		  $cookies.remove("sapoCurrentVirtualStorage");
     		  $cookies.put("sapoCurrentVirtualStorage", vs.id);
-    		  $window.location.href = "#/virtualStorage/"+vs.name;    	  }
+    		  $window.location.href = "#/virtualStorage/"+vs.name;
+    		  $cookies.put("sapoCurrentVirtualStorageName", vs.name);
+    		  
+    	  }
     }
 })();
