@@ -70,8 +70,10 @@
 
                 	showAlert('Exito!','Se ha editado su almac&eacute;n virtual de forma exitosa');
             		console.log(style);
+            		style.vsId = vs.id;
 					$rootScope.$broadcast("changeTheme",style); 
 					$rootScope.$broadcast("editVirtualStorage",style);
+//					$rootScope.$broadcast("changeLogo",style);
 					
                 }, function(error){
                 	showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');

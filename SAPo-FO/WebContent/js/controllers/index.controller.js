@@ -34,7 +34,6 @@
 			vm.sidenavImage = "background-image: url('images/mdBackgrounds/"+t.sidenavTop+".png');background-size: cover;";
 			$cookies.remove('vsStyle');
 			$cookies.putObject('vsStyle',t);
-			
 		});
 		$scope.$on("menuOption",function(event,option){
 			vm.ProductsNavigationMenu = (option=="PRODUCTS_NAVIGATION"||option=="VS_HOME" || option=="VS_HOME_CAT");

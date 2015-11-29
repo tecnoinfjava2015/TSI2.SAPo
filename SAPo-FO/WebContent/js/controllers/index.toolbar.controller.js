@@ -8,11 +8,11 @@
     function ToolbarController($mdSidenav, $scope, $location, $window, VirtualStorageEditResource, $cookies) {
         $scope.title = 'ToolbarController';
         $scope.redirectToNotifications = redirectToNotifications;
+        $scope.vsSelected = false;
         var vsId = $cookies.get("sapoCurrentVirtualStorage");
-        actualizar();
+        actualizar(vsId);
         $scope.$on("changeTheme", function(event, t) {
-            console.log("ENTRE EN EL ON!!!");
-            actualizar();
+            actualizar(t.vsId);
         });
 
         function redirectToNotifications() {
@@ -29,10 +29,12 @@
             $mdSidenav('left').toggle();
         }
 
-        function actualizar() {
-            if (typeof vsId !== 'undefined' && vsId !== null && vsId !== '') {
+        function actualizar(id) {
+        	console.log(id);
+            if (typeof id !== 'undefined' && id !== null && id !== '') {
+            	$scope.vsSelected = true;
                 VirtualStorageEditResource.get({
-                    id: vsId
+                    id: id
                 }).$promise.then(function(result) {
                         $scope.vs = result;
                         console.log($scope.vs);
