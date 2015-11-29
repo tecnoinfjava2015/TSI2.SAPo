@@ -3,9 +3,9 @@
     angular
         .module('sapo')
         .controller('VirtualStorageNavigateController', VirtualStorageNavigateController);
-    VirtualStorageNavigateController.$inject = ['VirtualStorageViewResource', 'VirtualStorageEditResource', '$scope', '$location', '$mdDialog', '$rootScope', '$cookies'];
+    VirtualStorageNavigateController.$inject = ['VirtualStorageViewResource', 'VirtualStorageEditResource', '$scope', '$location', '$mdDialog', '$rootScope', '$cookies', '$window' ];
     /* @ngInject */
-    function VirtualStorageNavigateController(VirtualStorageViewResource, VirtualStorageEditResource, $scope, $location, $mdDialog, $rootScope, $cookies) {
+    function VirtualStorageNavigateController(VirtualStorageViewResource, VirtualStorageEditResource, $scope, $location, $mdDialog, $rootScope, $cookies, $window ) {
     	var loggedUser = $cookies.getObject("sapoUser");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
     	/*
@@ -173,7 +173,6 @@
     		  $rootScope.$broadcast("changeTheme",style);
     		  $cookies.remove("sapoCurrentVirtualStorage");
     		  $cookies.put("sapoCurrentVirtualStorage", vs.id);
-    		  
-    	  }
+    		  $window.location.href = "#/virtualStorage/"+vs.name;    	  }
     }
 })();
