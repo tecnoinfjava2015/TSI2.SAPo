@@ -9,20 +9,14 @@
     	$scope.createCategory = createCategory;
     	$scope.editCategory = editCategory;
     	$scope.createProduct = createProduct;
-    	$scope.shareVS = shareVS;
-    	$cookies.remove("sapoCurrentVirtualStorage");
-    	var res = $location.path().split("/");
-    	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
-    	var count = virtualStorages.owned.length;
-    	var i = 0;
-    	for (i = 0; i < count; i++) {
-    		if (virtualStorages.owned[i].name == res[2]) {
-    			$scope.virtualStorageName = virtualStorages.owned[i].name;
-    			$scope.virtualStorageId = virtualStorages.owned[i].id;
-    		}
-    	}
-    	
-    	$cookies.put("sapoCurrentVirtualStorage", $scope.virtualStorageId);
+    	$scope.shareVS = shareVS; 
+    	var sharedVS = isShared();
+		if (sharedVS) {
+			$rootScope.$broadcast("menuOption","VS_HOME")
+		}else{
+			$rootScope.$broadcast("menuOption","VS_HOME_CAT")
+		}
+		
     	function createProduct(ev) {
     		$mdDialog.show({
     	    	controller: 'CreateProductController',
