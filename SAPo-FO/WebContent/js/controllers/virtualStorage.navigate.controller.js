@@ -38,6 +38,9 @@
         });
     	
     	$scope.$on("editVirtualStorage", function(event,option) {
+    		console.log("EN EDIT VIRTUAL STORAGE");
+    		$scope.virtualStorages = [];
+    		$scope.virtualStoragesFollowing=[];
     		VirtualStorageViewResource.query({
             }).$promise.then(function(result) {
             	console.log(result);
