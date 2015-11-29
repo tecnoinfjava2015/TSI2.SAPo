@@ -86,5 +86,11 @@
       	        $scope.status = 'You cancelled the dialog.';
       	    });
       	  };
+      	
+      	$scope.goShopping = goShopping;
+      	function goShopping(ev) {
+      		var destination = "#/virtualStorage/" + $scope.virtualStorageId + "/shoppingList";
+      		$location.path(destination);
+      	};
     }
 })();

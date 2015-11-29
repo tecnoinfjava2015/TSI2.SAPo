@@ -125,7 +125,25 @@ public class PayPalController {
 		Cookie sapoUser = (Cookie) externalContext.getRequestCookieMap().get("sapoUser");
 		//Map<String, Object> sessionMap = externalContext.getSessionMap();
 		//JSONObject sapoUserJSON = new JSONObject(sessionMap.get("sapoUser"));
-		JSONObject sapoUserJSON = new JSONObject(sapoUser.getValue());
+		String sapoUserClean = sapoUser.getValue()
+				.replace("%7B", "{")
+				.replace("%7D", "}")
+				.replace("%22", "\"")
+				.replace("%3A", ":")
+				.replace("%2C", ",")
+				.replace("%40", "@")
+				.replace("%5B", "[")
+				.replace("%5D", "]");
+				
+//			%7B {
+//			%7D }
+//			%22 "
+//			%3A :
+//			%2C ,
+//			%40 @
+//			%5B [
+//			%5D ]
+		JSONObject sapoUserJSON = new JSONObject(sapoUserClean);
 		String userType = sapoUserJSON.get("type").toString(); 
 		
 		if(userType.equals("FREEMIUM") || userType.equals("PREMIUM")){
@@ -139,7 +157,16 @@ public class PayPalController {
 		Cookie sapoUser = (Cookie) externalContext.getRequestCookieMap().get("sapoUser");
 		//Map<String, Object> sessionMap = externalContext.getSessionMap();
 		//JSONObject sapoUserJSON = new JSONObject(sessionMap.get("sapoUser"));
-		JSONObject sapoUserJSON = new JSONObject(sapoUser.getValue());
+		String sapoUserClean = sapoUser.getValue()
+				.replace("%7B", "{")
+				.replace("%7D", "}")
+				.replace("%22", "\"")
+				.replace("%3A", ":")
+				.replace("%2C", ",")
+				.replace("%40", "@")
+				.replace("%5B", "[")
+				.replace("%5D", "]");
+		JSONObject sapoUserJSON = new JSONObject(sapoUserClean);
 		String userType = sapoUserJSON.get("type").toString(); 
 		
 		if(userType.equals("PREMIUM")){

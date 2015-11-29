@@ -1,0 +1,50 @@
+<link href="css/bootstrap.sapo.min.css" rel="stylesheet" />
+
+<md-content flex layout-padding>
+	<md-content layout layout="row">
+		<h3>Lista de Compras</h3>
+		<md-button ng-click="additem($event)" class="md-icon-button" aria-label="Agregar">
+        	<i class="material-icons" style="vertical-align: middle;">add</i>
+        	<md-tooltip md-direction="right">Agregar Item</md-tooltip>
+    	</md-button>
+	</md-content>
+	<md-content>
+		<div>
+			<table class="table table-hover">
+				<tr>
+					<th>C&oacute;digo de Barras</th>
+					<th>Producto</th>
+					<th style="text-align: center;">Cantidad</th>
+					<th style="text-align: center;">Acciones</th>
+					<th>&nbsp</th>
+				</tr>
+				<tr ng-repeat="item in shoppingList" >
+			      <td style="vertical-align: middle;">{{ item.productBarcode }}</td>
+			      <td style="vertical-align: middle;">{{ item.productname }}</td>
+			      <td style="text-align: center; vertical-align: middle;">{{ item.quantity }}</td>
+			      <td style="text-align: center;">
+			      	<md-button ng-click="buyitem($event)" class="md-icon-button" aria-label="Notification">
+        				<i class="material-icons">done</i>
+        				<md-tooltip>Item Comprado</md-tooltip>
+    				</md-button>
+			      	<md-button ng-click="edititem($event)" class="md-icon-button" aria-label="Notification">
+        				<i class="material-icons">edit</i>
+        				<md-tooltip>Modificar Item</md-tooltip>
+    				</md-button>
+			      	<md-button ng-click="deleteitem($event)" class="md-icon-button" aria-label="Notification">
+        				<i class="material-icons">delete</i>
+        				<md-tooltip>Eliminar Item</md-tooltip>
+    				</md-button>
+			      </td>
+			      <td>&nbsp</td>
+			 	</tr>
+			</table>
+		</div>
+		<div style="text-align:center;">
+			<md-button ng-click="additem($event)" class="md-icon-button" aria-label="Agregar">
+			    <i class="material-icons">add_circle</i>
+			   	<md-tooltip md-direction="bottom">Agregar Item</md-tooltip>
+			</md-button>
+		</div>
+	</md-content>
+</md-content>

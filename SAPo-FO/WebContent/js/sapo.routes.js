@@ -67,6 +67,11 @@
             	templateUrl: 'templates/report.view.html',
             	controllerAs: 'vm'
             })
+            .when('/virtualStorage/:virtualStorageId/shoppingList', {
+            	controller: 'ShoppingListController',
+            	templateUrl: 'templates/shoppingList.view.html',
+            	controllerAs: 'vm'
+            })
             .otherwise({
                 redirectTo: '/error',
                 templateUrl: 'templates/error.view.html'

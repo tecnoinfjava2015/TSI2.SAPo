@@ -28,7 +28,7 @@ public class ShoppingListDAO {
 	
 	//Esta funcion se fija si ya se registro la necesidad de comprar un producto, si se registro devuelve null
 	public ShoppingListItem createShoppingListItem(ShoppingListItem itemAux){
-		if(existShoppingListItemForVS(itemAux.getProductBarcode(), itemAux.getVirtualStorageId())){
+		if(!existShoppingListItemForVS(itemAux.getProductBarcode(), itemAux.getVirtualStorageId())){
 			em.persist(itemAux);
 			em.flush();
 			return itemAux;

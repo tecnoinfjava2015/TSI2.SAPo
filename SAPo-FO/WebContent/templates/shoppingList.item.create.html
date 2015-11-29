@@ -1,0 +1,40 @@
+<md-dialog aria-label="Compartir Almac&eacute;n" ng-cloak
+	style="width: 50%;height:55%">
+<form name="inputForm" novalidate>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>Agregar Item a la Lista de Compras</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()"> <i class="material-icons" aria-label="Close dialog">clear</i> </md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content style="max-width:100%;max-height:100%; ">
+		<md-input-container>
+			<label>Producto</label> 
+			<input ng-model="productname" name="productname" required> 
+		</md-input-container> 
+		
+		<md-input-container>
+			<label>C&oacute;digo de Barras</label> 
+			<input ng-model="productBarcode" name="productBarcode" required> 
+		</md-input-container> 
+		
+		<md-input-container>
+			<label>Cantidad</label> 
+			<input ng-model="quantity" name="quantity" required> 
+		</md-input-container> 
+		
+		<span flex></span> 
+	</md-dialog-content>
+	<md-dialog-actions class="md-actions" layout="row">
+		<span flex></span> 	
+		<md-button class="md-raised md-primary"	ng-click='insertItem()'>Agregar Item</md-button> 
+		<md-button class="md-raised" ng-click="cancel()">Cancelar</md-button> 
+	</md-dialog-actions>
+</form>
+</md-dialog>
+
+<!-- 	private long virtualStorageId; -->
+<!-- 	private String productBarcode; -->
+<!-- 	private String productname; -->
+<!-- 	private long quantity; -->
