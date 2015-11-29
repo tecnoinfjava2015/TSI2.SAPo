@@ -36,12 +36,13 @@
 			$cookies.putObject('vsStyle',t);
 		});
 		$scope.$on("menuOption",function(event,option){
+			console.log(option);
 			vm.ProductsNavigationMenu = (option=="PRODUCTS_NAVIGATION"||option=="VS_HOME" || option=="VS_HOME_CAT");
 			vm.VirtualStorageNavigateMenu = (option=="VS_NAVIGATION");
 			vm.VirtualStorageHome	= (option=="VS_HOME" || option=="VS_HOME_CAT");
 			vm.VirtualStorageHomeCat = (option=="VS_HOME_CAT");
 			vm.Notifications = (option=="NOTIFICATION_NAVIGATION");
-			vm.menuShow=(!(option=="NULL"));
+			vm.menuShow=(!(option=="NULL")); 
 			
 		})
  
