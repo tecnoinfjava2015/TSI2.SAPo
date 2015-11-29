@@ -52,12 +52,7 @@
                 templateUrl: 'templates/dashboard.view.html',
                 controllerAs: 'vm'
             })
-            .when('/notification', {
-                controller: 'NotificationCreateController',
-                templateUrl: 'templates/notification.create.html',
-                controllerAs: 'vm'
-            })
-            .when('/notificationlist', {
+            .when('/virtualStorage/:tenantName/notificationlist', {
                 controller: 'NotificationNavigationController',
                 templateUrl: 'templates/notification.navigation.html',
                 controllerAs: 'vm'

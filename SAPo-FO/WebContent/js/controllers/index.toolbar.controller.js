@@ -3,10 +3,11 @@
     angular
         .module('sapo')
         .controller('ToolbarController', ToolbarController);
-    ToolbarController.$inject = ['$mdSidenav','$scope','$location','VirtualStorageEditResource','$cookies'];
+    ToolbarController.$inject = ['$mdSidenav','$scope','$location','$window','VirtualStorageEditResource','$cookies'];
     /* @ngInject */
-    function ToolbarController($mdSidenav,$scope,$location,VirtualStorageEditResource,$cookies) {
+    function ToolbarController($mdSidenav,$scope,$location,$window,VirtualStorageEditResource,$cookies) {
         $scope.title = 'ToolbarController';
+        $scope.redirectToNotifications = redirectToNotifications;
 //		var res = $location.path().split("/");
     	//$scope.virtualStorageName = res[2];
     	var vsId=$cookies.get("sapoCurrentVirtualStorage");
@@ -22,7 +23,12 @@
 		}
     	
 
-
+    	function redirectToNotifications() {
+    		/*var landingUrl = "http://" + $window.location.host + "/SAPo-FO/";
+			console.log(landingUrl);
+			$window.location.href = landingUrl;*/
+    		$window.location.href = "http://" + $window.location.host + '/SAPo-FO/#' + '/virtualStorage/' + $cookies.get('sapoCurrentVirtualStorageName') + '/notificationlist';
+    	}
     	
     	
     	
