@@ -56,7 +56,7 @@
     /* @ngInject */
     function VirtualStorageShareResource($resource, $cookies) {
         //var userId = $cookies.getObject("sapoUser").id;
-        return $resource('/SAPo-FO/api/VirtualStorage/:tenantId/share/:nick', {tenantId:'@tenantId', nick:'@nick'}, {
+        return $resource('/SAPo-FO/api/VirtualStorage/:VSId/share/:nick', {VSId:'@VSId', nick:'@nick'}, {
             'save': {
                 method: 'POST'
             }

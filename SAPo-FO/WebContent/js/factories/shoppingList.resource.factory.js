@@ -36,6 +36,18 @@
 	}
 })();
 
+
+(function() {
+    'use strict';
+    angular
+        .module('sapo')
+        .factory('ShoppingListProductsResource', ShoppingListProductsResource);
+    ShoppingListProductsResource.$inject = ['$resource'];
+    /* @ngInject */
+    function ShoppingListProductsResource($resource) {
+        return $resource('/SAPo-FO/api/:tenantId/products',{tenantId:'@tenantId'});
+    }
+})(); 
 // (function() {
 // 'use strict';
 // angular

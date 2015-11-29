@@ -50,7 +50,7 @@ public class VirtualStorageResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("{vsId}/share/{nick}")
-	public String shareVS(@PathParam("vsId") int vsId, @PathParam("vsId") String nick) {
+	public String shareVS(@PathParam("vsId") int vsId, @PathParam("nick") String nick) {
 		return dao.shareVS(vsId, nick);
 	} 
 	

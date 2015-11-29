@@ -9,11 +9,13 @@
 		</div>
 	</md-toolbar>
 	<md-dialog-content style="max-width:100%;max-height:100%; ">
-		<md-input-container>
-			<label>Producto</label> 
-			<input ng-model="productname" name="productname" required> 
-		</md-input-container> 
-		
+        <md-autocomplete md-selected-item="productname" md-selected-item-change="getProduct()" md-search-text-change="loadProducts(filterText)" md-min-length="3" md-items="item in loadProducts(filterText)" md-item-text="item.name" md-search-text="filterText" placeholder="Producto">
+            <md-item-template>
+                <span md-highlight-text="filterText" md-highlight-flags="^i"> {{ item.name }}</span>
+            </md-item-template>
+            <md-not-found>Ning&uacute;n producto para esa descripci&oacute;n.</md-not-found>
+        </md-autocomplete>
+
 		<md-input-container>
 			<label>C&oacute;digo de Barras</label> 
 			<input ng-model="productBarcode" name="productBarcode" required> 
