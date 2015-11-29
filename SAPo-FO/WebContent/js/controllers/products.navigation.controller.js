@@ -29,7 +29,7 @@
         $scope.getProducts = getProducts;
         $scope.toggleListGrid = toggleListGrid;
         $scope.list = true;
-        $scope.$emit('menuOption',"PRODUCTS_NAVIGATION"); 
+//        $scope.$emit('menuOption',"PRODUCTS_NAVIGATION"); 
 
 
         function getProducts() {

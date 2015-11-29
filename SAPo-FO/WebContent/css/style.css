@@ -7,4 +7,42 @@
 	background-position: center center;
 }
 
+.landingTitle {
+    font-size: 60px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 4px #000;
+    margin-top: 20px;
+}
+
+.bg-image {
+  background: #007ece;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.bg-image:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /*background: #333 url("http://www.google.com.uy/url?sa=i&source=imgres&cd=&cad=rja&uact=8&ved=0ahUKEwi3zZONkrXJAhVH6SYKHd3SAMEQjRwICTAA&url=http%3A%2F%2Fwww.foxbusiness.com%2Findustries%2F2013%2F12%2F11%2Fcostco-shares-slump-as-1q-earnings-disappoint%2F&psig=AFQjCNHeqXwnQaki6wLZYKq0ffSrkFGlMw&ust=1448869627863967") no-repeat top center;*/
+  background: #333 url("../images/landingBG.jpg") no-repeat top center;
+  background-size: cover;
+  background-attachment: fixed;
+  -webkit-filter: blur(5px);
+          filter: blur(5px);
+  opacity: .8;
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
 }
