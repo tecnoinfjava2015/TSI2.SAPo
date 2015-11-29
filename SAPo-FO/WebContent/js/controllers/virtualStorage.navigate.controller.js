@@ -24,6 +24,7 @@
     	$scope.deleteVirtualStorage = deleteVirtualStorage;
     	$scope.cancel = cancel;
     	$scope.showAlert = showAlert;
+    	$scope.updateIndex = updateIndex;
     	
     	VirtualStorageViewResource.query({
         }).$promise.then(function(result) {
@@ -163,5 +164,14 @@
     		
     	    
     	  };
+    	  
+    	  function updateIndex(vs){
+    		  var style = {};
+    		  style.theme = vs.theme;
+    		  style.sidenavTop = vs.sidenavTop 
+    		  console.log(style);
+    		  $rootScope.$broadcast("changeTheme",style);
+    		  
+    	  }
     }
 })();

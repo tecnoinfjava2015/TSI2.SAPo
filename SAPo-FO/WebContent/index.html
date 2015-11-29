@@ -78,7 +78,7 @@
     <div layout="row" layout-fill flex md-theme="{{index.theme}}" ng-controller="IndexController as index">
         <!--style="{{bgcolor}}" -->
         <md-sidenav md-component-id="left" class="md-whiteframe-z5" md-is-locked-open="$mdMedia('gt-md')" layout="column">
-            <md-toolbar class="md-tall md-hue-2" style="background-image: url('images/mdBackgrounds/mb-bg-fb-01.png');background-size: cover;">
+            <md-toolbar class="md-tall md-hue-2" style="{{index.sidenavImage}}"> 
                 <span flex></span>
                 <div layout="column" class="md-toolbar-tools-bottom inset" ng-controller="SidenavUserController as user">
                     

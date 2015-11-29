@@ -27,28 +27,40 @@
 		
 		<input type='file'	ng-model='logoFile' id="file" base-sixty-four-input style="display:none"> 
 		
-		<md-input-container>
-			<label>Tema del almac&eacute;n virtual</label> 
-			<md-tooltip	md-direction="top"> Seleccione los colores y estilos para su almac&eacute;n virtual </md-tooltip> 
-			
-			<md-select ng-model="vs.theme">
-				<md-option ng-repeat="theme in themes" value="{{theme}}">{{theme}}</md-option>
-			</md-select> 
-		</md-input-container> 
+		<md-input-container flex>
+          <label>Color primario del almac&eacute;n</label>
+          <md-tooltip	md-direction="top"> Seleccione el color primario del almac&eacute;n virtual </md-tooltip>
+          <md-select ng-model="theme.primary">
+            <md-option ng-repeat="primary in primaries" value="{{primary}}">
+              {{primary}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        
+    	<md-input-container flex>
+          <label>Color de acento del almac&eacute;n</label>
+          <md-tooltip	md-direction="top"> Seleccione el color de acento del almac&eacute;n virtual </md-tooltip>
+          <md-select ng-model="theme.accent">
+            <md-option ng-repeat="accent in accents" value="{{accent}}">
+              {{accent}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        
 		<md-input-container> 
-			<label>Navegaci&oacute;n superior del almac&eacute;n virtual</label> 
-			<md-tooltip md-direction="top">Seleccione la navegaci&oacute;n superior de su almac&eacute;n virtual </md-tooltip>
-			<md-select ng-model="vs.sidenavTop"> 
-				<md-option ng-repeat="sidenavTop in sidenavTops" value="{{sidenavTop}}">{{sidenavTop}}</md-option>
+			<label>Im&aacute;gen barra lateral</label> 
+			<md-tooltip md-direction="top">Seleccione la im&aacute;gen de fondo de la barra lateral </md-tooltip>
+			<md-select ng-model="theme.sidenavTop"> 
+				<md-option ng-repeat="image in images" value="{{image}}">{{image}}</md-option>
 			</md-select> 
 		</md-input-container> 
-		<md-input-container> 
-			<label>Navegaci&oacute;n inferior del almac&eacute;n virtual</label> 
-			<md-tooltip md-direction="top">Seleccione la navegaci&oacute;n inferior de su almac&eacute;n virtual </md-tooltip>
-			<md-select ng-model="vs.sidenavBottom"> 
-				<md-option ng-repeat="sidenavBottom in sidenavBottoms" value="{{sidenavBottom}}">{{sidenavBottom}}</md-option>
-			</md-select> 
-		</md-input-container> 
+<!-- 		<md-input-container>  -->
+<!-- 			<label>Navegaci&oacute;n inferior del almac&eacute;n virtual</label>  -->
+<!-- 			<md-tooltip md-direction="top">Seleccione la navegaci&oacute;n inferior de su almac&eacute;n virtual </md-tooltip> -->
+<!-- 			<md-select ng-model="vs.sidenavBottom">  -->
+<!-- 				<md-option ng-repeat="sidenavBottom in sidenavBottoms" value="{{sidenavBottom}}">{{sidenavBottom}}</md-option> -->
+<!-- 			</md-select>  -->
+<!-- 		</md-input-container>  -->
 		<md-input-container> 
 			<md-radio-group flex layout='row' ng-model="vs.progressLinear">
 				<div layout-align="start center">
