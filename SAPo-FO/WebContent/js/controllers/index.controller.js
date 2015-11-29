@@ -7,7 +7,8 @@
 		var vm = this;
 		
 		var cookieStyle = $cookies.getObject('vsStyle');
-		if (cookieStyle!=='undefined'){
+		console.log(cookieStyle);
+		if (typeof cookieStyle!=='undefined' && cookieStyle!==null && cookieStyle!=='' ){
 			vm.sidenavImage = "background-image: url('images/mdBackgrounds/"+cookieStyle.sidenavTop+".png');background-size: cover;";
 			vm.theme = cookieStyle.theme;
 		}else{
