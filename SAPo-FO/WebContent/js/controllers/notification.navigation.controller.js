@@ -13,7 +13,7 @@
 		$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
 		var virtualStorages = $cookies.getObject("sapoVirtualStorages");
 		$scope.virtualStorageName = res[2];
-
+		$rootScope.$broadcast("menuOption","NOTIFICATION_NAVIGATION")
 //		NotificationResource.query({
 //			tenantId : $scope.virtualStorageId
 //		}).$promise.then(function(result) {

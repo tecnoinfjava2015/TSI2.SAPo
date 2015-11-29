@@ -123,6 +123,7 @@
                         <md-tooltip md-direction="left">Crear Almac&eacute;n Virtual</md-tooltip>
                         <md-icon>add_circle</md-icon>
                     </md-button>
+                    
                     <!-- MENU PRODUCTS NAVIGATE -->
                     <md-button ng-if="index.ProductsNavigationMenu" aria-label="RemoveStock" class="md-fab md-raised md-mini md-accent" ng-controller="ProductMovementController as pm" ng-click="pm.newMovement($event,'-')">
                         <md-tooltip md-direction="left">Salida de stock</md-tooltip>
@@ -132,8 +133,9 @@
                         <md-tooltip md-direction="left">Entrada de stock</md-tooltip>
                         <md-icon>add_circle</md-icon>
                     </md-button>
+                    
                     <!-- MENU VIRTUAL STORAGES HOME -->
-                    <md-button ng-if="index.VirtualStorageHome" aria-label="AddProduct" class="md-fab md-raised md-mini md-accent" ng-controller="VirtualStorageHomeController" ng-click="createProduct($event)">
+                    <md-button ng-if="index.VirtualStorageHomeCat" aria-label="AddProduct" class="md-fab md-raised md-mini md-accent" ng-controller="VirtualStorageHomeController" ng-click="createProduct($event)">
                         <md-tooltip md-direction="left">Nuevo Producto</md-tooltip>
                         <md-icon>note_add</md-icon>
                     </md-button>
@@ -141,10 +143,21 @@
                         <md-tooltip md-direction="left">Nueva Categor&iacute;a</md-tooltip>
                         <md-icon>loyalty</md-icon>
                     </md-button>
-                    <md-button ng-if="index.VirtualStorageHome" aria-label="AddProduct" class="md-fab md-raised md-mini md-accent" ng-controller="VirtualStorageHomeController" ng-click="shareVS($event)">
+                    <md-button ng-if="index.VirtualStorageHomeCat" aria-label="AddProduct" class="md-fab md-raised md-mini md-accent" ng-controller="VirtualStorageHomeController" ng-click="shareVS($event)">
                         <md-tooltip md-direction="left">Compartir Almac&eacute;n</md-tooltip>
                         <md-icon>share</md-icon>
                     </md-button>
+                    <md-button ng-if="index.VirtualStorageHome" aria-label="Lista compras" class="md-fab md-raised md-mini md-accent" ng-controller="VirtualStorageHomeController" ng-click="redirectShoppingList()">
+                        <md-tooltip md-direction="left">Lista de Compras</md-tooltip>
+                        <md-icon>format_list_bulleted</md-icon>
+                    </md-button>
+                    
+                    <!-- MENU NOTIFICACTIONS HOME -->
+                    <md-button ng-if="index.Notifications" aria-label="Nueva Notificacion" class="md-fab md-raised md-mini md-accent" ng-controller="VirtualStorageHomeController" ng-click="createNotification($event)">
+                        <md-tooltip md-direction="left">Nuevo Producto</md-tooltip>
+                        <md-icon>add_circle</md-icon>
+                    </md-button>                   
+                     
                 </md-fab-actions>
             </md-fab-speed-dial>
             <md-content flex="grow" layout-margin layout-padding layout-wrap ng-view> </md-content>

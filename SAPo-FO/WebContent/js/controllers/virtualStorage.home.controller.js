@@ -3,14 +3,15 @@
     angular
         .module('sapo')
         .controller('VirtualStorageHomeController', VirtualStorageHomeController);
-    VirtualStorageHomeController.$inject = ['$scope', '$mdDialog', '$location', '$cookies', '$rootScope'];
+    VirtualStorageHomeController.$inject = ['$scope', '$mdDialog', '$location', '$cookies', '$rootScope',"$window"];
     /* @ngInject */
-    function VirtualStorageHomeController($scope, $mdDialog, $location, $cookies, $rootScope ) {
+    function VirtualStorageHomeController($scope, $mdDialog, $location, $cookies, $rootScope,$window ) {
     	$scope.createCategory = createCategory;
     	$scope.editCategory = editCategory;
     	$scope.createProduct = createProduct;
     	$scope.createNotification = createNotification;
-		
+		$scope.redirectShoppingList = redirectShoppingList;
+	
     	$scope.shareVS = shareVS; 
     	var sharedVS = isShared();
 		if (sharedVS) {
@@ -102,12 +103,10 @@
       	    });
       	  };
       	
-      	$scope.goShopping = goShopping;
-      	function goShopping(ev) {
-      		var destination = "#/virtualStorage/" + $scope.virtualStorageId + "/shoppingList";
-      		$location.path(destination);
-      	};
-      	
+  		function redirectShoppingList(){
+			$window.location.href = "#/virtualStorage/"+$cookies.get("sapoCurrentVirtualStorageName")+"/shoppingList";
+		}
+ 
       	function isShared() {
 			var currentVsId = $cookies.get("sapoCurrentVirtualStorage");
 			var result = false;
