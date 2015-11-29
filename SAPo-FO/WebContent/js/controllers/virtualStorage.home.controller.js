@@ -33,10 +33,6 @@
 							+ answer + '".';
 				}, function() {
 					$scope.status = 'You cancelled the dialog.';
-
-
-
-
 			});
 		
 		}
