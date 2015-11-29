@@ -54,7 +54,15 @@
 				vs.logo = vs.logo + $scope.logoFile.base64;
 			}
 			
-			if (typeof vs.name !== 'undefined') {
+			if (typeof vs.name === 'undefined') {
+
+				showAlert('Error', 'Debe ingresar el nombre del almac&eacute;n');
+			}
+			else if (typeof $scope.unit === 'undefined' || typeof $scope.unit.name === 'undefined' || typeof $scope.unit.abbreviation === 'undefined') {
+				showAlert('Error', 'Debe ingresar la unidad de valoraci&oacute;n del almac&eacute;n');				
+			}
+				
+			else {
 				vs.$save(function(r) {
 					var i = 0;
 					var vsIdAux = '';
@@ -96,12 +104,9 @@
 				}, function(r){
 					console.log(r);
 					
-					/*showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');*/
+					showAlert('Error!','Ocurri&oacute; un error al procesar su petici&oacute;n');
 				});
 				reset();
-			}
-			else {
-				showAlert('Error', 'Debe ingresar el nombre del almac&eacute;n');
 			}
 		}
 
