@@ -14,10 +14,15 @@
     	$scope.cancel = cancel;
     	$scope.showAlert = showAlert;
     	
-    	var res = $location.path().split("/");
+    	/*var res = $location.path().split("/");
     	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
+    	$scope.virtualStorageName = $cookies.get('sapoCurrentVirtualStorage');
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
-    	$scope.virtualStorageName = res[2];
+    	$scope.virtualStorageName = res[2];*/
+    	
+    	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
+    	$scope.virtualStorageName = $cookies.get('sapoCurrentVirtualStorageName');
+    	
     	
     	function insert( data) {   
     		if (data != null && typeof data.name !== 'undefined') {

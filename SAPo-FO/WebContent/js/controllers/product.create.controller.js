@@ -52,7 +52,7 @@
 			}
 		}
 
-		var res = $location.path().split("/");
+		/*var res = $location.path().split("/");
 		var virtualStorages = $cookies.getObject("sapoVirtualStorages");
 		var count = virtualStorages.owned.length;
 		var i = 0;
@@ -62,18 +62,19 @@
 				$scope.tenantId = virtualStorages.owned[i].id;
 			}
 		}
-
-		console.log($scope.tenantId);
+*/
+		$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
+    	$scope.virtualStorageName = $cookies.get('sapoCurrentVirtualStorageName');
 
 		CategoriesResource.query({
-			tenantId : $scope.tenantId
+			tenantId : $scope.virtualStorageId
 		}).$promise.then(function(result) {
 			$scope.categories = result;
 		});
 		
-		console.log($scope.tenantId);
+		console.log($scope.virtualStorageId);
 		UnitResource.query({
-			tenantId : $scope.tenantId
+			tenantId : $scope.virtualStorageId
 		}).$promise.then(function(result) {
 			$scope.unit = result;
 		});
@@ -87,7 +88,7 @@
 		}
 
 		function insert(data) {
-
+			data.name = $('#genericName').val();
 			if (data != null && typeof data.name !== 'undefined'
 					&& typeof data.barCode !== 'undefined') {
 				
@@ -134,9 +135,9 @@
 
 				console.log($scope.fields);
 				data.specs = [];
-				data.name = $('#genericName').val();
-//				alert(data.name);
-				data.virtualStorageId = $scope.tenantId;
+				
+				console.log(data.name);
+				data.virtualStorageId = $scope.virtualStorageId;
 				data.virtualStorageName = $scope.virtualStorageName;
 				for (i = 0; i < $scope.fields.length; i++) {
 					$scope.spec = new Spec($scope.fields[i].name,
@@ -151,7 +152,7 @@
 				CreateProductsResource
 						.save(
 								{
-									tenantId : $scope.tenantId
+									tenantId : $scope.virtualStorageId
 								},
 								data,
 								function() {

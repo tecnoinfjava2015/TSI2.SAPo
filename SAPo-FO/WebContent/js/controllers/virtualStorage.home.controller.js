@@ -9,6 +9,8 @@
     	$scope.createCategory = createCategory;
     	$scope.editCategory = editCategory;
     	$scope.createProduct = createProduct;
+    	$scope.createNotification = createNotification;
+		
     	$scope.shareVS = shareVS; 
     	var sharedVS = isShared();
 		if (sharedVS) {
@@ -16,6 +18,29 @@
 		}else{
 			$rootScope.$broadcast("menuOption","VS_HOME_CAT")
 		}
+		
+		function createNotification(ev) {
+			$mdDialog.show({
+				controller : 'NotificationCreateController',
+				templateUrl : 'templates/notification.create.html',
+
+				parent : angular.element(document.body),
+				targetEvent : ev,
+				clickOutsideToClose : true
+			}).then(
+				function(answer) {
+					$scope.status = 'You said the information was "'
+							+ answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+
+
+
+
+			});
+		
+		}
+
 		
     	function createProduct(ev) {
     		$mdDialog.show({

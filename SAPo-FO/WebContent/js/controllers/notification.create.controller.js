@@ -11,6 +11,7 @@
     	$scope.cancel = cancel;
     	$scope.showAlert = showAlert;
     	
+    	/*
     	var res = $location.path().split("/");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
     	var count = virtualStorages.owned.length;
@@ -22,7 +23,10 @@
     			console.log($scope.tenantId);
     		}
     	}
-    	console.log('hola2');
+    	console.log('hola2');*/
+    	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
+    	$scope.virtualStorageName = $cookies.get('sapoCurrentVirtualStorageName');
+    	
 //    	$scope.tenantId = 2;
     	
         var vm = this;
@@ -33,11 +37,11 @@
         	if ($scope.notification != null && typeof $scope.notification.barcode !== 'undefined' && typeof $scope.notification.minStock !== 'undefined' && $scope.notification.mensaje !== 'undefined') {
     			$scope.loading = true;
         	
-    			$scope.notification.vsid = $scope.tenantId;
+    			$scope.notification.vsid = $scope.virtualStorageId;
     			$scope.notification.active = false;
         	
             NotificationResource.save({
-                tenantId: $scope.tenantId
+                tenantId: $scope.virtualStorageId
             }, $scope.notification, function() {
                 showAlert('Exito!', 'Se ha creado su notificaci&oacute;n de forma exitosa');
 

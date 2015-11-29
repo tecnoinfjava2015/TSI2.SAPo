@@ -65,15 +65,15 @@ public class VirtualStorageResource {
 		return dao.updateVS(vs);
 	}
 	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("{ownerId}")
-	public List<VirtualStorage> getVirtualStorageByOwner(@PathParam("ownerId") int ownerId) {
-		List<VirtualStorage> virtualStorages = dao.getVirtualStorageByOwner(ownerId);
-		
-		return virtualStorages;
-	}
-	
+//	@GET
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Path("{ownerId}")
+//	public List<VirtualStorage> getVirtualStorageByOwner(@PathParam("ownerId") int ownerId) {
+//		List<VirtualStorage> virtualStorages = dao.getVirtualStorageByOwner(ownerId);
+//		
+//		return virtualStorages;
+//	}
+//	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("myVSs/{userId}")
