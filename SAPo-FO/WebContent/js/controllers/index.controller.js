@@ -40,6 +40,7 @@
 			vm.VirtualStorageNavigateMenu = (option=="VS_NAVIGATION");
 			vm.VirtualStorageHome	= (option=="VS_HOME" || option=="VS_HOME_CAT");
 			vm.VirtualStorageHomeCat = (option=="VS_HOME_CAT");
+			vm.Notifications = (option=="NOTIFICATION_NAVIGATION");
 			vm.menuShow=(!(option=="NULL"));
 			
 		})
