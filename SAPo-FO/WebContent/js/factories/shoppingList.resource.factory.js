@@ -60,3 +60,24 @@
     }
 })(); 
 
+(function() {
+    'use strict';
+    angular
+        .module('sapo')
+        .factory('ShoppingListEditResource', ShoppingListEditResource);
+    ShoppingListEditResource.$inject = ['$resource'];
+    /* @ngInject */
+    function ShoppingListEditResource($resource) {
+        return $resource('/SAPo-FO/api/shoppingList',{
+			'update' : {
+				method : 'PUT',
+				tenantId : '@tenantId',
+				virtualStorageId: '@virtualStorageId',
+				productBarcode: '@productBarcode',
+				productname: '@productname',
+				quantity: '@quantity'
+			}
+		});
+	}
+})(); 
+

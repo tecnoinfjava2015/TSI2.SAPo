@@ -104,7 +104,7 @@
 			var followingLenght = virtualStorages.following.length;
 			var i = 0;
 			if (followingLenght > 0) {
-				for (i = 0; i < count; i++) {
+				for (i = 0; i < followingLenght; i++) {
 					if (currentVsId == virtualStorages.following[i].id) {
 						result = true;
 					}
