@@ -92,5 +92,19 @@
       		var destination = "#/virtualStorage/" + $scope.virtualStorageId + "/shoppingList";
       		$location.path(destination);
       	};
+      	
+      	function isShared() {
+			var currentVsId = $cookies.get("sapoCurrentVirtualStorage");
+			var result = false;
+			var virtualStorages = $cookies.getObject("sapoVirtualStorages");
+			var count = virtualStorages.following.length;
+			var i = 0;
+			for (i = 0; i < count; i++) {
+				if (currentVsId == virtualStorages.owned[i].id) {
+					result = true;
+				}
+			}
+			return result;
+		}
     }
 })();
