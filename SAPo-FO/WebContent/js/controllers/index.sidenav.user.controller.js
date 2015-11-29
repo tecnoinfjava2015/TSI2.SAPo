@@ -32,7 +32,7 @@
 			$cookies.remove('sapoVirtualStorages');
 			$cookies.remove('userAvatar');
 			$cookies.remove('sapoCurrentVirtualStorage');
-			
+			$cookies.remove('vsStyle');
 			//var landingUrl = $window.location.host + "/SAPo-FO/index.html";
 			
 			//$window.location.href = landingUrl;

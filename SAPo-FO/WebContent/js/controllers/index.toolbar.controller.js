@@ -3,11 +3,12 @@
     angular
         .module('sapo')
         .controller('ToolbarController', ToolbarController);
-    ToolbarController.$inject = ['$mdSidenav','$scope'];
+    ToolbarController.$inject = ['$mdSidenav','$scope','$location'];
     /* @ngInject */
-    function ToolbarController($mdSidenav,$scope) {
+    function ToolbarController($mdSidenav,$scope,$location) {
         $scope.title = 'ToolbarController';
-        $scope.virtualStorageName = "SAPO Prueba" ;
+		var res = $location.path().split("/");
+    	$scope.virtualStorageName = res[2];
         $scope.toggleSidenavLeft = toggleSidenavLeft;
         function toggleSidenavLeft(){
 		$mdSidenav('left').toggle();

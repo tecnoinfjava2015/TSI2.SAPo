@@ -116,21 +116,39 @@
                     </md-button>
                 </md-fab-trigger>
                 <md-fab-actions>
-                	<!-- MENU PRODUCTS NAVIGATE -->
-                    <md-button ng-if="index.ProductsNavigationMenu" aria-label="AddStock" class="md-fab md-raised md-mini md-accent" ng-controller="ProductMovementController as pm" ng-click="pm.newMovement($event,'+')">
-                        <md-tooltip md-direction="top">Entrada de stock</md-tooltip>
-                        <md-icon>add_circle</md-icon>
-                    </md-button>
-                    <md-button ng-if="index.ProductsNavigationMenu" aria-label="RemoveStock" class="md-fab md-raised md-mini md-accent" ng-controller="ProductMovementController as pm" ng-click="pm.newMovement($event,'-')">
-                        <md-tooltip md-direction="top">Salida de stock</md-tooltip>
-                        <md-icon>remove_circle</md-icon>
-                    </md-button>
                     
                     <!-- MENU VIRTUAL STORAGES NAVIGATE -->
                     <md-button ng-if="index.VirtualStorageNavigateMenu" aria-label="RemoveStock" class="md-fab md-raised md-mini md-accent" ng-controller="VirtualStorageNavigateController" ng-click="showAdvanced($event)">
-                        <md-tooltip md-direction="top">Crear Almac&eacute;n Virtual</md-tooltip>
+                        <md-tooltip md-direction="left">Crear Almac&eacute;n Virtual</md-tooltip>
                         <md-icon>add_circle</md-icon>
                     </md-button>
+
+                	<!-- MENU PRODUCTS NAVIGATE -->
+                	<md-button ng-if="index.ProductsNavigationMenu" aria-label="RemoveStock" class="md-fab md-raised md-mini md-accent" ng-controller="ProductMovementController as pm" ng-click="pm.newMovement($event,'-')">
+                        <md-tooltip md-direction="left">Salida de stock</md-tooltip>
+                        <md-icon>remove_circle</md-icon>
+                    </md-button>
+                    <md-button ng-if="index.ProductsNavigationMenu" aria-label="AddStock" class="md-fab md-raised md-mini md-accent" ng-controller="ProductMovementController as pm" ng-click="pm.newMovement($event,'+')">
+                        <md-tooltip md-direction="left">Entrada de stock</md-tooltip>
+                        <md-icon>add_circle</md-icon>
+                    </md-button>
+                    
+                    
+                    
+                    <!-- MENU VIRTUAL STORAGES HOME -->
+                    <md-button ng-if="index.VirtualStorageHome" aria-label="AddProduct" class="md-fab md-raised md-mini md-accent" ng-controller="VirtualStorageHomeController" ng-click="createProduct($event)">
+                        <md-tooltip md-direction="left">Nuevo Producto</md-tooltip>
+                        <md-icon>note_add</md-icon>
+                    </md-button>
+                    <md-button ng-if="index.VirtualStorageHomeCat" aria-label="AddCategory" class="md-fab md-raised md-mini md-accent" ng-controller="VirtualStorageHomeController" ng-click="createCategory($event)">
+                        <md-tooltip md-direction="left">Nueva Categor&iacute;a</md-tooltip>
+                        <md-icon>loyalty</md-icon>
+                    </md-button>
+                    <md-button ng-if="index.VirtualStorageHome" aria-label="AddProduct" class="md-fab md-raised md-mini md-accent" ng-controller="VirtualStorageHomeController" ng-click="shareVS($event)">
+                        <md-tooltip md-direction="left">Compartir Almac&eacute;n</md-tooltip>
+                        <md-icon>share</md-icon>
+                    </md-button>
+                    
 
 
                 </md-fab-actions> 
