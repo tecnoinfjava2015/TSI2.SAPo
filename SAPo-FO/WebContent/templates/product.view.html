@@ -78,8 +78,10 @@ md-content.md-test1-theme {
     padding: 0;
 }
 </style>
+</md-content>
 
-</md-content> <md-tabs md-dynamic-height md-border-bottom style="margin-top:5%">
+<div>
+ <md-tabs md-dynamic-height md-border-bottom style="margin-top:5%">
 <md-tab label="Hist&oacute;rico de stock"> <md-content
 	class="md-padding">
 <div ng-include="productStockView" ng-controller="ViewProductStockController as vpsctrl"></div>
@@ -87,4 +89,4 @@ md-content.md-test1-theme {
 	class="md-padding">
 <div ng-include="productPriceView" ng-controller="ViewProductPriceController as vpctrl"></div>
 </md-content> </md-tab> </md-tabs> </md-content>
-
+</div>

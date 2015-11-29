@@ -1,6 +1,6 @@
 <md-content>
 	<div>
-		<table class="table table-hover">
+		<table class="table table-hover" ng-show="hasPriceChange">
 			<tr>
 				<th>Fecha</th>
 				<th style="text-align: center">Precio</th>
@@ -11,5 +11,6 @@
 		      <td>&nbsp</td>
 		 	</tr>
 		</table>
+		<h3 ng-show="!hasPriceChange">Nada por all&aacute;</h3>
 	</div>
 </md-content>

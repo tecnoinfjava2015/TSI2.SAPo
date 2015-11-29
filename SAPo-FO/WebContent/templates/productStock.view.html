@@ -1,6 +1,6 @@
 <md-content>
 	<div>
-		<table class="table table-hover">
+		<table class="table table-hover" ng-show="hasStock">
 			<tr>
 				<th>Fecha</th>
 				<th>Cambio de Stock</th>
@@ -13,5 +13,6 @@
 		      <td>&nbsp</td>
 		 	</tr>
 		</table>
+		<h3 ng-show="!hasStock">Nada por aqu&iacute;</h3>
 	</div>
 </md-content>

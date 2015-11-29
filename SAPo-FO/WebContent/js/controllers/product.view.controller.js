@@ -13,6 +13,8 @@
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");
     	$scope.virtualStorageName = res[2];
     	$scope.barcode = res[4];
+    	
+    	
 		
 		ProductsResource.get({
 			//tenantId : '1',
@@ -73,16 +75,19 @@
 	/* @ngInject */
 	function ViewProductStockController(ProductStockResource, $scope, $cookies, $location) {
     	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
-		
+    	$scope.hasStock = false;
 		ProductStockResource.query({
-//			VSId : $scope.virtualStorageId,
-//			barcode : $scope.product.barcode
-			VSId : '1',
-			barcode : '1.1234567890'
+			VSId : $scope.virtualStorageId,
+			barcode : $scope.barcode
+//			VSId : '1',
+//			barcode : '1.1234567890'
 		}).$promise.then(function(result) {
 			$scope.stockmovements = result;
-			
-			if($scope.stockmovements != null) {
+//			if ($scope.stockmovements != null && $scope.stockmovements.length > 0) {
+//				$scope.hasStock = true;
+//			}
+			if($scope.stockmovements != null && (typeof $scope.stockmovements[0].stock !== 'undefined')) {
+				$scope.hasStock = true;
 				var count = $scope.stockmovements.length;
 				var j;
 				var finalStock = $scope.stockmovements[0].stock;
@@ -93,6 +98,8 @@
 					$scope.stockmovements[j].finalStock = finalStock;
 				}
 			}
+			console.log("hasStock");
+			console.log($scope.hasStock);
 			console.log($scope.stockmovements);
 		});
 	}
@@ -106,14 +113,19 @@
 	/* @ngInject */
 	function ViewProductPriceController(ProductPriceResource, $scope, $cookies, $location) {
     	$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
-		
+		$scope.hasPriceChange = false;
 		ProductPriceResource.query({
-//			VSId : $scope.virtualStorageId,
-//			barcode : $scope.product.barcode
-			VSId : '1',
-			barcode : '1.1234567890'
+			VSId : $scope.virtualStorageId,
+			barcode : $scope.barcode
+//			VSId : '1',
+//			barcode : '1.1234567890'
 		}).$promise.then(function(result) {
 			$scope.pricemovements = result;
+			if ($scope.pricemovements != null && $scope.pricemovements.length > 0) {
+				$scope.hasPriceChange = true;
+			}
+			console.log("hasPriceChange");
+			console.log($scope.hasPriceChange);
 			console.log($scope.pricemovements);
 		});
 	}
