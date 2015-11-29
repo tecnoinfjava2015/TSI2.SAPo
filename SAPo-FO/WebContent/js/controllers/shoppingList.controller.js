@@ -23,13 +23,13 @@
             $scope.shoppingList = result;
         });
 		
-		ShoppingListProductsResource.query({
-			tenantId: $scope.virtualStorageId
-		}).$promise.then(function(result) {
-			$scope.products = result;
-		});
-		console.log("Productos: ");
-		console.log($scope.products);
+//		ShoppingListProductsResource.query({
+//			tenantId: $scope.virtualStorageId
+//		}).$promise.then(function(result) {
+//			$scope.products = result;
+//		});
+//		console.log("Productos: ");
+//		console.log($scope.products);
 		
 		function loadProducts(search) {
             return ShoppingListProductsResource.query({
@@ -41,15 +41,15 @@
         }
 		
         function getProduct() {
-            $scope.productBarcode = '';
+            $scope.barCode = '';
             $scope.productname = '';
             $scope.quantity = '';
             ShoppingListProductsResource.get({
                 tenantId: $scope.virtualStorageId,
-                barcode: $scope.productBarcode
+                barcode: $scope.product.barCode
             }).$promise.then(function(result) {
-                $scope.productBarcode = result.barCode;
-                $scope.movement.productname = result.name;
+                $scope.barCode = result.barCode;
+                $scope.productname = result.name;
             });
         }
 		
