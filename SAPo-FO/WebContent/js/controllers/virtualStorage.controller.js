@@ -22,9 +22,7 @@
 		$scope.reset = reset;
 		$scope.cancel = cancel;
 		$scope.unit = new UnitResource();
-//		$scope.primaries = ["purple", "deep-purple", "indigo", "blue", "light-blue", "teal", "green","amber", "deep-orange", "brown", "grey"];
 		$scope.primaries = ["purple", "indigo", "light-blue", "teal","amber", "deep-orange", "brown", "grey"];
-//		$scope.accents = ["pink","cyan","lime", "yellow","orange"];
 		$scope.accents = ["pink","cyan","lime", "yellow"];
 		$scope.images = ["Barras1","Barras2","Barras3","Barras4","Barras5","Circulos1","Circulos2","Circulos3","Circulos4","Circulos5","Concentricos1","Concentricos2","Concentricos3","Concentricos4","Concentricos5","Diagonales1","Diagonales2","Diagonales3","Diagonales4","Diagonales5","Servilletas1","Servilletas2","Servilletas3","Servilletas4","Servilletas5","Tarjetas1","Tarjetas2","Tarjetas3","Tarjetas4","Tarjetas5"];
 		function upload() {
@@ -77,7 +75,7 @@
 					
 					console.log(virtualStorages);
 					$cookies.remove("sapoVirtualStorages");
-					
+					 
 					$cookies.put("sapoVirtualStorages", JSON.stringify(virtualStorages));
 					$cookies.remove("sapoUser");
 					$cookies.put("sapoUser", user);
@@ -89,9 +87,15 @@
 							showAlert('Exito!', 'Se ha creado su almac&eacute;n virtual de forma exitosa');
 							var landingUrl = "http://" + $window.location.host + "/SAPo-FO/index.html#/virtualStorage/" + vsName;
 							console.log(landingUrl);
-							console.log(style);
-							$rootScope.$broadcast("changeTheme",style);
-							$window.location.href = landingUrl;
+							console.log(result);
+//							style.vsId = result.id;
+//							console.log(style);
+//							$rootScope.$broadcast("changeTheme",style);
+							$rootScope.$broadcast("editVirtualStorage",style);
+
+//							$rootScope.$broadcast("changeLogo",style);
+							
+//							$window.location.href = landingUrl;
 						},
 						function(result) {
 							$scope.loading = false;
