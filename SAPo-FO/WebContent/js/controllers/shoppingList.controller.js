@@ -3,9 +3,9 @@
 	angular.module('sapo')
 	.controller('ShoppingListController', ShoppingListController);
 	
-	ShoppingListController.$inject = ['$scope', 'ShoppingListResource', 'ShoppingListInsertResource', '$cookies', '$mdDialog'];
+	ShoppingListController.$inject = ['$scope', 'ShoppingListProductsResource', 'ShoppingListResource', 'ShoppingListInsertResource', '$cookies', '$mdDialog'];
 	/* @ngInject */
-	function ShoppingListController($scope, ShoppingListResource, ShoppingListInsertResource, $cookies, $mdDialog) {
+	function ShoppingListController($scope, ShoppingListProductsResource, ShoppingListResource, ShoppingListInsertResource, $cookies, $mdDialog) {
 		$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
 		$scope.additem = additem;
 		$scope.edititem = edititem;
@@ -14,12 +14,44 @@
 		$scope.cancel = cancel;
 		$scope.insertItem = insertItem;
 		$scope.showAlert = showAlert;
+		$scope.getProduct = getProduct;
+		$scope.loadProducts = loadProducts;
 		
 		ShoppingListResource.get({
 			VSId: $scope.virtualStorageId
     	}).$promise.then(function(result) {
             $scope.shoppingList = result;
         });
+		
+		ShoppingListProductsResource.query({
+			tenantId: $scope.virtualStorageId
+		}).$promise.then(function(result) {
+			$scope.products = result;
+		});
+		console.log("Productos: ");
+		console.log($scope.products);
+		
+		function loadProducts(search) {
+            return ShoppingListProductsResource.query({
+                tenantId: $scope.virtualStorageId, 
+                limit: 5,
+                minSearch: true,
+                search: search
+            }).$promise;
+        }
+		
+        function getProduct() {
+            $scope.productBarcode = '';
+            $scope.productname = '';
+            $scope.quantity = '';
+            ShoppingListProductsResource.get({
+                tenantId: $scope.virtualStorageId,
+                barcode: $scope.productBarcode
+            }).$promise.then(function(result) {
+                $scope.productBarcode = result.barCode;
+                $scope.movement.productname = result.name;
+            });
+        }
 		
 		function additem(ev) {
 			$mdDialog.show({
