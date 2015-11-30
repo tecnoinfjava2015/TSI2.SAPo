@@ -98,9 +98,9 @@
                         <span ng-click="redirectToProfile();">
                             {{user.userName}}
                         </span>
-                            <img style="cursor: pointer; cursor: hand; margin-left: 1em;" src="resources/logout.png" />
+                            <img style="cursor: pointer; cursor: hand; margin-left: 1em;" src="resources/logout.png" ng-click="logout()" ng-show="user.userLogged" />
                     </div>
-                    <div id="twitterLoginButton" ng-show="!user.userLogged" )>
+                    <div id="twitterLoginButton" ng-show="!user.userLogged" )> 
                         <user-avatar></user-avatar>
                         <a href="twitter_login.xhtml"> <img border="0" alt="Login with Twitter" src="resources/sign-in-with-twitter-gray.png">
                         </a>
