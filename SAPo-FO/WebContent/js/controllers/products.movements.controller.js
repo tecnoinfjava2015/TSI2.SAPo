@@ -8,7 +8,7 @@
     function ProductMovementController($scope,$mdDialog,ProductMovementDataService) {
     	var vm = this;
 		vm.newMovement=newMovement;
-
+		$scope.$emit('menuOption',null); 
 		function newMovement(ev,type){
 			switch(type) {
 				case '+':

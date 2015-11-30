@@ -14,7 +14,7 @@
     	$scope.virtualStorageName = res[2];
     	$scope.barcode = res[4];
     	
-    	
+    	$scope.$emit('menuOption',null); 
 		
 		ProductsResource.get({
 			//tenantId : '1',
@@ -24,12 +24,8 @@
 		}).$promise.then(function(result) {
 			$scope.product = result;
 			
-			//hardcodeo para testear lo que va a venir en el product
 			$scope.product.chips = [];
-//			$scope.product.chips.push("Tecnologia");
-//			$scope.product.chips.push("Celulares");
-//			$scope.product.chips.push("Android");
-			//fin hardcodeo
+			$scope.unitAbbreviation = $scope.product.unit.abbreviation;
 			
 			if($scope.product.categories != null) {
 				var count = $scope.product.categories.length;

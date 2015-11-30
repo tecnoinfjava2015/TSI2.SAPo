@@ -7,11 +7,13 @@
     /* @ngInject */
     function ChatController($cookies, $scope, $location) {
 
+    	var serverHost = $location.host();
+    	var serverPort = $location.port();
         var userTwitter = $cookies.getObject('sapoUser');
         var userAvatar = $cookies.get('userAvatar');
         $scope.title = "SAPo-Chat " + userTwitter.name;
         var wsocket;
-        var serviceLocation = "ws://localhost:8080/SAPo-FO/ChatEndpoint/";
+        var serviceLocation = "ws://"+serverHost+":"+serverPort+"/SAPo-FO/ChatEndpoint/";
         var $nickName;
         var $avatar;
         var $message; 

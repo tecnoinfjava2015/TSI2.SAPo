@@ -11,6 +11,7 @@
     	$scope.nick = user.nick;
     	$scope.mail = user.mail;
     	var alert;
+    	$scope.$emit('menuOption',null); 
     	//$scope.showDialog = showDialog;
     	
         $scope.submitMail = function(){

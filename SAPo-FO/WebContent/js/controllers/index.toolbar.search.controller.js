@@ -5,7 +5,8 @@
         .controller('ToolbarSearchController', ToolbarSearchController);
     ToolbarSearchController.$inject = ['$scope', '$cookies', 'CategoriesResource', '$rootScope'];
     /* @ngInject */
-    function ToolbarSearchController($scope, $cookies, CategoriesResource,$rootScope) {
+    function ToolbarSearchController($scope, $cookies, CategoriesResource, $rootScope) {
+    	$scope.loadCategories = loadCategories;
         var vm = this;
         vm.title = 'ToolbarSearchController';
         vm.selectedCategories = [];

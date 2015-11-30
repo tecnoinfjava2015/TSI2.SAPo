@@ -24,6 +24,8 @@
 		$scope.hideRecommendations = true;
 		$scope.deleteRecommendedItem = deleteRecommendedItem;
 		
+		$scope.$emit('menuOption',null); 
+		
 		ShoppingListResource.get({
 			VSId: $scope.virtualStorageId
     	}).$promise.then(function(result) {
@@ -76,7 +78,8 @@
 					showAlert('Aviso!','El item ya se encuentra en la lista');
 				} else {
 					showAlert('Exito!','Se ha agregado el item a la lista');
-					$scope.shoppingList.push(item);
+					
+					$scope.shoppingList.push(result2);
 				}
 	        });
 

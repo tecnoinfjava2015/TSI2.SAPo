@@ -11,6 +11,7 @@
     	/*
     	alert(loggedUser.type === 'Free' && virtualStorages.owned.length > 1);
     	*/
+    	$scope.$emit('menuOption',null); 
     	
     	var vm = this;
     	$scope.virtualStorages = {};

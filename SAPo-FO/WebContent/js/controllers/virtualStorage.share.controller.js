@@ -8,6 +8,7 @@
     function VirtualStorageShareController(VirtualStorageShareResource, $scope, $routeParams, $cookies, $mdDialog) {
     	$scope.title = 'Compartir Almacen';   
     	$scope.share = share;
+    	$scope.$emit('menuOption',null); 
     	
     	$scope.cancel = cancel;
     	$scope.showAlert = showAlert;   	

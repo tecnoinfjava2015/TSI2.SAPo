@@ -6,6 +6,7 @@
     NotificationController.$inject = ['$scope','$rootScope','NotificationResource'];
     /* @ngInject */
     function NotificationController($scope,$rootScope,NotificationResource) {
+    	$scope.$emit('menuOption',null); 
     	var vm = this;
     	NotificationResource.query({
             tenantId: $rootScope.virtualStorageId,
