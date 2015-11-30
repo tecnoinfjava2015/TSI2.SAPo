@@ -23,11 +23,11 @@
 			      <td style="vertical-align: middle;">{{ item.productname }}</td>
 			      <td style="text-align: center; vertical-align: middle;">{{ item.quantity }}</td>
 			      <td style="text-align: center;">
-			      	<md-button ng-click="buyitem($event)" class="md-icon-button" aria-label="Notification">
+			      	<md-button ng-click="buyitem(item)" class="md-icon-button" aria-label="Notification">
         				<i class="material-icons">done</i>
         				<md-tooltip>Item Comprado</md-tooltip>
     				</md-button>
-			      	<md-button ng-click="edititem($event)" class="md-icon-button" aria-label="Notification">
+			      	<md-button ng-click="edititem(item)" class="md-icon-button" aria-label="Notification">
         				<i class="material-icons">edit</i>
         				<md-tooltip>Modificar Item</md-tooltip>
     				</md-button>

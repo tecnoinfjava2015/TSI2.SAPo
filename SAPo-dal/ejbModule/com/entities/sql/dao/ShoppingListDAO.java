@@ -55,7 +55,11 @@ public class ShoppingListDAO {
 	}
 	
 	public void updateShoppingListItem(ShoppingListItem newItem){
-		em.merge(newItem);
+		Query query =  em.createQuery("SELECT s FROM ShoppingListItem s WHERE s.virtualStorageId=:VSId AND s.productBarcode=:barcode")
+				.setParameter("VSId", newItem.getVirtualStorageId()).setParameter("barcode", newItem.getProductBarcode());
+		ShoppingListItem shoppingListItem = (ShoppingListItem) query.getResultList().get(0);
+		shoppingListItem.setQuantity(newItem.getQuantity());
+		em.merge(shoppingListItem);
 	}
 
 	@SuppressWarnings("unchecked")

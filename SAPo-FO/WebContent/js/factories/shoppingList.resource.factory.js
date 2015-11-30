@@ -68,7 +68,28 @@
     ShoppingListEditResource.$inject = ['$resource'];
     /* @ngInject */
     function ShoppingListEditResource($resource) {
-        return $resource('/SAPo-FO/api/shoppingList',{
+        return $resource('/SAPo-FO/api/shoppingList', {}, {
+			'update' : {
+				method : 'PUT',
+				tenantId : '@tenantId',
+				virtualStorageId: '@virtualStorageId',
+				productBarcode: '@productBarcode',
+				productname: '@productname',
+				quantity: '@quantity'
+			}
+		});
+	}
+})(); 
+
+(function() {
+    'use strict';
+    angular
+        .module('sapo')
+        .factory('ShoppingListBuyResource', ShoppingListBuyResource);
+    ShoppingListBuyResource.$inject = ['$resource'];
+    /* @ngInject */
+    function ShoppingListBuyResource($resource) {
+        return $resource('/SAPo-FO/api/shoppingList', {}, {
 			'update' : {
 				method : 'PUT',
 				tenantId : '@tenantId',
