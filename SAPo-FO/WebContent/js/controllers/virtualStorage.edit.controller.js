@@ -14,7 +14,7 @@
         $scope.sidenavBottoms = ['side nav bottom test'];
         $scope.theme = {};
         var userId = $cookies.getObject("sapoUser").id;
-        $scope.$emit('menuOption',null); 
+//        $scope.$emit('menuOption',null); 
         
         var tenantid = $rootScope.tenantId;
         

@@ -22,7 +22,7 @@
 		$scope.exists = exists;
 		$scope.prod = {};
 		$scope.unit = [];
-		$scope.$emit('menuOption',null); 
+//		$scope.$emit('menuOption',null); 
 		$scope.loadGenerics = loadGenerics;
 		$scope.getGeneric = getGeneric;
 

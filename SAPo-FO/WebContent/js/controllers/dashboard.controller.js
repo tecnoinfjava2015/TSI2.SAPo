@@ -7,7 +7,7 @@
     /* @ngInject */
     function DashboardController($scope, $routeParams) {
     	$scope.title = 'Dashboard';   
-    	$scope.$emit('menuOption',null); 
+//    	$scope.$emit('menuOption',null); 
     	var tenant = $routeParams.tenantName;
     	
     	if (typeof tenant !== 'undefined') {

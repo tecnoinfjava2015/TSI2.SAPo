@@ -14,8 +14,7 @@
     	$scope.virtualStorageName = res[2];
     	$scope.barcode = res[4];
     	
-    	$scope.$emit('menuOption',null); 
-		
+    	$scope.$emit('menuOption','NULL'); 		
 		ProductsResource.get({
 			//tenantId : '1',
 			tenantId : $scope.virtualStorageId,

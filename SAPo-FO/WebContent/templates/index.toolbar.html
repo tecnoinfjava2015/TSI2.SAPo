@@ -1,29 +1,27 @@
 <div class="md-toolbar-tools" ng-controller="ToolbarController">
     <md-button class="md-icon-button" aria-label="menu" hide-gt-md ng-click="toggleSidenavLeft()">
-        <i class="material-icons">menu</i>
+        <md-icon>menu</md-icon>
     </md-button>
-    <img hide show-gt-sm  ng-show="vsSelected"  src="{{vs.logo}}" class="logoVS"/>
-    <img hide show-gt-sm  ng-show="!vsSelected"  src="images/littleFrog.gif" />
-    
+    <img hide show-gt-sm ng-show="vsSelected" src="{{vs.logo}}" class="logoVS" />
+    <img hide show-gt-sm ng-show="!vsSelected" src="images/littleFrog.gif" />
     <h2 ng-show="vsSelected" class="vsName">
         <span>{{vs.name}}</span>
     </h2>
-    
-        <h2 ng-show="!vsSelected" class="vsName">
+    <h2 ng-show="!vsSelected" class="vsName">
         <span>SAPo</span>
     </h2>
-     
     <span flex></span>
-
-    <a hide show-gt-sm  href="premium.xhtml">
-		<img alt="No seas rata!" src="resources/vip_premium.png" style="max-height: 70px;">
-  	</a>
-    <md-button hide show-gt-sm  class="md-icon-button" aria-label="Notification" ng-click="redirectToNotifications()">
-        <i class="material-icons">notifications_active</i>
+    <div layout-align="center center">
+        <a hide show-gt-sm href="premium.xhtml">
+      
+                <img hide show-gt-sm ng-show="!userPremium" src="images/keepcalmCrown.png" class="logoVIP" /> 
+        </a>
+    </div>
+    <span flex></span>
+    <md-button hide show-gt-sm class="md-icon-button" aria-label="Notification" ng-click="redirectToNotifications()">
+        <md-icon>notifications_active</md-icon>
     </md-button>
-    
-    <md-button hide show-gt-sm  ng-show="vsSelected" class="md-icon-button" aria-label="More" ng-click="toggleSearch()">
-        <i class="material-icons">search</i>
+    <md-button hide show-gt-sm ng-show="vsSelected" class="md-icon-button" aria-label="More" ng-click="toggleSearch()">
+        <md-icon>search</md-icon>
     </md-button>
-</div> 
-  
+</div>

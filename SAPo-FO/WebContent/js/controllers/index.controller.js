@@ -57,6 +57,7 @@
 			vm.VirtualStorageHome	= (option=="VS_HOME" || option=="VS_HOME_CAT");
 			vm.VirtualStorageHomeCat = (option=="VS_HOME_CAT");
 			vm.Notifications = (option=="NOTIFICATION_NAVIGATION");
+			vm.ShoppingList = (option=="SHOPPING_LIST");
 			vm.menuShow=(!(option=="NULL")); 
 			vm.searching = false;
 			

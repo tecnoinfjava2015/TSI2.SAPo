@@ -10,7 +10,8 @@
             'ngCookies',
             'ui.bootstrap',
             'ngMessages',
-            'ngMdIcons'
+            'ngMdIcons',
+            'ngMap'
         ])
         .run(function($rootScope) {
             $rootScope.virtualStorageView = "templates/virtualStorage.view.html";

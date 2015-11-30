@@ -13,12 +13,6 @@
             name: "Home",
             url: "/"
         }];
-        /*var item = {
-            icon:"airplay",
-            name: "Test",
-            url: "/test"
-        }
-        $scope.menu.push(item);*/
         
         var item = {
                 icon:"dashboard",
@@ -35,6 +29,26 @@
                 }
             $scope.menu.push(item);
         }
+        
+        $scope.$on('showReports',function(ev,t){
+        	$scope.menu = [];
+            $scope.menu = [{
+                icon:"home",
+                name: "Home",
+                url: "/"
+            },
+            {
+                icon:"dashboard",
+                name: "Dashboard",
+                url: "/dashboard"
+            },
+            {
+                icon:"assessment",
+                name: "Reports",
+                url: "/reports"
+            }];       	
+        })
+        
 
         $scope.redirect = redirect;
 
