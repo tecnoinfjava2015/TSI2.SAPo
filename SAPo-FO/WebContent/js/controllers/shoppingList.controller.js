@@ -3,9 +3,9 @@
 	angular.module('sapo')
 	.controller('ShoppingListController', ShoppingListController);
 	
-	ShoppingListController.$inject = ['$scope', 'ProductMovementResource', 'ShoppingListEditResource', 'ShoppingListDeleteResource', 'ShoppingListProductsResource', 'ShoppingListResource', 'ShoppingListInsertResource', '$cookies', '$mdDialog'];
+	ShoppingListController.$inject = ['$scope', 'ShoppingListRecommendationResouce', 'ProductMovementResource', 'ShoppingListEditResource', 'ShoppingListDeleteResource', 'ShoppingListProductsResource', 'ShoppingListResource', 'ShoppingListInsertResource', '$cookies', '$mdDialog', '$timeout' ];
 	/* @ngInject */
-	function ShoppingListController($scope, ProductMovementResource, ShoppingListEditResource, ShoppingListDeleteResource, ShoppingListProductsResource, ShoppingListResource, ShoppingListInsertResource, $cookies, $mdDialog) {
+	function ShoppingListController($scope, ShoppingListRecommendationResouce, ProductMovementResource, ShoppingListEditResource, ShoppingListDeleteResource, ShoppingListProductsResource, ShoppingListResource, ShoppingListInsertResource, $cookies, $mdDialog, $timeout) {
 		$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
 		$scope.additem = additem;
 		$scope.edititem = edititem;
@@ -19,12 +19,26 @@
 		$scope.removeItem = removeItem;
 		$scope.updateItem = updateItem;
 		$scope.confirmBuyItem = confirmBuyItem;
+		$scope.addNewItem = addNewItem;
+		$scope.addRecommendedToShoppingList = addRecommendedToShoppingList;
+		$scope.hideRecommendations = true;
+		$scope.deleteRecommendedItem = deleteRecommendedItem;
 		
 		ShoppingListResource.get({
 			VSId: $scope.virtualStorageId
     	}).$promise.then(function(result) {
             $scope.shoppingList = result;
         });
+
+		ShoppingListRecommendationResouce.query({
+			VSId: $scope.virtualStorageId
+//			VSId: 1
+		}).$promise.then(function(result) {
+			$scope.recommendationList = result;
+			if(result !== null && (typeof result !== 'undefined') && result.length > 0) {
+				$scope.hideRecommendations = false;
+			}
+		});
 		
 		function loadProducts(search) {
             return ShoppingListProductsResource.query({
@@ -48,6 +62,26 @@
             });
         }
 		
+        function addRecommendedToShoppingList(item) {
+      		ShoppingListInsertResource.save({virtualStorageId: $scope.virtualStorageId, productBarcode: item.barCode, productname: item.name, quantity: item.stock })
+			.$promise.then(function(result2) {
+				var itemAlreadyInList = false;
+				var count = $scope.shoppingList.length;
+				for(var i = 0; i < count; i++){
+					if($scope.shoppingList[i].productBarcode == result2.productBarcode) {
+						itemAlreadyInList = true;
+					}
+				}
+				if(itemAlreadyInList) {
+					showAlert('Aviso!','El item ya se encuentra en la lista');
+				} else {
+					showAlert('Exito!','Se ha agregado el item a la lista');
+					$scope.shoppingList.push(item);
+				}
+	        });
+
+        }
+        
 		function additem(ev) { //llama al modal que permite agregar nuevo item
 			$mdDialog.show({
       	    	controller: 'ShoppingListController',
@@ -114,9 +148,22 @@
 			removeItem(item);
 		}
 		
+		function deleteRecommendedItem(item) {
+			var index = $scope.recommendationList.indexOf(item);
+			$scope.recommendationList.splice(index, 1); 
+			if($scope.recommendationList.length < 1) {
+				$scope.hideRecommendations = true;
+			}
+		}
+		
 		function removeItem(item) { //Remueve de la lista de la UI
 			var index = $scope.shoppingList.indexOf(item);
 			$scope.shoppingList.splice(index, 1);     
+		}
+		
+		function addNewItem(item) { //Agrega en la lista de la UI
+	        $scope.shoppingList.push(item);
+			window.location.reload();
 		}
 		
 		function confirmBuyItem(finalPrice) {
@@ -163,6 +210,7 @@
       	    	//TODO: update de la lista de compras?
       	        //$scope.status = 'You said the information was "' + answer + '".';
       	    	deleteBoughtItem($scope.boughtItem);
+      	    	deleteRecommendedItem($scope.boughtItem);
       	    }, function() {
       	        $scope.status = 'You cancelled the dialog.';
       	    });
@@ -177,11 +225,14 @@
       	function insertItem(data) { //Inserta en la DB
       		ShoppingListInsertResource.save({virtualStorageId: $scope.virtualStorageId, productBarcode: $scope.product.barCode, productname: $scope.productname, quantity: $scope.quantity })
 			.$promise.then(function(result) {
-				$scope.newItem = result;
+				$scope.$parent.newItem = result;
 				showAlert('Exito!','Se ha agregado el item a la lista');
-				return $scope.newItem;
+				//return $scope.newItem;
 				//$scope.shoppingList.push($scope.newItem);
 				//$scope.$apply();
+				console.log("new item:");
+				console.log(result);
+				addNewItem(result);
 	        });
       	}
 

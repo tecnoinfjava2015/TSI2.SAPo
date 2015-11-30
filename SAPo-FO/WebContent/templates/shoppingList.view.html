@@ -4,7 +4,7 @@
 	<md-content layout layout="row">
 		<h3>Lista de Compras</h3>
 		<md-button ng-click="additem($event)" class="md-icon-button" aria-label="Agregar">
-        	<i class="material-icons" style="vertical-align: middle;">add</i>
+        	<i class="material-icons" style="vertical-align: middle;">add_circle</i>
         	<md-tooltip md-direction="right">Agregar Item</md-tooltip>
     	</md-button>
 	</md-content>
@@ -47,4 +47,35 @@
 			</md-button>
 		</div>
 	</md-content>
+	<hr>
+	<div ng-hide="hideRecommendations">
+		<md-content layout layout="row" >
+			<h3>Recomendaciones</h3>
+		</md-content>
+			<md-content>
+			<div>
+				<table class="table table-hover">
+					<tr>
+						<th>C&oacute;digo de Barras</th>
+						<th>Producto</th>
+						<th style="text-align: center;">Stock Actual</th>
+						<th style="text-align: center;">Acciones</th>
+						<th>&nbsp</th>
+					</tr>
+					<tr ng-repeat="item in recommendationList" >
+				      <td style="vertical-align: middle;">{{ item.barCode }}</td>
+				      <td style="vertical-align: middle;">{{ item.name }}</td>
+				      <td style="text-align: center; vertical-align: middle;">{{ item.stock }}</td>
+				      <td style="text-align: center;">
+				      	<md-button ng-click="addRecommendedToShoppingList(item)" class="md-icon-button" aria-label="Notification">
+	        				<i class="material-icons">add_shopping_cart</i>
+	        				<md-tooltip>Agregar a Lista de Compras</md-tooltip>
+	    				</md-button>
+				      </td>
+				      <td>&nbsp</td>
+				 	</tr>
+				</table>
+			</div>
+		</md-content>
+	</div>
 </md-content>

@@ -18,6 +18,24 @@
 
 (function() {
 	'use strict';
+	angular.module('sapo')
+			.factory('ShoppingListRecommendationResouce', ShoppingListRecommendationResouce);
+	ShoppingListRecommendationResouce.$inject = [ '$resource' ];
+	/* @ngInject */
+	function ShoppingListRecommendationResouce($resource) {
+		return $resource('/SAPo-FO/api/shoppingList/recomendations', {
+			VSId : '@VSId'
+		}, {
+			'query' : {
+				isArray : true,
+				method : 'GET'
+			}
+		});
+	}
+})();
+
+(function() {
+	'use strict';
 	angular.module('sapo').factory('ShoppingListInsertResource',
 			ShoppingListInsertResource);
 	ShoppingListInsertResource.$inject = [ '$resource' ];
