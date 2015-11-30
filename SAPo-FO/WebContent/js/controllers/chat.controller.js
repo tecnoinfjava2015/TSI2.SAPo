@@ -17,6 +17,8 @@
         var $message; 
         var $chatWindow; 
         var room = '';  
+        room = $cookies.get("sapoCurrentVirtualStorageName");
+        console.log(room);
 
         function onMessageReceived(evt) {
             var msg = JSON.parse(evt.data); // native API
@@ -38,7 +40,8 @@
         }
  
         function connectToChatserver() {
-            room = 'Almacen';
+        	
+//            room = $cookies.get("sapoCurrentVirtualStorageName");//'Almacen';
             wsocket = new WebSocket(serviceLocation + room);
             wsocket.onmessage = onMessageReceived;
         }

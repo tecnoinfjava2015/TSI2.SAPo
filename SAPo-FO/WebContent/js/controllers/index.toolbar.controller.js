@@ -3,9 +3,9 @@
     angular
         .module('sapo')
         .controller('ToolbarController', ToolbarController);
-    ToolbarController.$inject = ['$mdSidenav', '$scope', '$location', '$window', 'VirtualStorageEditResource', '$cookies'];
+    ToolbarController.$inject = ['$mdSidenav', '$scope', '$location', '$window', 'VirtualStorageEditResource', '$cookies', '$rootScope'];
     /* @ngInject */
-    function ToolbarController($mdSidenav, $scope, $location, $window, VirtualStorageEditResource, $cookies) {
+    function ToolbarController($mdSidenav, $scope, $location, $window, VirtualStorageEditResource, $cookies,$rootScope) {
         $scope.title = 'ToolbarController';
         $scope.redirectToNotifications = redirectToNotifications;
         $scope.vsSelected = false;
@@ -27,6 +27,11 @@
 
         function toggleSidenavLeft() {
             $mdSidenav('left').toggle();
+        }
+        $scope.toggleSearch = toggleSearch;
+        function toggleSearch(){
+        	console.log('acá!');
+        	$rootScope.$broadcast('ToggleSearch',true);
         }
 
         function actualizar(id) {

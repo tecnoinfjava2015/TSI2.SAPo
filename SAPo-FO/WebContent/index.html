@@ -60,7 +60,8 @@
     <script src="js/controllers/notification.controller.js" ></script>
 	<script src="js/controllers/notification.create.controller.js"></script>
 	<script src="js/controllers/notification.navigation.controller.js"></script>
-	
+	<script src="js/controllers/index.toolbar.search.controller.js"></script>
+	  
     <!-- Directives js files -->
     <script src="js/directives/user.avatar.directive.js"></script>
     <!-- Factories js files -->
@@ -75,8 +76,9 @@
     <script src="js/factories/unit.resource.factory.js"></script>
     <script src="js/factories/notification.factory.js"></script>
     
-    <!-- Services js files -->
+    <!-- Services js files --> 
     <script src="js/services/product.movement.service.js"></script>
+    
 </head>
 
 <body>
@@ -106,10 +108,11 @@
                 </div>
             </md-toolbar>
             <div ng-include="index.navTopLeft"></div>
-            <div ng-include="'chat.html'"></div>
+            <div ng-show='index.vsSelected' ng-include="'chat.html'"></div>
         </md-sidenav>
         <div layout="column" flex>
-            <md-toolbar ng-include="index.toolbarTemplate"> </md-toolbar>
+            <md-toolbar ng-show="!index.searching" ng-include="index.toolbarTemplate"> </md-toolbar>
+            <md-toolbar ng-show="index.searching" class="md-tall md-hue-1" ng-include="index.toolbarSearch"> </md-toolbar>
             <!-- MENU HIPER HARDCODE DE LA MUERTE -->
             <md-fab-speed-dial ng-show="index.menuShow" md-direction="up" class="md-fab-bottom-right md-scale">
                 <md-fab-trigger>

@@ -8,6 +8,11 @@
 
 		var cookieStyle = $cookies.getObject('vsStyle');
 		if (typeof cookieStyle!=='undefined' && cookieStyle!==null && cookieStyle!=='' ){
+			if(typeof cookieStyle.vsId!=='undefined' && cookieStyle.vsId!==null && cookieStyle.vsId!==''){
+				vm.vsSelected = true;
+			}else{
+				vm.vsSelected = false;
+			}
 			vm.sidenavImage = "background-image: url('images/mdBackgrounds/"+cookieStyle.sidenavTop+".png');background-size: cover;";
 			vm.theme = cookieStyle.theme;
 		}else{
@@ -22,14 +27,24 @@
 		
 		vm.sidenavAux = '';
 		vm.toolbarTemplate = 'templates/index.toolbar.html';
+		vm.toolbarSearch = 'templates/index.toolbar.search.html';
 		vm.navTopLeft = "templates/index.sidenav.menu.html";
 		vm.navBottomLeft = "templates/index.sidenav.categories.html";
 		vm.menuShow=false;
+		vm.searching = false;
 		vm.a=true;
 		vm.b=false;
 		
+		$scope.$on('ToggleSearch',function(event, searching){
+			vm.searching = searching;
+		})
 		$scope.$on("changeTheme", function(event, t) {
-			console.log("ON CHANGE THEME INDEX");
+			if(typeof t.vsId!=='undefined' && t.vsId!==null && t.vsId!==''){
+				vm.vsSelected = true;
+			}else{
+				vm.vsSelected = false;
+			}
+			
 			vm.theme = t.theme; 
 			vm.sidenavImage = "background-image: url('images/mdBackgrounds/"+t.sidenavTop+".png');background-size: cover;";
 			$cookies.remove('vsStyle');
