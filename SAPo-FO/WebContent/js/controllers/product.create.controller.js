@@ -4,11 +4,11 @@
 			CreateProductController);
 	CreateProductController.$inject = [ 'CreateProductsResource', 'ShoppingListProductsResource', 'UnitResource',
 			'CategoriesResource', 'GenericProductResource', '$scope',
-			'$mdDialog', '$location', '$cookies' ];
+			'$mdDialog', '$location', '$cookies','$rootScope' ];
 	/* @ngInject */
 	function CreateProductController(CreateProductsResource, ShoppingListProductsResource, UnitResource,
 			CategoriesResource, GenericProductResource, $scope, $mdDialog,
-			$location, $cookies) {
+			$location, $cookies,$rootScope) {
 		$scope.title = 'Crear Producto';
 		$scope.fields = [];
 		$scope.insert = insert;
@@ -167,6 +167,7 @@
 										data,
 										function() {
 											$scope.loading = false;
+											$rootScope.$broadcast('productAdded',$scope.loading);
 											showAlert('Exito!',
 													'Se ha creado su producto de forma exitosa');
 	

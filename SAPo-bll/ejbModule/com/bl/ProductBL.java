@@ -97,7 +97,17 @@ public class ProductBL implements IProductBL {
 		}
 		return dao.getProductsByCategories(virtualStorageId, categories, offset, limit);
 	}
-
+ 
+	@Override
+	public List<Product> searchProducts(long virtualStorageId,
+			List<Integer> categories, String search, int offset, int limit) {
+		if ( !(virtualStorageId > 0) ) {
+			return null;
+		}
+		System.out.println("EN BL");
+		return dao.searchProducts(virtualStorageId, categories,search, offset, limit);
+	}	
+	
 	@Override
 	public List<Product> getProductsByCategoriesOr(long virtualStorageId,
 			List<Integer> categories, int offset, int limit) {
