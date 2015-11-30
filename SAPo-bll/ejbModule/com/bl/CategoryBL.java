@@ -19,6 +19,8 @@ public class CategoryBL implements ICategoryBL {
 	@Override
 	public Category createCategory(Category category) {
 		if(!(category==null)){
+			int localId = (int) dao.countVirtualStorage(category.getVirtualStorageId());
+			category.setLocalId(localId); 
 			ObjectId categoryId = dao.persist(category);
 			return dao.getById(categoryId);
 		}

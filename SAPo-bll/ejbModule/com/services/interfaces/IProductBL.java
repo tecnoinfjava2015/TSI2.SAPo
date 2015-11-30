@@ -21,6 +21,7 @@ public interface IProductBL {
 	public boolean estaEnLista(Product p, List<Product> listaProductosTemp);
 	public Boolean estaProducto(long virtualStorageId, String barcode);
 	public double getVSVaue(long virtualStorageId);
-	public List<Product> getProductsBarCodeAndName(long virtualStorageId,String search, int limit); 
+	public List<Product> getProductsBarCodeAndName(long virtualStorageId,String search, int limit);
+	public List<Product> searchProducts(long virtualStorageId,List<Integer> categories, String search, int offset, int limit); 
 }
 

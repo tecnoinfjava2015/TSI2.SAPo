@@ -3,6 +3,7 @@
 
 <head>
     <title>SAPo</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <!-- Angular Material CSS -->
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.4/angular-material.min.css">
     <!-- Angular Material Icons -->
@@ -111,14 +112,14 @@
             <div ng-show='index.vsSelected' ng-include="'chat.html'"></div>
         </md-sidenav>
         <div layout="column" flex>
-            <md-toolbar ng-show="!index.searching" ng-include="index.toolbarTemplate"> </md-toolbar>
-            <md-toolbar ng-show="index.searching" class="md-tall md-hue-1" ng-include="index.toolbarSearch"> </md-toolbar>
+            <md-toolbar ng-show="!(index.searching && index.ProductsNavigationMenu)" ng-include="index.toolbarTemplate"> </md-toolbar>
+            <md-toolbar ng-show="index.searching && index.ProductsNavigationMenu" class="md-tall md-hue-1" ng-include="index.toolbarSearch"> </md-toolbar>
             <!-- MENU HIPER HARDCODE DE LA MUERTE -->
             <md-fab-speed-dial ng-show="index.menuShow" md-direction="up" class="md-fab-bottom-right md-scale">
                 <md-fab-trigger>
                     <md-button aria-label="menu" class="md-fab md-warn">
                         <md-icon>menu</md-icon>
-                    </md-button>
+                    </md-button>  
                 </md-fab-trigger>
                 <md-fab-actions>
                     <!-- MENU VIRTUAL STORAGES NAVIGATE -->

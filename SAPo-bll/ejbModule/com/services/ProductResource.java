@@ -31,12 +31,17 @@ public class ProductResource {
 			@QueryParam("offset") int offset,
 			@QueryParam("limit") int limit,
 			@QueryParam("minSearch") boolean minSearch,
-			@QueryParam("search") String search) {
+			@QueryParam("search") String search,
+			@QueryParam("searching") boolean searching) {
+		
+		if(searching){
+			return pbl.searchProducts(virtualStorageId, categories, search, offset, limit);
+		}
 		if (!(categories==null || categories.isEmpty())) {
 			if (!(criteria==null || criteria.isEmpty())){
 				return pbl.getProductsByCategoriesOr(virtualStorageId, categories, offset, limit);
 			}
-			return pbl.getProductsByCategories(virtualStorageId, categories, offset, limit);
+			return pbl.searchProducts(virtualStorageId, categories, search, offset, limit);
 		}
 		if(minSearch){
 			return pbl.getProductsBarCodeAndName(virtualStorageId, search, limit);
