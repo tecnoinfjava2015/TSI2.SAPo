@@ -24,7 +24,7 @@
 		$scope.hideRecommendations = true;
 		$scope.deleteRecommendedItem = deleteRecommendedItem;
 		
-		$scope.$emit('menuOption',null); 
+		$scope.$emit('menuOption','SHOPPING_LIST'); 
 		
 		ShoppingListResource.get({
 			VSId: $scope.virtualStorageId

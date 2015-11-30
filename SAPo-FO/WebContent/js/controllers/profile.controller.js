@@ -3,15 +3,15 @@
     angular
         .module('sapo')
         .controller('UserProfileController', UserProfileController);
-    UserProfileController.$inject = [ 'UserProfileResourceSubmit', '$scope', '$cookies', '$mdDialog' ];
+    UserProfileController.$inject = [ 'UserProfileResourceSubmit', '$scope', '$cookies', '$mdDialog','NgMap' ];
     /* @ngInject */
-    function UserProfileController(UserProfileResourceSubmit, $scope, $cookies, $mdDialog) {
+    function UserProfileController(UserProfileResourceSubmit, $scope, $cookies, $mdDialog,NgMap) {
     	$scope.test = 'Perfil de usuario';    	
     	var user = $cookies.getObject("sapoUser");
     	$scope.nick = user.nick;
     	$scope.mail = user.mail;
     	var alert;
-    	$scope.$emit('menuOption',null); 
+    	$scope.$emit('menuOption','NULL');  
     	//$scope.showDialog = showDialog;
     	
         $scope.submitMail = function(){
@@ -35,6 +35,13 @@
 	              alert = undefined;
 	            });
         }
+    	$scope.address = user.latitud + ',' + user.longitud;
+    	
+    	NgMap.getMap().then(function(map) {
+    	    console.log(map.getCenter());
+    	    console.log('markers', map.markers);
+    	    console.log('shapes', map.shapes);
+    	});
     }
     
 })();

@@ -18,3 +18,9 @@
 		<md-button class="md-raised md-primary"	ng-click='submitMail(mail)' ng-disabled="profileForm.$invalid">Guardar</md-button> 
 	</md-dialog-actions> 
 </form>
+
+<div map-lazy-load="https://maps.google.com/maps/api/js" style="width: 65%;">
+  <ng-map center="{{address}}" zoom="15">
+  		<marker position="[{{address}}]"></marker>
+  </ng-map>
+</div>

@@ -13,7 +13,7 @@
 		$scope.today = new Date();
 		$scope.hideMovements = true;
 		$scope.virtualStorageId = $cookies.get('sapoCurrentVirtualStorage');
-		$scope.$emit('menuOption',null); 
+		$scope.$emit('menuOption','NULL'); 
 		
 		ReportsResourceVSWorth.get({
 			tenantId: $scope.virtualStorageId

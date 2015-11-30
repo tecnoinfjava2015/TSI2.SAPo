@@ -7,7 +7,7 @@
     /* @ngInject */
     function ProductMovementCreateController($scope, ProductsResource,
         $location, $cookies, $mdDialog, ProductMovementDataService,ProductMovementResource) {
-    	$scope.$emit('menuOption',null); 
+//    	$scope.$emit('menuOption',null); 
         var vm = this;
         $scope.title = ProductMovementDataService.data.title;
         $scope.movement = {};

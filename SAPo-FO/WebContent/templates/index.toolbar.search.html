@@ -1,24 +1,32 @@
 <div ng-controller="ToolbarSearchController as vm">
     <div layout="column" layou-margin layout-align="center center">
         <div class='md-toolbar-tools' layout="row" layout-padding>
-            <md-button ng-click="vm.toggleSearch()" aria-label="Back">
-                <md-icon>arrow_back</md-icon>
-            </md-button>
+            <div flex='5'>
+                <md-icon style="cursor: pointer; cursor: hand; " ng-click="vm.toggleSearch()" aria-label="Back">arrow_back</md-icon>
+            </div>
             <md-input-container flex>
                 <label>Buscar</label>
                 <input ng-model="vm.product">
             </md-input-container>
+            <div flex='5'>
+                <md-icon></md-icon>
+            </div>
         </div>
         <div class="md-toolbar-tools md-toolbar-tools-bottom" layout="row" layout-padding>
-            <md-chips ng-model="vm.selectedCategories" flex='80'>
-                <md-autocomplete md-selected-item="vm.selectedItem" md-search-text="vm.searchText" md-items="item in vm.categories" md-item-text="vm.name" placeholder="Busque una categor&iacute;a"> <span md-highlight-text="vm.searchText">{{item.name}}</span> </md-autocomplete>
+            <div flex='5'>
+                <md-icon></md-icon>
+            </div>
+            <md-chips ng-model="vm.selectedCategories" flex='90'>
+                <md-autocomplete md-selected-item="vm.selectedItem" md-search-text="vm.searchText" md-items="item in vm.categories" md-item-text="vm.name" placeholder="Busque una categor&iacute;a">
+                    <span md-highlight-text="vm.searchText">{{item.name}}</span>
+                </md-autocomplete>
                 <md-chip-template>
-                    <span><strong>{{$chip.name}}</strong></span> </md-chip-template>
+                    <span><strong>{{$chip.name}}</strong></span>
+                </md-chip-template>
             </md-chips>
-            <div flex='10'>
-                <md-button aria-label="Search" ng-click="vm.search()">
-                    <md-icon>search</md-icon>
-                </md-button>
+            <div flex='5'>
+                <md-icon aria-label="Search" ng-click="vm.search()" style="cursor: pointer; cursor: hand; margin-left: 5px;">search
+                </md-icon>
             </div>
         </div>
     </div>

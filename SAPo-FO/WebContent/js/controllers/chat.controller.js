@@ -60,7 +60,7 @@
 
 
  
-            console.log(userTwitter);
+//            console.log(userTwitter);
             $nickName = userTwitter.name;
             $avatar = userAvatar;
             $message = $('#message');
@@ -69,9 +69,8 @@
             
             $('#sendDiv').ready(function(){
             	var maxHeight = ($( window ).height())-($('#sendDiv').height())-($('#chatDiv').position().top);
-            	$('#responseContainer').height(maxHeight-35);
+            	$('#responseContainer').height(maxHeight-85);
             });
-            
             
             
             

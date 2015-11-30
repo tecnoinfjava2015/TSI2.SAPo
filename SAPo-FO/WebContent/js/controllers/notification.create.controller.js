@@ -10,7 +10,7 @@
     	$scope.title = 'Crear Notificaci&oacute;n';
     	$scope.cancel = cancel;
     	$scope.showAlert = showAlert;
-    	$scope.$emit('menuOption',null); 
+//    	$scope.$emit('menuOption',null); 
     	/*
     	var res = $location.path().split("/");
     	var virtualStorages = $cookies.getObject("sapoVirtualStorages");

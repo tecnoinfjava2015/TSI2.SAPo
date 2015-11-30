@@ -11,6 +11,8 @@
         $scope.vsSelected = false;
         var vsId = $cookies.get("sapoCurrentVirtualStorage");
         actualizar(vsId);
+        var user = $cookies.getObject("sapoUser");
+        $scope.userPremium = (user.type == "PREMIUM");
         $scope.$on("changeTheme", function(event, t) {
             actualizar(t.vsId);
         });

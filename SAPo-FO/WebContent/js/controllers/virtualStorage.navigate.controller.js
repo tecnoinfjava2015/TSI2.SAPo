@@ -11,7 +11,7 @@
     	/*
     	alert(loggedUser.type === 'Free' && virtualStorages.owned.length > 1);
     	*/
-    	$scope.$emit('menuOption',null); 
+//    	$scope.$emit('menuOption',null); 
     	
     	var vm = this;
     	$scope.virtualStorages = {};
@@ -150,7 +150,7 @@
             	        $scope.status = 'You cancelled the dialog.';
             	    });
         		}
-            },function(error) {
+            },function(error) { 
             	console.log(error);
             });
     	  };
@@ -164,6 +164,7 @@
     		  $cookies.put("sapoCurrentVirtualStorage", vs.id);
     		  $cookies.put("sapoCurrentVirtualStorageName", vs.name);
     		  $rootScope.$broadcast("changeTheme",style);    		  
+    		  $rootScope.$broadcast("showReports",style);    		  
     		  $window.location.href = "#/virtualStorage/"+vs.name;
     	  }
     }
